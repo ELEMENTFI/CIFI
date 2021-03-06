@@ -1,5 +1,3 @@
-// File: openzeppelin-solidity/contracts/GSN/Context.sol
-
 pragma solidity >= 0.5.7;
 
 /*
