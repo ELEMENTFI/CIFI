@@ -12,13 +12,15 @@ import { Router, Route, Switch } from "react-router-dom";
 import First from "./First";
 import Second from "./Second";
 import Nft from "./Nft";
+import Tokencreate from "./Tokencreate";
 
 
 
-function NewPage() {
+function Sendpage() {
 
   const [toaddress,setToaddress] = useState("");
   const [tid,setId] = useState("");
+  const [tids,setIds] = useState("");
   const [turi,setUri] = useState("");
   const [tname,setName] = useState("");
   const [tsymbol,setSymbol] = useState("");
@@ -1022,19 +1024,29 @@ function NewPage() {
     
     //const accounts = await web3.eth.getAccounts();
     
+
+
+    
+        await getaaa.methods.safeTransferFrom("0xD264b074c4a772E56536005Ae629518ee1bCc83a","4545","0xEBB8509A162bAf75A48A3e4d33e8dda28D148284").send({
+          from: accounts[0],
+          //value: web3.utils.toWei('0.02', 'ether')
+        });
+    
+      
     
     
-    //await geta.methods.tokenURI(te).send({
+    //await getaaa.methods.safeTransferFrom('0xD264b074c4a772E56536005Ae629518ee1bCc83a','5656','0xEBB8509A162bAf75A48A3e4d33e8dda28D148284').send({
     //from: accounts[0]
     //value: this.setState({c:accounts[0]})
     
     //});
 
+    //alert("prin"+prin);
 
-    var printgeta=await getaaa.methods.tokenURI(te).call();
+    //var printgeta=await getaaa.methods.tokenURI(te).call();
 
 
-    setgetaprint(await getaaa.methods.tokenURI(te).call());
+    //setgetaprint(await getaaa.methods.tokenURI(te).call());
 
 
     //localStorage.setItem('prints',printgeta);
@@ -1066,12 +1078,10 @@ function NewPage() {
       
 <center>
 <br></br>
-<h1>Get NFT Image</h1>
+<h1>Transfer NFT-Owner </h1>
 
 		<form onSubmit={onSubmitNFT} id="create-course-form" >
 
-
-<label> Enter Token-id  </label>
 
 <input
 id="idid"
@@ -1086,9 +1096,23 @@ id="idid"
 <br></br>
 
 
+<input
+id="idids"
+  type='text'
+  name="tids"
+  required
+  onChange={event => setIds( event.target.value)}
+  
+/>
+
+
+<br></br>
+<br></br>
+
+
 <button 
              type="submit"> 
-             Upload Token-id and Get Token-uri
+             Transfer NFT Owner
              </button>
 
 </form>
@@ -1106,16 +1130,16 @@ id="idid"
                 onClick={() => {
                   history.push("/nft");
                 }}>
-                Go Deploy Page 
+                Deploy Page 
               </button>
               <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/second");
+                  history.push("/Tokencreate");
                 }}
               >
-                Go Transfer page
+                Token-Create page 
               </button>
 
 
@@ -1123,10 +1147,6 @@ id="idid"
 <br></br>
 
 
-              <img 
-      src={printgeta}
-      alt="new"
-      />
               
 
 </center>
@@ -1145,8 +1165,8 @@ id="idid"
             <Route path="/nft">
               <Nft />
             </Route>
-            <Route path="/second">
-              <Second />
+            <Route path="/tokencreate">
+              <Tokencreate />
             </Route>
           </Switch>
         </Router>
@@ -1156,4 +1176,4 @@ id="idid"
   );
 }
 
-export default NewPage;
+export default Sendpage;
