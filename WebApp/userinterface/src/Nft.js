@@ -9,6 +9,7 @@ import history from "./utils/history";
 import First from "./First";
 import Second from "./Second";
 import NewPage from './Newpage';
+import Tokencreate from './Tokencreate';
 
 
 function App() {
@@ -1262,10 +1263,10 @@ id="idid"
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/second");
+                  history.push("/Tokencreate");
                 }}
               >
-                Transfer page
+                Token-Create page
               </button>
 
 
@@ -1316,8 +1317,8 @@ id="idid"
             <Route path="/newpage">
               <NewPage />
             </Route>
-            <Route path="/second">
-              <Second />
+            <Route path="/tokenpage">
+              <Tokencreate />
             </Route>
           </Switch>
         </Router>

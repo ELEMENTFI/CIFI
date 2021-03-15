@@ -3,19 +3,20 @@ import history from "./utils/history";
 
 import {useState} from 'react';
 import web3 from './web3';
-import lottery from './nftcontract';//this line import lottery folder
+
 import ipfs from './ipfs';
-import storehash from './storehash';
+
 
 import { Router, Route, Switch } from "react-router-dom";
 
 import First from "./First";
 import Second from "./Second";
 import Nft from "./Nft";
+import Newpage from "./Newpage";
+import Sendpage from "./Sendpage";
 
 
-
-function NewPage() {
+function Tokencreate() {
 
   const [toaddress,setToaddress] = useState("");
   const [tid,setId] = useState("");
@@ -39,6 +40,46 @@ function NewPage() {
   const [geta,setgeta] = useState("");
 
   var [printgeta,setgetaprint] =useState("");
+
+
+
+  //getimage
+
+
+  //start
+
+
+  const captureFile =(event) => {
+    event.stopPropagation()
+    event.preventDefault()
+    const file = event.target.files[0]
+    let reader = new window.FileReader()
+    reader.readAsArrayBuffer(file)
+    reader.onloadend = () => convertToBuffer(reader);    
+  };
+const convertToBuffer = async(reader) => {
+  //file is converted to a buffer for upload to IPFS
+    const buffer = await Buffer.from(reader.result);
+  //set this buffer -using es6 syntax
+    setBuffer(buffer);
+};
+const onSubmitImage = async (event) => {
+  event.preventDefault();
+ //bring in user's metamask account address
+  const accounts = await web3.eth.getAccounts();
+ 
+  console.log('Sending from Metamask account: ' + accounts[0]);
+
+  await ipfs.add(buffer, (err, ipfsHash) => {
+    console.log(err,ipfsHash);
+    setIpfsHash(ipfsHash[0].hash);
+  }) 
+}; 
+//end
+
+
+
+  //end 
     
       //new write below
 
@@ -1010,11 +1051,11 @@ function NewPage() {
 
 
     alert("after abi"+poda);
-    var getaaa=new web3.eth.Contract(abi,poda);
+    var getaaaa=new web3.eth.Contract(abi,poda);
     
     
 
-    alert("geta"+getaaa);
+    alert("geta"+getaaaa);
     
     alert("im work a +b"+td+" "+te+" "+tf);
     
@@ -1024,17 +1065,17 @@ function NewPage() {
     
     
     
-    //await geta.methods.tokenURI(te).send({
-    //from: accounts[0]
+    await getaaaa.methods.mintWithTokenURI(toaddress,tid,tf).send({
+    from: accounts[0]
     //value: this.setState({c:accounts[0]})
     
-    //});
+    });
 
 
-    var printgeta=await getaaa.methods.tokenURI(te).call();
+    //var printgeta=await getaaaa.methods.mintWithTokenURI("toadd","toid","touri").call();
 
 
-    setgetaprint(await getaaa.methods.tokenURI(te).call());
+    //setgetaprint(await getaaa.methods.tokenURI(te).call());
 
 
     //localStorage.setItem('prints',printgeta);
@@ -1066,12 +1107,49 @@ function NewPage() {
       
 <center>
 <br></br>
-<h1>Get NFT Image</h1>
+<h1>NFT-Token Create Page</h1>
 
-		<form onSubmit={onSubmitNFT} id="create-course-form" >
+<form onSubmit={onSubmitImage}>
 
 
-<label> Enter Token-id  </label>
+		  <label for="images">Upload Your Image     </label>
+            <input 
+			name="tfile"
+			id="fileid"
+              type = "file"
+              onChange = {captureFile}
+			  required
+            />
+			
+             <button 
+             type="submit"> 
+             Upload Image
+             </button>
+			 <br></br>
+			 <br></br>
+			 <br></br>
+	</form>
+
+
+<form onSubmit={onSubmitNFT} id="create-course-form" >
+
+
+<label for="address">Enter Your Mint Address  </label>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<input
+id="addressid"
+  type='text'
+  name="toaddress"
+  required
+  onChange={event => setToaddress( event.target.value)}
+  
+/>
+<br></br>
+      <br></br>
+
+	  <label for="id">Create Your Unique Token-Id {' '}   </label>
 
 <input
 id="idid"
@@ -1088,14 +1166,14 @@ id="idid"
 
 <button 
              type="submit"> 
-             Upload Token-id and Get Token-uri
+             Create NFT Token-Id
              </button>
 
 </form>
 
 
 
-      
+
 <br></br>
 <br></br>
 
@@ -1104,37 +1182,53 @@ id="idid"
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/nft");
+                  history.push("/newpage");
                 }}>
-                Go Deploy Page 
+                Get Image Pagess
               </button>
               <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/second");
+                  history.push("/sendpage");
                 }}
               >
-                Go Transfer page
+                Send-page
               </button>
 
-
-              <br></br>
-<br></br>
-
-
-              <img 
-      src={printgeta}
-      alt="new"
-      />
-              
 
 </center>
 
 <br></br>
 <br></br>
-                    
-                    
+  <table bordered responsive>
+                
+                <tbody>
+                <tr>
+                    <td>To-Address</td>
+                    <td>{toaddress}</td>
+                  </tr>
+				  <tr>
+                    <td>Token-Id</td>
+                    <td>{tid}</td>
+                  </tr>
+				  <tr>
+                    <td>Image-URL</td>
+                    <td>https://ipfs.io/ipfs/{ipfsHash}</td>
+                  </tr>
+				  <tr>
+                    <td>Image-View</td>
+
+                    <td><img src={localStorage.getItem('myimageuri')}  alt={'C - language'} /> 			
+					</td>
+                  </tr>         
+                </tbody>
+
+            </table>
+
+			
+
+
 
             <Router history={history}>
           <Switch>
@@ -1142,11 +1236,11 @@ id="idid"
               <div class="display-4 mb-1">Choose a route to go to</div>
               
             </Route>
-            <Route path="/nft">
-              <Nft />
+            <Route path="/newpage">
+              <Newpage />
             </Route>
-            <Route path="/second">
-              <Second />
+            <Route path="/sendpage">
+              <Sendpage />
             </Route>
           </Switch>
         </Router>
@@ -1156,4 +1250,4 @@ id="idid"
   );
 }
 
-export default NewPage;
+export default Tokencreate;
