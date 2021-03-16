@@ -12,6 +12,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import First from "./First";
 import Second from "./Second";
 import Nft from "./Nft";
+import Sendpage from "./Sendpage";
 
 
 
@@ -655,6 +656,48 @@ function NewPage() {
         "constant": true,
         "inputs": [
           {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "_tokenURIs",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "address"
+          },
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "auri",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
             "name": "owner",
             "type": "address"
           }
@@ -1112,7 +1155,7 @@ id="idid"
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/second");
+                  history.push("/sendpage");
                 }}
               >
                 Go Transfer page
@@ -1145,8 +1188,8 @@ id="idid"
             <Route path="/nft">
               <Nft />
             </Route>
-            <Route path="/second">
-              <Second />
+            <Route path="/sendpage">
+              <Sendpage />
             </Route>
           </Switch>
         </Router>
