@@ -7,6 +7,7 @@ import Nf from "./Nft";
 import NewPage from "./Newpage";
 import Sendpage from "./Sendpage";
 import Tokencreate from "./Tokencreate";
+import Printallimage from "./Printallimage";
 
 
 function App() {
@@ -69,6 +70,15 @@ function App() {
               </button>
 
 
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Printallimage");
+                }}
+              >
+                PrintallImage Page
+              </button>
 
 
             </Route>
@@ -84,6 +94,9 @@ function App() {
             </Route>
             <Route path="/Tokencreate">
               <Tokencreate />
+            </Route>
+            <Route path="/Printallimage">
+              <Printallimage />
             </Route>
           </Switch>
         </Router>

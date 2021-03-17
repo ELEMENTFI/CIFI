@@ -3,24 +3,18 @@ import history from "./utils/history";
 
 import {useState} from 'react';
 import web3 from './web3';
-import lottery from './nftcontract';//this line import lottery folder
-import ipfs from './ipfs';
-import storehash from './storehash';
 
 import { Router, Route, Switch } from "react-router-dom";
 
-import First from "./First";
-import Second from "./Second";
 import Nft from "./Nft";
-import Tokencreate from "./Tokencreate";
+import Sendpage from "./Sendpage";
 
 
 
-function Sendpage() {
+function Printallimage() {
 
   const [toaddress,setToaddress] = useState("");
   const [tid,setId] = useState("");
-  const [tids,setIds] = useState("");
   const [turi,setUri] = useState("");
   const [tname,setName] = useState("");
   const [tsymbol,setSymbol] = useState("");
@@ -41,6 +35,29 @@ function Sendpage() {
   const [geta,setgeta] = useState("");
 
   var [printgeta,setgetaprint] =useState("");
+  var [printgeta2,setgetaprint2] =useState("");
+
+  var [printgeta3,setgetaprint3] =useState("");
+  var [printgeta4,setgetaprint4] =useState("");
+
+  var [selectedImages,setSelectedImages] = useState([]);
+
+
+  const [imgurl,setimgurl] = useState([]);
+
+
+  const names = [];
+  const namesc = [];
+
+  //const edho = (source) =>{
+    //  return  selectedImages.map((photo) => {
+      //    return <img src={photo} key={photo}/>
+
+      //})
+    //};
+        
+      
+  
     
       //new write below
 
@@ -1058,106 +1075,131 @@ function Sendpage() {
     
     
 
-
     alert("geta"+getaaa);
     
-    alert("im work a +b"+tid+" "+tids+" "+tf);
+    alert("im work a +b"+td+" "+te+" "+tf);
     
-    //event.preventDefault();
+    event.preventDefault();
     
     //const accounts = await web3.eth.getAccounts();
     
-
-
-    //var printgeta=await getaaa.methods.safeTransferFrom(accounts[0],tid,tids).call();
-
-    
-        await getaaa.methods.transferFrom(accounts[0],tid,tids).send({
-     from: accounts[0],
-          gas: 4796559,
-          gasPrice: '20000000000'
-        });
-      
     
     
-    //await getaaa.methods.safeTransferFrom('0xD264b074c4a772E56536005Ae629518ee1bCc83a','5656','0xEBB8509A162bAf75A48A3e4d33e8dda28D148284').send({
+    //await geta.methods.tokenURI(te).send({
     //from: accounts[0]
     //value: this.setState({c:accounts[0]})
     
     //});
 
-    //alert("prin"+prin);
 
-    //var printgeta=await getaaa.methods.tokenURI(te).call();
+    
+
+    for(var i=653;i<=657;i++){
+
+     
+      var printgeta=await getaaa.methods.tokenURI(654).call();
+
+      //setgetaprint(await getaaa.methods.tokenURI(654).call())
+
+     // setgetaprint2(await getaaa.methods.tokenURI(657).call())
+
+      //setgetaprint3(await getaaa.methods.tokenURI(3214).call())
+
+      setgetaprint4(await getaaa.methods.tokenURI(i).call())
 
 
-    //setgetaprint(await getaaa.methods.tokenURI(te).call());
+      
+      if(await getaaa.methods.tokenURI(i).call() == ""){
+
+      }
+      else{
+        names.push(await getaaa.methods.tokenURI(i).call());
+
+        setimgurl(await getaaa.methods.tokenURI(i).call());
+
+      }
+
+      
 
 
-    //localStorage.setItem('prints',printgeta);
+      setSelectedImages(printgeta);
 
 
-    alert("printgeta"+printgeta);
+    //settodos(await getaaa.methods.tokenURI(i).call());
 
-    alert("data print"+printgeta);
-  
+    //this.setState({todos});
+
+    }
+
 
     
     
-    alert(" and "+tid +" and "+te+"and   data   ");
+
+    alert(names.length);
+
+
+    for(var i=0;i<names.length;i++){
+
+      //setgetaprint(names[i]);
+
+      alert(names[i]);
+      //alert(selectedImages[i]);
+
+    }
+
     
-    
-    
-    
+
     
     
   };
     
 
-  
 
+  return (    
 
-  //</div><td><img src={localStorage.getItem('myimageuri')}  alt={'C - language'} /> 			
-  return (
     <div className="App">
+
+
+<h1>Print All NFT Image</h1>
+
+
+
+<button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/nft");
+                }}>
+                Go Deploy Page 
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/sendpage");
+                }}
+              >
+                Go Transfer page
+              </button>
+
+
+              <br></br>
+<br></br>
+
+
       
 <center>
 <br></br>
-<h1>Transfer NFT-Owner </h1>
+
 
 		<form onSubmit={onSubmitNFT} id="create-course-form" >
 
 
-<input
-id="idid"
-  type='text'
-  name="tid"
-  required
-  onChange={event => setId( event.target.value)}
-  
-/>
-
-<br></br>
-<br></br>
-
-
-<input
-id="idids"
-  type='text'
-  name="tids"
-  required
-  onChange={event => setIds( event.target.value)}
-  
-/>
-
-
-<br></br>
-<br></br>
 
 
 <button 
              type="submit"> 
-             Transfer NFT Owner
+             Press Button To Get All Images Print
              </button>
 
 </form>
@@ -1169,35 +1211,65 @@ id="idids"
 <br></br>
 
 
-<button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/nft");
-                }}>
-                Deploy Page 
-              </button>
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Tokencreate");
-                }}
-              >
-                Token-Create page 
-              </button>
-
-
-              <br></br>
-<br></br>
-
-
-              
-
 </center>
 
+<img 
+      src={printgeta}
+      alt="new"
+      width="400" height="400"
+      />
+
+<img 
+      src={printgeta2}
+      alt="new"
+      width="400" height="400"
+      />
+
+<img 
+      src={printgeta3}
+      alt="new"
+      width="400" height="400"
+      />
+
+
+
+
+  <img 
+  src={printgeta}
+  alt="new"
+  width="400" height="400"
+  />
+
+
+
+
+      
+
+
+
+<div>
+      {names.map(name => <h2>{name}</h2>)}
+      	</div>
+
+
+          <div>
+        {names.map((name) => (
+          
+            <h3>{names}</h3>
+            
+            
+          
+            ))}
+            </div>
+              
+
+
+
 <br></br>
 <br></br>
+
+
+
                     
                     
 
@@ -1210,15 +1282,31 @@ id="idids"
             <Route path="/nft">
               <Nft />
             </Route>
-            <Route path="/tokencreate">
-              <Tokencreate />
+            <Route path="/sendpage">
+              <Sendpage />
             </Route>
           </Switch>
         </Router>
+
+        
+        <div>
+            
+        </div>
+
+
+        <div>
+  <ul>
+{imgurl.map(imgurl =>(
+  <img src={imgurl.values} alt="new" width="100" height="100"/>
+))}
+
+
+  </ul>
+  </div>
 
 	  
       </div>      
   );
 }
 
-export default Sendpage;
+export default Printallimage;

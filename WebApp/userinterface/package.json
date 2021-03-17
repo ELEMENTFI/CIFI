@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "-": "^0.0.1",
+    "@material-ui/data-grid": "^4.0.0-alpha.22",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
@@ -11,6 +12,7 @@
     "ipfs-api": "^26.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-grid-layout": "^1.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "web-vitals": "^1.1.0",
