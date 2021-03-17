@@ -13,6 +13,8 @@ import First from "./First";
 import Second from "./Second";
 import Nft from "./Nft";
 import Tokencreate from "./Tokencreate";
+import PrintallImage from "./Printallimage";
+import Newpage from "./Newpage";
 
 
 
@@ -1188,6 +1190,26 @@ id="idids"
               </button>
 
 
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Printallimage");
+                }}>
+                printallimage Page 
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Newpage");
+                }}
+              >
+                Get Single Image Page
+              </button>
+
+
+
               <br></br>
 <br></br>
 
@@ -1212,6 +1234,12 @@ id="idids"
             </Route>
             <Route path="/tokencreate">
               <Tokencreate />
+            </Route>
+            <Route path="/printallimage">
+              <PrintallImage />
+            </Route>
+            <Route path="/newpage">
+              <Newpage />
             </Route>
           </Switch>
         </Router>

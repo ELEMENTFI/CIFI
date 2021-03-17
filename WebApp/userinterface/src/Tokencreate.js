@@ -14,6 +14,7 @@ import Second from "./Second";
 import Nft from "./Nft";
 import Newpage from "./Newpage";
 import Sendpage from "./Sendpage";
+import PrintallImage from "./Printallimage";
 
 
 function Tokencreate() {
@@ -1227,7 +1228,7 @@ id="idid"
                 onClick={() => {
                   history.push("/newpage");
                 }}>
-                Get Image Pagess
+                Get Single Image Page
               </button>
               <button
                 class="btn btn-info btn-block"
@@ -1237,6 +1238,25 @@ id="idid"
                 }}
               >
                 Send-page
+              </button>
+
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/nftcontract");
+                }}>
+                Nft deploy Pages
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/printallimage");
+                }}
+              >
+                PrintallImage page
               </button>
 
 
@@ -1284,6 +1304,12 @@ id="idid"
             </Route>
             <Route path="/sendpage">
               <Sendpage />
+            </Route>
+            <Route path="/nftpage">
+              <Nft />
+            </Route>
+            <Route path="/printallimage">
+              <PrintallImage />
             </Route>
           </Switch>
         </Router>
