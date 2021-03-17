@@ -1096,6 +1096,7 @@ const onSubmitImage = async (event) => {
     var getaaaa=new web3.eth.Contract(abi,poda);
     
     
+    
 
     alert("geta"+getaaaa);
     

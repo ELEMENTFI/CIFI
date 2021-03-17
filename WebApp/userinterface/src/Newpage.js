@@ -40,6 +40,12 @@ function NewPage() {
   const [geta,setgeta] = useState("");
 
   var [printgeta,setgetaprint] =useState("");
+
+  //var [todos,settodos] = useState("");
+
+
+
+  const names = [];
     
       //new write below
 
@@ -1074,10 +1080,42 @@ function NewPage() {
     //});
 
 
-    var printgeta=await getaaa.methods.tokenURI(te).call();
+    //for(var i=653;i<=657;i++){
+
+     
+      var printgeta=await getaaa.methods.tokenURI(te).call();
+
+      setgetaprint(await getaaa.methods.tokenURI(te).call())
+
+      //names.push(printgeta);
 
 
-    setgetaprint(await getaaa.methods.tokenURI(te).call());
+      
+  
+
+    //settodos(await getaaa.methods.tokenURI(i).call());
+
+    //this.setState({todos});
+
+    //}
+
+
+    //alert(names.length);
+
+
+    //for(var i=0;i<names.length;i++){
+
+      //setgetaprint(names[i]);
+
+      //alert(names[i]);
+
+    //}
+
+    
+
+    //console.log('b',todos);
+
+
 
 
     //localStorage.setItem('prints',printgeta);
@@ -1170,6 +1208,8 @@ id="idid"
       src={printgeta}
       alt="new"
       />
+
+
               
 
 </center>
