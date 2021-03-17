@@ -43,6 +43,8 @@ function Printallimage() {
   var [selectedImages,setSelectedImages] = useState([]);
 
 
+  const [imgurl,setimgurl] = useState([]);
+
 
   const names = [];
   const namesc = [];
@@ -1112,6 +1114,9 @@ function Printallimage() {
       }
       else{
         names.push(await getaaa.methods.tokenURI(i).call());
+
+        setimgurl(await getaaa.methods.tokenURI(i).call());
+
       }
 
       
@@ -1156,6 +1161,8 @@ function Printallimage() {
 
 
 <h1>Print All NFT Image</h1>
+
+
 
 <button
                 class="btn btn-info btn-block"
@@ -1285,6 +1292,17 @@ function Printallimage() {
         <div>
             
         </div>
+
+
+        <div>
+  <ul>
+{imgurl.map(imgurl =>(
+  <img src={imgurl.values} alt="new" width="100" height="100"/>
+))}
+
+
+  </ul>
+  </div>
 
 	  
       </div>      
