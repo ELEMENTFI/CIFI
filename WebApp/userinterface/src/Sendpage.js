@@ -1074,12 +1074,14 @@ function Sendpage() {
     //var printgeta=await getaaa.methods.safeTransferFrom(accounts[0],tid,tids).call();
 
     
-        await getaaa.methods.transferFrom(accounts[0],tid,tids).send({
-     from: accounts[0],
-          gas: 4796559,
-          gasPrice: '20000000000'
-        });
-      
+    alert("check my address"+accounts[0]);
+    
+    await getaaa.methods.safeTransferFrom(accounts[0],tids,tid).send({
+    from: accounts[0],
+        gas: 4796559,
+        gasPrice: '20000000000'
+      });
+        
     
     
     //await getaaa.methods.safeTransferFrom('0xD264b074c4a772E56536005Ae629518ee1bCc83a','5656','0xEBB8509A162bAf75A48A3e4d33e8dda28D148284').send({
