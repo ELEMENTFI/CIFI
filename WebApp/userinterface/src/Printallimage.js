@@ -9,6 +9,10 @@ import { Router, Route, Switch } from "react-router-dom";
 import Nft from "./Nft";
 import Sendpage from "./Sendpage";
 
+import Newpage from "./Newpage";
+import Tokencreate from "./Tokencreate";
+
+
 
 
 function Printallimage() {
@@ -1160,6 +1164,7 @@ function Printallimage() {
     <div className="App">
 
 
+
 <h1>Print All NFT Image</h1>
 
 
@@ -1181,6 +1186,26 @@ function Printallimage() {
               >
                 Go Transfer page
               </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/tokencreate");
+                }}>
+                Tokencreate Page 
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/newpage");
+                }}
+              >
+                Get Single Image Page
+              </button>
+
+
 
 
               <br></br>
@@ -1212,39 +1237,6 @@ function Printallimage() {
 
 
 </center>
-
-<img 
-      src={printgeta}
-      alt="new"
-      width="400" height="400"
-      />
-
-<img 
-      src={printgeta2}
-      alt="new"
-      width="400" height="400"
-      />
-
-<img 
-      src={printgeta3}
-      alt="new"
-      width="400" height="400"
-      />
-
-
-
-
-  <img 
-  src={printgeta}
-  alt="new"
-  width="400" height="400"
-  />
-
-
-
-
-      
-
 
 
 <div>
@@ -1285,6 +1277,12 @@ function Printallimage() {
             <Route path="/sendpage">
               <Sendpage />
             </Route>
+            <Route path="/tokencreate">
+              <Tokencreate />
+            </Route>
+            <Route path="/newpage">
+              <Newpage />
+            </Route>
           </Switch>
         </Router>
 
@@ -1294,16 +1292,11 @@ function Printallimage() {
         </div>
 
 
-        <div>
-  <ul>
-{imgurl.map(imgurl =>(
-  <img src={imgurl.values} alt="new" width="100" height="100"/>
-))}
+        <div id="prag">
 
 
-  </ul>
-  </div>
 
+</div>
 	  
       </div>      
   );
