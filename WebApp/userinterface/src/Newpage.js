@@ -13,6 +13,9 @@ import First from "./First";
 import Second from "./Second";
 import Nft from "./Nft";
 import Sendpage from "./Sendpage";
+import Tokencreate from "./Tokencreate";
+import Printallimage from "./Printallimage";
+
 
 
 
@@ -1200,6 +1203,25 @@ id="idid"
               </button>
 
 
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Tokencreate");
+                }}>
+                Tokencreate Page 
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Printallimage");
+                }}
+              >
+                PrintallImage page
+              </button>
+
+
               <br></br>
 <br></br>
 
@@ -1219,7 +1241,7 @@ id="idid"
                     
                     
 
-            <Router history={history}>
+<Router history={history}>
           <Switch>
             <Route path="/" exact>
               <div class="display-4 mb-1">Choose a route to go to</div>
@@ -1230,6 +1252,12 @@ id="idid"
             </Route>
             <Route path="/sendpage">
               <Sendpage />
+            </Route>
+            <Route path="/tokencreate">
+              <Tokencreate />
+            </Route>
+            <Route path="/printallimage">
+              <Printallimage />
             </Route>
           </Switch>
         </Router>

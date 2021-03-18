@@ -1225,7 +1225,7 @@ id="idids"
                     
                     
 
-            <Router history={history}>
+<Router history={history}>
           <Switch>
             <Route path="/" exact>
               <div class="display-4 mb-1">Choose a route to go to</div>
@@ -1246,7 +1246,7 @@ id="idids"
           </Switch>
         </Router>
 
-	  
+	  	  
       </div>      
   );
 }

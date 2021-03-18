@@ -10,6 +10,9 @@ import First from "./First";
 import Second from "./Second";
 import NewPage from './Newpage';
 import Tokencreate from './Tokencreate';
+import PrintallImage from './Printallimage';
+import Sendpage from './Sendpage';
+
 
 
 function App() {
@@ -1299,7 +1302,7 @@ id="idid"
                 onClick={() => {
                   history.push("/newpage");
                 }}>
-                Get Image Pagess
+            Get Single Image Page
               </button>
               <button
                 class="btn btn-info btn-block"
@@ -1309,6 +1312,24 @@ id="idid"
                 }}
               >
                 Token-Create page
+              </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Sendpage");
+                }}>
+                Send Pagess
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Printallimage");
+                }}
+              >
+                PrintallImage page
               </button>
 
 
@@ -1362,8 +1383,15 @@ id="idid"
             <Route path="/tokenpage">
               <Tokencreate />
             </Route>
+            <Route path="/sendpage">
+              <Sendpage />
+            </Route>
+            <Route path="/printallimage">
+              <PrintallImage />
+            </Route>
           </Switch>
         </Router>
+
 
 	  
       </div>      

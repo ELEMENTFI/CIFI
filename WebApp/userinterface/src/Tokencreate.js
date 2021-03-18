@@ -1245,7 +1245,7 @@ id="idid"
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/nftcontract");
+                  history.push("/nft");
                 }}>
                 Nft deploy Pages
               </button>
@@ -1305,7 +1305,7 @@ id="idid"
             <Route path="/sendpage">
               <Sendpage />
             </Route>
-            <Route path="/nftpage">
+            <Route path="/nft">
               <Nft />
             </Route>
             <Route path="/printallimage">
