@@ -5,27 +5,33 @@ import First from "./First";
 import Second from "./Second";
 import Nf from "./Nft";
 import NewPage from "./Newpage";
-import Sendpage from "./Sendpage";
-import Tokencreate from "./Tokencreate";
-import Printallimage from "./Printallimage";
-import Approveaddresspage from "./Approveaddresspage";
-
+import Welcome from "./welcomePage"
 function App() {
   return (
     <div class="container h-100 d-flex justify-content-center">
       <div class="jumbotron my-auto">
-
-        <center>
-
-          <br></br>
-          <br></br>
-          <br></br>
         <Router history={history}>
           <Switch>
             <Route path="/" exact>
-              <div class="display-4 mb-1">Choose a route to go to page</div>
-              <br></br><br></br><br></br>
-              
+              <div class="display-4 mb-1">Choose a route to go to</div>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/first");
+                }}
+              >
+                First
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/second");
+                }}
+              >
+                Second
+              </button>
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -33,11 +39,8 @@ function App() {
                   history.push("/Nft");
                 }}
               >
-                Nft Deploy Contract     
+                Nft
               </button>
-
-
-
 
               <button
                 class="btn btn-info btn-block"
@@ -46,79 +49,37 @@ function App() {
                   history.push("/Newpage");
                 }}
               >
-                Get NFT Images
+                NewPage
               </button>
-
               <button
-                class="btn btn-info btn-block"
+                class="click"
                 type="button"
                 onClick={() => {
-                  history.push("/Sendpage");
-                }}
->
-  Transfer NFT-Owner
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Tokencreate");
+                  history.push("/welcome");
                 }}
               >
-                Mint-Token
+                welcomePage
               </button>
-
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Printallimage");
-                }}
-              >
-                PrintallImage Page
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Approveaddresspage");
-                }}
-              >
-                Approve-Address Page
-              </button>
-
-
-
-
 
             </Route>
-            
+            <Route path="/first">
+              <First />
+            </Route>
+            <Route path="/second">
+              <Second />
+            </Route>
             <Route path="/Nft">
               <Nf />
             </Route>
             <Route path="/Newpage">
               <NewPage />
             </Route>
-            <Route path="/Sendpage">
-              <Sendpage />
-            </Route>
-            <Route path="/Tokencreate">
-              <Tokencreate />
-            </Route>
-            <Route path="/Printallimage">
-              <Printallimage />
-            </Route>
-            <Route path="/Approveaddresspage">
-              <Approveaddresspage />
+            <Route path="/welcome">
+              <Welcome />
             </Route>
           </Switch>
         </Router>
-        </center>
       </div>
-      
     </div>
   );
 }
