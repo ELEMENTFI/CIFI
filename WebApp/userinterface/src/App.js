@@ -8,7 +8,7 @@ import NewPage from "./Newpage";
 import Sendpage from "./Sendpage";
 import Tokencreate from "./Tokencreate";
 import Printallimage from "./Printallimage";
-
+import Approveaddresspage from "./Approveaddresspage";
 
 function App() {
   return (
@@ -80,6 +80,19 @@ function App() {
                 PrintallImage Page
               </button>
 
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Approveaddresspage");
+                }}
+              >
+                Approve-Address Page
+              </button>
+
+
+
+
 
             </Route>
             
@@ -97,6 +110,9 @@ function App() {
             </Route>
             <Route path="/Printallimage">
               <Printallimage />
+            </Route>
+            <Route path="/Approveaddresspage">
+              <Approveaddresspage />
             </Route>
           </Switch>
         </Router>
