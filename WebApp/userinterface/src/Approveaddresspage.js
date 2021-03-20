@@ -1276,8 +1276,6 @@ id="idid"
             </Route>
           </Switch>
         </Router>
-
-	  
       </div>      
   );
 }
