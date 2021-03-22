@@ -135,7 +135,6 @@ function App() {
         </Router>
         </center>
       </div>
-      
     </div>
   );
 }
