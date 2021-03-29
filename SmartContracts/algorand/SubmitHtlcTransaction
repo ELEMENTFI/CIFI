@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Sign and Submit a transaction example using HTLC
  *
  */
-public class SubmitHtlcTransaction 
+public class SubmitHtlcTransaction
 {
     public static void main(String args[]) throws Exception {
         // Setup conection parameters
