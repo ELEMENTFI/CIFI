@@ -1418,7 +1418,7 @@ library Strings {
 }
 
 // File: contracts/Thing.sol
-
+//some functions were added in this Code base
 pragma solidity ^0.5.7;
 
 
