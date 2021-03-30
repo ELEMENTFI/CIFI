@@ -1418,7 +1418,7 @@ library Strings {
 }
 
 // File: contracts/Thing.sol
-//functions like buy and sale were added
+//functions like buy and sale were added  and sale state also added.
 pragma solidity ^0.5.7;
 
 
