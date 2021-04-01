@@ -1,3 +1,5 @@
+// File: openzeppelin-solidity/contracts/GSN/Context.sol
+
 pragma solidity >= 0.5.7;
 
 /*
@@ -26,6 +28,7 @@ contract Context {
     }
 }
 
+// File: openzeppelin-solidity/contracts/introspection/IERC165.sol
 
 pragma solidity ^0.5.0;
 
@@ -920,6 +923,7 @@ contract ERC721Enumerable is Context, ERC165, ERC721, IERC721Enumerable {
         _addTokenToOwnerEnumeration(to, tokenId);
 
         _addTokenToAllTokensEnumeration(tokenId);
+       
     }
 
     /**
@@ -1047,14 +1051,24 @@ pragma solidity ^0.5.0;
 
 
 contract ERC721Metadata is Context, ERC165, ERC721, IERC721Metadata {
+   
+   
+   
+   
     // Token name
     string private _name;
 
     // Token symbol
     string private _symbol;
+   
+    string private _tokenURIs2;
+   
+    mapping(uint256 => string) private _tokenURIs21;
 
     // Optional mapping for token URIs
-    mapping(uint256 => string) private _tokenURIs;
+    mapping(uint256 => string) public _tokenURIs;
+   
+   
 
     /*
      *     bytes4(keccak256('name()')) == 0x06fdde03
@@ -1110,7 +1124,11 @@ contract ERC721Metadata is Context, ERC165, ERC721, IERC721Metadata {
      */
     function _setTokenURI(uint256 tokenId, string memory uri) internal {
         require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
+        _tokenURIs2=uri;
         _tokenURIs[tokenId] = uri;
+        _tokenURIs21[tokenId] = uri;
+       
+        //auri=uri;
     }
 
     /**
@@ -1254,7 +1272,8 @@ contract ERC721MetadataMintable is ERC721, ERC721Metadata, MinterRole {
      * @param tokenURI The token URI of the minted token.
      * @return A boolean that indicates if the operation was successful.
      */
-    function mintWithTokenURI(address to, uint256 tokenId, string memory tokenURI) public onlyMinter returns (bool) {
+   
+    function mintWithTokenURI(address to, uint256 tokenId, string memory tokenURI) public  returns (bool) {
         _mint(to, tokenId);
         _setTokenURI(tokenId, tokenURI);
         return true;
@@ -1417,7 +1436,7 @@ library Strings {
 }
 
 // File: contracts/Thing.sol
-//functions like buy and sale were added  and sale state also added.
+
 pragma solidity ^0.5.7;
 
 
@@ -1429,10 +1448,19 @@ pragma solidity ^0.5.7;
 
 
 contract Thing is ERC721Full, ERC721MetadataMintable, ERC721Burnable, Ownable {
-    
+   
+   
+  mapping(uint => User) users;
+    struct User{
+     uint id;
+     
+    }
+   
+    mapping(address => string[])  public auri;
+   
   using SafeMath for uint256;
   using Strings for string;
-  
+ 
   enum TokenState { Pending, ForSale, Sold, Transferred }
 
   struct Price {
@@ -1443,12 +1471,18 @@ contract Thing is ERC721Full, ERC721MetadataMintable, ERC721Burnable, Ownable {
   }
 
   mapping(uint256 => Price) public items;
+ 
+ 
+ 
+ 
 
   uint256 public id;
   string public baseUri;
+ 
   address payable public maker;
   address payable feeAddress;
   address public Owner;
+ 
 
 constructor(
     string memory name,
@@ -1457,7 +1491,7 @@ constructor(
     address payable fee,
     address payable creator
   ) ERC721Full(name, symbol) public {
-      
+     
     //wner =_msgSender();
     maker = creator;
     feeAddress = fee;
@@ -1467,9 +1501,8 @@ constructor(
     _addMinter(creator);
 
   }
-  
-  
-  
+ 
+
 
   event ErrorOut(string error, uint256 tokenId);
   event BatchTransfered(string metaId, address[] recipients, uint256[] ids);
@@ -1478,13 +1511,58 @@ constructor(
   event BatchForSale(uint256[] ids, string metaId);
   event Bought(uint256 tokenId, string metaId, uint256 value);
   event Destroy();
+ 
+ 
+ 
 
   function tokenURI(uint256 _tokenId) public view returns (string memory) {
-    return Strings.strConcat(
-        baseUri,
-        items[_tokenId].metaId
-    );
+     
+  string memory getu=  ERC721Metadata._tokenURIs[_tokenId];
+    return Strings.strConcat(getu,items[_tokenId].metaId);
   }
+ 
+  function getAllURI() public view returns(string memory){
+     
+      for(uint256 i=0;i< 1000;i++ ){
+         
+          string memory getu=  ERC721Metadata._tokenURIs[i];
+         
+      }
+  }
+uint256[] public printitem;
+
+/*function printitems()public  returns(uint256[] memory){
+    uint256[] memory a =tokensOfOwner(msg.sender);
+    for (uint256 i=0;i< a.length;i++){
+        if(items[a[i]].state == TokenState.ForSale)
+            {  for(uint256 j= 0;j<= printitem.length;j++){
+                    if(printitem[j] != a[i]){
+                    printitem.push(a[i]);
+                    }
+                }
+            }
+    }
+}
+*/
+mapping(uint256 => bool) public ispushed;
+function printitems()public  returns(uint256[] memory){
+    uint256[] memory a =tokensOfOwner(msg.sender);
+    for (uint256 i=0;i< a.length;i++){
+       
+            if(items[a[i]].state == TokenState.ForSale)
+            
+            {
+                    if(ispushed[a[i]]== false){
+                    printitem.push(a[i]); 
+                    ispushed[a[i]] = true;
+                    }
+                    
+                    
+                
+            }
+    }
+}
+
 
   function setTokenState(uint256[] memory ids, bool isEnabled) public onlyMinter {
     for (uint256 i = 0; i < ids.length; i++) {
@@ -1501,6 +1579,7 @@ constructor(
     for (uint256 i = 0; i < ids.length; i++) {
       items[ids[i]].price = setPrice;
     }
+   
   }
 
   function mintbaseFee(uint256 amount) internal pure returns (uint256) {
@@ -1508,6 +1587,7 @@ constructor(
 
     return SafeMath.div(toOwner, 100);
   }
+ 
 
   function buyThing(uint256 _tokenId) public payable returns (bool) {
 
@@ -1517,7 +1597,6 @@ constructor(
     if(items[_tokenId].price >= 0) {
       uint256 fee = mintbaseFee(msg.value);
       uint256 withFee = SafeMath.sub(msg.value, fee);
-
       maker.transfer(withFee);
       feeAddress.transfer(fee);
     }
@@ -1552,7 +1631,7 @@ constructor(
       items[id].metaId = metaId;
       if(isForSale == true){
         items[id].state = TokenState.ForSale;
-        
+       
       } else {
         items[id].state = TokenState.Pending;
       }
