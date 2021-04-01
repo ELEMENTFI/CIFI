@@ -4,7 +4,7 @@ function Welcome(){
     return (
         <div>
             <center>
-            <b>Welcome to React native</b>
+            <b>Welcome to React Native App</b>
             </center>
         </div>
     )
