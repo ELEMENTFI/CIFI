@@ -1,7 +1,5 @@
-package algorand.test;
-
+package algorandprogram.test;
 import java.math.BigInteger;
-
 import com.algorand.algosdk.account.Account;
 import com.algorand.algosdk.algod.client.AlgodClient;
 import com.algorand.algosdk.algod.client.api.AlgodApi;
@@ -17,27 +15,29 @@ import com.algorand.algosdk.templates.LimitOrder;
  * Sign and Submit a transaction example using LimitOrder
  *
  */
-public class SubmitLimitTransaction {
+public class SubmitLimitTransaction 
+{
     public static void main(String args[]) throws Exception {
         // Setup conection parameters
         final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";
-        final String ALGOD_API_TOKEN = "ZEsvuOCGhA7IqRiNrIvPPa7NNJZ6T8aH6SVeGiyW";
+        final String ALGOD_API_TOKEN = "3D4YHZ7Scg3Ucg5sMA8xl8NghVCpeoRT7f3NNk3I";
         // Instaniate the algod wrapper
         AlgodClient client = (AlgodClient) new AlgodClient().setBasePath(ALGOD_API_ADDR);
         ApiKeyAuth api_key = (ApiKeyAuth) client.getAuthentication("api_key");
         api_key.setApiKey(ALGOD_API_TOKEN);
         AlgodApi algodApiInstance = new AlgodApi(client);
 
-        // Owner is the owner of the contract
-        Address owner = new Address("AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU");
+        // Owner is the owner of the contract    
+        Address owner = new Address("AJNNFQN7DSR7QEY766V7JDG35OPM53ZSNF7CU264AWOOUGSZBMLMSKCRIU" );
+
 
         // Recover accounts used in example
-        // Account 1 is the asset owner
+        // Account 1 is the asset owner 
         // Used later in the example
-        String account1_mnemonic = "portion never forward pill lunch organ biology"
-                + " weird catch curve isolate plug innocent skin grunt"
-                + " bounce clown mercy hole eagle soul chunk type absorb trim";
-        Account assetOwner = new Account(account1_mnemonic);
+        String account1_mnemonic = "portion never forward pill lunch organ biology" +
+            " weird catch curve isolate plug innocent skin grunt" +
+         " bounce clown mercy hole eagle soul chunk type absorb trim";
+         Account assetOwner = new Account(account1_mnemonic);
 
         // Inputs
         // Limit contract should be two receivers in an
@@ -55,11 +55,11 @@ public class SubmitLimitTransaction {
         // Instantiate the templates
         ContractTemplate limit = LimitOrder.MakeLimitOrder(owner, assetID, ratn, ratd, expiryRound, minTrade, maxFee);
 
-        // At this point the contract can be funded
+        // At this point the contract can be funded 
         // The program bytes can be saved to be used later
         // or in a differnt application
         System.out.println("Contract address: " + limit.address);
-        byte[] contractProgram = limit.program;
+        byte[] contractProgram = limit.program;         
 
         int assetAmount = 1;
         int microAlgoAmount = 3000;
@@ -69,13 +69,18 @@ public class SubmitLimitTransaction {
         TransactionParams params = algodApiInstance.transactionParams();
 
         // Load the contract template and create the grouped
-        // transactions for the split contract
+        // transactions for the split contract 
         ContractTemplate loadedContract = new ContractTemplate(contractProgram);
 
-        byte[] transactions = LimitOrder.MakeSwapAssetsTransaction(loadedContract, assetAmount, microAlgoAmount,
-                assetOwner, params.getLastRound().intValue(),
-                params.getLastRound().add(BigInteger.valueOf(500)).intValue(), new Digest(params.getGenesishashb64()),
-                feePerByte);
+        byte[] transactions = LimitOrder.MakeSwapAssetsTransaction(
+                loadedContract,
+                assetAmount,
+                microAlgoAmount,
+                assetOwner,
+                params.getLastRound().intValue(),
+                params.getLastRound().add(BigInteger.valueOf(500)).intValue(),
+                new Digest(params.getGenesishashb64()), feePerByte);
+
 
         // Submit the transactions
         try {
@@ -87,5 +92,3 @@ public class SubmitLimitTransaction {
         }
     }
 }
-
-
