@@ -1,3 +1,5 @@
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import history from "./utils/history";
@@ -16,8 +18,24 @@ import Explore from "./Myitem";
 //import Connectmetamask from "./Connectmetamask";
 import web3 from './web3';
 import Newdeploy from "./Newdeploy";
+import Mycontractdata from "./Mycontractdata";
+import Salepagecopy from "./Salepagecopy";
+import Printallimagecopy from "./Printallimagecopy";
+
+import { ReactComponent as Logo } from './logo.svg';
+
+import Followingpage from "./Followingpage";
+import Activitypage from './Activitypage';
+import Howitworkpage from './Howitworkpage';
+import Communitypage from './Communitypage';
+import Createpage from './Createpage';
+import Connectwalletpage from './Connectwalletpage'
+import ReactPlayer from "react-player";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 function App() {
+
+  const isBackgroundRed = true;
   
   const connectmm = async (event) => {
 
@@ -54,35 +72,40 @@ function App() {
   
 
   return (
-    <div class="container h-100 d-flex justify-content-center">
+    <div class="container h-100 d-flex justify-content-center" className={isBackgroundRed ? 'background-red' : 'background-blue'}>
       <div class="jumbotron my-auto">
+      
 
-        <center>
-
-          <br></br>
-          <br></br>
-          <br></br>
+     
+        
+          
         <Router history={history}>
           <Switch>
             <Route path="/" exact>
-              <div class="display-4 mb-1">Choose a route to go to page</div>
-              <br></br><br></br><br></br>
+              <div class="display-4 mb-1"></div>
+              
+              <Logo  height="105" width="105" />
+              
+              
+              <button
+              
+              style={{outline: 'none'}}
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Explore");
+                }}
+              >
+                Explore
+              </button>
+
+
               
               <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Nft");
-                }}
-              >
-                Nft Deploy Contract     
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Myitem");
+                  history.push("/Salepagecopy");
                 }}
               >
                 Myitem     
@@ -92,11 +115,65 @@ function App() {
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Explore");
+                  history.push("/Followingpage");
                 }}
               >
-                Explore
+               Following
               </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Activitypage");
+                }}
+              >
+               Activity
+              </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Howitworkpage");
+                }}
+              >
+               How it works
+              </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Communitypage");
+                }}
+              >
+               Community
+              </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Nft");
+                }}
+              >
+               Create
+              </button>
+
+
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick= {connectmm}
+              >
+               Connect wallet
+              </button>
+
+              <br></br>
+              <hr></hr>
+
 
               <button
                 class="btn btn-info btn-block"
@@ -184,6 +261,56 @@ function App() {
                 New Deploy Page
               </button>
 
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Nft");
+                }}
+              >
+                Nft Deploy Contract     
+              </button>
+
+              <br
+              ></br>
+              <br></br>
+              <br></br>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Mycontractdata");
+                }}
+              >
+                My Contract data
+              </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Salepagecopy");
+                }}
+              >
+                My Salepagecopy
+              </button>
+
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Printallimagecopy");
+                }}
+              >
+                My Printallimagecopy
+              </button>
+
+
+              
+
+
 
 
 
@@ -222,10 +349,48 @@ function App() {
             <Route path="/Newdeploy">
               <Newdeploy />
             </Route>
+
+            <Route path="/Mycontractdata">
+              <Mycontractdata />
+            </Route>
+
+            <Route path="/Salepagecopy">
+              <Salepagecopy />
+            </Route>
+
+            <Route path="/Printallimagecopy">
+              <Printallimagecopy />
+            </Route>
+
+            <Route path="/Followingpage">
+              <Followingpage />
+            </Route>
+
+            <Route path="/Activitypage">
+              <Activitypage />
+            </Route>
+
+            <Route path="/Howitworkpage">
+              <Howitworkpage />
+            </Route>
+
+            <Route path="/Communitypage">
+              <Communitypage />
+            </Route>
+
+
+            <Route path="/Createpage">
+              <Createpage />
+            </Route>
+            
+            <Route path="/Connectwalletpage">
+              <Connectwalletpage />
+            </Route>
+
             
           </Switch>
         </Router>
-        </center>
+        
       </div>
       
     </div>

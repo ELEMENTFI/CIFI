@@ -1332,6 +1332,48 @@ if (currentid == "")
 <br></br>
 <h1>DEPLOY NFT Token</h1>
 
+
+<button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/newpage");
+                }}>
+            Get Single Image Page
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Tokencreate");
+                }}
+              >
+                Token-Create page
+              </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Sendpage");
+                }}>
+                Send Pagess
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Printallimage");
+                }}
+              >
+                PrintallImage page
+              </button>
+
+              <br></br>
+              <br></br>
+              <br></br>
+
+
 <form onSubmit={onSubmitImage}>
 
 
@@ -1352,6 +1394,9 @@ if (currentid == "")
 			 <br></br>
 			 <br></br>
 	</form>
+
+
+
 
 
 <form onSubmit={onSubmitNFT} id="create-course-form" >
@@ -1428,41 +1473,6 @@ id="idid"
 <br></br>
 
 
-<button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/newpage");
-                }}>
-            Get Single Image Page
-              </button>
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Tokencreate");
-                }}
-              >
-                Token-Create page
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Sendpage");
-                }}>
-                Send Pagess
-              </button>
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Printallimage");
-                }}
-              >
-                PrintallImage page
-              </button>
 
 
 </center>
