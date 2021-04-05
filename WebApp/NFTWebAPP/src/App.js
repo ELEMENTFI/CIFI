@@ -13,8 +13,46 @@ import Saleimagepage from "./Saleimagepage";
 import Test from "./Testing";
 import Myitem from "./Myitem";
 import Explore from "./Myitem";
+//import Connectmetamask from "./Connectmetamask";
+import web3 from './web3';
+import Newdeploy from "./Newdeploy";
 
 function App() {
+  
+  const connectmm = async (event) => {
+
+
+
+      event.preventDefault();
+     //bring in user's metamask account address
+
+     const accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
+
+     //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
+
+      
+      alert("acc"+accounts[0])
+
+      if(accounts[0] !== ""){
+
+        //accounts[0
+        //document.getElementById("bu").
+        document.getElementById("bu").append("CONNECTED")
+
+        localStorage.setItem('myaddress', accounts[0]);
+      
+      }
+      else{
+        //document.getElementById("bu").remove("");
+        document.getElementById("bu").replaceWith("NOT CONNECTED")
+        localStorage.setItem('myaddress', "");
+      }
+  };    
+
+
+  
+  
+
   return (
     <div class="container h-100 d-flex justify-content-center">
       <div class="jumbotron my-auto">
@@ -123,6 +161,31 @@ function App() {
               </button>
 
 
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={connectmm}
+                //onClick={() => {
+                  //history.push("/Connectmetamask");
+                //}}
+                >
+  Connectwithmetamask
+              </button>
+
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Newdeploy");
+                }}
+              >
+                New Deploy Page
+              </button>
+
+
+
 
             </Route>
             <Route path="/Myitem">
@@ -155,6 +218,11 @@ function App() {
             <Route path="/Testing">
               <Test />
             </Route>
+
+            <Route path="/Newdeploy">
+              <Newdeploy />
+            </Route>
+            
           </Switch>
         </Router>
         </center>
