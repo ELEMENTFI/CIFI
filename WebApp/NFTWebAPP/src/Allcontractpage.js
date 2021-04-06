@@ -6,7 +6,7 @@ import web3 from './web3';
 
 import { Router, Route, Switch } from "react-router-dom";
 
-import Nft from "./Nft";
+
 import Sendpage from "./Sendpage";
 import Newpage from "./Newpage";
 import Tokencreate from "./Tokencreate";
@@ -14,6 +14,7 @@ import Printallimage from "./Printallimage";
 //import getaaa from "./abinft";
 import Saleimagepage from "./Saleimagepage";
 import Myitem from "./Myitem";
+import Nft from "./Nft";
 //import firebase from "./firebase";
 import fireDb from "./firebase";
 import Followingpage from "./Followingpage";
@@ -41,7 +42,7 @@ function Allcontractpage() {
  const [name,setnames] = useState([]);
  const [tid,setId] = useState(""); 
 
- const [getAddressDb,setGetAddressDb]=useState([]);
+ var [getAddressDb,setGetAddressDb]=useState([]);
  
  console.log("initialgetaddress",getAddressDb)
 
@@ -50,32 +51,8 @@ function Allcontractpage() {
 
 
  const onget = async() =>{
-
-  //const accounts = await web3.eth.getAccounts();
-
-  //console.log("getaddress0",accounts[0])
-  
-   //console.log("function called");
-   //let address =[];
-   //let add=fireDb.database().ref("contractaddress/");
-   //console.log("addget",add)
-   //fireDb.database().ref("contractaddress/").on("value",(snapshot) =>{
-     //snapshot.forEach((s)=>{
-//       address.push(s.val());
-  //   });
-     
-   //});
-
-   //console.log("maniall",address)
-
-   //setGetAddressDb(address)
-
-
  }
 
-
- 
-   
       const onSubmitNFT = async (event) => {
 
 
@@ -99,6 +76,8 @@ function Allcontractpage() {
 
                 ref2.on('value',function(data2){
 
+                  let addressset =[];
+
                     var register2=data2.val();
 
                     var key2=Object.keys(register2)
@@ -109,58 +88,37 @@ function Allcontractpage() {
 
                     for(var k=0;k<length2;k++){
 
-                        //console.log("lenlast",register2.val)
+                      
 
-                        console.log("first",key2[k])
+                      var keyss=key2[k]
 
-                    }
+                      var leftside=register2[keyss];//getting
 
+                      console.log("lenfirst",leftside)                  
+
+                      addressset.push(leftside)
+                      
+                    }            
+                    setGetAddressDb(addressset)
                     
-
                 })
-
-                //console.log("getdataprag",ref2)
-
             }
-            
-            
-            
-
-            //console.log("getdatapragkey",key[0])
         })
     
-    
+        
+        //event.preventDefault();
     const accounts = await web3.eth.getAccounts();
 
-
-    //alert(accounts[0])
-
-
-   //console.log("getaddress0",accounts[0])
-  
-   console.log("function called");
-   let address =[];   
-   let addressss =[];   
-   
-    fireDb.database().ref("contractaddress/").on("value",(snapshot) =>{
-     snapshot.forEach((s)=>{
-         addressss.push({keyis:snapshot.val()
-        });
-        console.log("manic",addressss)
-        
-       address.push(s.val());
-     });
-     
-   });
-
-   console.log("manicopyalll",address)
-
+    
    //setGetAddressDb(address)
+
+   //alert("newgetadddb",getAddressDb.length)
 	
 	for(var i=0;i<getAddressDb.length;i++){
 
         //alert("stu "+getAddressDb[i])  
     
+
 
       
       var poda = getAddressDb[i]//'0x5e0c8fe9af42c6e486e6cdf00891b6b003b59e1a'//stuset[i]
@@ -1207,7 +1165,7 @@ function Allcontractpage() {
     ];
 
 
-    alert("after abi"+poda);
+    //alert("after abi"+poda);
 	
     var getaaaa=new web3.eth.Contract(abi,poda);
 
@@ -1285,13 +1243,9 @@ function Allcontractpage() {
         t="Added for sale";
       //}
      // else{
-        b.innerHTML="Enable Sale";
+        b.innerHTML="Buynow";
       //}
 
-
-       
-        
-    
 
         a.src=after[lk]
         a.id=after[lk]
@@ -1464,11 +1418,6 @@ useEffect(()=>{onSubmitNFT()},[])
               </button>
 
 
-{getAddressDb.map((a)=>{
-  console.log("geta",a)
-  
-  return(<h1>hello{a}</h1>)
-})}
 
 
       
