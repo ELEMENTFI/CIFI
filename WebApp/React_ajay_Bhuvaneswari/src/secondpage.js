@@ -29,7 +29,8 @@ class secondpage extends Component{
   balance_TEST:'',
   setapprove:'',
   ooc:'',
-  At:''
+  At:'',
+  value:''
 
 
   };
@@ -42,15 +43,45 @@ class secondpage extends Component{
     const balance = await web3.eth.getBalance(tokencontract.options.address);
     const totalsupply = await tokencontract.methods.totalSupply().call();
     const decimal = await TESTToken.methods.decimals().call();
-    const ooc = await TEST.methods.isTestOpen().call();
-    const At = await TESTToken.methods.balanceOf("0x9C762c5F1A485d5c6EAaFbf128fe9ED71c908749").call();
+    
+    
+    const At = await TESTToken.methods.balanceOf("0x03Efaf51AB0F512C0D967f2B951a1A7B18056c9B").call();
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
     const balance_BUSD = await BEP20Token.methods.balanceOf(accounts[0]).call();
     const balance_TEST= await TESTToken.methods.balanceOf(accounts[0]).call();
 
+    const ooc = await TEST.methods.isTESTOpen().call();
+    
+
+     
+
+     if (ooc==true){
+      document.getElementById("dem").innerHTML = "Opened" ;
+
+      
+     }
+     else{
+      document.getElementById("dem").innerHTML = "Closed" ;
+      document.getElementById("ap").disabled=true;
+      document.getElementById("ap1").disabled=true;
+
+
+     }
+     var a=5000000000000000000-At;
+     
+     var p=a/5000000000000000000;
+     
+     p=p*100;
   
-    this.setState({totalsupply,balance,name,symbol,decimal,balance_TEST,balance_BUSD,ooc,At});
+     
+     
+     var p1=p.toFixed(4);
+    
+
+
+  
+    this.setState({totalsupply,balance,name,symbol,decimal,balance_TEST,balance_BUSD,At,p1,a});
 
     
   }
@@ -60,42 +91,36 @@ class secondpage extends Component{
      const approve = async (event) =>{
       event.preventDefault();
       const accounts = await  web3.eth.getAccounts();
-      await BEP20Token.methods.approve("0x9C762c5F1A485d5c6EAaFbf128fe9ED71c908749","10000000000000000000000000000000").
+      await BEP20Token.methods.approve("0x03Efaf51AB0F512C0D967f2B951a1A7B18056c9B","10000000000000000000000000000000").
       send({
         from: accounts[0]       
       });
-      await TESTToken.methods.approve("0x9C762c5F1A485d5c6EAaFbf128fe9ED71c908749","10000000000000000000000000000").
+      await TESTToken.methods.approve("0x03Efaf51AB0F512C0D967f2B951a1A7B18056c9B","10000000000000000000000000000").
       send({
         from: accounts[0]
        
       });
     } 
 
-
+    
     const buyTest =async (event) => {
       
       event.preventDefault();
       const accounts = await  web3.eth.getAccounts();
       var amount=window.prompt("enter amount");
+      var v=0;
+      v=v+amount;
       alert(amount);
-      await TEST.methods.buyTest(amount).send(
+      await TEST.methods.click(amount).send(
       {
       from:accounts[0]
       }
      );
-     this.setState({amount});
+     
+     this.setState({v});
     }
 
-    const click= async (event) =>{
-      event.preventDefault();
-
-      document.getElementById("ap").disabled=false;
-
-    }
-
-
-   
-
+    
     web3.givenProvider.enable().then(console.log);
     return (
       <div class="text" style={{backgroundImage:"url("+ Background +")",backgroundPosition: 'center',
@@ -114,10 +139,12 @@ class secondpage extends Component{
         <table>
           <div class="row justify-content-center">
             <div class="col-6">
-            <Card bg="dark" border="warning" style={{ width: '23rem' , padding: "30px" , borderRadius: "8%" }} >
+ <Card bg="dark" border="warning" style={{ width: '23rem' , padding: "25px" , borderRadius: "8%" }} >
         <p>
 
 Name <br/> {this.state.name}.
+</p>
+<p id="dem" class="pp">
 </p>
 <p>
 Symbol <br/> {this.state.symbol}.
@@ -126,18 +153,16 @@ Symbol <br/> {this.state.symbol}.
  Total Supply <br/> {this.state.totalsupply}. 
 </p>
 
-  <br/>  <br/>     
-       
+<p>
+          Decimals <br/> {this.state.decimal}.
+        </p>
 
         </Card>
 
             </div>
             <div class="col-2">
-            <Card bg="dark" border="warning" style={{ width: '25rem' , padding: "25px",borderRadius: "8%" }} bodyStyle={{}} >
+            <Card bg="dark" border="warning" style={{ width: '30rem' , padding: "25px",borderRadius: "9%" }} bodyStyle={{}} >
 
-            <p>
-          Decimals <br/> {this.state.decimal}.
-        </p>
         <p>
           Balance_BUSD <br/> {this.state.balance_BUSD}.
         </p>
@@ -147,8 +172,28 @@ Symbol <br/> {this.state.symbol}.
         <p>
           Available_Tokens <br/> {this.state.At}.
         </p>
+        <p class="p">Progress (Available Tokens)</p>
+        <progress id="file" value={this.state.a} max="5000000000000000000" class="progress11"></progress>
+        <div>
+          <div class="container">
+            <div class="row">
+            <div class="col">
+            <p class="perci">
+          {this.state.p1}%
+        </p>
+            </div>
+              <div class="col align-self-end">
+              <p class="maxi">
         
-        
+        </p>
+                      </div>
+            
+            </div>
+          </div>
+        </div>
+        <br/>
+       
+
         </Card>
 
             </div>
@@ -156,15 +201,15 @@ Symbol <br/> {this.state.symbol}.
         </table>
         <br/>   <br/> 
     
-          <div>
+          <div class="ma">
             <table>
               <div class="row">
                 <div class="col-6">
-                <button class="btn btn-outline-warning" onClick={approve} id="ap" disabled>aprove name</button>
+                <button class="btn btn-outline-warning" onClick={approve} id="ap">aprove name</button>
 
                 </div>
                 <div class="col-2">
-                <button  onClick={buyTest} class="btn btn-outline-warning " id="buytestbutton" >buy test</button>
+                <button  onClick={buyTest} class="btn btn-outline-warning " id="ap1" >buy test</button>
 
                 </div>
               </div>
@@ -173,14 +218,8 @@ Symbol <br/> {this.state.symbol}.
 
       
 <br/>
-<div>
-  <p>
-  OpenSlate <br/> {this.state.ooc}.
 
-  </p>
-  <button onClick={click} class="btn btn-outline-warning">check</button>
-</div>
-<br/><br/>   <br/>   </div>
+  </div>
     );
   }
 }

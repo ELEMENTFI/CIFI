@@ -1,10 +1,11 @@
 import web3 from "./web3";
 
-const address =  '0x9C762c5F1A485d5c6EAaFbf128fe9ED71c908749';
+const address =  '0x03Efaf51AB0F512C0D967f2B951a1A7B18056c9B';
 
 const abi = [
 	{
 		"inputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -28,6 +29,7 @@ const abi = [
 		"type": "event"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "BUSDAddress",
 		"outputs": [
@@ -37,17 +39,21 @@ const abi = [
 				"type": "address"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [],
 		"name": "burnUnsoldTokens",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -55,28 +61,55 @@ const abi = [
 				"type": "uint256"
 			}
 		],
-		"name": "buyTest",
+		"name": "click",
 		"outputs": [],
+		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [],
 		"name": "closePrsale",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "getTokensPerEth",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [],
 		"name": "getUnsoldTokens",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
-		"name": "isTestOpen",
+		"name": "isTESTOpen",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -84,10 +117,12 @@ const abi = [
 				"type": "bool"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "maxEthLimit",
 		"outputs": [
@@ -97,10 +132,12 @@ const abi = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "minEthLimit",
 		"outputs": [
@@ -110,10 +147,12 @@ const abi = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "owner",
 		"outputs": [
@@ -123,10 +162,12 @@ const abi = [
 				"type": "address"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "rateDecimals",
 		"outputs": [
@@ -136,10 +177,12 @@ const abi = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "address",
@@ -149,10 +192,12 @@ const abi = [
 		],
 		"name": "setBUSDAddress",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -162,10 +207,12 @@ const abi = [
 		],
 		"name": "setMaxEthLimit",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -175,10 +222,12 @@ const abi = [
 		],
 		"name": "setMinEthLimit",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -188,10 +237,12 @@ const abi = [
 		],
 		"name": "setRateDecimals",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "address",
@@ -201,10 +252,12 @@ const abi = [
 		],
 		"name": "setTokenAddress",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -214,10 +267,12 @@ const abi = [
 		],
 		"name": "setTokenDecimals",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -227,17 +282,42 @@ const abi = [
 		],
 		"name": "setTokenRatePerEth",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [],
-		"name": "startTest",
+		"name": "startTEST",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "swapByBUSD",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "tokenAddress",
 		"outputs": [
@@ -247,10 +327,12 @@ const abi = [
 				"type": "address"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "tokenDecimals",
 		"outputs": [
@@ -260,12 +342,14 @@ const abi = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
-		"name": "tokenRatePerBNB",
+		"name": "tokenRatePerEth",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -273,10 +357,12 @@ const abi = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "address payable",
@@ -286,10 +372,12 @@ const abi = [
 		],
 		"name": "transferOwnership",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "address",
@@ -305,6 +393,22 @@ const abi = [
 				"type": "uint256"
 			}
 		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "val",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	}
