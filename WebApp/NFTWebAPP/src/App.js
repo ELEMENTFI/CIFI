@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch, Link } from "react-router-dom";
 import history from "./utils/history";
 
 import Nf from "./Nft";
@@ -32,10 +32,14 @@ import Createpage from './Createpage';
 import Connectwalletpage from './Connectwalletpage'
 import ReactPlayer from "react-player";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import Allcontractpage from './Allcontractpage'
+
 
 function App() {
 
   const isBackgroundRed = true;
+
+  var accounts;
   
   const connectmm = async (event) => {
 
@@ -44,7 +48,7 @@ function App() {
       event.preventDefault();
      //bring in user's metamask account address
 
-     const accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
+     accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
 
      //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
 
@@ -55,7 +59,13 @@ function App() {
 
         //accounts[0
         //document.getElementById("bu").
-        document.getElementById("bu").append("CONNECTED")
+        //document.getElementById("bu").append("CONNECTED")
+
+        var btn = document.getElementById("bu");
+btn.value = accounts[0]; // will just add a hidden value
+btn.innerHTML = accounts[0];
+
+
 
         localStorage.setItem('myaddress', accounts[0]);
       
@@ -93,7 +103,7 @@ function App() {
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Explore");
+                  history.push("/Allcontractpage");
                 }}
               >
                 Explore
@@ -166,10 +176,10 @@ function App() {
               id="bu"
                 class="btn btn-info btn-block"
                 type="button"
-                onClick= {connectmm}
-              >
+                onClick= {connectmm}>
                Connect wallet
               </button>
+
 
               <br></br>
               <hr></hr>
@@ -309,11 +319,9 @@ function App() {
 
 
               
+              
 
-
-
-
-
+              
             </Route>
             <Route path="/Myitem">
               <Myitem />
@@ -386,6 +394,11 @@ function App() {
             <Route path="/Connectwalletpage">
               <Connectwalletpage />
             </Route>
+
+            <Route path="/Allcontractpage">
+              <Allcontractpage />
+            </Route>
+            
 
             
           </Switch>

@@ -16,10 +16,13 @@ import Saleimagepage from "./Saleimagepage";
 import Myitem from "./Myitem";
 //import firebase from "./firebase";
 import fireDb from "./firebase";
-import Allcontractpage from "./Allcontractpage";
+import Followingpage from "./Followingpage";
+import Activitypage from "./Activitypage";
+import Howitworkpage from "./Howitworkpage";
+import Communitypage from "./Communitypage";
+import firebase from "firebase";
 
-
-function Salepagecopy() {
+function Allcontractpage() {
 
 
   var abcd;
@@ -48,123 +51,115 @@ function Salepagecopy() {
 
  const onget = async() =>{
 
-  const accounts = await web3.eth.getAccounts();
+  //const accounts = await web3.eth.getAccounts();
 
-  console.log("getaddress0",accounts[0])
+  //console.log("getaddress0",accounts[0])
   
-   console.log("function called");
-   let address =[];
-   let add=fireDb.database().ref(`contractaddress/${accounts[0]}`);
-   console.log("addget",add)
-   fireDb.database().ref(`contractaddress/${accounts[0]}`).on("value",(snapshot) =>{
-     snapshot.forEach((s)=>{
-       address.push(s.val());
-     });
+   //console.log("function called");
+   //let address =[];
+   //let add=fireDb.database().ref("contractaddress/");
+   //console.log("addget",add)
+   //fireDb.database().ref("contractaddress/").on("value",(snapshot) =>{
+     //snapshot.forEach((s)=>{
+//       address.push(s.val());
+  //   });
      
-   });
+   //});
 
-   console.log("mani",address)
+   //console.log("maniall",address)
 
-   setGetAddressDb(address)
+   //setGetAddressDb(address)
 
 
  }
+
 
  
-
-
- const onGetdb = async ()=>{
-
-  
-    //firebase get  value
-
-    //var getaddress=localStorage.getItem('myaddress')
-
-    //alert("getdata from firebase"+getaddress)
-    
-    //fireDb.child("contractaddress").child(getaddress).on("value",snapshot => {
-      
-      //snapshot.forEach(snap => {        
-        //  studentlist.push(snap.val())                
-          
-      //})
-    //})
-
-    //stuset = studentlist.filter(function(item, pos, self) {
-      //return self.indexOf(item) == pos;
-  //})
-   //var items = stuset.map((item) =>
-    //item+','
-  //);
-    
-  //alert("stud"+stuset)
-  //alert("stud items"+items)
-    
-    //alert("length"+stuset.length)
-    //for(var i=0;i<stuset.length;i++){
-
-      //if(getaddress == stuset[i]) {
-
-//        alert("print equal one "+stuset[i])
-  //    }
-    //  else{
-
-      //  alert("print Nothing ")
-      //}
-      
-    //}
-
-
- }
-
    
       const onSubmitNFT = async (event) => {
+
+
+        var ref=firebase.database().ref("contractaddress/");
+
+        ref.on('value',function(data){
+
+            var register=data.val();
+
+            var key=Object.keys(register)
+
+            var length=key.length;
+
+            //console.log("getdataprag",length)
+
+            for(var p=0;p<length;p++){
+
+                var k2=key[p];
+
+                var ref2=firebase.database().ref("contractaddress/").child(k2);
+
+                ref2.on('value',function(data2){
+
+                    var register2=data2.val();
+
+                    var key2=Object.keys(register2)
+
+                    var length2=key2.length;
+
+                    console.log("loglength",length2)
+
+                    for(var k=0;k<length2;k++){
+
+                        //console.log("lenlast",register2.val)
+
+                        console.log("first",key2[k].val)
+
+                    }
+
+                    
+
+                })
+
+                //console.log("getdataprag",ref2)
+
+            }
+            
+            
+            
+
+            //console.log("getdatapragkey",key[0])
+        })
     
-    
-      //console.log("waiting for pic url");
-        
-    //console.log("completed");    
- 
     
     const accounts = await web3.eth.getAccounts();
 
-    //console.log(accounts[0])
 
-    alert(accounts[0])
+    //alert(accounts[0])
 
-    //const accounts = await web3.eth.getAccounts();
 
-  console.log("getaddress0",accounts[0])
+   //console.log("getaddress0",accounts[0])
   
    console.log("function called");
-   let address =[];
-   let add=fireDb.database().ref(`contractaddress/${accounts[0]}`);
-   console.log("addget",add)
-   fireDb.database().ref(`contractaddress/${accounts[0]}`).on("value",(snapshot) =>{
+   let address =[];   
+   let addressss =[];   
+   
+    fireDb.database().ref("contractaddress/").on("value",(snapshot) =>{
      snapshot.forEach((s)=>{
+         addressss.push({keyis:snapshot.val()
+        });
+        console.log("manic",addressss)
+        
        address.push(s.val());
      });
      
    });
 
-   console.log("mani",address)
+   console.log("manicopyalll",address)
 
-   setGetAddressDb(address)
-
-
-
-
-
-
-    //
-
-    //write con add below
-
-    //setaddress(localStorage.getItem('myData'));
+   //setGetAddressDb(address)
 	
 	for(var i=0;i<getAddressDb.length;i++){
 
-        alert("stu "+getAddressDb[i])  
+        //alert("stu "+getAddressDb[i])  
     
 
       
@@ -1216,18 +1211,6 @@ function Salepagecopy() {
 	
     var getaaaa=new web3.eth.Contract(abi,poda);
 
-    
-    //alert("after abi getaaaa"+getaaaa);
-
-
-    
-    //
-
-    //event.preventDefault();
-
-    //alert("working")
-
-    //var i1=document.createTextNode("Hello");
 
     var textprint=document.createElement("textbox")
 
@@ -1241,13 +1224,10 @@ function Salepagecopy() {
 
     var cde=await getaaaa.methods.totalSupply().call();
 
-    //alert("getname"+cde)
-
-    //abcd.append(textprint)
-
+    
     textprint.id=abcd
 
-    document.getElementById("prabha").append(textprint)
+    //document.getElementById("prabha").append(textprint)
 
 
 
@@ -1394,7 +1374,6 @@ useEffect(()=>{onSubmitNFT()},[])
 
     <div className="App">
 
-
 <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -1404,8 +1383,7 @@ useEffect(()=>{onSubmitNFT()},[])
                 Explore
               </button>
 
-     
-      
+
 <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -1469,15 +1447,6 @@ useEffect(()=>{onSubmitNFT()},[])
               <br></br>
 <br></br>
 
-
-
-
-
-
-
-
-
-
 <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -1495,11 +1464,6 @@ useEffect(()=>{onSubmitNFT()},[])
               </button>
 
 
-
-      
-<center>
-<br></br>
-
 {getAddressDb.map((a)=>{
   console.log("geta",a)
   
@@ -1507,8 +1471,18 @@ useEffect(()=>{onSubmitNFT()},[])
 })}
 
 
+      
+<center>
+<br></br>
 
-	      
+
+		
+
+
+
+
+
+      
 <br></br>
 <br></br>
 
@@ -1533,24 +1507,22 @@ useEffect(()=>{onSubmitNFT()},[])
             <Route path="/Myitem">
               <Myitem />
             </Route>
-            <Route path="/nft">
+            <Route path="/Followingpage">
+              <Followingpage />
+            </Route>
+            <Route path="/Activitypage">
+              <Activitypage />
+            </Route>
+            <Route path="/Howitworkpage">
+              <Howitworkpage />
+            </Route>
+            <Route path="/Communitypage">
+              <Communitypage />
+            </Route>
+            <Route path="/Nft">
               <Nft />
             </Route>
-            <Route path="/sendpage">
-              <Sendpage />
-            </Route>
-            <Route path="/tokencreate">
-              <Tokencreate />
-            </Route>
-            <Route path="/newpage">
-              <Newpage />
-            </Route>
-            <Route path="/printallimage">
-              <Printallimage />
-            </Route>
-            <Route path="/Saleimagepage">
-              <Saleimagepage />
-            </Route>
+            
           </Switch>
         </Router>
 
@@ -1584,4 +1556,4 @@ useEffect(()=>{onSubmitNFT()},[])
   );
 }
 
-export default Salepagecopy;
+export default Allcontractpage;
