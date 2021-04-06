@@ -111,7 +111,7 @@ function Allcontractpage() {
 
                         //console.log("lenlast",register2.val)
 
-                        console.log("first",key2[k].val)
+                        console.log("first",key2[k])
 
                     }
 
