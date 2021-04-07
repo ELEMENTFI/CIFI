@@ -1,6 +1,7 @@
+import React, { useState,useEffect } from "react";
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import React from "react";
+//import React from "react";
 import { Router, Route, Switch, Link } from "react-router-dom";
 import history from "./utils/history";
 
@@ -40,6 +41,8 @@ function App() {
   const isBackgroundRed = true;
 
   var accounts;
+
+  
   
   const connectmm = async (event) => {
 
@@ -76,6 +79,7 @@ btn.innerHTML = accounts[0];
         localStorage.setItem('myaddress', "");
       }
   };    
+  //useEffect(()=>{connectmm()},[])
 
 
   

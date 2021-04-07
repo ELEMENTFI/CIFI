@@ -1,56 +1,1417 @@
-import React,{useState} from "react";
+import React, { useState,useEffect } from "react";
 import history from "./utils/history";
+import web3 from './web3';
+import { Router, Route, Switch } from "react-router-dom";
+
+import Myitem from "./Myitem";
+import Nft from "./Nft";
+//import firebase from "./firebase";
+import fireDb from "./firebase";
+//import Followingpage from "./Followingpage";
+import Activitypage from "./Activitypage";
+import Howitworkpage from "./Howitworkpage";
+import Communitypage from "./Communitypage";
+import firebase from "firebase";
+
+
+
 
 function Followingpage() {
 
-  const [name,setName] = useState("ramachandran");
+  var abcd;
+
+    //fb 
+  var studentlist = [];
+
+  var stuset=[];
 
 
-  const callBtn = () =>{
+  const [currentid, setCurrentid] = useState("");
 
-    setName("Pragadesh");
+ 
+  var names=[];
+ const [afternames,setAfternames] = useState([]);
+ const [name,setnames] = useState([]);
+ const [tid,setId] = useState(""); 
 
-    alert(name);
+ var [getAddressDb,setGetAddressDb]=useState([]);
+ 
+ console.log("initialgetaddress",getAddressDb)
+
+
+  //const [name,setName] = useState("ramachandran");
+
+
+  //temp start
+
+  //useEffect(()=>{onSubmitNFTT()},[])
+const onSubmitNFTT = async (event) => {
+
+
+
+  var ref=firebase.database().ref("contractaddress/");
+
+        ref.on('value',function(data){
+
+            var register=data.val();
+
+            var key=Object.keys(register)
+
+            var length=key.length;
+
+            //console.log("getdataprag",length)
+
+            for(var p=0;p<length;p++){
+
+                var k2=key[p];
+
+                var ref2=firebase.database().ref("contractaddress/").child(k2);
+
+                ref2.on('value',function(data2){
+
+                  let addressset =[];
+
+                    var register2=data2.val();
+
+                    var key2=Object.keys(register2)
+
+                    var length2=key2.length;
+
+                    console.log("loglength",length2)
+
+                    for(var k=0;k<length2;k++){
+
+                      
+
+                      var keyss=key2[k]
+
+                      var leftside=register2[keyss];//getting
+
+                      console.log("lenfirst",leftside)                  
+
+                      addressset.push(leftside)
+                      
+                    }            
+                    setGetAddressDb(addressset)
+                    
+                })
+            }
+        });
+    
+        
+        //event.preventDefault();
+    //const accounts = await web3.eth.getAccounts();
 
     
-    }
+   //setGetAddressDb(address)
 
+   //alert("newgetadddb",getAddressDb.length)
+	
+	for(var ill=0;ill<getAddressDb.length;ill++){
+
+        alert("stu "+getAddressDb[ill])  
+    
+
+      var poda = getAddressDb[ill]//'0x5e0c8fe9af42c6e486e6cdf00891b6b003b59e1a'//stuset[i]
+
+      console.log("getadbss",getAddressDb[ill])
+    
+    const abi = [
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "addMinter",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "approve",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "tokenIds",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "batchBurn",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "name": "amountToMint",
+            "type": "uint256"
+          },
+          {
+            "name": "metaId",
+            "type": "string"
+          },
+          {
+            "name": "setPrice",
+            "type": "uint256"
+          },
+          {
+            "name": "isForSale",
+            "type": "bool"
+          }
+        ],
+        "name": "batchMint",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "giver",
+            "type": "address"
+          },
+          {
+            "name": "recipients",
+            "type": "address[]"
+          },
+          {
+            "name": "values",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "batchTransfer",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "burn",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "buyThing",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "destroyAndSend",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "name": "tokenURI",
+            "type": "string"
+          }
+        ],
+        "name": "mintWithTokenURI",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "printitems",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256[]"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "renounceMinter",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "safeTransferFrom",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "name": "_data",
+            "type": "bytes"
+          }
+        ],
+        "name": "safeTransferFrom",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "name": "approved",
+            "type": "bool"
+          }
+        ],
+        "name": "setApprovalForAll",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "name": "setPrice",
+            "type": "uint256"
+          }
+        ],
+        "name": "setTokenPrice",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "name": "isEnabled",
+            "type": "bool"
+          }
+        ],
+        "name": "setTokenState",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "transferFrom",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "uri",
+            "type": "string"
+          },
+          {
+            "name": "fee",
+            "type": "address"
+          },
+          {
+            "name": "creator",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "error",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "ErrorOut",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "metaId",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "name": "recipients",
+            "type": "address[]"
+          },
+          {
+            "indexed": false,
+            "name": "ids",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "BatchTransfered",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "metaId",
+            "type": "string"
+          }
+        ],
+        "name": "Minted",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "metaId",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "name": "ids",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "BatchBurned",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "ids",
+            "type": "uint256[]"
+          },
+          {
+            "indexed": false,
+            "name": "metaId",
+            "type": "string"
+          }
+        ],
+        "name": "BatchForSale",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "name": "metaId",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "name": "value",
+            "type": "uint256"
+          }
+        ],
+        "name": "Bought",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [],
+        "name": "Destroy",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "previousOwner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "MinterAdded",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "MinterRemoved",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "from",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "Transfer",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "name": "approved",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "Approval",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "name": "operator",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "name": "approved",
+            "type": "bool"
+          }
+        ],
+        "name": "ApprovalForAll",
+        "type": "event"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "_tokenURIs",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "address"
+          },
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "auri",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "balanceOf",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "baseUri",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "getAllURI",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "getApproved",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "id",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "name": "operator",
+            "type": "address"
+          }
+        ],
+        "name": "isApprovedForAll",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "name": "isMinter",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "isOwner",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "ispushed",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "items",
+        "outputs": [
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          },
+          {
+            "name": "price",
+            "type": "uint256"
+          },
+          {
+            "name": "metaId",
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "type": "uint8"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "maker",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "name",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "Owner",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "ownerOf",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "printitem",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "interfaceId",
+            "type": "bytes4"
+          }
+        ],
+        "name": "supportsInterface",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "index",
+            "type": "uint256"
+          }
+        ],
+        "name": "tokenByIndex",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "name": "index",
+            "type": "uint256"
+          }
+        ],
+        "name": "tokenOfOwnerByIndex",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "tokensOfOwner",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256[]"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "_tokenId",
+            "type": "uint256"
+          }
+        ],
+        "name": "tokenURI",
+        "outputs": [
+          {
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ];
+
+
+    //alert("after abi"+poda);
+	
+    var getaaa=new web3.eth.Contract(abi,poda);
+
+
+
+
+//console.log("waiting for pic url");
+// event.preventDefault();    
+  var names =[];
+  var ima =[];
+  var p =[];
+//console.log("geta"+getaaa);
+
+//event.preventDefault();
+
+const accounts = await web3.eth.getAccounts();
+
+console.log(accounts[0])
+
+var items = await getaaa.methods.totalSupply().call();
+console.log(items)
+for(var ikk=0;ikk<items;ikk++){
+  var v = await getaaa.methods.tokenByIndex(ikk).call();
+  console.log("id" + v)
+  var s = await getaaa.methods.items(v).call();
+  var state = s.state;
+  if(state == 1){
+    names.push(v)
+    console.log("For Sale" + v)
+    p.push(s.price)
+  }
+  
+}
+
+for(var ijj=0;ijj<names.length;ijj++){
+
+ima.push(await getaaa.methods.tokenURI(names[ijj]).call());
+console.log(names[ijj])
+var a=document.createElement("img");
+var  b=document.createElement("button")
+var t = document.createElement("textbox")
+
+var  c=document.createElement("li")
+
+//var  d=document.createElement("li")
+
+var  ebr=document.createElement("br")
+
+b.innerHTML= "    " + " Buy Token";
+
+
+a.src=ima[ijj]
+a.id=ima[ijj]
+a.tid = names[ijj]
+a.width=400
+a.height=400
+t.innerText= "Price" + "     " +p[ijj]
+
+b.src=ima[ijj]
+b.id=ima[ijj]
+b.tid = names[ijj]
+c.style.listStyleType="none"
+c.append(a)
+c.append(t)
+c.append(ebr)
+c.append(b)
+console.log("wait for displaying images")
+document.getElementById("prag").append(c)
+
+document.getElementById("prag").append(ebr)
+
+
+//    document.getElementById("prag").append(d)
+
+document.getElementById("ram").append(c)
+b.onclick = async(event) =>{
+  var thing = event.target.tid;
+  var s = await getaaa.methods.items(thing).call();
+  var state = s.price;
+ alert(state)
+  await getaaa.methods.buyThing(thing).send({from:accounts[0], value: web3.utils.toWei(state, 'ether')});
+ console.log("Token Purchased Id" + thing)
+ 
+}  
+}
+}
+}
+
+
+
+
+
+
+
+
+
+  //temp end
+
+
+  
 
   return (
     <>
 
-      <div class="display-4 mb-1">This is the First Route</div>
-<h1>
-  { name}
-</h1>
+      <div class="display-4 mb-1"></div>
 
       <button
-        class="btn btn-info btn-block"
-        type="button"
-        onClick={() => {
-          history.push("/");
-        }}
-      >
-        Root
-      </button>
-      <button
-        class="btn btn-info btn-block"
-        type="button"
-        onClick={() => {
-          history.push("/second");
-        }}
-      >
-        Second
-      </button>
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Allcontractpage");
+                }}>
+                Explore
+              </button>
+
+
+<button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Salepagecopy");
+                }}>
+                My items
+              </button>
+              
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Followingpage");
+                }}
+              >
+                Following
+              </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Activitypage");
+                }}>
+                Activity
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Howitworkpage");
+                }}
+              >
+                How it work
+              </button>
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Communitypage");
+                }}
+              >
+                Community
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                     history.push("/Nft");
+                }}
+              >
+              Create
+              </button>
 
 
 
-      <button
-        class="btn btn-info btn-block"
-        type="button"
-        onClick= {callBtn}>
-        Third
-      </button>
+
+
+              <br></br>
+<br></br>
+
+
+<br></br>
+<br></br>
+
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={onSubmitNFTT}
+              >
+              Get all img url
+              </button>
+
+
+
+
+
+
+
+
+                    
+                    
+
+            <Router history={history}>
+          <Switch>
+            <Route path="/" exact>
+              <div class="display-4 mb-1">Choose a route to go to</div>
+              
+            </Route>
+            
+            <Route path="/Myitem">
+              <Myitem />
+            </Route>
+            
+            <Route path="/Activitypage">
+              <Activitypage />
+            </Route>
+            <Route path="/Howitworkpage">
+              <Howitworkpage />
+            </Route>
+            <Route path="/Communitypage">
+              <Communitypage />
+            </Route>
+            <Route path="/Nft">
+              <Nft />
+            </Route>
+            
+          </Switch>
+        </Router>
+
+
+<div>
+
+
+<ul id="prabha">
+
+</ul>
+
+
+<ul id="prag">
+
+
+</ul>
+
+<ul id="ram" >
+  
+</ul>
+
+
+  </div>
+
+
+
+
 
     </>
 

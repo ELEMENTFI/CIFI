@@ -1270,8 +1270,10 @@ if (currentid == "")
     //const accounts = await web3.eth.getAccounts();
     
     await geta.methods.mintWithTokenURI(accounts[0],te,tf).send({
-      from: accounts[0]
-      
+      from: accounts[0],
+
+      gas: 21000
+
       
     });
     
