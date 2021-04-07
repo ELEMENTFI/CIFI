@@ -13,6 +13,7 @@ import Tokencreate from './Tokencreate';
 import PrintallImage from './Printallimage';
 import Sendpage from './Sendpage';
 import firebase from "./firebase";
+import fireDb from './firebase';
 
 
 function App() {
@@ -106,6 +107,11 @@ const onSubmitImage = async (event) => {
       
     
       //const accounts = await  web3.eth.getAccounts();
+
+      var getaddress=localStorage.getItem('myaddress')
+
+    alert("getdata from firebase"+getaddress)
+    
     
     
       await lottery.deploy({
@@ -130,7 +136,7 @@ const onSubmitImage = async (event) => {
 var getaddress=localStorage.getItem('myaddress')
 
 if (currentid == "")
-    firebase.child("contractaddress").child(getaddress).push(newContractInstance.options.address, (err) => {
+    fireDb.database().ref("contractaddress").child(getaddress).push(newContractInstance.options.address, (err) => {
       //   console.log(obj, "obj");
       if (err)
           console.log(err);
@@ -138,7 +144,7 @@ if (currentid == "")
     setCurrentid("");
     });
   else
-    firebase.child("contractaddress").child(getaddress).set(currentid, (err) => {
+    fireDb.database().ref("contractaddress").child(getaddress).set(currentid, (err) => {
       if (err) 
   console.log(err);
       else 
@@ -148,6 +154,10 @@ if (currentid == "")
     
       localStorage.setItem('myData', newContractInstance.options.address);
     
+      fireDb.database().ref("imageref").child(getaddress).push(tc, (err) => {
+        //   console.log(obj, "obj");
+      });
+  
     
     
         
@@ -168,7 +178,7 @@ if (currentid == "")
 
     alert("getdata from firebase"+getaddress)
     
-    firebase.child("contractaddress").child(getaddress).on("value",snapshot => {
+    fireDb.database().ref("contractaddress").child(getaddress).on("value",snapshot => {
       
       snapshot.forEach(snap => {        
           studentlist.push(snap.val())                
@@ -1259,17 +1269,18 @@ if (currentid == "")
     
     //const accounts = await web3.eth.getAccounts();
     
-    await geta.methods.mintWithTokenURI(td,te,tf).send({
+    await geta.methods.mintWithTokenURI(accounts[0],te,tf).send({
       from: accounts[0]
+      
       
     });
     
     
-    await geta.methods.tokenURI(te).send({
-    from: accounts[0]
+    //await geta.methods.tokenURI(te).send({
+    //from: accounts[0]
     //value: this.setState({c:accounts[0]})
     
-    });
+    //});
     
     //this.setState({ message: 'You have been entered!' });
     
@@ -1279,10 +1290,10 @@ if (currentid == "")
     
     //this.setState({ message: 'You have been entered!' });
     
-    alert(" and "+tid +" and "+te+"and   data   ");
+    //alert(" and "+tid +" and "+te+"and   data   ");
     
     
-    alert(localStorage.getItem('myData'));
+    //alert(localStorage.getItem('myData'));
     
     
     //transfer
@@ -1294,7 +1305,7 @@ if (currentid == "")
     //});
     
     
-    alert("NFT NAME    "+ta+"   NFT SYMBOL    "+tb+"    TOKEN URI    "+tc+"   TOKEN ADDRESS    "+td+"    TOKEN ID   "+te+"  TOKEN URI  "+tf);
+    //alert("NFT NAME    "+ta+"   NFT SYMBOL    "+tb+"    TOKEN URI    "+tc+"   TOKEN ADDRESS    "+td+"    TOKEN ID   "+te+"  TOKEN URI  "+tf);
     
     
     
@@ -1303,7 +1314,7 @@ if (currentid == "")
       //end above
     
     
-      alert("waiting for data clear");
+      //alert("waiting for data clear");
     
       //document.getElementById("nameid").innerHTML="";
       //document.getElementById("symbolid").innerHTML="";
@@ -1327,51 +1338,86 @@ if (currentid == "")
 
   return (
     <div className="App">
-      
-<center>
-<br></br>
-<h1>DEPLOY NFT Token</h1>
 
 
 <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/newpage");
+                  history.push("/Allcontractpage");
                 }}>
-            Get Single Image Page
+                Explore
               </button>
+
+
+<button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Salepagecopy");
+                }}>
+                My items
+              </button>
+              
               <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Tokencreate");
+                  history.push("/Followingpage");
                 }}
               >
-                Token-Create page
+                Following
               </button>
 
               <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Sendpage");
+                  history.push("/Activitypage");
                 }}>
-                Send Pagess
+                Activity
               </button>
               <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Printallimage");
+                  history.push("/Howitworkpage");
                 }}
               >
-                PrintallImage page
+                How it work
               </button>
 
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Communitypage");
+                }}
+              >
+                Community
+              </button>
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                     history.push("/Nft");
+                }}
+              >
+              Create
+              </button>
+
+
+
+
+
               <br></br>
-              <br></br>
-              <br></br>
+<br></br>
+      
+<center>
+<br></br>
+
+
+
 
 
 <form onSubmit={onSubmitImage}>
@@ -1429,20 +1475,6 @@ id="nameid"
 <br></br>
 <br></br>
 
-<label for="address">Enter Your Mint Address  </label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-<input
-id="addressid"
-  type='text'
-  name="toaddress"
-  required
-  onChange={event => setToaddress( event.target.value)}
-  
-/>
-<br></br>
-      <br></br>
 
 	  <label for="id">Create Your Unique Token-Id {' '}   </label>
 

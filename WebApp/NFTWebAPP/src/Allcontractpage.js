@@ -16,12 +16,13 @@ import Saleimagepage from "./Saleimagepage";
 import Myitem from "./Myitem";
 import Nft from "./Nft";
 //import firebase from "./firebase";
-import fireDb from "./firebase";
+
 import Followingpage from "./Followingpage";
 import Activitypage from "./Activitypage";
 import Howitworkpage from "./Howitworkpage";
 import Communitypage from "./Communitypage";
 import firebase from "firebase";
+import fireDb from "./firebase";
 
 function Allcontractpage() {
 
@@ -1317,8 +1318,7 @@ function Allcontractpage() {
     //console.log(afternames[i])
 
       
-  }
-
+        }
 }
 }
 useEffect(()=>{onSubmitNFT()},[])

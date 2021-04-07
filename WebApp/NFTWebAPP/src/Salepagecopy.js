@@ -43,7 +43,7 @@ function Salepagecopy() {
  console.log("initialgetaddress",getAddressDb)
 
 
- //useEffect(()=>{onGetdb()},[])
+ useEffect(()=>{onGetdb()},[])
 
 
  const onget = async() =>{
@@ -75,62 +75,17 @@ function Salepagecopy() {
 
  const onGetdb = async ()=>{
 
-  
-    //firebase get  value
-
-    //var getaddress=localStorage.getItem('myaddress')
-
-    //alert("getdata from firebase"+getaddress)
-    
-    //fireDb.child("contractaddress").child(getaddress).on("value",snapshot => {
-      
-      //snapshot.forEach(snap => {        
-        //  studentlist.push(snap.val())                
-          
-      //})
-    //})
-
-    //stuset = studentlist.filter(function(item, pos, self) {
-      //return self.indexOf(item) == pos;
-  //})
-   //var items = stuset.map((item) =>
-    //item+','
-  //);
-    
-  //alert("stud"+stuset)
-  //alert("stud items"+items)
-    
-    //alert("length"+stuset.length)
-    //for(var i=0;i<stuset.length;i++){
-
-      //if(getaddress == stuset[i]) {
-
-//        alert("print equal one "+stuset[i])
-  //    }
-    //  else{
-
-      //  alert("print Nothing ")
-      //}
-      
-    //}
-
-
  }
 
    
       const onSubmitNFT = async (event) => {
     
     
-      //console.log("waiting for pic url");
-        
-    //console.log("completed");    
- 
-    
     const accounts = await web3.eth.getAccounts();
 
-    //console.log(accounts[0])
+    console.log(accounts[0])
 
-    alert(accounts[0])
+    //alert(accounts[0])
 
     //const accounts = await web3.eth.getAccounts();
 
@@ -150,21 +105,10 @@ function Salepagecopy() {
    console.log("mani",address)
 
    setGetAddressDb(address)
-
-
-
-
-
-
-    //
-
-    //write con add below
-
-    //setaddress(localStorage.getItem('myData'));
 	
 	for(var i=0;i<getAddressDb.length;i++){
 
-        alert("stu "+getAddressDb[i])  
+        //alert("stu "+getAddressDb[i])  
     
 
       
@@ -1212,12 +1156,20 @@ function Salepagecopy() {
     ];
 
 
-    alert("after abi"+poda);
+    //alert("after abi"+poda);
 	
     var getaaaa=new web3.eth.Contract(abi,poda);
 
     
     //alert("after abi getaaaa"+getaaaa);
+
+
+    //extra buy start
+
+    
+
+
+    //end buy
 
 
     
@@ -1388,6 +1340,11 @@ function Salepagecopy() {
 }
 }
 useEffect(()=>{onSubmitNFT()},[])
+
+
+
+
+
   
 
   return (    
@@ -1483,7 +1440,7 @@ useEffect(()=>{onSubmitNFT()},[])
                 type="button"
                 onClick={onget}
               >
-              Get db 
+              
               </button>
 
               <button
@@ -1491,7 +1448,7 @@ useEffect(()=>{onSubmitNFT()},[])
                 type="button"
                 onClick={onSubmitNFT}
               >
-              Get all img url
+              
               </button>
 
 
@@ -1500,11 +1457,6 @@ useEffect(()=>{onSubmitNFT()},[])
 <center>
 <br></br>
 
-{getAddressDb.map((a)=>{
-  console.log("geta",a)
-  
-  return(<h1>hello{a}</h1>)
-})}
 
 
 
