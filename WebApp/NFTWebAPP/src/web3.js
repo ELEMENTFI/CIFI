@@ -4,7 +4,7 @@ import Web3 from 'web3';
 
 // ADDITION This is needed to allow this application to interact with metamask
 
-window.alert("Do you want to connect with metamask");
+//window.alert("Do you want to connect with metamask");
 
 window.ethereum.enable();
 

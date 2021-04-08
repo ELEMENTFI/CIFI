@@ -1,5 +1,6 @@
 import './App.css';
-import {useState} from 'react';
+//import {useState} from 'react';
+import React, { useState,useEffect } from "react";
 import web3 from './web3';
 import lottery from './nftcontract';//this line import lottery folder
 import ipfs from './ipfs';
@@ -91,7 +92,7 @@ const onSubmitImage = async (event) => {
       const accounts = await web3.eth.getAccounts();
     
     
-      alert("waiting for pic url"); 
+      //alert("waiting for pic url"); 
     
       var ta=tname;
       var tb=tsymbol;
@@ -128,40 +129,9 @@ const onSubmitImage = async (event) => {
       console.log(newContractInstance.options.address) // instance with the new contract address
        //acc=newContractInstance.options.address
       alert(newContractInstance.options.address);
-
-
-
-
-//this line firebase code added below
-var getaddress=localStorage.getItem('myaddress')
-
-if (currentid == "")
-    fireDb.database().ref("contractaddress").child(getaddress).push(newContractInstance.options.address, (err) => {
-      //   console.log(obj, "obj");
-      if (err)
-          console.log(err);
-      else 
-    setCurrentid("");
-    });
-  else
-    fireDb.database().ref("contractaddress").child(getaddress).set(currentid, (err) => {
-      if (err) 
-  console.log(err);
-      else 
-  setCurrentid("");
-    });
-
-    
       localStorage.setItem('myData', newContractInstance.options.address);
     
-      fireDb.database().ref("imageref").child(getaddress).push(tc, (err) => {
-        //   console.log(obj, "obj");
-      });
-  
-    
-    
-        
-      alert("completed");
+      //alert("completed");
     
       //alert(this.state.tname+" and "+this.state.tsymbol +" and "+this.state.tokenuri);
     })
@@ -176,39 +146,39 @@ if (currentid == "")
 
     var getaddress=localStorage.getItem('myaddress')
 
-    alert("getdata from firebase"+getaddress)
+    //alert("getdata from firebase"+getaddress)
     
-    fireDb.database().ref("contractaddress").child(getaddress).on("value",snapshot => {
+    //fireDb.database().ref("contractaddress").child(getaddress).on("value",snapshot => {
       
-      snapshot.forEach(snap => {        
-          studentlist.push(snap.val())                
+      //snapshot.forEach(snap => {        
+        //  studentlist.push(snap.val())                
           
-      })
-    })
+      //})
+    //})
 
-    stuset = studentlist.filter(function(item, pos, self) {
-      return self.indexOf(item) == pos;
-  })
-   var items = stuset.map((item) =>
-    item+','
-  );
+    //stuset = studentlist.filter(function(item, pos, self) {
+      //return self.indexOf(item) == pos;
+  //})
+   //var items = stuset.map((item) =>
+    //item+','
+  //);
     
-  alert("stud"+stuset)
-  alert("stud items"+items)
+  //alert("stud"+stuset)
+  //alert("stud items"+items)
     
-    alert("length"+stuset.length)
-    for(var i=0;i<stuset.length;i++){
+    //alert("length"+stuset.length)
+    //for(var i=0;i<stuset.length;i++){
 
-      if(getaddress == stuset[i]) {
+      //if(getaddress == stuset[i]) {
 
-        alert("print equal one "+stuset[i])
-      }
-      else{
+        //alert("print equal one "+stuset[i])
+      //}
+      //else{
 
-        alert("print Nothing ")
-      }
+        //alert("print Nothing ")
+      //}
       
-    }
+    //}
 
 
 
@@ -1263,7 +1233,7 @@ if (currentid == "")
     
     
     
-    alert("im work a +b"+td+" "+te+" "+tf);
+    //alert("im work a +b"+td+" "+te+" "+tf);
     
     event.preventDefault();
     
@@ -1272,10 +1242,68 @@ if (currentid == "")
     await geta.methods.mintWithTokenURI(accounts[0],te,tf).send({
       from: accounts[0],
 
-      gas: 21000
-
+      //gas: 21000
       
+     }).then(function(err, status) {
+      if (!err){
+        console.log("getstatus",status); 
+        if(status.result !== undefined){
+
+          console.log("getstatuss",status); 
+
+          //db store here
+
+          //this line firebase code added below
+let getaddress=localStorage.getItem('myaddress')
+
+let getData=localStorage.getItem('myData')
+
+    fireDb.database().ref("contractaddress").child(accounts[0]).push(getData, (err) => {
+      //   console.log(obj, "obj");
+      if (err)
+          console.log(err);
+      else 
+    setCurrentid("");
     });
+  
+
+    fireDb.database().ref("imageref").child(getaddress).push(tc, (err) => {
+      //   console.log(obj, "obj");
+    });
+
+
+
+
+        }else{
+
+          console.log("getstatusss",status); 
+        }
+      }
+      else{
+
+        console.log("getstatussss",status); 
+      }
+    })
+
+  }
+
+     
+     //alert('transaction success')}).catch(function(e){ 
+      
+     // })   
+     //.then(function (error, result) {
+
+    //   if (!error) {
+    //       console.log("noerror",'ok')
+    //       console.log("mintcheck",mint)
+    //   } else {
+
+    //     console.log("Error","errorelse")
+
+    //   }
+      
+    // }
+  
     
     
     //await geta.methods.tokenURI(te).send({
@@ -1332,7 +1360,10 @@ if (currentid == "")
       //this.tfile.value = "";
     
     
-  };
+  //}
+
+  //useEffect(()=>{onSubmitNFT()},[])
+
     
 
   

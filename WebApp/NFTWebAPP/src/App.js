@@ -34,6 +34,9 @@ import Connectwalletpage from './Connectwalletpage'
 import ReactPlayer from "react-player";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Allcontractpage from './Allcontractpage'
+//import SearchBar from './SearchBar';
+
+//import {abi} from data;
 
 
 function App() {
@@ -47,8 +50,26 @@ function App() {
   const connectmm = async (event) => {
 
 
+    var getaddress=localStorage.getItem('myaddress')
 
-      event.preventDefault();
+    if(getaddress !== ""){
+
+
+      var btn = document.getElementById("bu");
+        //btn.value = accounts[0]; // will just add a hidden value
+        //btn.innerHTML = accounts[0];
+        btn.innerHTML = "CONNECTED"
+
+
+
+    }
+    else{
+
+
+      window.alert("Do you want to connect with metamask");
+
+
+      //event.preventDefault();
      //bring in user's metamask account address
 
      accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
@@ -56,7 +77,7 @@ function App() {
      //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
 
       
-      alert("acc"+accounts[0])
+      //alert("acc"+accounts[0])
 
       if(accounts[0] !== ""){
 
@@ -65,9 +86,9 @@ function App() {
         //document.getElementById("bu").append("CONNECTED")
 
         var btn = document.getElementById("bu");
-btn.value = accounts[0]; // will just add a hidden value
-btn.innerHTML = accounts[0];
-
+        //btn.value = accounts[0]; // will just add a hidden value
+        //btn.innerHTML = accounts[0];
+        btn.innerHTML = "CONNECTED"
 
 
         localStorage.setItem('myaddress', accounts[0]);
@@ -75,11 +96,18 @@ btn.innerHTML = accounts[0];
       }
       else{
         //document.getElementById("bu").remove("");
-        document.getElementById("bu").replaceWith("NOT CONNECTED")
+        //document.getElementById("bu").replaceWith("NOT CONNECTED")
+        var btns = document.getElementById("bu");
+        //btns.value = accounts[0]; // will just add a hidden value
+        btns.innerHTML = "NOT CONNECTED";
         localStorage.setItem('myaddress', "");
       }
+
+    }
+
+    
   };    
-  //useEffect(()=>{connectmm()},[])
+  useEffect(()=>{connectmm()},[])
 
 
   
@@ -90,7 +118,6 @@ btn.innerHTML = accounts[0];
       <div class="jumbotron my-auto">
       
 
-     
         
           
         <Router history={history}>
@@ -98,8 +125,14 @@ btn.innerHTML = accounts[0];
             <Route path="/" exact>
               <div class="display-4 mb-1"></div>
               
-              <Logo  height="105" width="105" />
-              
+              <Logo  height="55" width="55" />
+              {" "}
+
+              <input type="text" placeholder="Search here ?"></input>
+              {" "}
+              <button type="submit">Search</button>
+
+              {" "}
               
               <button
               
@@ -113,7 +146,7 @@ btn.innerHTML = accounts[0];
                 Explore
               </button>
 
-
+              {" "}
               
               <button
                 class="btn btn-info btn-block"
@@ -125,6 +158,7 @@ btn.innerHTML = accounts[0];
                 Myitem     
               </button>
 
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -135,6 +169,7 @@ btn.innerHTML = accounts[0];
                Following
               </button>
 
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -145,6 +180,7 @@ btn.innerHTML = accounts[0];
                Activity
               </button>
 
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -155,6 +191,7 @@ btn.innerHTML = accounts[0];
                How it works
               </button>
 
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -165,6 +202,7 @@ btn.innerHTML = accounts[0];
                Community
               </button>
 
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -175,6 +213,7 @@ btn.innerHTML = accounts[0];
                Create
               </button>
 
+              {" "}
 
               <button
               id="bu"
@@ -187,139 +226,6 @@ btn.innerHTML = accounts[0];
 
               <br></br>
               <hr></hr>
-
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Newpage");
-                }}
-              >
-                Get Single Image Page
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Sendpage");
-                }}
->
-  Transfer NFT-Owner
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Tokencreate");
-                }}
-              >
-                Mint-Token
-              </button>
-
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Printallimage");
-                }}
-              >
-                PrintallImage Page
-              </button>
-
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Approveaddresspage");
-                }}
-              >
-                Approve-Address Page
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Salepage");
-                }}
-              >
-                Sale-My Token Page
-              </button>
-
-
-              <button
-              id="bu"
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={connectmm}
-                //onClick={() => {
-                  //history.push("/Connectmetamask");
-                //}}
-                >
-  Connectwithmetamask
-              </button>
-
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Newdeploy");
-                }}
-              >
-                New Deploy Page
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Nft");
-                }}
-              >
-                Nft Deploy Contract     
-              </button>
-
-              <br
-              ></br>
-              <br></br>
-              <br></br>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Mycontractdata");
-                }}
-              >
-                My Contract data
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Salepagecopy");
-                }}
-              >
-                My Salepagecopy
-              </button>
-
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Printallimagecopy");
-                }}
-              >
-                My Printallimagecopy
-              </button>
 
 
               
