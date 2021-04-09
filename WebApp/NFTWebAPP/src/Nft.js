@@ -15,6 +15,7 @@ import PrintallImage from './Printallimage';
 import Sendpage from './Sendpage';
 import firebase from "./firebase";
 import fireDb from './firebase';
+import Compress from "react-image-file-resizer";
 
 
 function App() {
@@ -45,6 +46,9 @@ function App() {
   //const [gasUsed,setGasUsed] = useState("");
   //const [txReceipt,se] = useState("");
 
+  let tf;
+
+  let [Img,setImg] = useState("");
 
   //start
 
@@ -54,6 +58,14 @@ function App() {
     event.preventDefault()
     const file = event.target.files[0]
     let reader = new window.FileReader()
+
+    Compress.imageFileResizer(file, 350, 300, 'JPEG', 60, 0,
+    uri => {
+      console.log("iuri",uri)
+setImg(uri)
+    },
+    'base64'
+    );
     reader.readAsArrayBuffer(file)
     reader.onloadend = () => convertToBuffer(reader);    
   };
@@ -72,6 +84,10 @@ const onSubmitImage = async (event) => {
 
   await ipfs.add(buffer, (err, ipfsHash) => {
     console.log(err,ipfsHash);
+
+    console.log("buff",buffer);
+
+  
     setIpfsHash(ipfsHash[0].hash);
   }) 
 }; 
@@ -99,7 +115,8 @@ const onSubmitImage = async (event) => {
       var tc='https://ipfs.io/ipfs/'+ipfsHash;
       var td=toaddress;
       var te=tid;
-      var tf='https://ipfs.io/ipfs/'+ipfsHash;
+      tf='https://ipfs.io/ipfs/'+ipfsHash;
+      
       
       
     
@@ -1244,48 +1261,53 @@ const onSubmitImage = async (event) => {
 
       //gas: 21000
       
-     }).then(function(err, status) {
-      if (!err){
-        console.log("getstatus",status); 
-        if(status.result !== undefined){
+     }).on('transactionHash',function(hash){
 
-          console.log("getstatuss",status); 
-
-          //db store here
-
-          //this line firebase code added below
-let getaddress=localStorage.getItem('myaddress')
-
-let getData=localStorage.getItem('myData')
-
-    fireDb.database().ref("contractaddress").child(accounts[0]).push(getData, (err) => {
-      //   console.log(obj, "obj");
-      if (err)
-          console.log(err);
-      else 
-    setCurrentid("");
-    });
-  
-
-    fireDb.database().ref("imageref").child(getaddress).push(tc, (err) => {
-      //   console.log(obj, "obj");
-    });
+      console.log("hashget",hash)
+                //start
 
 
+                    //this line firebase code added below
+                    //const accounts = await web3.eth.getAccounts();
+
+                    let getaddress=localStorage.getItem('myaddress')
+                    
+                    let getData=localStorage.getItem('myData')
+                    
+                        fireDb.database().ref("contractaddress").child(accounts[0]).push(getData, (err) => {
+                          //   console.log(obj, "obj");
+                          if (err)
+                              console.log(err);
+                          else 
+                        setCurrentid("");
+                        });
+                      
+                    
+                        fireDb.database().ref("imageref").child(accounts[0]).push(""+Img, (err) => {
+                          //   console.log(obj, "obj");
+                        });
+                    
+          //end          
 
 
-        }else{
 
-          console.log("getstatusss",status); 
-        }
-      }
-      else{
 
-        console.log("getstatussss",status); 
-      }
-    })
+
+
+     })
+
+}
+
+  const funcall=async()=>{
+
+              //db store here
+
+
+
+
 
   }
+
 
      
      //alert('transaction success')}).catch(function(e){ 
