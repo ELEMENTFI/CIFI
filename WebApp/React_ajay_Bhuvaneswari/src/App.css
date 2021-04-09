@@ -68,3 +68,44 @@ body{
   padding: 7px;
   border-radius: 57%;
 }
+.pp{
+  color: red;
+  
+}
+.progress11{
+  width: 100%;
+  color: #ffc107;
+}
+.maxi{
+  font-size: x-small;
+  margin-top: -10px;
+  
+}
+.perci{
+  font-size: x-small;
+ 
+}
+.align-self-end{
+  text-align: right;
+}
+.p{
+  color: #c0c0c0;
+  font-size: small;
+  margin-bottom: -1px;
+}
+.ma{
+  margin-left: 50px
+}
+.pop{
+  margin-left: 10px;
+  margin-top: 20px;
+  color: white;
+}
+.poptext{
+  margin-left: 10px;
+
+  border-color: #26f674;
+}
+.popup{
+  margin-left: 50%;
+}
