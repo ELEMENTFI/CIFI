@@ -14,7 +14,7 @@ import Printallimage from "./Printallimage";
 //import getaaa from "./abinft";
 import Saleimagepage from "./Saleimagepage";
 import Myitem from "./Myitem";
-//import firebase from "./firebase";
+import firebase from "./firebase";
 import fireDb from "./firebase";
 import Allcontractpage from "./Allcontractpage";
 import {abi} from './data'
@@ -98,7 +98,7 @@ setTimeout(()=>{
         let printgeta=await getaaaa.methods.tokensOfOwner(accounts[0]).call();
 
         printgeta.forEach((p=>{
-n.push(p)
+        n.push(p)
 }))
       setnames(n);    
       
@@ -144,7 +144,24 @@ const setprice =async (a,event)=>{
         await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
            // salepage.settokenstate();
             console.log("checking")
-            var price = window.prompt("enter the price for your token");
+            let price = window.prompt("enter the price for your token");
+
+            let remo=a.addId
+
+            //let afterremo=remo.replace(/[^a-zA-Z ]/g, "");
+
+            console.log("lengeturl",remo)
+
+            //one option//fireDb.database().ref("imageprice").child(remo).set(price, (err) => {});
+
+
+            fireDb.database().ref("imageprice").child(remo).set(price, (err) => {});
+
+            //console.log("checkingdb",checkdb)
+        
+
+
+
             await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
             const priceamount = await getaaaa.methods.items(isd).call();
             console.log(priceamount.price)
@@ -273,7 +290,7 @@ const setprice =async (a,event)=>{
               
               </button>
 {afternames.length === 0 ? null : 
-<div style={{width:'800px',height:'70vh',backgroundColor:'red',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
+<div style={{width:'800px',height:'70vh',backgroundColor:'skyblue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
 {afternames.map((a)=>{
   console.log(`a`, a)
 

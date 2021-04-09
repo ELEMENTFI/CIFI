@@ -45,47 +45,53 @@ function App() {
 
   var accounts;
 
+  let btn ;
+
   
   
-  const connectmm = async (event) => {
+  const connectmm = async () => {
 
 
-    var getaddress=localStorage.getItem('myaddress')
+    //var getaddress=localStorage.getItem('myaddress')
 
-    if(getaddress !== ""){
+    //if(getaddress !== ""){
 
 
-      var btn = document.getElementById("bu");
+      //var btn = document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
+        //btn.innerHTML = "CONNECTED"
 
 
 
-    }
-    else{
+    //}
+    //else{
 
 
-      window.alert("Do you want to connect with metamask");
+      //window.alert("Do you want to connect with metamask");
 
 
       //event.preventDefault();
      //bring in user's metamask account address
 
-     accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
+     
 
      //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
 
       
       //alert("acc"+accounts[0])
 
+      accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
+
       if(accounts[0] !== ""){
+
+      
 
         //accounts[0
         //document.getElementById("bu").
         //document.getElementById("bu").append("CONNECTED")
 
-        var btn = document.getElementById("bu");
+        btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
         btn.innerHTML = "CONNECTED"
@@ -102,8 +108,6 @@ function App() {
         btns.innerHTML = "NOT CONNECTED";
         localStorage.setItem('myaddress', "");
       }
-
-    }
 
     
   };    
