@@ -146,7 +146,7 @@ const setprice =async (a,event)=>{
             console.log("checking")
             let price = window.prompt("enter the price for your token");
 
-            let remo=a.addId
+            let remo=a.addImgSrc
 
             //let afterremo=remo.replace(/[^a-zA-Z ]/g, "");
 
@@ -155,7 +155,12 @@ const setprice =async (a,event)=>{
             //one option//fireDb.database().ref("imageprice").child(remo).set(price, (err) => {});
 
 
-            fireDb.database().ref("imageprice").child(remo).set(price, (err) => {});
+            //fireDb.database().ref("imageprice").child(afterremo).set(price, (err) => {});
+
+
+            fireDb.database().ref("imageprices").child(accounts[0]).push(remo,isd,price ,(err) => {
+              //   console.log(obj, "obj");
+            });
 
             //console.log("checkingdb",checkdb)
         
