@@ -30,9 +30,9 @@ function Followingpage() {
  const [name,setnames] = useState([]);
  const [tid,setId] = useState(""); 
 
- var [getAddressDb,setGetAddressDb]=useState([]);
+ const [getAddressDb,setGetAddressDb]=useState([]);
 
- var [getAddressDbs,setGetAddressDbs]=useState([]);
+ const [getAddressDbs,setGetAddressDbs]=useState([]);
 
  
  console.log("initialgetaddresss",getAddressDbs)
@@ -40,92 +40,48 @@ function Followingpage() {
  console.log("initialgetaddress",getAddressDb)
  console.log("ipname",name)
 
+
+const[getImgreff,setgetImgreff]=useState([]);
+
+const[getIm,setgetIm]=useState([]);
+
   //temp start
 
 
   const getImgpa = () =>{
-
-    let ref2=firebase.database().ref("imageref/");
-
-        ref2.on('value',function(data){
-
-            let register2=data.val();
-
-            let key2=Object.keys(register2)
-
-            let length2=key2.length;
-
-            console.log("getdatapragr",register2)
-
-            console.log("getdatapragk",key2)
-
-            console.log("getdataprag2",length2)
-
-            let addressset2 =[];
-
-            for(let p2=0;p2<length2;p2++){
-
-
-                var k22=key2[p2];
-
-                console.log("getdatapragk22",key2[p2])
-
-                let ref22=firebase.database().ref("imageref/").child(k22);
-
-                ref22.on('value',function(datas){
-                  
-                    var register22=datas.val();
-
-                    var key22=Object.keys(register22)
-
-                    var length22=key22.length;
-
-                    console.log("loglengths",register22)
-
-                    for(var k2=0;k2<length22;k2++){
-
-
-                      var keyss=key22[k2]
-
-                      var leftside1=register22[keyss];//getting
-
-                      //var templink=leftside1.replace(/[^a-zA-Z ]/g, "");
-
-                      // let gelen=[];
-                      // let getdat=firebase.database().ref("imageprice/").child(templink).once('value').then(snap =>{
-                      //   if (snap.val()){
-                      //     gelen=snap.val()
-                          
-                      //   } else {
-                      //     console.log('error');
-                      //   }
-                      // })
-
-                      // console.log("valget",gelen)
-
-                      // for(let ge=0;ge<gelen.length;ge++){
-
-
-
-                      // }
-
-                      //console.log("lget",getdat)                  
-
-                      console.log("lenfirsts",leftside1)                  
-
-                      addressset2.push(leftside1)
-                      
-                    }            
-                    
-                    
-                })
-
-                
-            }
-
-            setGetAddressDbs(addressset2)
+    let req = [];
+    let req2 = [];
+    firebase.database().ref("imageref").on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          req.push(d.val())
+          
         });
-  
+        
+      }
+
+    });
+
+    setgetImgreff(req)
+
+      getImgreff.map((a)=>{
+      console.log(`a`, a)
+    
+      Object.keys(a).map((b)=>{
+    
+        console.log(`bb`, b)
+        console.log(`bbnext`, a[b].imageUrl)
+
+        req2.push(a[b].imageUrl)
+              
+      })
+    })
+    
+    setgetIm(req2)
+    
+    console.log("cfb",req)
+
+    
 
   }
 
@@ -440,21 +396,32 @@ return (
 
 
 
-{getAddressDbs.length === 0 ? null : 
+{getIm.length === 0 ? null :( 
 <div style={{width:'800px',height:'70vh',backgroundColor:'skyblue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
-{getAddressDbs.map((a)=>{
+{getIm.map((a)=>{
   console.log(`a`, a)
 
+  // Object.keys(a).map((b)=>{
+
+  //   console.log(`b`, b)
+  //   console.log(`bnext`, a[b].imageUrl)
+
+        
+  // })
   //if((a.addId !== ' ') && (a.addsrc !== ' '))
+
+
   return (
-    <div>
+    <div style={{backgroundColor:'red',height:'500px',width:'500px'}}>
 
   <img   src={a}  style={{height:300,width:300}}     />
   {' '}
-  <br></br>
+  
+  {/* <h5>hello{a[b].imageUrl}</h5> */}
+
   <h5>hello{}</h5>
-  <br></br>
-  <button onClick={()=>buynow(a)} >BuyNow</button>
+  
+  { <button onClick={()=>buynow(a)} >BuyNow</button> }
   
   </div>
   )
@@ -462,8 +429,10 @@ return (
 })
 
 
+
 }
 </div>
+)
 }
 
 

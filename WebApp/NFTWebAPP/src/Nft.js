@@ -64,7 +64,7 @@ function App() {
       console.log("iuri",uri)
 setImg(uri)
     },
-    'base128'
+    'base64'
     );
     reader.readAsArrayBuffer(file)
     reader.onloadend = () => convertToBuffer(reader);    
@@ -1283,7 +1283,9 @@ const onSubmitImage = async (event) => {
                         });
                       
                     
-                        fireDb.database().ref("imageref").child(accounts[0]).push(Img, (err) => {
+                        fireDb.database().ref(`imageref/${accounts[0]}`).push({
+                          id:te,imageUrl:Img
+                        }, (err) => {
                           //   console.log(obj, "obj");
                         });
                     
