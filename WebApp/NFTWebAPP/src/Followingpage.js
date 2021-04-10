@@ -48,7 +48,7 @@ const[getIm,setgetIm]=useState([]);
   //temp start
 
 
-  const getImgpa = () =>{
+  const getImgpa = async() =>{
     let req = [];
     let req2 = [];
     firebase.database().ref("imageref").on("value", (data) => {
@@ -71,11 +71,20 @@ const[getIm,setgetIm]=useState([]);
     
         console.log(`bb`, b)
         console.log(`bbnext`, a[b].imageUrl)
-
-        req2.push(a[b].imageUrl)
+        console.log(`bbaddess`,a[b].cAddress)
+        console.log(`bbprice`,a[b].priceSet)
+//change here
+        req2.push({
+          //addAcc:
+          addPrices:a[b].priceSet,
+          addcAdd:a[b].cAddress,
+          addIds:a[b].id,
+          addImgs:a[b].imageUrl})
               
       })
     })
+
+
     
     setgetIm(req2)
     
@@ -224,19 +233,21 @@ console.log("getima",ima)
 //useEffect(()=>{onSubmitNFTTs()},[])
 
 console.log("afterget",afternames)
+//button 
+
 const buynow= async(a) =>{
 
 
-    let getaaa=new web3.eth.Contract(abi,a.add);
+    let getaaa=new web3.eth.Contract(abi,a.addcAdd);
 
-    console.log("insidebutton",a.add)
-    console.log("insidebuttonid",a.addv)
+    console.log("insidebutton",a.addcAdd)
+    console.log("insidebuttonid",a.addPrices)
 
     const accounts = await web3.eth.getAccounts();
   
-    let thing = a.addv;
+    let thing = a.addIds;
 
-    console.log("thingget",a.addv)
+    console.log("thingget",a.addIds)
 
     let s = await getaaa.methods.items(thing).call();
 
@@ -414,7 +425,7 @@ return (
   return (
     <div style={{backgroundColor:'red',height:'500px',width:'500px'}}>
 
-  <img   src={a}  style={{height:300,width:300}}     />
+  <img   src={a.addImgs}  style={{height:300,width:300}}     />
   {' '}
   
   {/* <h5>hello{a[b].imageUrl}</h5> */}

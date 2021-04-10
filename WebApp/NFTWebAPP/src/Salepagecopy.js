@@ -26,6 +26,12 @@ import {abi} from './data'
 function Salepagecopy() {
 
 
+  const[getImgreff,setgetImgreff]=useState([]);
+
+const[getIm,setgetIm]=useState([]);
+
+
+
   var abcd;
 
   
@@ -86,6 +92,60 @@ setTimeout(()=>{
   },[])
 
 
+  //new function start
+
+  const getImgpa = async() =>{
+
+    const accounts = await web3.eth.getAccounts();
+    let req = [];
+    let req2 = [];
+    let kreq =[];
+    firebase.database().ref("imageref").child(accounts[0]).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          console.log("keycheck",d.key)
+          req.push(d.val())
+          //req.push(d.key)
+          
+        });
+        
+      }
+
+    });
+
+    setgetImgreff(req)
+
+      getImgreff.map((a)=>{
+      console.log(`a`, a)
+    
+      //Object.keys(a).map((b)=>{
+    
+        console.log(`bba`, a)
+        console.log(`bbnexta`, a.imageUrl)
+        console.log(`bbaddessa`,a.cAddress)
+        console.log(`bbpricea`,a.priceSet)
+//change here
+        req2.push({
+          //addAcc:
+          addPrices:a.priceSet,
+          addcAdd:a.cAddress,
+          addIds:a.id,
+          addImgs:a.imageUrl})
+              
+      //})
+    })
+
+
+    
+    setgetIm(req2)
+    
+    console.log("cfba",req)
+  }
+
+
+  //end here
+
+
 
  const newget = async()=>{
   const accounts = await web3.eth.getAccounts();
@@ -105,7 +165,7 @@ setTimeout(()=>{
     })
  }
 
- const s =  async ()=>{
+  const s =  async ()=>{
   const accounts = await web3.eth.getAccounts();
 
   let after = []
@@ -135,32 +195,38 @@ const setprice =async (a,event)=>{
   t="Added for sale";
   //b.innerHTML="Enable Sale";
 
-             var isd = a.addId;//a
+             var isd = a.addIds;//a
              console.log("targetid",isd)
 
   console.log(`a`, a)
-  let getaaaa=new web3.eth.Contract(abi,a.add);
+            let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
             const accounts = await  web3.eth.getAccounts();
-        await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
+            await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
            // salepage.settokenstate();
             console.log("checking")
             let price = window.prompt("enter the price for your token");
 
-            let remo=a.addImgSrc
+
+            fireDb.database().ref(`imageref/${accounts[0]}`).child('MXxc--8yZmg5X696PSw').update({
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd
+            
+            });
+
 
             //let afterremo=remo.replace(/[^a-zA-Z ]/g, "");
 
-            console.log("lengeturl",remo)
+            //console.log("lengeturl",remo)
 
-            //one option//fireDb.database().ref("imageprice").child(remo).set(price, (err) => {});
+            //one option
+            //fireDb.database().ref("imageprice").child(remo).set(price, (err) => {});
 
 
             //fireDb.database().ref("imageprice").child(afterremo).set(price, (err) => {});
 
 
-            fireDb.database().ref("imageprices").child(accounts[0]).push(remo,isd,price ,(err) => {
+            //fireDb.database().ref("imageprices").child(accounts[0]).push(remo,isd,price ,(err) => {
               //   console.log(obj, "obj");
-            });
+            //});
 
             //console.log("checkingdb",checkdb)
         
@@ -294,16 +360,26 @@ const setprice =async (a,event)=>{
               >
               
               </button>
-{afternames.length === 0 ? null : 
+
+
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={getImgpa}
+              >
+              
+              new button
+              </button>
+{getIm.length === 0 ? null : 
 <div style={{width:'800px',height:'70vh',backgroundColor:'skyblue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
-{afternames.map((a)=>{
+{getIm.map((a)=>{
   console.log(`a`, a)
 
   if(a.addImgSrc !=='')
   return (
     <div>
 
-  <img   src={a.addImgSrc}  style={{height:300,width:300}}     />
+  <img   src={a.addImgs}  style={{height:300,width:300}}     />
   <br></br>
   <button onClick={()=>setprice(a)} >SetPrice</button>
   

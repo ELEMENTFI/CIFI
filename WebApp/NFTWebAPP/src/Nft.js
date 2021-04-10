@@ -1283,8 +1283,11 @@ const onSubmitImage = async (event) => {
                         });
                       
                     
+                         
+                      
+                    
                         fireDb.database().ref(`imageref/${accounts[0]}`).push({
-                          id:te,imageUrl:Img
+                          id:te,imageUrl:Img,priceSet:"",cAddress:getData
                         }, (err) => {
                           //   console.log(obj, "obj");
                         });
@@ -1388,6 +1391,24 @@ const onSubmitImage = async (event) => {
 
   //useEffect(()=>{onSubmitNFT()},[])
 
+
+  const getkeycheck =async()=>{
+
+    const accounts = await web3.eth.getAccounts();
+
+    let getk=fireDb.database().ref(`imageref/${accounts[0]}`)
+
+    console.log("getkk",Object.keys(getk))
+
+    // getk.push({
+    //   id:te,imageUrl:Img,priceSet:"",cAddress:getData
+    // }, (err) => {
+    //   //   console.log(obj, "obj");
+    // });
+
+
+
+  }
     
 
   
@@ -1565,6 +1586,15 @@ id="idid"
 
 
 </center>
+
+
+<button
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={getkeycheck}
+              >
+              onclickkey
+              </button>
 
 <br></br>
 <br></br>
