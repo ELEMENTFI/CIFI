@@ -18,6 +18,7 @@ import firebase from "./firebase";
 import fireDb from "./firebase";
 import Allcontractpage from "./Allcontractpage";
 import {abi} from './data'
+import Mypurchasepage from './Mypurchasepage'
 
 
 // console.log(`abi`, abi)
@@ -26,7 +27,7 @@ import {abi} from './data'
 function Salepagecopy() {
 
 
-  const[getImgreff,setgetImgreff]=useState([]);
+const[getImgreff,setgetImgreff]=useState([]);
 
 const[getIm,setgetIm]=useState([]);
 
@@ -51,45 +52,45 @@ const[getIm,setgetIm]=useState([]);
   
 
   
- const getAdressbyAccount = async  ()=>{
-  const accounts = await web3.eth.getAccounts();
+//  const getAdressbyAccount = async  ()=>{
+//   const accounts = await web3.eth.getAccounts();
 
 
-    // console.log("getaddress0",accounts[0])
+//     // console.log("getaddress0",accounts[0])
   
-    // console.log("function called");
-   let address =[];
-   let add=fireDb.database().ref(`contractaddress/${accounts[0]}`);
-   console.log("addget",add)
-   fireDb.database().ref(`contractaddress/${accounts[0]}`).on("value",(snapshot) =>{
-     snapshot.forEach((s)=>{
-       address.push(s.val());
-     });
+//     // console.log("function called");
+//    let address =[];
+//    let add=fireDb.database().ref(`contractaddress/${accounts[0]}`);
+//    console.log("addget",add)
+//    fireDb.database().ref(`contractaddress/${accounts[0]}`).on("value",(snapshot) =>{
+//      snapshot.forEach((s)=>{
+//        address.push(s.val());
+//      });
      
-   });
+//    });
 
-   setGetAddressDb(address)  
-   //console.log("mani",address)
-
-   
+//    setGetAddressDb(address)  
+//    //console.log("mani",address)
 
    
- }
+
+   
+//  }
 
   
-  useEffect(()=>{
-getAdressbyAccount()
-setTimeout(()=>{
+//   useEffect(()=>{
+// getAdressbyAccount()
+// setTimeout(()=>{
 
-  newget()
+//   newget()
 
-},5000)
-setTimeout(()=>{
+// },5000)
+// setTimeout(()=>{
 
-  s()
+//   s()
 
-},10000)
-  },[])
+// },10000)
+//   },[])
 
 
   //new function start
@@ -99,7 +100,7 @@ setTimeout(()=>{
     const accounts = await web3.eth.getAccounts();
     let req = [];
     let req2 = [];
-    let kreq =[];
+    //let kreq =[];
     firebase.database().ref("imageref").child(accounts[0]).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
@@ -124,13 +125,18 @@ setTimeout(()=>{
         console.log(`bbnexta`, a.imageUrl)
         console.log(`bbaddessa`,a.cAddress)
         console.log(`bbpricea`,a.priceSet)
+        console.log(`bbkeyid`,a.keyIds)
 //change here
         req2.push({
           //addAcc:
           addPrices:a.priceSet,
           addcAdd:a.cAddress,
           addIds:a.id,
-          addImgs:a.imageUrl})
+          addImgs:a.imageUrl,
+          addKeyI:a.keyId,
+        addName:a.userName,
+      addSymbol:a.userSymbol,
+    addIpfs:a.ipfsUrl})
               
       //})
     })
@@ -143,48 +149,49 @@ setTimeout(()=>{
   }
 
 
+  useEffect(()=>{getImgpa()},[])
   //end here
 
 
 
- const newget = async()=>{
-  const accounts = await web3.eth.getAccounts();
-  let n =[]
-  getAddressDb.forEach(async(add)=>{
-    let poda = add
-        let getaaaa=new web3.eth.Contract(abi,poda);
+//  const newget = async()=>{
+//   const accounts = await web3.eth.getAccounts();
+//   let n =[]
+//   getAddressDb.forEach(async(add)=>{
+//     let poda = add
+//         let getaaaa=new web3.eth.Contract(abi,poda);
         
         
-        let printgeta=await getaaaa.methods.tokensOfOwner(accounts[0]).call();
+//         let printgeta=await getaaaa.methods.tokensOfOwner(accounts[0]).call();
 
-        printgeta.forEach((p=>{
-        n.push(p)
-}))
-      setnames(n);    
+//         printgeta.forEach((p=>{
+//         n.push(p)
+// }))
+//       setnames(n);    
       
-    })
- }
+//     })
+//  }
 
-  const s =  async ()=>{
-  const accounts = await web3.eth.getAccounts();
+//   const s =  async ()=>{
+//   const accounts = await web3.eth.getAccounts();
 
-  let after = []
-   getAddressDb.forEach(async(a)=>{
-       let poda = a
-        let getaaaa=new web3.eth.Contract(abi,poda);
-        names.forEach(async (n)=>{
-          console.log(`n`, n)
-          // console.log(`object`,n, await getaaaa.methods.tokenURI(n).call())     }) 
-          after.push({
-            add:poda,
-            addId:n,
-            addImgSrc:await getaaaa.methods.tokenURI(n).call()})
-   })
-  })
+//   let after = []
+//    getAddressDb.forEach(async(a)=>{
+//        let poda = a
+//         let getaaaa=new web3.eth.Contract(abi,poda);
+//         names.forEach(async (n)=>{
+//           console.log(`n`, n)
+//           // console.log(`object`,n, await getaaaa.methods.tokenURI(n).call())     }) 
+//           after.push({
+//             add:poda,
+//             addId:n,
+//             addImgSrc:await getaaaa.methods.tokenURI(n).call()})
+//    })
+//   })
 
-   console.log(`after`, after)
-setAfternames(after)
- }
+//    console.log(`after`, after)
+// setAfternames(after)
+//  }
 
 
    
@@ -198,7 +205,7 @@ const setprice =async (a,event)=>{
              var isd = a.addIds;//a
              console.log("targetid",isd)
 
-  console.log(`a`, a)
+            console.log(`a`, a)
             let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
             const accounts = await  web3.eth.getAccounts();
             await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
@@ -207,8 +214,8 @@ const setprice =async (a,event)=>{
             let price = window.prompt("enter the price for your token");
 
 
-            fireDb.database().ref(`imageref/${accounts[0]}`).child('MXxc--8yZmg5X696PSw').update({
-              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd
+            fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI
             
             });
 
@@ -248,9 +255,7 @@ const setprice =async (a,event)=>{
            console.log("checkcons","not for sale console")
          }
 
-           
-            
-
+          
 
 }
 
@@ -329,6 +334,16 @@ const setprice =async (a,event)=>{
               Create
               </button>
 
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Mypurchasepage");
+                }}>
+               Mypurchase
+              </button>
+
 
 
 
@@ -345,7 +360,7 @@ const setprice =async (a,event)=>{
 
 
 
-<button
+{/* <button
                 class="btn btn-info btn-block"
                 type="button"
                onClick={s}
@@ -359,7 +374,7 @@ const setprice =async (a,event)=>{
                 onClick={newget}
               >
               
-              </button>
+              </button> */}
 
 
               <button
@@ -368,7 +383,7 @@ const setprice =async (a,event)=>{
                 onClick={getImgpa}
               >
               
-              new button
+              Refresh
               </button>
 {getIm.length === 0 ? null : 
 <div style={{width:'800px',height:'70vh',backgroundColor:'skyblue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
@@ -380,7 +395,14 @@ const setprice =async (a,event)=>{
     <div>
 
   <img   src={a.addImgs}  style={{height:300,width:300}}     />
+  {''}
   <br></br>
+  <h3>Name : {a.addName}</h3>
+  
+  <h3>Symbol : {a.addSymbol}</h3>
+  
+  <h3>price : {a.addPrices}</h3>
+  
   <button onClick={()=>setprice(a)} >SetPrice</button>
   
   </div>
@@ -441,6 +463,10 @@ const setprice =async (a,event)=>{
             <Route path="/Saleimagepage">
               <Saleimagepage />
             </Route>
+            <Route path="/Mypurchasepage">
+              <Mypurchasepage />
+            </Route>
+            
           </Switch>
         </Router>
 

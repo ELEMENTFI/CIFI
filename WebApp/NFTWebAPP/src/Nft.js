@@ -17,6 +17,8 @@ import firebase from "./firebase";
 import fireDb from './firebase';
 import Compress from "react-image-file-resizer";
 
+import Mypurchasepage from './Mypurchasepage'
+
 
 function App() {
 
@@ -1291,7 +1293,7 @@ const onSubmitImage = async (event) => {
                          
                         console.log("dbcheck",db)
 
-                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf})
+                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0]})
                       
                     
                         //fireDb.database().ref(`imageref/${accounts[0]}`).child(db).push({
@@ -1505,6 +1507,16 @@ const onSubmitImage = async (event) => {
               Create
               </button>
 
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Mypurchasepage");
+                }}>
+               Mypurchase
+              </button>
+
 
 
 
@@ -1672,6 +1684,10 @@ id="idid"
             <Route path="/printallimage">
               <PrintallImage />
             </Route>
+            <Route path="/Mypurchasepage">
+              <Mypurchasepage />
+            </Route>
+            
           </Switch>
         </Router>
 

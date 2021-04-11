@@ -34,6 +34,7 @@ import Connectwalletpage from './Connectwalletpage'
 import ReactPlayer from "react-player";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Allcontractpage from './Allcontractpage'
+import Mypurchasepage from './Mypurchasepage'
 //import SearchBar from './SearchBar';
 
 //import {abi} from data;
@@ -227,6 +228,16 @@ function App() {
                Connect wallet
               </button>
 
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Mypurchasepage");
+                }}>
+               Mypurchase
+              </button>
+
 
               <br></br>
               <hr></hr>
@@ -311,6 +322,10 @@ function App() {
 
             <Route path="/Allcontractpage">
               <Allcontractpage />
+            </Route>
+
+            <Route path="/Mypurchasepage">
+              <Mypurchasepage />
             </Route>
             
 
