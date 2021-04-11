@@ -12,6 +12,8 @@ import Activitypage from "./Activitypage";
 import Howitworkpage from "./Howitworkpage";
 //import Communitypage from "./Communitypage";
 
+import Mypurchasepage from './Mypurchasepage'
+
 function Communitypage() {
 
   
@@ -89,6 +91,17 @@ function Communitypage() {
               </button>
 
 
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Mypurchasepage");
+                }}>
+               Mypurchase
+              </button>
+
+
 
 
 
@@ -127,6 +140,10 @@ function Communitypage() {
             <Route path="/Nft">
               <Nft />
             </Route>
+            <Route path="/Mypurchasepage">
+              <Mypurchasepage />
+            </Route>
+            
             
           </Switch>
         </Router>
