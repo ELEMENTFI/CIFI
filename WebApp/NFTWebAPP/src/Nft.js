@@ -34,7 +34,7 @@ function App() {
   const [tid,setId] = useState("");
   //const [turi,setUri] = useState("");
   const [tname,setName] = useState("");
-  const [tsymbol] = useState("");
+  const [tsymbol,settSymbol] = useState("");
   //const [tokenuri,setTokenUri] = useState("");
   //var [getimageurl,setgetImage] = useState("");
   //const [tfile,setTfile] = useState("");
@@ -1283,14 +1283,20 @@ const onSubmitImage = async (event) => {
                         });
                       
                     
+
+                        let ref2=fireDb.database().ref(`imageref/${accounts[0]}`);
+
+                        const db = ref2.push().key;
+
                          
+                        console.log("dbcheck",db)
+
+                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf})
                       
                     
-                        fireDb.database().ref(`imageref/${accounts[0]}`).push({
-                          id:te,imageUrl:Img,priceSet:"",cAddress:getData
-                        }, (err) => {
-                          //   console.log(obj, "obj");
-                        });
+                        //fireDb.database().ref(`imageref/${accounts[0]}`).child(db).push({
+                          //id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:""
+                        //});
                     
           //end          
 
@@ -1396,15 +1402,30 @@ const onSubmitImage = async (event) => {
 
     const accounts = await web3.eth.getAccounts();
 
-    let getk=fireDb.database().ref(`imageref/${accounts[0]}`)
+    alert(accounts[0])
 
-    console.log("getkk",Object.keys(getk))
+    // let ref2=fireDb.database().ref(`imageref/${accounts[0]}`);
 
-    // getk.push({
-    //   id:te,imageUrl:Img,priceSet:"",cAddress:getData
-    // }, (err) => {
-    //   //   console.log(obj, "obj");
-    // });
+    //                     const db = ref2.push({foo: 'bar'}).key;
+
+                         
+    //                     console.log("dbcheck",db)
+                      
+
+    // //let getk=firebase.database.ref('imageref/').child(`${accounts[0]}`).key()
+
+    // let ref3=firebase.database().ref("imageref/");
+
+    // const db2 = ref3.push().key;
+
+
+    // console.log("getkk",db2)
+
+    // // getk.push({
+    // //   id:te,imageUrl:Img,priceSet:"",cAddress:getData
+    // // }, (err) => {
+    // //   //   console.log(obj, "obj");
+    // // });
 
 
 
@@ -1546,7 +1567,7 @@ id="nameid"
   type='text'
   name="tsymbol"
   required
-  onChange={event => setId( event.target.value)}
+  onChange={event => settSymbol( event.target.value)}
   
 />
 
