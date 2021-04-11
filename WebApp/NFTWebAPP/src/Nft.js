@@ -18,6 +18,7 @@ import fireDb from './firebase';
 import Compress from "react-image-file-resizer";
 
 import Mypurchasepage from './Mypurchasepage'
+import Explore from './Explore';
 
 
 function App() {
@@ -1400,44 +1401,46 @@ const onSubmitImage = async (event) => {
   //useEffect(()=>{onSubmitNFT()},[])
 
 
-  const getkeycheck =async()=>{
+  // const getkeycheck =async()=>{
 
-    const accounts = await web3.eth.getAccounts();
+  //   const accounts = await web3.eth.getAccounts();
 
-    alert(accounts[0])
+  //   alert(accounts[0])
 
-    // let ref2=fireDb.database().ref(`imageref/${accounts[0]}`);
+  //   // let ref2=fireDb.database().ref(`imageref/${accounts[0]}`);
 
-    //                     const db = ref2.push({foo: 'bar'}).key;
+  //   //                     const db = ref2.push({foo: 'bar'}).key;
 
                          
-    //                     console.log("dbcheck",db)
+  //   //                     console.log("dbcheck",db)
                       
 
-    // //let getk=firebase.database.ref('imageref/').child(`${accounts[0]}`).key()
+  //   // //let getk=firebase.database.ref('imageref/').child(`${accounts[0]}`).key()
 
-    // let ref3=firebase.database().ref("imageref/");
+  //   // let ref3=firebase.database().ref("imageref/");
 
-    // const db2 = ref3.push().key;
-
-
-    // console.log("getkk",db2)
-
-    // // getk.push({
-    // //   id:te,imageUrl:Img,priceSet:"",cAddress:getData
-    // // }, (err) => {
-    // //   //   console.log(obj, "obj");
-    // // });
+  //   // const db2 = ref3.push().key;
 
 
+  //   // console.log("getkk",db2)
 
-  }
+  //   // // getk.push({
+  //   // //   id:te,imageUrl:Img,priceSet:"",cAddress:getData
+  //   // // }, (err) => {
+  //   // //   //   console.log(obj, "obj");
+  //   // // });
+
+
+
+  // }
     
 
   
 
 
   return (
+
+    <>
     <div className="App">
 
 
@@ -1445,7 +1448,7 @@ const onSubmitImage = async (event) => {
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Allcontractpage");
+                  history.push("/Explore");
                 }}>
                 Explore
               </button>
@@ -1524,33 +1527,12 @@ const onSubmitImage = async (event) => {
               <br></br>
 <br></br>
       
-<center>
+
 <br></br>
 
 
 
 
-
-<form onSubmit={onSubmitImage}>
-
-
-		  <label for="images">Upload Your Image     </label>
-            <input 
-			name="tfile"
-			id="fileid"
-              type = "file"
-              onChange = {captureFile}
-			  required
-            />
-			
-             <button 
-             type="submit"> 
-             Upload Image NFT
-             </button>
-			 <br></br>
-			 <br></br>
-			 <br></br>
-	</form>
 
 
 
@@ -1602,6 +1584,30 @@ id="idid"
 <br></br>
 
 
+<form onSubmit={onSubmitImage}>
+
+
+		  <label for="images">Choose Your Image     </label>
+            <input 
+			name="tfile"
+			id="fileid"
+              type = "file"
+              onChange = {captureFile}
+			  required
+            />
+			
+             {/* <button 
+             type="submit"> 
+             Upload Image NFT
+             </button> */}
+			 <br></br>
+			 <br></br>
+			 <br></br>
+	</form>
+
+
+
+
 <button 
              type="submit"> 
              Upload and Create NFT
@@ -1618,20 +1624,20 @@ id="idid"
 
 
 
-</center>
 
 
-<button
+
+{/* <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={getkeycheck}
               >
               onclickkey
-              </button>
+              </button> */}
 
 <br></br>
 <br></br>
-  <table bordered responsive>
+  {/* <table bordered responsive>
                 
                 <tbody>
                   <tr>
@@ -1659,7 +1665,7 @@ id="idid"
                   </tr>         
                 </tbody>
 
-            </table>
+            </table> */}
 
 			
 
@@ -1687,12 +1693,16 @@ id="idid"
             <Route path="/Mypurchasepage">
               <Mypurchasepage />
             </Route>
+            <Route path="/Explore">
+              <Explore />
+            </Route>
             
           </Switch>
         </Router>
 
 	  
       </div>      
+      </>
   );
 }
 

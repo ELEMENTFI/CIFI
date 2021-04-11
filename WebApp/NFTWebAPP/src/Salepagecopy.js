@@ -19,6 +19,7 @@ import fireDb from "./firebase";
 import Allcontractpage from "./Allcontractpage";
 import {abi} from './data'
 import Mypurchasepage from './Mypurchasepage'
+import Explore from './Explore'
 
 
 // console.log(`abi`, abi)
@@ -48,6 +49,8 @@ const[getIm,setgetIm]=useState([]);
 
   
   const [getAddressDb,setGetAddressDb]=useState([]);
+
+  const [pa,setPa]=useState();
   // console.log("initialgetaddress",getAddressDb)
   
 
@@ -220,35 +223,19 @@ const setprice =async (a,event)=>{
             });
 
 
-            //let afterremo=remo.replace(/[^a-zA-Z ]/g, "");
-
-            //console.log("lengeturl",remo)
-
-            //one option
-            //fireDb.database().ref("imageprice").child(remo).set(price, (err) => {});
-
-
-            //fireDb.database().ref("imageprice").child(afterremo).set(price, (err) => {});
-
-
-            //fireDb.database().ref("imageprices").child(accounts[0]).push(remo,isd,price ,(err) => {
-              //   console.log(obj, "obj");
-            //});
-
-            //console.log("checkingdb",checkdb)
-        
-
-
-
             await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
             const priceamount = await getaaaa.methods.items(isd).call();
             console.log(priceamount.price)
 
 
-           let pa = priceamount.state;
-         if(pa == 1){
+           //let pa = priceamount.state;
+           setPa(priceamount.stat)
+         if(pa === 1){
            //c.append(t)
            console.log("checkcon","Added for sale console")
+
+
+
          }
          else{
            //c.append(b)
@@ -263,15 +250,22 @@ const setprice =async (a,event)=>{
   
 
   return (    
+    
 
-    <div className="App">
+    <div>
+
+    
+
+    
+
+
 
 
 <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Allcontractpage");
+                  history.push("/Explore");
                 }}>
                 Explore
               </button>
@@ -390,7 +384,7 @@ const setprice =async (a,event)=>{
 {getIm.map((a)=>{
   console.log(`a`, a)
 
-  if(a.addImgSrc !=='')
+  if(a.addImgSrc !=='' && pa===1){
   return (
     <div>
 
@@ -407,14 +401,33 @@ const setprice =async (a,event)=>{
   
   </div>
   )
-
+  }else{
+   
+    return (
+      <div>
+  
+  <img   src={a.addImgs}  style={{height:300,width:300}}     />
+    {''}
+    <br></br>
+    <h3>Name : {a.addName}</h3>
+    
+    <h3>Symbol : {a.addSymbol}</h3>
+    
+    <h3>price : {a.addPrices}</h3>
+    
+    <h3> Added for sale</h3>
+    
+    </div>
+    )
+    
+  }
 })}
 </div>
 }
 
 
       
-<center>
+
 <br></br>
 
 
@@ -425,7 +438,7 @@ const setprice =async (a,event)=>{
 <br></br>
 
 
-</center>
+
 
 <br></br>
 <br></br>
@@ -466,6 +479,10 @@ const setprice =async (a,event)=>{
             <Route path="/Mypurchasepage">
               <Mypurchasepage />
             </Route>
+            <Route path="/Explore">
+              <Explore />
+            </Route>
+            
             
           </Switch>
         </Router>
@@ -474,12 +491,9 @@ const setprice =async (a,event)=>{
 
 
         
-        <div>
-            
-        </div>
 
 
-<div style={{flexDirection:'column',width:'500px',flexWrap:'wrap'}}>
+{/* <div style={{flexDirection:'column',width:'500px',flexWrap:'wrap'}}>
 
 <ul id="prabha">
 
@@ -495,10 +509,13 @@ const setprice =async (a,event)=>{
   
 </ul>
 
-    </div>
+    </div> */}
 	  
-      </div>      
+
+    </div>
+
   );
+  
 }
 
 export default Salepagecopy;

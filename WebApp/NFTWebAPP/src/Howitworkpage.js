@@ -13,6 +13,7 @@ import Activitypage from "./Activitypage";
 //import Howitworkpage from "./Howitworkpage";
 import Communitypage from "./Communitypage";
 import Mypurchasepage from './Mypurchasepage'
+import Explore from "./Explore";
 
 
 function Howitworkpage() {
@@ -39,7 +40,7 @@ function Howitworkpage() {
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Allcontractpage");
+                  history.push("/Explore");
                 }}>
                 Explore
               </button>
@@ -153,6 +154,9 @@ function Howitworkpage() {
 
             <Route path="/Mypurchasepage">
               <Mypurchasepage />
+            </Route>
+            <Route path="/Explore">
+              <Explore />
             </Route>
             
             

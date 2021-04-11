@@ -15,7 +15,7 @@ import Salepage from "./Salepage";
 import Saleimagepage from "./Saleimagepage";
 import Test from "./Testing";
 import Myitem from "./Myitem";
-import Explore from "./Myitem";
+import Explore from "./Explore";
 //import Connectmetamask from "./Connectmetamask";
 import web3 from './web3';
 import Newdeploy from "./Newdeploy";
@@ -145,7 +145,7 @@ function App() {
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Allcontractpage");
+                  history.push("/Explore");
                 }}
               >
                 Explore
@@ -320,8 +320,8 @@ function App() {
               <Connectwalletpage />
             </Route>
 
-            <Route path="/Allcontractpage">
-              <Allcontractpage />
+            <Route path="/Explore">
+              <Explore />
             </Route>
 
             <Route path="/Mypurchasepage">

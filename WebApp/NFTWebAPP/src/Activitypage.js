@@ -11,6 +11,7 @@ import Followingpage from "./Followingpage";
 //import Activitypage from "./Activitypage";
 import Howitworkpage from "./Howitworkpage";
 import Communitypage from "./Communitypage";
+import Explore from "./Explore";
 
 function Activitypage() {
 
@@ -23,7 +24,7 @@ function Activitypage() {
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Allcontractpage");
+                  history.push("/Explore");
                 }}>
                 Explore
               </button>
