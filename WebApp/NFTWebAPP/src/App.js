@@ -15,7 +15,7 @@ import Salepage from "./Salepage";
 import Saleimagepage from "./Saleimagepage";
 import Test from "./Testing";
 import Myitem from "./Myitem";
-import Explore from "./Myitem";
+import Explore from "./Explore";
 //import Connectmetamask from "./Connectmetamask";
 import web3 from './web3';
 import Newdeploy from "./Newdeploy";
@@ -34,6 +34,7 @@ import Connectwalletpage from './Connectwalletpage'
 import ReactPlayer from "react-player";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Allcontractpage from './Allcontractpage'
+import Mypurchasepage from './Mypurchasepage'
 //import SearchBar from './SearchBar';
 
 //import {abi} from data;
@@ -144,7 +145,7 @@ function App() {
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
-                  history.push("/Allcontractpage");
+                  history.push("/Explore");
                 }}
               >
                 Explore
@@ -225,6 +226,16 @@ function App() {
                 type="button"
                 onClick= {connectmm}>
                Connect wallet
+              </button>
+
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Mypurchasepage");
+                }}>
+               Mypurchase
               </button>
 
 
@@ -309,8 +320,12 @@ function App() {
               <Connectwalletpage />
             </Route>
 
-            <Route path="/Allcontractpage">
-              <Allcontractpage />
+            <Route path="/Explore">
+              <Explore />
+            </Route>
+
+            <Route path="/Mypurchasepage">
+              <Mypurchasepage />
             </Route>
             
 

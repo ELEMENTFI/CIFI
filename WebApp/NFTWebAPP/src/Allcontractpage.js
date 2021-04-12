@@ -23,6 +23,7 @@ import Howitworkpage from "./Howitworkpage";
 import Communitypage from "./Communitypage";
 import firebase from "firebase";
 import fireDb from "./firebase";
+import Mypurchasepage from './Mypurchasepage'
 
 function Allcontractpage() {
 
@@ -1393,6 +1394,18 @@ useEffect(()=>{onSubmitNFT()},[])
               >
               Create
               </button>
+
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Mypurchasepage");
+                }}>
+               Mypurchase
+              </button>
+
+
 
 
 
