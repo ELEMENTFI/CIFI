@@ -257,16 +257,19 @@ const buynow= async(a) =>{
 
     console.log("ownerget",a.addOwnerAddress)
 
-    let s = await getaaa.methods.items(thing).call();
+    //let s = await getaaa.methods.items(thing).call();
 
-    console.log("sget",s)
+    //console.log("sget",s)
 
-    let state = s.price;
+    let state = a.addPrices;
 
     console.log("stateget",a.addPrices)
     
     //alert(state)
-    await getaaa.methods.buyThing(thing).send({from:accounts[0], value: web3.utils.toWei(a.addPrices, 'ether')});
+    await getaaa.methods.buyThing(thing).send({
+      from:accounts[0], 
+      value: web3.utils.toWei(a.addPrices, 'ether')
+    });
     console.log("Token Purchased Id" + thing)
 
   
