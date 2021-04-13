@@ -150,7 +150,7 @@ function Salepage() {
 		  console.log("checking")
 		  var price = window.prompt("enter the price for your token");
 		  await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
-		const priceamount = await getaaa.methods.items(isd).call();
+  		const priceamount = await getaaa.methods.items(isd).call();
 		  console.log(priceamount.price)
          
           

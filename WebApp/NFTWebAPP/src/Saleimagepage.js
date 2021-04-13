@@ -95,7 +95,7 @@ function Saleimagepage() {
         var thing = event.target.tid;
         var s = await getaaa.methods.items(thing).call();
         var state = s.price;
-       alert(state)
+        alert(state)
         await getaaa.methods.buyThing(thing).send({from:accounts[0], value: web3.utils.toWei(state, 'ether')});
        console.log("Token Purchased Id" + thing)
        
