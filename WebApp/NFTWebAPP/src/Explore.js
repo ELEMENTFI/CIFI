@@ -77,7 +77,7 @@ const[getIm,setgetIm]=useState([]);
         console.log(`bbname`,a[b].userName)
         console.log(`bbsymbol`,a[b].userSymbol)
         console.log(`bbipfs`,a[b].ipfsUrl)
-        console.log(`bboaddress`,a[b].owneraddress)
+        console.log(`bboaddress`,a[b].ownerAddress)
         
 //change here
         req2.push({
@@ -89,7 +89,7 @@ const[getIm,setgetIm]=useState([]);
         addUname:a[b].userName,
       addUsymbol:a[b].userSymbol,
     addIpfs:a[b].ipfsUrl,
-    addOwnerAddress:a[b].owneraddress})
+    addOwnerAddress:a[b].ownerAddress})
               
       })
     })
@@ -243,7 +243,6 @@ const[getIm,setgetIm]=useState([]);
 
 const buynow= async(a) =>{
 
-
     let getaaa=new web3.eth.Contract(abi,a.addcAdd);
 
     console.log("insidebutton",a.addcAdd)
@@ -274,7 +273,7 @@ const buynow= async(a) =>{
 
   
 
-    fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI).update({
+    fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).update({
       id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI
     
     });
