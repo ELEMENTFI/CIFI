@@ -129,6 +129,7 @@ const[getIm,setgetIm]=useState([]);
         console.log(`bbaddessa`,a.cAddress)
         console.log(`bbpricea`,a.priceSet)
         console.log(`bbkeyid`,a.keyIds)
+        //console.log(`bbowner`,)
 //change here
         req2.push({
           //addAcc:
@@ -149,6 +150,8 @@ const[getIm,setgetIm]=useState([]);
     setgetIm(req2)
     
     console.log("cfba",req)
+
+    setPa(0)
   }
 
 
@@ -229,7 +232,7 @@ const setprice =async (a,event)=>{
 
 
            //let pa = priceamount.state;
-           setPa(priceamount.stat)
+           setPa(priceamount.state)
          if(pa === 1){
            //c.append(t)
            console.log("checkcon","Added for sale console")
@@ -243,6 +246,63 @@ const setprice =async (a,event)=>{
          }
 
           
+
+}
+
+const send=async(a)=>{
+
+  //let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
+  //const accounts = await  web3.eth.getAccounts();
+  //console.log("logd1",accounts[0])
+  //console.log("logd2",a.addKeyI)
+
+
+  //console.log("logdele",ab)
+
+  let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
+  const accounts = await  web3.eth.getAccounts();
+
+  let toaddressget = window.prompt("enter for your sender address");
+
+  if(toaddressget === null){
+
+    alert("please enter address")
+
+  }
+  else{
+
+
+    await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
+      from:accounts[0]
+    });
+  
+    console.log("checkinga",a.addOwnerAddress)
+  
+    fireDb.database().ref(`imagerefbuy/${toaddressget}`).child(a.addKeyI).set({
+      id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+      userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
+    })
+  
+    fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).set({
+      id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+      userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
+    })
+
+
+  fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
+
+  try{
+
+    fireDb.database().ref('imagerefbuy').child(accounts[0]).child(a.addKeyI).remove();
+
+  }catch(error)
+  {
+    
+  }
+
+  
+
+  }  
 
 }
 
@@ -384,12 +444,12 @@ const setprice =async (a,event)=>{
 {getIm.map((a)=>{
   console.log(`a`, a)
 
-  if(a.addImgSrc !=='' && pa===1){
+  if(a.addImgSrc !=='' && pa === 0){
   return (
     <div>
-
+{' '}
   <img   src={a.addImgs}  style={{height:300,width:300}}     />
-  {''}
+  {'  '}
   <br></br>
   <h3>Name : {a.addName}</h3>
   
@@ -398,6 +458,10 @@ const setprice =async (a,event)=>{
   <h3>price : {a.addPrices}</h3>
   
   <button onClick={()=>setprice(a)} >SetPrice</button>
+
+  {' '}
+
+  <button onClick={()=>send(a)} >Send</button>
   
   </div>
   )
@@ -416,6 +480,8 @@ const setprice =async (a,event)=>{
     <h3>price : {a.addPrices}</h3>
     
     <h3> Added for sale</h3>
+
+    <button onClick={()=>send(a)} >Send</button>
     
     </div>
     )
