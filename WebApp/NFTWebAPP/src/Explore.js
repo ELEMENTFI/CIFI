@@ -14,6 +14,7 @@ import Communitypage from "./Communitypage";
 import firebase from "firebase";
 import {abi} from './datas'
 import Mypurchasepage from './Mypurchasepage'
+import {tra} from './trans'
 
 
 
@@ -82,6 +83,7 @@ const[getIm,setgetIm]=useState([]);
 //change here
         req2.push({
           //addAcc:
+          addKeyI:a[b].keyId,
           addPrices:a[b].priceSet,
           addcAdd:a[b].cAddress,
           addIds:a[b].id,
@@ -243,18 +245,46 @@ const[getIm,setgetIm]=useState([]);
 
 const buynow= async(a) =>{
 
+    let gettrans=new web3.eth.Contract(tra,'0xED3c6A02F152CaeA0f6F86EFADF55e638543DED3');
+
+    //let gettrans=new web3.eth.Contract(tra,a.addOwnerAddress);
+
     let getaaa=new web3.eth.Contract(abi,a.addcAdd);
 
     console.log("insidebutton",a.addcAdd)
     console.log("insidebuttonid",a.addPrices)
+    console.log("insidebuttonids",a.addOwnerAddress)
 
     const accounts = await web3.eth.getAccounts();
+
+//tra start
+
+  //  await gettrans.methods.sendss(a.addOwnerAddress).send({
+  //    from:accounts[0], 
+  //    value: web3.utils.toWei(a.addPrices, 'ether')
+  //  });
+
+
+
+  //let receiverAddress=a.addOwnerAddress;
+
+  await gettrans.methods.sendss(a.addOwnerAddress).send({
+     from: accounts[0],
+     value: web3.utils.toWei(a.addPrices, 'ether')
+    });
+
+
+
+//end trans
+
   
     let thing = a.addIds;
 
     console.log("thingget",a.addIds)
 
     console.log("ownerget",a.addOwnerAddress)
+
+    console.log("keyget",a.addKeyI)
 
     //let s = await getaaa.methods.items(thing).call();
 
@@ -265,20 +295,46 @@ const buynow= async(a) =>{
     console.log("stateget",a.addPrices)
     
     //alert(state)
-    await getaaa.methods.buyThing(thing).send({
-      from:accounts[0], 
-      value: web3.utils.toWei(a.addPrices, 'ether')
-    });
-    console.log("Token Purchased Id" + thing)
+    // await getaaa.methods.buyThing(thing).send({
+    //   from:accounts[0], 
+    //   value: web3.utils.toWei(a.addPrices, 'ether')
+    // });
+    // console.log("Token Purchased Id" + thing)
+
+
+    let ref2=fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI);
+
+    console.log("ref2get",ref2)
+
+
+
+    ref2.set({
+      id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+      ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
+
+
+      fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+
+      fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+
+
+      let ref3=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);
+
+      ref3.set({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+        ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
+  
+
+                      
 
   
 
-    fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).update({
-      id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI
+    // fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).set({
+    //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI
     
-    });
+    // });
 
-    fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+//    fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
         
    
   }  

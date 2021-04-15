@@ -228,6 +228,8 @@ function App() {
                Connect wallet
               </button>
 
+              {" "}
+
               <button
               id="bu"
                 class="btn btn-info btn-block"

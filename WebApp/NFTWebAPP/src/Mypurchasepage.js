@@ -32,12 +32,16 @@ const[getIm,setgetIm]=useState([]);
 
 
   const getImgpa = async() =>{
+    const accounts = await web3.eth.getAccounts();
     let req = [];
     let req2 = [];
-    firebase.database().ref("imagerefbuy").on("value", (data) => {
+    //let kreq =[];
+    firebase.database().ref("imagerefbuy").child(accounts[0]).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
+          console.log("keycheck",d.key)
           req.push(d.val())
+          //req.push(d.key)
           
         });
         
@@ -47,39 +51,39 @@ const[getIm,setgetIm]=useState([]);
 
     setgetImgreff(req)
 
-      getImgreff.map((a)=>{
+    getImgreff.map((a)=>{
       console.log(`a`, a)
     
-      Object.keys(a).map((b)=>{
+      //Object.keys(a).map((b)=>{
     
-        console.log(`bb`, b)
-        console.log(`bbnext`, a[b].imageUrl)
-        console.log(`bbaddess`,a[b].cAddress)
-        console.log(`bbprice`,a[b].priceSet)
-        console.log(`bbname`,a[b].userName)
-        console.log(`bbsymbol`,a[b].userSymbol)
-        console.log(`bbipfs`,a[b].ipfsUrl)
-        console.log(`bboaddress`,a[b].owneraddress)
-        
+        console.log(`bba`, a)
+        console.log(`bbnexta`, a.imageUrl)
+        console.log(`bbaddessa`,a.cAddress)
+        console.log(`bbpricea`,a.priceSet)
+        console.log(`bbkeyid`,a.keyIds)
+        //console.log(`bbowner`,)
 //change here
         req2.push({
           //addAcc:
-          addPrices:a[b].priceSet,
-          addcAdd:a[b].cAddress,
-          addIds:a[b].id,
-          addImgs:a[b].imageUrl,
-        addUname:a[b].userName,
-      addUsymbol:a[b].userSymbol,
-    addIpfs:a[b].ipfsUrl,
-    addOwnerAddress:a[b].owneraddress})
+          addPrices:a.priceSet,
+          addcAdd:a.cAddress,
+          addIds:a.id,
+          addImgs:a.imageUrl,
+          addKeyI:a.keyId,
+        addName:a.userName,
+      addSymbol:a.userSymbol,
+    addIpfs:a.ipfsUrl})
               
-      })
+      //})
     })
+
+
     
     setgetIm(req2)
     
-    console.log("cfb",req) 
+    console.log("cfba",req)
 
+    setPa(0)
   }
 
 
@@ -396,14 +400,18 @@ const[getIm,setgetIm]=useState([]);
   return (
     <div style={{backgroundColor:'skyblue',height:'500px',width:'500px'}}>
 
+<br></br>
+
   <img   src={a.addImgs}  style={{height:300,width:300}}     />
   
   
+  
+
   {/* <h5>hello{a[b].imageUrl}</h5> */}
 
-  <h3>Name : {a.addUname}</h3>
+  <h3>Name : {a.addName}</h3>
   
-  <h3>Symbol : {a.addUsymbol}</h3>
+  <h3>Symbol : {a.addSymbol}</h3>
   
   <h3>price : {a.addPrices}</h3>
 
