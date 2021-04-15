@@ -47,10 +47,23 @@ const[getImgreff,setgetImgreff]=useState([]);
 
 const[getIm,setgetIm]=useState([]);
 
+
+console.log("fir1",getImgreff)
+console.log("fir2",getIm)
+
   //temp start
 
 
+
+const[Loader,setLoader]=useState(false);
+  
+
+
   const getImgpa = async() =>{
+
+    setLoader(true)
+
+    //window.location.reload(false)
     let req = [];
     let req2 = [];
     firebase.database().ref("imageref").on("value", (data) => {
@@ -100,10 +113,12 @@ const[getIm,setgetIm]=useState([]);
     
     console.log("cfb",req) 
 
+    setLoader(false)
+
   }
 
 
-  useEffect(()=>{getImgpa()},[])
+  useEffect(()=>{getImgpa()},[getIm])
 
   
 // const onSubmitNFTTs = async (event) => {
@@ -435,14 +450,22 @@ const buynow= async(a) =>{
 
 
               <br></br>
+
+
+{/* <i class="fa fa-refresh"></i>
+
+<button style={{size:24}}>Button <i class="fa fa-refresh"></i></button> */}
+
+{/* <span style={{font-size:'100'}}>&#8634</span> */}
+{/* <p>I will display &#8634;</p> */}
+
+{/* <button onClick={() => }>Click to reload!</button> */}
+
 <br></br>
 
 
-<br></br>
-<br></br>
 
-
-              <button
+              {/* <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={getImgpa}
@@ -452,9 +475,10 @@ const buynow= async(a) =>{
               
               </button>
 
-              {''}
+              {' '} */}
 
-
+<br></br>
+<br></br>
 
               {/* {afternames.length === 0 ? null : 
 <div style={{width:'800px',height:'70vh',backgroundColor:'blue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
@@ -500,9 +524,14 @@ return (
 } */}
 
 
+<div>
 
+{Loader?
+<h1>Loading.....</h1>
+:
+<>
 {getIm.length === 0 ? null :( 
-<div style={{width:'800px',height:'70vh',backgroundColor:'skyblue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
+<div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
 {getIm.map((a)=>{
   console.log(`a`, a)
 
@@ -517,10 +546,12 @@ return (
 
 
   return (
-    <div style={{backgroundColor:'skyblue',height:'500px',width:'500px'}}>
+    <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
 
-  <img   src={a.addImgs}  style={{height:300,width:300}}     />
+  <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
   
+  
+
   
   {/* <h5>hello{a[b].imageUrl}</h5> */}
 
@@ -545,7 +576,10 @@ return (
 }
 </div>
 )
-}                    
+}
+</>
+}
+</div>                    
 
             <Router history={history}>
           <Switch>
