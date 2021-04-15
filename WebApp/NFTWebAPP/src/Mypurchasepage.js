@@ -87,7 +87,7 @@ const[getIm,setgetIm]=useState([]);
   }
 
 
-  useEffect(()=>{getImgpa()},[])
+  useEffect(()=>{getImgpa()},[getIm])
 
   
 
@@ -339,7 +339,7 @@ const[getIm,setgetIm]=useState([]);
 <br></br>
 
 
-              <button
+              {/* <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={getImgpa}
@@ -347,7 +347,7 @@ const[getIm,setgetIm]=useState([]);
 
                 Refresh
               
-              </button>
+              </button> */}
 
 
 
@@ -357,7 +357,7 @@ const[getIm,setgetIm]=useState([]);
 
 
 {getIm.length === 0 ? null :( 
-<div style={{width:'800px',height:'70vh',backgroundColor:'skyblue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
+  <div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
 {getIm.map((a)=>{
   console.log(`a`, a)
 
@@ -398,14 +398,15 @@ const[getIm,setgetIm]=useState([]);
 //   }
 
   return (
-    <div style={{backgroundColor:'skyblue',height:'500px',width:'500px'}}>
+    <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
 
 <br></br>
 
-  <img   src={a.addImgs}  style={{height:300,width:300}}     />
+  <img   src={a.addImgs}  style={{height:300,width:300}}  alt={""}   />
   
   
-  
+  <br></br>
+  <br></br>
 
   {/* <h5>hello{a[b].imageUrl}</h5> */}
 

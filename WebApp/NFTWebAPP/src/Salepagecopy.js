@@ -155,7 +155,7 @@ const[getIm,setgetIm]=useState([]);
   }
 
 
-  useEffect(()=>{getImgpa()},[])
+  useEffect(()=>{getImgpa()},[getIm])
   //end here
 
 
@@ -431,26 +431,27 @@ const send=async(a)=>{
               </button> */}
 
 
-              <button
+              {/* <button
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={getImgpa}
               >
               
               Refresh
-              </button>
+              </button> */}
 {getIm.length === 0 ? null : 
-<div style={{width:'800px',height:'70vh',backgroundColor:'skyblue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
+<div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
 {getIm.map((a)=>{
   console.log(`a`, a)
 
   if(a.addImgSrc !=='' && pa === 0){
   return (
-    <div>
-{' '}
-  <img   src={a.addImgs}  style={{height:300,width:300}}     />
-  {'  '}
+    <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+
+  <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+  {' '}
   <br></br>
+  
   <h3>Name : {a.addName}</h3>
   
   <h3>Symbol : {a.addSymbol}</h3>
@@ -467,24 +468,24 @@ const send=async(a)=>{
   )
   }else{
    
-    return (
-      <div>
+    //return (
+  //     <div>
   
-  <img   src={a.addImgs}  style={{height:300,width:300}}     />
-    {''}
-    <br></br>
-    <h3>Name : {a.addName}</h3>
+  // <img   src={a.addImgs}  style={{height:250,width:250}}  alt={""}   />
+  //   {''}
+  //   <br></br>
+  //   <h3>Name : {a.addName}</h3>
     
-    <h3>Symbol : {a.addSymbol}</h3>
+  //   <h3>Symbol : {a.addSymbol}</h3>
     
-    <h3>price : {a.addPrices}</h3>
+  //   <h3>price : {a.addPrices}</h3>
     
-    <h3> Added for sale</h3>
+  //   <h3> Added for sale</h3>
 
-    <button onClick={()=>send(a)} >Send</button>
+  //   <button onClick={()=>send(a)} >Send</button>
     
-    </div>
-    )
+  //   </div>
+  //   )
     
   }
 })}
