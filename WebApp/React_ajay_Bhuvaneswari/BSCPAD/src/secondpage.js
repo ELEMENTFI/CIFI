@@ -11,7 +11,8 @@ import $, { error, event, get } from 'jquery';
 import Web3 from 'web3';
 import Background from '../src/images/aa.gif'
 import Popup from 'reactjs-popup';
-import {Modal,Button} from 'react-bootstrap';
+
+import { Modal, Button,InputGroup,FormControl } from "react-bootstrap";
 
 
 
@@ -33,13 +34,16 @@ class secondpage extends Component{
   At:'',
   value:'',
   amount1:'',
-  pro:''
-
+  pro:'',
+  isOpen: false
   };
+  openModal = () => this.setState({ isOpen: true });
+  closeModal = () => this.setState({ isOpen: false });
 
     
   async componentDidMount() {
-    
+  //  var x = document.getElementById('myDIV').style.visibility = "hidden";
+
     var amount1;
      const accounts = await  web3.eth.getAccounts();
     const balance = await web3.eth.getBalance(tokencontract.options.address);
@@ -105,17 +109,26 @@ var availtk=At/1000000000;
        
       });
     } 
+const popup1 = async()=>{
+  var x = document.getElementById('myDIV');
+  if (x.style.visibility === 'hidden') {
+    x.style.visibility = 'visible';
+  } else {
+    x.style.visibility = 'hidden';
+  }
 
+}
     
     const buyTest =async (event) => {
       
       event.preventDefault();
+      this.closeModal();
       const accounts = await  web3.eth.getAccounts();
       var amount=document.getElementById("amount1").value;
     
      if(amount<=5000000000000000000000){ 
       var v=0;
-      document.getElementById("exe").style.visibility = "hidden";
+     // document.getElementById("exe").style.visibility = "hidden";
 
       v=v+amount;
      // alert(amount);
@@ -222,22 +235,40 @@ Symbol <br/> {this.state.symbol}.
           <div class="ma">
             <table>
               <div class="row">
-                <div class="col-6 mt-5">
+                <div class="col-6 mt-3">
                 <button class="btn btn-outline-warning" onClick={approve} id="ap">aprove name</button>
 
                 </div>
                
-<div class="col mt-5">
-  <div class="container">
-  <Popup class="popup" trigger={<button class="btn btn-outline-warning"> Buytest</button>} position="right center">
-    <div class="pop mt-5">Enter amount !!</div>
- <input type="number" id="amount1" class="poptext mt-2" /> <br/>
- <p id="exe" class="pp"></p>
- <button class="btn btn-warning ml-3 " id="buy" onClick={buyTest}>buy</button>  
-    </Popup>
+
+  
+  <div class="col-2 mt-3" >
+          <Button variant="outline-warning" onClick={this.openModal}>
+BuyTest          </Button>
+        
+        <Modal class="pop4" show={this.state.isOpen} onHide={this.closeModal} centered>
+          <Modal.Header className="myModal" closeButton>
+            <Modal.Title>Enter amount....</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="myModal">
+          <InputGroup className="mb-3">
+    <InputGroup.Prepend>
+    </InputGroup.Prepend>
+    <FormControl className="myInput" aria-label="Amount (to the nearest dollar)"id="amount1" />
+    <InputGroup.Append>
+      
+    </InputGroup.Append>
+  </InputGroup>
+          </Modal.Body>
+          <Modal.Footer className="myModal">
+            <Button variant="outline-warning" onClick={buyTest}>
+              Buy
+            </Button>
+          </Modal.Footer>
+        </Modal>
   </div>
 
-</div>
+
 
 
 
