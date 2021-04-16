@@ -40,7 +40,13 @@ import Mypurchasepage from './Mypurchasepage'
 //import {abi} from data;
 
 
+import Createandpurchasepage from './Createandpurchasepage';
+
+
+
 function App() {
+
+  const [myOptions, setMyOptions] = useState([])
 
   const isBackgroundRed = true;
 
@@ -115,6 +121,12 @@ function App() {
   useEffect(()=>{connectmm()},[])
 
 
+  const getDataFromAPI = () => {
+
+      //setMyOptions(myOptions)
+    //})
+  }
+
   
   
 
@@ -123,19 +135,45 @@ function App() {
       <div class="jumbotron my-auto">
       
 
-        
-          
+      
         <Router history={history}>
           <Switch>
             <Route path="/" exact>
               <div class="display-4 mb-1"></div>
+
+              
               
               <Logo  height="55" width="55" />
               {" "}
 
-              <input type="text" placeholder="Search here ?"></input>
+
+
+              {/* <Autocomplete
+        style={{ width: 300,height:5 }}
+        freeSolo
+        autoComplete
+        autoHighlight
+        options={myOptions}
+        renderInput={(params) => (
+          <TextField {...params}
+            onChange={getDataFromAPI}
+            variant="outlined"
+            label="Search Box"
+          />
+        )}
+      /> */}
+
+      
+      {" "}
+
+      {/* <br></br>
+      <br></br>
+      <br></br> */}
+
+
+              {/* <input type="text" placeholder="Search here ?"></input>
               {" "}
-              <button type="submit">Search</button>
+              <button type="submit">Search</button> */}
 
               {" "}
               
@@ -220,6 +258,33 @@ function App() {
 
               {" "}
 
+              
+
+              <button
+              
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Mypurchasepage");
+                }}>
+               Mypurchase
+              </button>
+              {" "}
+
+              <button
+            
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Createandpurchasepage");
+                }}
+                
+                >
+               Create and Purchase
+              </button>
+
+              {" "}
+
               <button
               id="bu"
                 class="btn btn-info btn-block"
@@ -230,20 +295,15 @@ function App() {
 
               {" "}
 
-              <button
-              id="bu"
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Mypurchasepage");
-                }}>
-               Mypurchase
-              </button>
+
+
 
 
               <br></br>
               <hr></hr>
 
+
+              
 
               
               
@@ -328,6 +388,10 @@ function App() {
 
             <Route path="/Mypurchasepage">
               <Mypurchasepage />
+            </Route>
+
+            <Route path="/Createandpurchasepage">
+              <Createandpurchasepage />
             </Route>
             
 

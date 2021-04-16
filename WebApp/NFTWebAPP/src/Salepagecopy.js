@@ -20,12 +20,15 @@ import Allcontractpage from "./Allcontractpage";
 import {abi} from './data'
 import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore'
+import Createandpurchasepage from './Createandpurchasepage'
 
 
 // console.log(`abi`, abi)
 
 
 function Salepagecopy() {
+
+
 
 
 const[getImgreff,setgetImgreff]=useState([]);
@@ -94,6 +97,76 @@ const[getIm,setgetIm]=useState([]);
 
 // },10000)
 //   },[])
+
+
+
+let btn;
+  var accounts;
+
+  const connectmm = async () => {
+
+
+    //var getaddress=localStorage.getItem('myaddress')
+
+    //if(getaddress !== ""){
+
+
+      //var btn = document.getElementById("bu");
+        //btn.value = accounts[0]; // will just add a hidden value
+        //btn.innerHTML = accounts[0];
+        //btn.innerHTML = "CONNECTED"
+
+
+
+    //}
+    //else{
+
+
+      //window.alert("Do you want to connect with metamask");
+
+
+      //event.preventDefault();
+     //bring in user's metamask account address
+
+     
+
+     //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
+
+      
+      //alert("acc"+accounts[0])
+
+      accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
+
+      if(accounts[0] !== ""){
+
+      
+
+        //accounts[0
+        //document.getElementById("bu").
+        //document.getElementById("bu").append("CONNECTED")
+
+        btn= document.getElementById("bu");
+        //btn.value = accounts[0]; // will just add a hidden value
+        //btn.innerHTML = accounts[0];
+        btn.innerHTML = "CONNECTED"
+
+
+        localStorage.setItem('myaddress', accounts[0]);
+      
+      }
+      else{
+        //document.getElementById("bu").remove("");
+        //document.getElementById("bu").replaceWith("NOT CONNECTED")
+        var btns = document.getElementById("bu");
+        //btns.value = accounts[0]; // will just add a hidden value
+        btns.innerHTML = "NOT CONNECTED";
+        localStorage.setItem('myaddress', "");
+      }
+
+    
+  };    
+  useEffect(()=>{connectmm()},[])
+
 
 
   //new function start
@@ -201,11 +274,11 @@ const[getIm,setgetIm]=useState([]);
 
 
    
-const setprice =async (a,event)=>{
+const setprice =async (a)=>{
 
-  let t= document.createElement("textbox")
+  //let t= document.createElement("textbox")
 
-  t="Added for sale";
+  //t="Added for sale";
   //b.innerHTML="Enable Sale";
 
              var isd = a.addIds;//a
@@ -220,17 +293,33 @@ const setprice =async (a,event)=>{
             let price = window.prompt("enter the price for your token");
 
 
-            fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
-              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI
-            
-            });
-
-
             await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
             const priceamount = await getaaaa.methods.items(isd).call();
             console.log(priceamount.price)
 
 
+            await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
+
+            await getaaaa.methods.approve(a.addcAdd,a.addIds).send({from:accounts[0]})
+
+
+            fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0]
+            
+            });
+
+
+            fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0]
+            
+            });
+
+
+            
+                      
+
+
+            
            //let pa = priceamount.state;
            setPa(priceamount.state)
          if(pa === 1){
@@ -289,7 +378,7 @@ const send=async(a)=>{
     })
 
 
-  fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
+    fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
 
   try{
 
@@ -330,7 +419,7 @@ const send=async(a)=>{
                 Explore
               </button>
 
-     
+              {" "}
       
 <button
                 class="btn btn-info btn-block"
@@ -340,6 +429,7 @@ const send=async(a)=>{
                 }}>
                 My items
               </button>
+              {" "}
               
               <button
                 class="btn btn-info btn-block"
@@ -350,7 +440,7 @@ const send=async(a)=>{
               >
                 Following
               </button>
-
+              {" "}
               <button 
                 class="btn btn-info btn-block"
                 type="button"
@@ -359,6 +449,7 @@ const send=async(a)=>{
                 }}>
                 Activity
               </button>
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -368,6 +459,7 @@ const send=async(a)=>{
               >
                 How it work
               </button>
+              {" "}
 
               <button
                 class="btn btn-info btn-block"
@@ -378,6 +470,8 @@ const send=async(a)=>{
               >
                 Community
               </button>
+
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -388,8 +482,10 @@ const send=async(a)=>{
               Create
               </button>
 
+              {" "}
+
               <button
-              id="bu"
+              
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
@@ -397,6 +493,32 @@ const send=async(a)=>{
                 }}>
                Mypurchase
               </button>
+
+              {" "}
+
+
+              <button
+              
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Createandpurchasepage");
+                }}
+                
+                >
+               Create and Purchase
+              </button>
+
+              {" "}
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick= {connectmm}>
+               Connect wallet
+              </button>
+
+              {" "}
 
 
 
@@ -548,6 +670,10 @@ const send=async(a)=>{
             </Route>
             <Route path="/Explore">
               <Explore />
+            </Route>
+
+            <Route path="/Createandpurchasepage">
+              <Createandpurchasepage />
             </Route>
             
             

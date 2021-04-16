@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import history from "./utils/history";
 
 import { Router, Route, Switch } from "react-router-dom";
@@ -14,8 +14,80 @@ import Howitworkpage from "./Howitworkpage";
 
 import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore'
+import Createandpurchasepage from './Createandpurchasepage'
+
+import web3 from './web3';
 
 function Communitypage() {
+
+
+  let btn;
+  var accounts;
+
+  const connectmm = async () => {
+
+
+    //var getaddress=localStorage.getItem('myaddress')
+
+    //if(getaddress !== ""){
+
+
+      //var btn = document.getElementById("bu");
+        //btn.value = accounts[0]; // will just add a hidden value
+        //btn.innerHTML = accounts[0];
+        //btn.innerHTML = "CONNECTED"
+
+
+
+    //}
+    //else{
+
+
+      //window.alert("Do you want to connect with metamask");
+
+
+      //event.preventDefault();
+     //bring in user's metamask account address
+
+     
+
+     //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
+
+      
+      //alert("acc"+accounts[0])
+
+      accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
+
+      if(accounts[0] !== ""){
+
+      
+
+        //accounts[0
+        //document.getElementById("bu").
+        //document.getElementById("bu").append("CONNECTED")
+
+        btn= document.getElementById("bu");
+        //btn.value = accounts[0]; // will just add a hidden value
+        //btn.innerHTML = accounts[0];
+        btn.innerHTML = "CONNECTED"
+
+
+        localStorage.setItem('myaddress', accounts[0]);
+      
+      }
+      else{
+        //document.getElementById("bu").remove("");
+        //document.getElementById("bu").replaceWith("NOT CONNECTED")
+        var btns = document.getElementById("bu");
+        //btns.value = accounts[0]; // will just add a hidden value
+        btns.innerHTML = "NOT CONNECTED";
+        localStorage.setItem('myaddress', "");
+      }
+
+    
+  };    
+  useEffect(()=>{connectmm()},[])
+
 
   
   
@@ -33,6 +105,7 @@ function Communitypage() {
                 }}>
                 Explore
               </button>
+              {" "}
 
 
 <button
@@ -43,6 +116,8 @@ function Communitypage() {
                 }}>
                 My items
               </button>
+
+              {" "}
               
               <button
                 class="btn btn-info btn-block"
@@ -54,6 +129,8 @@ function Communitypage() {
                 Following
               </button>
 
+              {" "}
+
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -62,6 +139,8 @@ function Communitypage() {
                 }}>
                 Activity
               </button>
+
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -72,6 +151,8 @@ function Communitypage() {
                 How it work
               </button>
 
+              {" "}
+
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -81,6 +162,8 @@ function Communitypage() {
               >
                 Community
               </button>
+
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -91,9 +174,10 @@ function Communitypage() {
               Create
               </button>
 
+              {" "}
 
               <button
-              id="bu"
+              
                 class="btn btn-info btn-block"
                 type="button"
                 onClick={() => {
@@ -101,6 +185,31 @@ function Communitypage() {
                 }}>
                Mypurchase
               </button>
+
+              {" "}
+              <button
+              
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Createandpurchasepage");
+                }}
+                
+                >
+               Create and Purchase
+              </button>
+
+              {" "}
+
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick= {connectmm}>
+               Connect wallet
+              </button>
+
+              {" "}
 
 
 
@@ -147,6 +256,10 @@ function Communitypage() {
             
             <Route path="/Explore">
               <Explore />
+            </Route>
+
+            <Route path="/Createandpurchasepage">
+              <Createandpurchasepage />
             </Route>
 
             
