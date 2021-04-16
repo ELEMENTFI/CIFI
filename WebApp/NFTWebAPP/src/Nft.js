@@ -19,9 +19,18 @@ import Compress from "react-image-file-resizer";
 
 import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore';
+import {Modal} from 'react-bootstrap';
+import {Button} from 'react-bootstrap'
 
 
 function Nft() {
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  
 
   let btn;
   var accounts;
@@ -169,6 +178,7 @@ const onSubmitImage = async (event) => {
    const onSubmitNFT = async (event) => {
 
 
+      
     //alert(localStorage.getItem('myimageuri'));
       
 
@@ -1540,6 +1550,10 @@ const onSubmitImage = async (event) => {
     
     <div className="App">
 
+
+
+
+
 <center>
 
 <button
@@ -1753,6 +1767,32 @@ id="idid"
       
 <br></br>
 <br></br>
+
+
+{/* <div>
+
+
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Loading......</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your Request has been Loading....!</Modal.Body>
+        <Modal.Footer>
+
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+        </Modal.Footer>
+      </Modal>
+
+        </div> */}
 
 
 
