@@ -1,8 +1,9 @@
 import web3 from "./web3";
 
-const address =  '0x03Efaf51AB0F512C0D967f2B951a1A7B18056c9B';
+const address =  '0x06c1ca66514073e04977EdB3C19F0F76535e0da3';
 
 const abi = [
+	
 	{
 		"inputs": [],
 		"payable": false,
@@ -109,7 +110,7 @@ const abi = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "isTESTOpen",
+		"name": "isSLATEOpen",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -289,29 +290,8 @@ const abi = [
 	{
 		"constant": false,
 		"inputs": [],
-		"name": "startTEST",
+		"name": "startSLATE",
 		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "swapByBUSD",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -412,5 +392,6 @@ const abi = [
 		"stateMutability": "view",
 		"type": "function"
 	}
+
 ];
 export default new web3.eth.Contract(abi, address);

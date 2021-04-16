@@ -50,14 +50,14 @@ class secondpage extends Component{
     const totalsupply = await tokencontract.methods.totalSupply().call();
     const decimal = await TESTToken.methods.decimals().call();
     
-    var pro1= await BEP20Token.methods.balanceOf("0x759545eCa708D8e9D6f0D57acc80A9F7DFAD33ca").call();
-    const At = await TESTToken.methods.balanceOf("0x03Efaf51AB0F512C0D967f2B951a1A7B18056c9B").call();
+    var pro1= await BEP20Token.methods.balanceOf("0x0Ef04FFA95f2eC2D07a5a196b4cEFB9d1076D43c").call();
+    const At = await TESTToken.methods.balanceOf("0x06c1ca66514073e04977EdB3C19F0F76535e0da3").call();
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
     const balance_BUSD = await BEP20Token.methods.balanceOf(accounts[0]).call();
     const balance_TEST= await TESTToken.methods.balanceOf(accounts[0]).call();
 
-    const ooc = await TEST.methods.isTESTOpen().call();
+    const ooc = await TEST.methods.isSLATEOpen().call();
     
 var busd=balance_BUSD/1000000000000000000;
 pro1=pro1/1000000000000000000;
@@ -99,11 +99,11 @@ var availtk=At/1000000000;
      const approve = async (event) =>{
       event.preventDefault();
       const accounts = await  web3.eth.getAccounts();
-      await BEP20Token.methods.approve("0x03Efaf51AB0F512C0D967f2B951a1A7B18056c9B","10000000000000000000000000000000").
+      await BEP20Token.methods.approve("0x06c1ca66514073e04977EdB3C19F0F76535e0da3","10000000000000000000000000000000").
       send({
         from: accounts[0]       
       });
-      await TESTToken.methods.approve("0x03Efaf51AB0F512C0D967f2B951a1A7B18056c9B","10000000000000000000000000000").
+      await TESTToken.methods.approve("0x06c1ca66514073e04977EdB3C19F0F76535e0da3","10000000000000000000000000000").
       send({
         from: accounts[0]
        
@@ -133,9 +133,10 @@ const popup1 = async()=>{
       v=v+amount;
      // alert(amount);
      
-      //amount=amount*1000000000000000000;
-      
+   //  amount=amount*10000000000000000000;
+     //var s=amount.toString();
 
+//alert(s)
       await TEST.methods.click(amount).send(
       {
       from:accounts[0]
@@ -155,55 +156,55 @@ const popup1 = async()=>{
     
     web3.givenProvider.enable().then(console.log);
     return (
-      <div class="text" style={{backgroundImage:"url("+ Background +")",backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat'}}>
+      <div class="text App" style={{backgroundColor:'white'}}>
          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
 
         <br/> <br/>
-        <h1 class="head"><b>
+        <h1 class="head1"><b>
           Join Pool
           </b>
 
         </h1>
         <br/>
-        <table>
+        <br/>
+        <div class="container">
           <div class="row justify-content-center">
-            <div class="col-6">
- <Card bg="dark" border="warning" style={{ width: '23rem' , padding: "25px" , borderRadius: "8%" }} >
+            <div class="col">
+ <Card  style={{ width: '100%' , padding: "25px" ,backgroundColor:"#f2f2f2", color:'black'}} >
         <p>
 
-Name <br/> {this.state.name}.
+<span class="tt">Name</span> <br/> {this.state.name}.
 </p>
 <p id="dem" class="pp">
 </p>
-<p>
-Symbol <br/> {this.state.symbol}.
+<p><span class="tt">
+Symbol</span> <br/> {this.state.symbol}.
 </p>
 <p>
- Total Supply <br/> {this.state.totalsupply}. 
+<span class="tt">Total Supply</span> <br/> {this.state.totalsupply}. 
 </p>
 
 <p>
-          Decimals <br/> {this.state.decimal}.
+<span class="tt">     Decimals</span> <br/> {this.state.decimal}.
         </p>
       
         </Card>
 
             </div>
-            <div class="col-2">
-            <Card bg="dark" border="warning" style={{ width: '30rem' , padding: "25px",borderRadius: "9%" }} bodyStyle={{}} >
+            <div class="col">
+            < Card style={{backgroundColor:"#fa3455", width: '100%' , padding: "25px"}} class="card11" bodyStyle={{}} >
 
         <p>
-          Balance_BUSD <br/> {this.state.busd}.
+        <span class="tt"> Balance_BUSD </span><br/> {this.state.busd}.
         </p>
         <p>
-          Balance_TEST <br/> {this.state.baltest}.
+        <span class="tt">    Balance_TEST </span><br/> {this.state.baltest}.
         </p>
         <p>
-          Available_Tokens <br/> {this.state.availtk}.
+        <span class="tt">   Available_Tokens</span> <br/> {this.state.availtk}.
         </p>
+        <br/>
         <p class="p">Progress (Available Tokens)</p>
         <progress id="file" value={this.state.pro} max="5000" class="progress11"></progress>
         <div>
@@ -229,21 +230,21 @@ Symbol <br/> {this.state.symbol}.
 
             </div>
           </div>
-        </table>
+        </div>
         <br/>   <br/> 
     
           <div class="ma">
             <table>
               <div class="row">
                 <div class="col-6 mt-3">
-                <button class="btn btn-outline-warning" onClick={approve} id="ap">aprove name</button>
+                <button class="btn btn-primary" onClick={approve} id="ap">aprove name</button>
 
                 </div>
                
 
   
   <div class="col-2 mt-3" >
-          <Button variant="outline-warning" onClick={this.openModal}>
+          <Button variant="primary" onClick={this.openModal}>
 BuyTest          </Button>
         
         <Modal class="pop4" show={this.state.isOpen} onHide={this.closeModal} centered>
@@ -261,7 +262,7 @@ BuyTest          </Button>
   </InputGroup>
           </Modal.Body>
           <Modal.Footer className="myModal">
-            <Button variant="outline-warning" onClick={buyTest}>
+            <Button variant="primary" onClick={buyTest}>
               Buy
             </Button>
           </Modal.Footer>
@@ -281,10 +282,10 @@ BuyTest          </Button>
         </div>
 
       
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+<br/><br/>
+     
+       
+      
 
   </div>
     );
