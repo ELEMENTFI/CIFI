@@ -15,6 +15,7 @@ import firebase from "firebase";
 import {abi} from './datas'
 import Explore from './Explore'
 //import Mypurchasepage from './Mypurchasepage'
+import Createandpurchasepage from './Createandpurchasepage'
 
 
 
@@ -28,7 +29,83 @@ const[getImgreff,setgetImgreff]=useState([]);
 
 const[getIm,setgetIm]=useState([]);
 
+
+
+
+let btn;
+  var accounts;
+
+  const connectmm = async () => {
+
+
+    //var getaddress=localStorage.getItem('myaddress')
+
+    //if(getaddress !== ""){
+
+
+      //var btn = document.getElementById("bu");
+        //btn.value = accounts[0]; // will just add a hidden value
+        //btn.innerHTML = accounts[0];
+        //btn.innerHTML = "CONNECTED"
+
+
+
+    //}
+    //else{
+
+
+      //window.alert("Do you want to connect with metamask");
+
+
+      //event.preventDefault();
+     //bring in user's metamask account address
+
+     
+
+     //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
+
+      
+      //alert("acc"+accounts[0])
+
+      accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
+
+      if(accounts[0] !== ""){
+
+      
+
+        //accounts[0
+        //document.getElementById("bu").
+        //document.getElementById("bu").append("CONNECTED")
+
+        btn= document.getElementById("bu");
+        //btn.value = accounts[0]; // will just add a hidden value
+        //btn.innerHTML = accounts[0];
+        btn.innerHTML = "CONNECTED"
+
+
+        localStorage.setItem('myaddress', accounts[0]);
+      
+      }
+      else{
+        //document.getElementById("bu").remove("");
+        //document.getElementById("bu").replaceWith("NOT CONNECTED")
+        var btns = document.getElementById("bu");
+        //btns.value = accounts[0]; // will just add a hidden value
+        btns.innerHTML = "NOT CONNECTED";
+        localStorage.setItem('myaddress', "");
+      }
+
+    
+  };    
+  useEffect(()=>{connectmm()},[])
+
+
+
+
+
   //temp start
+
+
 
 
   const getImgpa = async() =>{
@@ -185,6 +262,7 @@ const[getIm,setgetIm]=useState([]);
            }
   
             
+           window.location.reload(false)
   
   }
   
@@ -240,6 +318,8 @@ const[getIm,setgetIm]=useState([]);
     }
   
     }  
+
+    window.location.reload(false)
   
   }
   
@@ -263,6 +343,8 @@ const[getIm,setgetIm]=useState([]);
                 Explore
               </button>
 
+              {" "}
+
 
 <button
                 class="btn btn-info btn-block"
@@ -272,6 +354,8 @@ const[getIm,setgetIm]=useState([]);
                 }}>
                 My items
               </button>
+
+              {" "}
               
               <button
                 class="btn btn-info btn-block"
@@ -283,6 +367,8 @@ const[getIm,setgetIm]=useState([]);
                 Following
               </button>
 
+              {" "}
+
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -291,6 +377,8 @@ const[getIm,setgetIm]=useState([]);
                 }}>
                 Activity
               </button>
+
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -301,6 +389,8 @@ const[getIm,setgetIm]=useState([]);
                 How it work
               </button>
 
+              {" "}
+
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -310,6 +400,8 @@ const[getIm,setgetIm]=useState([]);
               >
                 Community
               </button>
+
+              {" "}
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -320,14 +412,48 @@ const[getIm,setgetIm]=useState([]);
               Create
               </button>
 
+              {" "}
+
               <button
                 class="btn btn-info btn-block"
                 type="button"
+
+                onClick={() => {
+                  history.push("/Createandpurchasepage");
+                }}
                 
               >
               Mypurchase
               </button>
+
+
+              {" "}
+
+              <button
               
+                class="btn btn-info btn-block"
+                type="button"
+                onClick={() => {
+                  history.push("/Createandpurchasepage");
+                }}
+                
+                >
+               Create and Purchase
+              </button>
+
+              {" "}
+
+              <button
+              id="bu"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick= {connectmm}>
+               Connect wallet
+              </button>
+
+              {" "}
+
+
 
 
 
@@ -459,6 +585,10 @@ const[getIm,setgetIm]=useState([]);
             </Route>
             <Route path="/Explore">
               <Explore />
+            </Route>
+
+            <Route path="/Createandpurchasepage">
+              <Createandpurchasepage />
             </Route>
 
 
