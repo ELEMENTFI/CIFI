@@ -5,7 +5,7 @@ function Welcome(){
         <div>
             
             <b>Welcome to React Native App</b>
-           
+           <p>It Uses Javascript For Making Native Mobilr App</p>
         </div>
     )
 }
