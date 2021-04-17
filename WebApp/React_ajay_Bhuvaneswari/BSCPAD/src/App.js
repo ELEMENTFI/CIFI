@@ -55,36 +55,38 @@ class App extends Component {
 
     
     return (
-      <div class="bg">
+      <div class="bg-dark">
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
 
         <div>
         <Router>
-          <Navbar className="bg-dark">
+          <Navbar className="bg">
           <Navbar.Brand href="#home">
       
         <img src={Background1} width="30px" height="30px"/>
         
+        <Link class="navlink"  exact to="/h">
+
+  Home
+
+</Link>
+      
+      <Link class="navlink"  exact to="/s">
+Join Pool{' '}
+            </Link>
       
     </Navbar.Brand>
     <Navbar.Collapse className="justify-content-end">
 <Link exact to="/h">
-<button class="btn btn-warning ">
-  {this.state.accounts}.
-</button>
+<Button variant="flat" style={{ backgroundColor: "#fa3455", color: "white"}}> {this.state.accounts}.</Button>
+<label class="mr-3 mt-2" style={{color:"white"}}>
+
+</label>
+ 
 </Link>
-<Link exact to="/h">
-<button class="btn btn-warning ">
-  Home
-</button>
-</Link>
-      
-      <Link exact to="/s">
-      <Button variant="outline-warning">Join Pool</Button>{' '}
-            </Link>
-      
+
 
       </Navbar.Collapse>
       </Navbar>
