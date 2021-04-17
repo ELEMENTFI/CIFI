@@ -418,9 +418,9 @@ let btn;
                 class="btn btn-info btn-block"
                 type="button"
 
-                onClick={() => {
-                  history.push("/Createandpurchasepage");
-                }}
+                // onClick={() => {
+                //   history.push("/Mypurchasepage");
+                // }}
                 
               >
               Mypurchase

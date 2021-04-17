@@ -42,9 +42,21 @@ import Mypurchasepage from './Mypurchasepage'
 
 import Createandpurchasepage from './Createandpurchasepage';
 
+//import 'bootstrap/dist/css/bootstrap.min.css';
+
+//import {Modal} from 'react-bootstrap';
+//import {Button} from 'react-bootstrap'
+
 
 
 function App() {
+
+  //const spinner = document.getElementById('spinner');
+
+
+  // if (spinner && !spinner.hasAttribute('hidden')) {
+  //   spinner.setAttribute('hidden', 'false');
+  // }
 
   const [myOptions, setMyOptions] = useState([])
 
@@ -127,6 +139,10 @@ function App() {
     //})
   }
 
+
+
+        
+
   
   
 
@@ -135,6 +151,7 @@ function App() {
       <div class="jumbotron my-auto">
       
 
+      
       
         <Router history={history}>
           <Switch>
@@ -301,6 +318,13 @@ function App() {
 
               <br></br>
               <hr></hr>
+
+              
+   
+    
+    
+   
+        
 
 
               
