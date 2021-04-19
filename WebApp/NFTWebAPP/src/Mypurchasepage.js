@@ -16,6 +16,7 @@ import {abi} from './datas'
 import Explore from './Explore'
 //import Mypurchasepage from './Mypurchasepage'
 import Createandpurchasepage from './Createandpurchasepage'
+import Receivedpage from './Receivedpage';
 
 
 
@@ -116,8 +117,8 @@ let btn;
     const accounts = await web3.eth.getAccounts();
     let req = [];
     let req2 = [];
-    //let kreq =[];
-    firebase.database().ref("imagerefbuy").child(accounts[0]).on("value", (data) => {
+    //let kreq =[];imagerefbuy//imagepurcre
+    firebase.database().ref("imageref").child(accounts[0]).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           console.log("keycheck",d.key)
@@ -225,50 +226,69 @@ let btn;
 
   const setprice =async (a,event)=>{
 
-    let t= document.createElement("textbox")
-  
-    t="Added for sale";
-    //b.innerHTML="Enable Sale";
-  
+    
                var isd = a.addIds;//a
                console.log("targetid",isd)
   
               console.log(`a`, a)
-              let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
+              // let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
               const accounts = await  web3.eth.getAccounts();
-              await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
+              // await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
              // salepage.settokenstate();
               console.log("checking")
               let price = window.prompt("enter the price for your token");
   
-  
-              fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
-                id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI
-              
-              });
-  
-  
-              await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
-              const priceamount = await getaaaa.methods.items(isd).call();
-              console.log(priceamount.price)
-  
-  
-             //let pa = priceamount.state;
-             setPa(priceamount.state)
-           if(pa === 1){
-             //c.append(t)
-             console.log("checkcon","Added for sale console")
-  
-  
-  
-           }
-           else{
-             //c.append(b)
-             console.log("checkcons","not for sale console")
-           }
-  
+              if(price !== '')
+              {
+
+                fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
+                  id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+                  soldd:"",extra1:"readytosold"
+    
+                
+                });
+    
+    
+                fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
+                  id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+                  soldd:"",extra1:"readytosold"
+                
+                });
+    
+    
+                fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI).update({
+                  id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+                  soldd:"",extra1:"readytosold"
+    
+                
+                });
+
+                fireDb.database().ref(`imagerefsended/${accounts[0]}`).child(a.addKeyI).update({
+                  id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+                  soldd:"",extra1:"readytosold"
             
-           window.location.reload(false)
+                
+                });
+
+                fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI).update({
+                  id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+                  soldd:"",extra1:"readytosold"
+            
+                
+                });
+            
+  
+
+              }
+
+              else{
+
+                alert("please updated prize")
+
+              }
+
+  
+              window.location.reload(false) 
   
   }
   
@@ -295,37 +315,59 @@ let btn;
     else{
   
   
-      await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
-        from:accounts[0]
-      });
-    
-      console.log("checkinga",a.addOwnerAddress)
-    
-      fireDb.database().ref(`imagerefbuy/${toaddressget}`).child(a.addKeyI).set({
-        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
-      })
-    
-      fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).set({
-        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
-      })
+      
+    await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
+      from:accounts[0]
+    });
   
+    console.log("checkinga",a.addOwnerAddress)
   
+    // fireDb.database().ref(`imagerefbuy/${toaddressget}`).child(a.addKeyI).set({
+    //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+    //   userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
+    // })
+  
+    // fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).set({
+    //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+    //   userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
+    // })
+
+
+
+      fireDb.database().ref(`imagerefsended/${toaddressget}`).child(a.addKeyI).set({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+      })
+
+
+      fireDb.database().ref(`imagerefexplore/${toaddressget}`).child(a.addKeyI).update({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+      })
+
+
     fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
 
-    try{
+  try{
 
-      fireDb.database().ref('imagerefbuy').child(accounts[0]).child(a.addKeyI).remove();
-  
-    }catch(error)
-    {
-      
-    }
-  
-    }  
+    fireDb.database().ref('imagerefbuy').child(accounts[0]).child(a.addKeyI).remove();
 
-    window.location.reload(false)
+
+    fireDb.database().ref('imagepurcre').child(accounts[0]).child(a.addKeyI).remove();
+
+  }catch(error)
+  {
+    
+  }
+
+  
+
+  }  
+
+
+  alert("Your token has been sent successfully......")
+
+  window.location.reload(false)
   
   }
   
@@ -435,7 +477,7 @@ let btn;
 
               {" "}
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -448,6 +490,19 @@ let btn;
               </button>
 
               {" "}
+
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "}
+ */}
 
               <button
               id="bu"
@@ -536,33 +591,95 @@ let btn;
 
 //   }
 
-  return (
-    <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+//   return (
+//     <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
 
-<br></br>
+// <br></br>
 
-  <img   src={a.addImgs}  style={{height:300,width:300}}  alt={""}   />
+//   <img   src={a.addImgs}  style={{height:300,width:300}}  alt={""}   />
   
   
-  <br></br>
-  <br></br>
+//   <br></br>
+//   <br></br>
 
-  {/* <h5>hello{a[b].imageUrl}</h5> */}
+//   {/* <h5>hello{a[b].imageUrl}</h5> */}
 
-  <h3>Name : {a.addName}</h3>
+//   <h3>Name : {a.addName}</h3>
   
-  <h3>Symbol : {a.addSymbol}</h3>
+//   <h3>Symbol : {a.addSymbol}</h3>
   
-  <h3>price : {a.addPrices}</h3>
+//   <h3>price : {a.addPrices}</h3>
 
-  {/* <button onClick={()=>setprice(a)} >setPrice</button> 
+//   <button onClick={()=>setprice(a)} >Updateprize</button> 
   
+//   {' '}
+  
+//   <button onClick={()=>send(a)} >send</button> 
+  
+//   </div>
+//   )
+
+  //above end
+
+  if(a.addPrices === ''){
+    return (
+      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+  
+    <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+    {' '}
+    <br></br>
+    
+    <h3>Name : {a.addName}</h3>
+    
+    <h3>Symbol : {a.addSymbol}</h3>
+    
+    <h3>price : {a.addPrices}</h3>
+  
+  
+    {/* <h4>Added to sale </h4> */}
+    
+    {/* <button onClick={()=>setprice(a)} >UpdatePrice</button>   */}
+  
+    {' '}
+  
+    {/* <button onClick={()=>send(a)} >Send</button> */}
+    
+    </div>
+    )
+    
+    }else if(a.addImgSrc !== '' && a.addPrices !== ''){
+  
+  
+      return (
+        <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+    
+      <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+      {' '}
+      <br></br>
+      
+      <h3>Name : {a.addName}</h3>
+      
+      <h3>Symbol : {a.addSymbol}</h3>
+      
+      <h3>price : {a.addPrices}</h3>
+      
+      {/* <button  >SetPrice</button> */}
+  
+  <button onClick={()=>setprice(a)} >UpdatePrice</button>  
   {' '}
+    
+      <button onClick={()=>send(a)} >Send</button>
+      
+      </div>
+      )
   
-  <button onClick={()=>send(a)} >send</button>  */}
   
-  </div>
-  )
+      
+    }
+
+
+
+
 
 })
 
@@ -602,6 +719,10 @@ let btn;
 
             <Route path="/Createandpurchasepage">
               <Createandpurchasepage />
+            </Route>
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
             </Route>
 
 

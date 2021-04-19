@@ -16,6 +16,7 @@ import {abi} from './datas'
 import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore'
 import Createandpurchasepage from './Createandpurchasepage'
+import Receivedpage from './Receivedpage';
 
 
 
@@ -415,7 +416,7 @@ function Followingpage() {
               </button>
 
 {" "}
-              <button
+              {/* <button
 
                 class="btn btn-info btn-block"
                 type="button"
@@ -424,8 +425,8 @@ function Followingpage() {
                 }}>
                Mypurchase
               </button>
-              {" "}
-              <button
+              {" "} */}
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -436,6 +437,18 @@ function Followingpage() {
                Create and Purchase
               </button>
               {" "}
+
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "} */}
               <button
               id="bu"
                 class="btn btn-info btn-block"
@@ -592,6 +605,10 @@ return (
 
             <Route path="/Createandpurchasepage">
               <Createandpurchasepage />
+            </Route>
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
             </Route>
             
             

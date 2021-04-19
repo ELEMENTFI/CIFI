@@ -17,6 +17,7 @@ import Explore from './Explore'
 import Createandpurchasepage from './Createandpurchasepage'
 
 import web3 from './web3';
+import Receivedpage from './Receivedpage';
 
 function Communitypage() {
 
@@ -176,7 +177,7 @@ function Communitypage() {
 
               {" "}
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -186,8 +187,8 @@ function Communitypage() {
                Mypurchase
               </button>
 
-              {" "}
-              <button
+              {" "} */}
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -200,6 +201,18 @@ function Communitypage() {
               </button>
 
               {" "}
+
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "} */}
 
               <button
               id="bu"
@@ -260,6 +273,10 @@ function Communitypage() {
 
             <Route path="/Createandpurchasepage">
               <Createandpurchasepage />
+            </Route>
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
             </Route>
 
             

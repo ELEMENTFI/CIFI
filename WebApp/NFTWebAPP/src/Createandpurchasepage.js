@@ -16,6 +16,8 @@ import {abi} from './datas'
 import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore'
 import {tra} from './trans'
+import Receivedpage from './Receivedpage';
+
 
 
 
@@ -349,120 +351,162 @@ const[Loader,setLoader]=useState(false);
 //console.log("afterget",afternames)
 //button 
 
-const setprice= async(a) =>{
+const send= async(a) =>{
 
-//     let gettrans=new web3.eth.Contract(tra,'0xED3c6A02F152CaeA0f6F86EFADF55e638543DED3');
+  let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
+  const accounts = await  web3.eth.getAccounts();
 
-//     //let gettrans=new web3.eth.Contract(tra,a.addOwnerAddress);
+  let toaddressget = window.prompt("enter for your sender address");
 
-//     let getaaa=new web3.eth.Contract(abi,a.addcAdd);
+  if(toaddressget === null){
 
-//     console.log("insidebutton",a.addcAdd)
-//     console.log("insidebuttonid",a.addPrices)
-//     console.log("insidebuttonids",a.addOwnerAddress)
+    alert("please enter address")
 
-//     const accounts = await web3.eth.getAccounts();
-
-// //tra start
-
-//   //  await gettrans.methods.sendss(a.addOwnerAddress).send({
-//   //    from:accounts[0], 
-//   //    value: web3.utils.toWei(a.addPrices, 'ether')
-//   //  });
+  }
+  else{
 
 
-
-//   //let receiverAddress=a.addOwnerAddress;
-
-//   await gettrans.methods.sendss(a.addOwnerAddress).send({
-//      from: accounts[0],
-//      value: web3.utils.toWei(a.addPrices, 'ether')
-//     });
-
-
-
-// //end trans
-
+    await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
+      from:accounts[0]
+    });
   
-//     let thing = a.addIds;
-
-//     console.log("thingget",a.addIds)
-
-//     console.log("ownerget",a.addOwnerAddress)
-
-//     console.log("keyget",a.addKeyI)
-
-//     //let s = await getaaa.methods.items(thing).call();
-
-//     //console.log("sget",s)
-
-//     let state = a.addPrices;
-
-//     console.log("stateget",a.addPrices)
+      console.log("checkinga",a.addOwnerAddress)
+  
     
-//     //alert(state)
-//     // await getaaa.methods.buyThing(thing).send({
-//     //   from:accounts[0], 
-//     //   value: web3.utils.toWei(a.addPrices, 'ether')
-//     // });
-//     // console.log("Token Purchased Id" + thing)
 
+      fireDb.database().ref(`imagerefsended/${toaddressget}`).child(a.addKeyI).set({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+      })
+
+
+      fireDb.database().ref(`imagerefexplore/${toaddressget}`).child(a.addKeyI).set({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+      })
+
+
+    fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
+
+  try{
+
+    fireDb.database().ref('imagerefbuy').child(accounts[0]).child(a.addKeyI).remove();
+
+    fireDb.database().ref('imagepurcre').child(accounts[0]).child(a.addKeyI).remove();
 
     
 
 
-//     //   await getaaa.methods.transferOwnership(accounts[0]).send({
-//     //   from:accounts[0], 
-//     //   //value: web3.utils.toWei(a.addPrices, 'ether')
-//     // });
-
-
-//     await getaaa.methods.transferFrom(a.addOwnerAddress,accounts[0],a.addIds).send({
-//       from:accounts[0]
-//     });
-  
-
-
-
-
-//     let ref2=fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI);
-
-//     console.log("ref2get",ref2)
-
-
-//       ref2.set({
-//       id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
-//       ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
-
-
-//       fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
-
-//       fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).remove();
-
-//       fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI).remove();
-
-
-//       // let ref3=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);
-
-//       // ref3.set({
-//       //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
-//       //   ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
-  
-
-                      
-
-  
-
-//     // fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).set({
-//     //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI
+  }catch(error)
+  {
     
-//     // });
+  }
 
-// //    fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+  
+
+  }  
+
+
+  alert("Your token has been sent successfully......")
   
 window.location.reload(false)
    
   }  
+
+
+
+  const setprice =async (a)=>{
+
+    //let t= document.createElement("textbox")
+  
+    //t="Added for sale";
+    //b.innerHTML="Enable Sale";
+  
+    var isd = a.addIds;//a
+    console.log("targetid",isd)
+
+   console.log(`a`, a)
+   // let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
+   const accounts = await  web3.eth.getAccounts();
+   // await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
+  // salepage.settokenstate();
+   console.log("checking")
+   let price = window.prompt("enter the price for your token");
+
+   if(price !== '')
+   {
+
+     fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
+       id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+       soldd:"",extra1:"readytosold"
+
+     
+     });
+
+
+     fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
+       id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+       soldd:"",extra1:"readytosold"
+     
+     });
+
+
+     fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI).update({
+       id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+       soldd:"",extra1:"readytosold"
+
+     
+     });
+
+     fireDb.database().ref(`imagerefsended/${accounts[0]}`).child(a.addKeyI).update({
+      id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+      soldd:"",extra1:"readytosold"
+
+    
+    });
+
+    fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI).update({
+      id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+      soldd:"",extra1:"readytosold"
+
+    
+    });
+
+
+     //await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
+     //const priceamount = await getaaaa.methods.items(isd).call();
+     //console.log(priceamount.price)
+
+
+    //let pa = priceamount.state;
+    //setPa(priceamount.state)
+ //  if(pa === 1){
+ //    //c.append(t)
+ //    console.log("checkcon","Added for sale console")
+
+
+
+ //  }
+ //  else{
+ //    //c.append(b)
+ //    console.log("checkcons","not for sale console")
+ //  }
+
+   
+  window.location.reload(false)
+
+   }
+
+   else{
+
+     alert("please updated prize")
+
+   }
+
+
+  
+  }
+  
 
 
 
@@ -583,6 +627,18 @@ window.location.reload(false)
               {" "}
 
               <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "}
+
+
+              <button
               id="bu"
                 class="btn btn-info btn-block"
                 type="button"
@@ -696,29 +752,94 @@ return (
   //if((a.addId !== ' ') && (a.addsrc !== ' '))
 
 
-  return (
-    <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+  // return (
+  //   <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
 
-  <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
+  // <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
   
   
 
   
-  {/* <h5>hello{a[b].imageUrl}</h5> */}
+  // {/* <h5>hello{a[b].imageUrl}</h5> */}
 
-  <h3>Name : {a.addUname}</h3>
+  // <h3>Name : {a.addName}</h3>
   
-  <h3>Symbol : {a.addUsymbol}</h3>
+  // <h3>Symbol : {a.addSymbol}</h3>
   
-  <h3>price : {a.addPrices}</h3>
-  
-  
-  { <button onClick={()=>setprice(a)} >setprice</button> }
+  // <h3>price :{a.addPrices}</h3>
 
-  {' '}
+  // { <button onClick={()=>setprice(a)} >updateprice</button> }
+
+  // {' '}
+
+  // <button onClick={()=>send(a)} >Send</button>
+
   
-  </div>
-  )
+  
+  
+  
+
+  // {' '}
+  
+  // </div>
+  // )
+
+  //above end
+
+  if(a.addPrices === ''){
+    return (
+      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+  
+    <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+    {' '}
+    <br></br>
+    
+    <h3>Name : {a.addName}</h3>
+    
+    <h3>Symbol : {a.addSymbol}</h3>
+    
+    <h3>price : {a.addPrices}</h3>
+  
+  
+    {/* <h4>Added to sale </h4> */}
+    
+    <button onClick={()=>setprice(a)} >SetPrice</button>  
+  
+    {' '}
+  
+    {/* <button onClick={()=>send(a)} >Send</button> */}
+    
+    </div>
+    )
+    
+    }else if(a.addImgSrc !== '' && a.addPrices !== ''){
+  
+  
+      return (
+        <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+    
+      <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+      {' '}
+      <br></br>
+      
+      <h3>Name : {a.addName}</h3>
+      
+      <h3>Symbol : {a.addSymbol}</h3>
+      
+      <h3>price : {a.addPrices}</h3>
+      
+      {/* <button  >SetPrice</button> */}
+  
+    
+      <button onClick={()=>send(a)} >Send</button>
+      
+      </div>
+      )
+  
+  
+      
+    }
+
 
 })
 
@@ -763,6 +884,11 @@ return (
 
             <Route path="/Mypurchasepage">
               <Mypurchasepage />
+            </Route>
+
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
             </Route>
             
             

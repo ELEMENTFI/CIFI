@@ -35,6 +35,7 @@ import ReactPlayer from "react-player";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Allcontractpage from './Allcontractpage'
 import Mypurchasepage from './Mypurchasepage'
+import Receivedpage from './Receivedpage';
 //import SearchBar from './SearchBar';
 
 //import {abi} from data;
@@ -304,7 +305,7 @@ function App() {
 
               
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -313,9 +314,9 @@ function App() {
                 }}>
                Mypurchase
               </button>
-              {" "}
+              {" "} */}
 
-              <button
+              {/* <button
             
                 class="btn btn-info btn-block"
                 type="button"
@@ -328,6 +329,19 @@ function App() {
               </button>
 
               {" "}
+
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "} */}
+
 
               <button
               id="bu"
@@ -461,6 +475,9 @@ Demo
               <Createandpurchasepage />
             </Route>
             
+            <Route path="/Receivedpage">
+              <Receivedpage />
+            </Route>
 
             
           </Switch>

@@ -21,6 +21,7 @@ import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore';
 import {Modal} from 'react-bootstrap';
 import {Button} from 'react-bootstrap'
+import Receivedpage from './Receivedpage';
 
 
 function Nft() {
@@ -1428,6 +1429,9 @@ const onSubmitImage = async (event) => {
 
      setLoading(false);
 
+     alert("Your token has been deployed and mint successfully......")
+
+
      window.location.reload(false)
 
 }
@@ -1646,7 +1650,7 @@ const onSubmitImage = async (event) => {
               </button>
 
               {" "}
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -1656,9 +1660,9 @@ const onSubmitImage = async (event) => {
                Mypurchase
               </button>
 
-              {" "}
+              {" "} */}
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -1672,6 +1676,19 @@ const onSubmitImage = async (event) => {
 
               {" "}
 
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "}
+
+ */}
               <button
               id="bu"
                 class="btn btn-info btn-block"
@@ -1899,6 +1916,10 @@ id="idid"
             </Route>
             <Route path="/Explore">
               <Explore />
+            </Route>
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
             </Route>
             
           </Switch>
