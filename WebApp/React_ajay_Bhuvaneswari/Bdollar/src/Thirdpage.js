@@ -53,10 +53,10 @@ function Thirdpage() {
 <center>
 <br></br>
 <br/><br/>
-<h2>Earn <span class="cl">bDollar</span> Shares by providing liquidity
+<h2 class="homehead">Earn bDollar Shares by providing liquidity
 </h2>
 <br/>
-<div class="card2" style={{borderColor:"yellow"}}>
+<div class="card2" style={{backgroundColor: "black",boxShadow:"1px 1px 10px 2px #fa3455 inset" }}>
 <form onSubmit={onSubmitNFT} id="create-course-form" >
 
 </form><br />
@@ -76,7 +76,7 @@ function Thirdpage() {
 Earn eBNBshare</p>
 <br />
 <Link exact to="/Fourthpage">
-<button class="btn btn-outline-warning">
+<button class="btn btn-primary">
                 Deposit
               </button>
 </Link>

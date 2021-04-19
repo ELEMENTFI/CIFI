@@ -33,10 +33,10 @@ function App() {
           <Navbar.Brand href="">
       
         <img src={logo} width="100px" height="30px"/>
-        <Link exact to="/Moa" class="navlink"> Home<span class="navlink">|</span></Link>
-        <Link exact to="/Secondpage" class="navlink"> BoardRoom<span class="navlink">|</span></Link>
-        <Link exact to="/Thirdpage" class="navlink">Share<span class="navlink">|</span></Link>
-        <Link exact to="/FourthPage" class="navlink"> Deposit<span class="navlink">|</span></Link>
+        <Link exact to="/Moa" class="navlink"> Home</Link>
+        <Link exact to="/Secondpage" class="navlink"> BoardRoom</Link>
+        <Link exact to="/Thirdpage" class="navlink">Share</Link>
+        <Link exact to="/FourthPage" class="navlink"> Deposit</Link>
 
       
     </Navbar.Brand>
