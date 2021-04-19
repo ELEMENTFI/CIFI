@@ -1,6 +1,6 @@
 import web3 from "./web3";
 
-const address =  '0xDaEb3eD3D0b37fa074d4ffc04344e2Df27497d71';
+const address =  '0x6F96b5F3441D99d91E5b1adD01617c82281e2Db1';
 
 const abi = [
 	
@@ -393,7 +393,5 @@ const abi = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-
-
 ];
 export default new web3.eth.Contract(abi, address);
