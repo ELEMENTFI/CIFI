@@ -23,6 +23,9 @@ import {tra} from './trans'
 
 function Createandpurchasepage() {
 
+
+  const [isLoading, setLoading] = useState(false)
+
   
     //fb 
   
@@ -133,61 +136,77 @@ const[Loader,setLoader]=useState(false);
 
   const getImgpa = async() =>{
 
-    setLoader(true)
+    setLoading(true);
 
-    //window.location.reload(false)
+    const accounts = await web3.eth.getAccounts();
     let req = [];
     let req2 = [];
-    firebase.database().ref("imagepurcre").on("value", (data) => {
+    //let kreq =[];
+    firebase.database().ref("imagepurcre").child(accounts[0]).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
+          console.log("keycheck",d.key)
           req.push(d.val())
+          //req.push(d.key)
           
         });
+
+
+        setgetImgreff(req)
         
       }
 
+      
+
     });
 
-    setgetImgreff(req)
+    
 
+      // eslint-disable-next-line array-callback-return
       getImgreff.map((a)=>{
       console.log(`a`, a)
     
-      Object.keys(a).map((b)=>{
+      //Object.keys(a).map((b)=>{
     
-        console.log(`bb`, b)
-        console.log(`bbnext`, a[b].imageUrl)
-        console.log(`bbaddess`,a[b].cAddress)
-        console.log(`bbprice`,a[b].priceSet)
-        console.log(`bbname`,a[b].userName)
-        console.log(`bbsymbol`,a[b].userSymbol)
-        console.log(`bbipfs`,a[b].ipfsUrl)
-        console.log(`bboaddress`,a[b].ownerAddress)
-        
+        console.log(`bba`, a)
+        console.log(`bbnexta`, a.imageUrl)
+        console.log(`bbaddessa`,a.cAddress)
+        console.log(`bbpricea`,a.priceSet)
+        console.log(`bbkeyid`,a.keyIds)
+        //console.log(`bbowner`,)
 //change here
         req2.push({
           //addAcc:
-          addKeyI:a[b].keyId,
-          addPrices:a[b].priceSet,
-          addcAdd:a[b].cAddress,
-          addIds:a[b].id,
-          addImgs:a[b].imageUrl,
-        addUname:a[b].userName,
-      addUsymbol:a[b].userSymbol,
-    addIpfs:a[b].ipfsUrl,
-    addOwnerAddress:a[b].ownerAddress})
+          addPrices:a.priceSet,
+          addcAdd:a.cAddress,
+          addIds:a.id,
+          addImgs:a.imageUrl,
+          addKeyI:a.keyId,
+        addName:a.userName,
+      addSymbol:a.userSymbol,
+    addIpfs:a.ipfsUrl,
+    addsold:a.soldd,
+    addextra1:a.extra1
+  });
               
-      })
-    })
+      //})
+    });
+
+
     
     setgetIm(req2)
     
-    console.log("cfb",req) 
+    console.log("cfba",req)
 
-    setLoader(false)
+    
+    //alert("thissss")
 
+    //setPa(0)
+    setLoading(false);
+
+  
   }
+
 
 
   useEffect(()=>{getImgpa()},[getIm])
@@ -589,6 +608,11 @@ window.location.reload(false)
 {/* <button onClick={() => }>Click to reload!</button> */}
 
 <br></br>
+
+
+{isLoading ? <div>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
+
 
 
 

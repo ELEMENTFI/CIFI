@@ -29,6 +29,8 @@ import Createandpurchasepage from './Createandpurchasepage'
 function Salepagecopy() {
 
 
+  const [isLoading, setLoading] = useState(false)
+
 
 
 const[getImgreff,setgetImgreff]=useState([]);
@@ -173,6 +175,9 @@ let btn;
 
   const getImgpa = async() =>{
 
+
+    setLoading(true);
+
     const accounts = await web3.eth.getAccounts();
     let req = [];
     let req2 = [];
@@ -213,7 +218,9 @@ let btn;
           addKeyI:a.keyId,
         addName:a.userName,
       addSymbol:a.userSymbol,
-    addIpfs:a.ipfsUrl})
+    addIpfs:a.ipfsUrl,
+    addsold:a.soldd,
+    addextra1:a.extra1})
               
       //})
     })
@@ -225,6 +232,7 @@ let btn;
     console.log("cfba",req)
 
     setPa(0)
+    setLoading(false);
   }
 
 
@@ -304,13 +312,16 @@ const setprice =async (a)=>{
 
 
             fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
-              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0]
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+              soldd:"",extra1:"readytosold"
+
             
             });
 
 
             fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
-              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0]
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+              soldd:"",extra1:"readytosold"
             
             });
 
@@ -528,6 +539,11 @@ const send=async(a)=>{
 <br></br>
 
 
+{isLoading ? <div><h4>Fetching........</h4>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
+
+
+
 
 
 
@@ -564,9 +580,9 @@ const send=async(a)=>{
 {getIm.length === 0 ? null : 
 <div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
 {getIm.map((a)=>{
-  console.log(`a`, a)
+  console.log("getas", a.extra1)
 
-  if(a.addImgSrc !=='' && pa === 0){
+  if(a.extra1 === ''){
   return (
     <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
 
@@ -579,8 +595,11 @@ const send=async(a)=>{
   <h3>Symbol : {a.addSymbol}</h3>
   
   <h3>price : {a.addPrices}</h3>
+
+
+  <h4>Added to sale </h4>
   
-  <button onClick={()=>setprice(a)} >SetPrice</button>
+  
 
   {' '}
 
@@ -588,7 +607,39 @@ const send=async(a)=>{
   
   </div>
   )
-  }else{
+  
+  }else if(a.addImgSrc !== ''){
+
+
+    return (
+      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+  
+    <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+    {' '}
+    <br></br>
+    
+    <h3>Name : {a.addName}</h3>
+    
+    <h3>Symbol : {a.addSymbol}</h3>
+    
+    <h3>price : {a.addPrices}</h3>
+    
+    {/* <button  >SetPrice</button> */}
+
+
+  <button onClick={()=>setprice(a)} >SetPrice</button>  
+  
+    {' '}
+  
+    <button onClick={()=>send(a)} >Send</button>
+    
+    </div>
+    )
+
+
+    
+
+
    
     //return (
   //     <div>

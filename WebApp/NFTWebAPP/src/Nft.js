@@ -30,6 +30,12 @@ function Nft() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+
+  const [isLoading, setLoading] = useState(false)
+
+  
+
+
   
 
   let btn;
@@ -177,6 +183,11 @@ const onSubmitImage = async (event) => {
 
    const onSubmitNFT = async (event) => {
 
+    setLoading(true);
+    //setTimeout(()=>{
+      
+    //},10500)
+
 
       
     //alert(localStorage.getItem('myimageuri'));
@@ -209,7 +220,7 @@ const onSubmitImage = async (event) => {
 
       var getaddress=localStorage.getItem('myaddress')
 
-    alert("getdata from firebase"+getaddress)
+    //alert("getdata from firebase"+getaddress)
     
     
     
@@ -236,7 +247,7 @@ const onSubmitImage = async (event) => {
     
     
     
-    alert(localStorage.getItem('myData'));
+    //alert(localStorage.getItem('myData'));
     
     var address =  localStorage.getItem('myData');
 
@@ -1391,13 +1402,13 @@ const onSubmitImage = async (event) => {
                          
                         console.log("dbcheck",db)
 
-                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0]})
+                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:""})
 
 
                         let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);
                 
 
-                        ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0]})
+                        ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:""})
 
 
                       
@@ -1414,6 +1425,8 @@ const onSubmitImage = async (event) => {
 
 
      })
+
+     setLoading(false);
 
      window.location.reload(false)
 
@@ -1754,14 +1767,32 @@ id="idid"
 
 
 
+  {/* {isLoading ? "":
+              (<button  */}
+              <button
+                type="submit"> 
+                Upload and Create NFT
+                </button>
+   {/* )} */}
+  
 
-<button 
+
+
+{/* <button 
+
+
+
+
              type="submit"> 
              Upload and Create NFT
-             </button>
+
+             </button> */}
 
 </form>
 
+
+{isLoading ? <div><h4>Fetching........</h4>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
 
 
       

@@ -21,6 +21,8 @@ import Createandpurchasepage from './Createandpurchasepage'
 
 function Explore() {
 
+  const [isLoading, setLoading] = useState(false)
+
   
     //fb 
   
@@ -133,6 +135,8 @@ let btn;
 
     setLoader(true)
 
+    setLoading(true)
+
     //window.location.reload(false)
     let req = [];
     let req2 = [];
@@ -174,7 +178,13 @@ let btn;
         addUname:a[b].userName,
       addUsymbol:a[b].userSymbol,
     addIpfs:a[b].ipfsUrl,
-    addOwnerAddress:a[b].ownerAddress})
+    addOwnerAddress:a[b].ownerAddress,
+    addsold:a[b].soldd,
+    addextra1:a[b].extra1
+
+
+  })
+
               
       })
     })
@@ -185,8 +195,12 @@ let btn;
 
     setLoader(false)
 
+  
+    setLoading(false)
+
   }
 
+  
 
   useEffect(()=>{getImgpa()},[getIm])
 
@@ -408,6 +422,9 @@ const buynow= async(a) =>{
 
     let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);//.child(a.addKeyI);
 
+
+    let ref233=fireDb.database().ref(`imagepurcre/${a.addOwnerAddress}`).child(a.addKeyI);
+
     const dbc = ref23.push().key;
 
     console.log("ref2get",ref2)
@@ -415,11 +432,15 @@ const buynow= async(a) =>{
 
       ref2.set({
       id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
-      ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
+      ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
 
       ref23.child(dbc).set({
         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
-        ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
+        ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
+
+        ref233.update({
+          id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+          ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
         
 
       fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
@@ -428,7 +449,7 @@ const buynow= async(a) =>{
 
       fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI).remove();
 
-      fireDb.database().ref(`imagepurcre/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+      //fireDb.database().ref(`imagepurcre/${a.addOwnerAddress}`).child(a.addKeyI).remove();
 
 
       // let ref3=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);
@@ -587,6 +608,11 @@ window.location.reload(false)
               <br></br>
 
 
+              {isLoading ? <div><h4>Fetching........</h4>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
+
+
+
 {/* <i class="fa fa-refresh"></i>
 
 <button style={{size:24}}>Button <i class="fa fa-refresh"></i></button> */}
@@ -657,6 +683,13 @@ return (
   
 {/* </div>
 } */}
+
+<center>
+
+{isLoading ? <div>
+              <img style={{width:"300px",height:"300px"}} src="/4V0b.gif" alt=""/></div>:' '}
+
+</center>
 
 
 <div>

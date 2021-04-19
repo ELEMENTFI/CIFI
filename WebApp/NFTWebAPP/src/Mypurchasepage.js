@@ -29,6 +29,7 @@ const[getImgreff,setgetImgreff]=useState([]);
 
 const[getIm,setgetIm]=useState([]);
 
+const [isLoading, setLoading] = useState(false)
 
 
 
@@ -109,6 +110,9 @@ let btn;
 
 
   const getImgpa = async() =>{
+
+    setLoading(true)
+
     const accounts = await web3.eth.getAccounts();
     let req = [];
     let req2 = [];
@@ -161,6 +165,8 @@ let btn;
     console.log("cfba",req)
 
     setPa(0)
+
+    setLoading(false)
   }
 
 
@@ -459,6 +465,13 @@ let btn;
 
               <br></br>
 <br></br>
+
+
+{isLoading ? <div><h4>Fetching........</h4>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
+
+
+
 
 
 <br></br>

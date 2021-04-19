@@ -51,6 +51,13 @@ import Createandpurchasepage from './Createandpurchasepage';
 
 function App() {
 
+//   const loader = document.querySelector('.loader');
+
+// // if you want to show the loader when React loads data again
+// const showLoader = () => loader.classList.remove('loader--hide');
+
+// const hideLoader = () => loader.classList.add('loader--hide');
+
   //const spinner = document.getElementById('spinner');
 
 
@@ -66,9 +73,27 @@ function App() {
 
   let btn ;
 
+
+  const [isLoading, setLoading] = useState(false)
+
+  
+  // const fetchdata =() =>{
+
+  //   setLoading(true);
+  //   setTimeout(()=>{
+  //     setLoading(false);
+  //   },3500)
+  // }
+  
   
   
   const connectmm = async () => {
+
+     
+
+
+      //hideLoader={hideLoader}
+      //showLoader={showLoader} 
 
 
     //var getaddress=localStorage.getItem('myaddress')
@@ -149,6 +174,8 @@ function App() {
   return (
     <div class="container h-100 d-flex justify-content-center" className={isBackgroundRed ? 'background-red' : 'background-blue'}>
       <div class="jumbotron my-auto">
+      
+
       
 
       
@@ -319,6 +346,22 @@ function App() {
               <br></br>
               <hr></hr>
 
+
+{/* <header className="APP-header">
+  <br/>
+
+{isLoading ? "":
+              (<button
+
+                className="button"
+                
+                onClick= {fetchdata}>
+Demo
+              </button>)}
+              {isLoading ? <div><h4>Fetching........</h4>}
+              <img style={{width:"200px",height:"200px"}} src="" alt=""/></div>:' '}
+
+              </header> */}
               
    
     
