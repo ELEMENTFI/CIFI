@@ -34,6 +34,13 @@ function Nft() {
 
   const [isLoading, setLoading] = useState(false)
 
+  const [symbolget,setsymbolget] = useState()
+
+  const [currentSymbol, setCurrentSymbol] = useState('ETH')
+  
+  const changeFruit = (newFruit) => {
+    setCurrentSymbol(newFruit)
+  }
   
 
 
@@ -204,13 +211,15 @@ const onSubmitImage = async (event) => {
       //alert("waiting for pic url"); 
     
       var ta=tname;
-      var tb=tsymbol;
+      //var tb=tsymbol;
+      var tb=currentSymbol;
       var tc='https://ipfs.io/ipfs/'+ipfsHash;
       var td=toaddress;
       var te=tid;
       tf='https://ipfs.io/ipfs/'+ipfsHash;
       
       
+      //alert("symbol"+tb)
       
     
       //alert("im work ta tb tc  td te tf  "+ta+" "+tb+" "+tc+" "+td+" "+te+" "+tf);
@@ -238,7 +247,7 @@ const onSubmitImage = async (event) => {
     .then(function(newContractInstance){
       console.log(newContractInstance.options.address) // instance with the new contract address
        //acc=newContractInstance.options.address
-      alert(newContractInstance.options.address);
+      //alert(newContractInstance.options.address);
       localStorage.setItem('myData', newContractInstance.options.address);
     
       //alert("completed");
@@ -1565,13 +1574,13 @@ const onSubmitImage = async (event) => {
   return (
 
     
-    <div className="App">
+    <div className="App" >
 
 
 
 
 
-<center>
+
 
 <button
                 class="btn btn-info btn-block"
@@ -1713,7 +1722,18 @@ const onSubmitImage = async (event) => {
 
 
 
+<center>
 
+
+<div style={{backgroundColor:'white',height:'600px',width:'500px'}}>
+
+  
+
+
+  <br></br>
+  <h1>CREATE NFT-TOKEN</h1>
+
+  <br></br>
 
 <form onSubmit={onSubmitNFT} id="create-course-form" >
 
@@ -1733,14 +1753,23 @@ id="nameid"
 	  <label for="symbol">Create Your NFT  Symbol    </label>
 	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<input
+
+    <select style={{backgroundColor:'white',height:'20px',width:'160px'}}
+        onChange={(event) => changeFruit(event.target.value)}
+        value={currentSymbol}>
+
+        <option value="ETH">ETH     </option> 
+        <option value="BNB">BNB     </option>
+        <option value="ALGORAND">ALGORAND  </option>
+      </select>
+{/* <input
   id="symbolid"
   type='text'
   name="tsymbol"
   required
   onChange={event => settSymbol( event.target.value)}
   
-/>
+/> */}
 
 <br></br>
 <br></br>
@@ -1765,13 +1794,9 @@ id="idid"
 
 
 		  <label for="images">Choose Your Image     </label>
-            <input 
-			name="tfile"
-			id="fileid"
-              type = "file"
-              onChange = {captureFile}
-			  required
-            />
+            
+            <input style={{backgroundColor:'white',height:'22px',width:'230px'}}
+             name="tfile" id="fileid" type = "file" onChange = {captureFile} required />
 			
              {/* <button 
              type="submit"> 
@@ -1806,6 +1831,12 @@ id="idid"
              </button> */}
 
 </form>
+
+
+
+</div>
+
+</center>
 
 
 {isLoading ? <div><h4>Fetching........</h4>
@@ -1925,7 +1956,7 @@ id="idid"
           </Switch>
         </Router>
 
-        </center>
+        
 
       </div>      
     

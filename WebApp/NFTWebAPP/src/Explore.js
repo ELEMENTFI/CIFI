@@ -429,12 +429,15 @@ const buynow= async(a) =>{
  
  
      let ref1=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);
+
+
+     let ref12=fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI);
  
      let ref2=fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI);
  
      let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI);
  
- 
+
      let ref233=fireDb.database().ref(`imagepurcre/${a.addOwnerAddress}`).child(a.addKeyI);
  
      const dbc = ref23.push().key;
@@ -457,13 +460,17 @@ const buynow= async(a) =>{
          ref233.update({
            id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
            ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
+
+           ref12.update({
+            id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+            ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
          
  
        fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
  
        fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).remove();
  
-       fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+       //fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI).remove();
  
        //fireDb.database().ref(`imagepurcre/${a.addOwnerAddress}`).child(a.addKeyI).remove();
  

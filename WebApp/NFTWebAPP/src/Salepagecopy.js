@@ -296,10 +296,18 @@ const setprice =async (a)=>{
             console.log(`a`, a)
             let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
             const accounts = await  web3.eth.getAccounts();
-            await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
-           // salepage.settokenstate();
             console.log("checking")
             let price = window.prompt("enter the price for your token");
+
+
+            if(accounts[0] === a.addOwnerAddress)
+            {
+
+              await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
+           // salepage.settokenstate();
+            
+
+
 
 
             await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
@@ -362,6 +370,15 @@ const setprice =async (a)=>{
          
          alert("Your price has been set and ready to sale......")
 
+
+            }
+            else{
+
+              alert("Your are not owner so you does not update or set prizes......")
+
+            }
+
+            
 }
 
 const send=async(a)=>{
@@ -384,8 +401,11 @@ const send=async(a)=>{
     alert("please enter address")
 
   }
-  else{
+  else if(toaddressget === accounts[0])
+  {
+    alert("you are entered owner address so you does not send this address")
 
+  }else{
 
     await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
       from:accounts[0]
@@ -416,8 +436,13 @@ const send=async(a)=>{
         userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
       })
 
+      fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).update({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+      })
 
-    fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
+
+      fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
 
   try{
 
@@ -426,17 +451,20 @@ const send=async(a)=>{
 
     fireDb.database().ref('imagepurcre').child(accounts[0]).child(a.addKeyI).remove();
 
+    fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).remove();
+
   }catch(error)
   {
     
   }
 
   
-
-  }  
-
-
   alert("Your token has been sent successfully......")
+
+  }
+
+    
+  
 
 }
 
