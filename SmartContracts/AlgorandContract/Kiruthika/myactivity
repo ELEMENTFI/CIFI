@@ -1,0 +1,163 @@
+package algorandprogram.test;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+
+import com.algorand.algosdk.account.Account;
+import com.algorand.algosdk.crypto.Address;
+import com.algorand.algosdk.transaction.SignedTransaction;
+import com.algorand.algosdk.transaction.Transaction;
+import com.algorand.algosdk.util.Encoder;
+import com.algorand.algosdk.v2.client.common.AlgodClient;
+import com.algorand.algosdk.v2.client.common.Response;
+import com.algorand.algosdk.v2.client.model.PendingTransactionResponse;
+import com.algorand.algosdk.v2.client.model.TransactionParametersResponse;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
+import java.security.Security;
+
+public class MainActivity extends AppCompatActivity {
+    String ALGOD_API_ADDR = "http://hackathon.algodev.network";
+    Integer ALGOD_PORT = 9100;
+    String ALGOD_API_TOKEN = "ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
+    AlgodClient client;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Security.removeProvider("BC");
+        Security.insertProviderAt(new BouncyCastleProvider(), 0);
+        String providerName = "BC";
+
+        if (Security.getProvider(providerName) == null)
+        {
+            Log.d("algoDebug",providerName + " provider not installed");
+        }
+        else
+        {
+            Log.d("algoDebug",providerName + " is installed.");
+        }
+
+        client = (AlgodClient) new AlgodClient(ALGOD_API_ADDR,
+                ALGOD_PORT, ALGOD_API_TOKEN);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Address address=new Address("ZY72XHRFKHPGPRN7MGN5FSPUZRGGZZ63HTEN7UGYV6LVZOKCEFOEN6TGHE");
+                    getWalletBalance(address);
+                    gettingStartedExample();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        createAccountWithoutMnemonic();
+        Account testAccount=createAccountWithMnemonic("degree secret exhibit pond toddler elbow message input can shield park educate gallery notice ten vintage scale close possible earn fat source define able fluid");
+
+
+    }
+    public  Long getWalletBalance(Address address) throws Exception {
+        com.algorand.algosdk.v2.client.model.Account accountInfo = client.AccountInformation(address).execute().body();
+        Log.d("algoDebug","Account Balance: "+ accountInfo.amount+" microAlgos");
+        return  accountInfo.amount;
+    }
+
+    //Method that restores an account from an existing Mnemonic String
+    public static Account createAccountWithMnemonic(String mnemonic){
+        Account myAccount1= null;
+        try {
+            myAccount1 = new Account(mnemonic);
+            Log.d("algoDebug"," algod account address: " + myAccount1.getAddress());
+            Log.d("algoDebug"," algod account MNEMONIC: " + myAccount1.toMnemonic());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            Log.d("algoDebug"," Eror while creating new account "+e);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+        return  myAccount1;
+    }
+
+    //Method that creates a new account without using an existing mnemonic String
+    public  void createAccountWithoutMnemonic( ){
+        Account myAccount1= null;
+
+        try {
+            myAccount1 = new Account();
+            Log.d("algoDebug"," algod account address: " + myAccount1.getAddress());
+            Log.d("algoDebug"," algod account MNEMONIC: " + myAccount1.toMnemonic());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            Log.d("algoDebug"," Eror while creating new account "+e);
+        }
+    }
+    public  void waitForConfirmation(String txID) throws Exception {
+        //        if (client == null)
+        //            this.client = connectToNetwork();
+        Long lastRound = client.GetStatus().execute().body().lastRound;
+        while (true) {
+            try {
+                // Check the pending tranactions
+                Response<PendingTransactionResponse> pendingInfo = client.PendingTransactionInformation(txID).execute();
+                if (pendingInfo.body().confirmedRound != null && pendingInfo.body().confirmedRound > 0) {
+                    // Got the completed Transaction
+                    Log.d("algoDebug", "Transaction " + txID + " confirmed in round " + pendingInfo.body().confirmedRound);
+                    break;
+                }
+                lastRound++;
+                client.WaitForBlock(lastRound).execute();
+            } catch (Exception e) {
+                throw (e);
+            }
+        }
+    }
+
+    public  void gettingStartedExample() throws Exception {
+        // Import your private key mnemonic and address
+        final String PASSPHRASE = "patrol target joy dial ethics flip usual fatigue bulb security prosper brand coast arch casino burger inch cricket scissors shoe evolve eternal calm absorb school";
+        com.algorand.algosdk.account.Account myAccount = new Account(PASSPHRASE);
+        Log.d("algoDebug","My Address: " + myAccount.getAddress());
+
+        String myAddress = myAccount.getAddress().toString();
+
+        com.algorand.algosdk.v2.client.model.Account accountInfo = client.AccountInformation(myAccount.getAddress())
+                .execute().body();
+
+        Log.d("algoDebug",String.format("Account Balance: %d microAlgos", accountInfo.amount));
+
+        try {
+        // Construct the transaction
+            final String RECEIVER = "L5EUPCF4ROKNZMAE37R5FY2T5DF2M3NVYLPKSGWTUKVJRUGIW4RKVPNPD4";
+            String note = "Hello World";
+            TransactionParametersResponse params = client.TransactionParams().execute().body();
+            Transaction txn = Transaction.PaymentTransactionBuilder().sender(myAddress).note(note.getBytes())
+                    .amount(100000).receiver(new Address(RECEIVER)).suggestedParams(params).build();
+
+        // Sign the transaction
+            SignedTransaction signedTxn = myAccount.signTransaction(txn);
+            Log.d("algoDebug","Signed transaction with txid: " + signedTxn.transactionID);
+
+        // Submit the transaction to the network
+            byte[] encodedTxBytes = Encoder.encodeToMsgPack(signedTxn);
+            String id = client.RawTransaction().rawtxn(encodedTxBytes).execute().body().txId;
+            Log.d("algoDebug","Successfully sent tx with ID: " + id);
+
+        // Wait for transaction confirmation
+            waitForConfirmation(id);
+
+    // Read the transaction
+            PendingTransactionResponse pTrx = client.PendingTransactionInformation(id).execute().body();
+            Log.d("algoDebug","Transaction information (with notes): " + pTrx.toString());
+            Log.d("algoDebug","Decoded note: " + new String(pTrx.txn.tx.note));
+
+        } catch (Exception e) {
+            Log.e("algoDebug","Exception when calling algod#transactionInformation: " + e.getMessage());
+        }
+    }
+
+}
