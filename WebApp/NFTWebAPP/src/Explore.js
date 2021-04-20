@@ -16,10 +16,13 @@ import {abi} from './datas'
 import Mypurchasepage from './Mypurchasepage'
 import {tra} from './trans'
 import Createandpurchasepage from './Createandpurchasepage'
+import Receivedpage from './Receivedpage';
 
 
 
 function Explore() {
+
+  const [isLoading, setLoading] = useState(false)
 
   
     //fb 
@@ -133,9 +136,11 @@ let btn;
 
     setLoader(true)
 
+    setLoading(true)
+
     //window.location.reload(false)
     let req = [];
-    let req2 = [];
+    let req2 = [];//imagerefexplore
     firebase.database().ref("imagerefexplore").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
@@ -174,7 +179,13 @@ let btn;
         addUname:a[b].userName,
       addUsymbol:a[b].userSymbol,
     addIpfs:a[b].ipfsUrl,
-    addOwnerAddress:a[b].ownerAddress})
+    addOwnerAddress:a[b].ownerAddress,
+    addsold:a[b].soldd,
+    addextra1:a[b].extra1
+
+
+  })
+
               
       })
     })
@@ -185,8 +196,12 @@ let btn;
 
     setLoader(false)
 
+  
+    setLoading(false)
+
   }
 
+  
 
   useEffect(()=>{getImgpa()},[getIm])
 
@@ -353,101 +368,139 @@ const buynow= async(a) =>{
 
   //let receiverAddress=a.addOwnerAddress;
 
-  await gettrans.methods.sendss(a.addOwnerAddress).send({
-     from: accounts[0],
-     value: web3.utils.toWei(a.addPrices, 'ether')
-    });
+
+  if(a.addOwnerAddress === accounts[0])
+  {
+
+    alert("you are owner so you does not purchase this token")
+
+  }
+  else{
 
 
+    await gettrans.methods.sendss(a.addOwnerAddress).send({
+      from: accounts[0],
+      value: web3.utils.toWei(a.addPrices, 'ether')
+     });
+ 
+ 
+ 
+ //end trans
+ 
+   
+     let thing = a.addIds;
+ 
+     console.log("thingget",a.addIds)
+ 
+     console.log("ownerget",a.addOwnerAddress)
+ 
+     console.log("keyget",a.addKeyI)
+ 
+     //let s = await getaaa.methods.items(thing).call();
+ 
+     //console.log("sget",s)
+ 
+     let state = a.addPrices;
+ 
+     console.log("stateget",a.addPrices)
+     
+     //alert(state)
+     // await getaaa.methods.buyThing(thing).send({
+     //   from:accounts[0], 
+     //   value: web3.utils.toWei(a.addPrices, 'ether')
+     // });
+     // console.log("Token Purchased Id" + thing)
+ 
+ 
+     
+ 
+ 
+     //   await getaaa.methods.transferOwnership(accounts[0]).send({
+     //   from:accounts[0], 
+     //   //value: web3.utils.toWei(a.addPrices, 'ether')
+     // });
+ 
+ 
+     await getaaa.methods.transferFrom(a.addOwnerAddress,accounts[0],a.addIds).send({
+       from:accounts[0]
+     });
+   
+ 
+ 
+ 
+     let ref1=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);
 
-//end trans
 
-  
-    let thing = a.addIds;
+     let ref12=fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI);
+ 
+     let ref2=fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI);
+ 
+     let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI);
+ 
 
-    console.log("thingget",a.addIds)
+     let ref233=fireDb.database().ref(`imagepurcre/${a.addOwnerAddress}`).child(a.addKeyI);
+ 
+     const dbc = ref23.push().key;
+ 
+     console.log("ref2get",ref2)
+ 
 
-    console.log("ownerget",a.addOwnerAddress)
-
-    console.log("keyget",a.addKeyI)
-
-    //let s = await getaaa.methods.items(thing).call();
-
-    //console.log("sget",s)
-
-    let state = a.addPrices;
-
-    console.log("stateget",a.addPrices)
-    
-    //alert(state)
-    // await getaaa.methods.buyThing(thing).send({
-    //   from:accounts[0], 
-    //   value: web3.utils.toWei(a.addPrices, 'ether')
-    // });
-    // console.log("Token Purchased Id" + thing)
-
-
-    
-
-
-    //   await getaaa.methods.transferOwnership(accounts[0]).send({
-    //   from:accounts[0], 
-    //   //value: web3.utils.toWei(a.addPrices, 'ether')
-    // });
-
-
-    await getaaa.methods.transferFrom(a.addOwnerAddress,accounts[0],a.addIds).send({
-      from:accounts[0]
-    });
-  
-
-
-
-
-    let ref2=fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI);
-
-    let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);//.child(a.addKeyI);
-
-    const dbc = ref23.push().key;
-
-    console.log("ref2get",ref2)
-
-
-      ref2.set({
+     ref1.set({
       id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
-      ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
+      ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
+ 
+       ref2.set({
+       id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+       ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
+ 
+       ref23.set({
+         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+         ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
+ 
+         ref233.update({
+           id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+           ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
 
-      ref23.child(dbc).set({
-        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
-        ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
-        
+           ref12.update({
+            id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+            ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
+         
+ 
+       fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+ 
+       fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+ 
+       //fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+ 
+       //fireDb.database().ref(`imagepurcre/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+ 
+ 
+       // let ref3=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);
+ 
+       // ref3.set({
+       //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+       //   ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
+   
+ 
+                       
+ 
+   
+ 
+     // fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).set({
+     //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI
+     
+     // });
+ 
+ //    fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+ 
+ 
+ alert(" Received successfully......")
 
-      fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
 
-      fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).remove();
-
-      fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI).remove();
-
-      fireDb.database().ref(`imagepurcre/${a.addOwnerAddress}`).child(a.addKeyI).remove();
+  }
 
 
-      // let ref3=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);
-
-      // ref3.set({
-      //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
-      //   ipfsUrl:a.addIpfs,ownerAddress:accounts[0]})
   
-
-                      
-
-  
-
-    // fireDb.database().ref(`imagerefbuy/${a.addOwnerAddress}`).child(a.addKeyI).set({
-    //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI
-    
-    // });
-
-//    fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
   
 window.location.reload(false)
    
@@ -546,7 +599,7 @@ window.location.reload(false)
 
               {" "}
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -557,8 +610,8 @@ window.location.reload(false)
               </button>
 
 
-              {" "}
-              <button
+              {" "} */}
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -571,6 +624,19 @@ window.location.reload(false)
               </button>
 
               {" "}
+
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "} */}
+
 
               <button
               id="bu"
@@ -585,6 +651,11 @@ window.location.reload(false)
 
 
               <br></br>
+
+
+              {isLoading ? <div><h4>Fetching........</h4>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
+
 
 
 {/* <i class="fa fa-refresh"></i>
@@ -658,6 +729,13 @@ return (
 {/* </div>
 } */}
 
+<center>
+
+{isLoading ? <div>
+              <img style={{width:"300px",height:"300px"}} src="/4V0b.gif" alt=""/></div>:' '}
+
+</center>
+
 
 <div>
 
@@ -679,30 +757,67 @@ return (
   // })
   //if((a.addId !== ' ') && (a.addsrc !== ' '))
 
+  if(a.addsold === '')
+  {
 
-  return (
-    <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+    return (
+      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+  
+    <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
+    
+    
+  
+    
+    {/* <h5>hello{a[b].imageUrl}</h5> */}
+  
+    <h3>Name : {a.addUname}</h3>
+    
+    <h3>Symbol : {a.addUsymbol}</h3>
+    
+    <h3>price : {a.addPrices}</h3>
+    
+    
+    { <button onClick={()=>buynow(a)} >BuyNow</button> }
+  
+    {' '}
+    
+    </div>
+    )
 
-  <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
+  }
+  else{
+
+
+
+    return (
+      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
   
+    <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
+    
+    
   
+    
+    {/* <h5>hello{a[b].imageUrl}</h5> */}
+  
+    <h3>Name : {a.addUname}</h3>
+    
+    <h3>Symbol : {a.addUsymbol}</h3>
+    
+    <h3>price : {a.addPrices}</h3>
+    
+
+    <h4>Already solded</h4>
+    
+    {/* { <button onClick={()=>buynow(a)} >BuyNow</button> } */}
+  
+    {' '}
+    
+    </div>
+    )
+
+  }
 
   
-  {/* <h5>hello{a[b].imageUrl}</h5> */}
-
-  <h3>Name : {a.addUname}</h3>
-  
-  <h3>Symbol : {a.addUsymbol}</h3>
-  
-  <h3>price : {a.addPrices}</h3>
-  
-  
-  { <button onClick={()=>buynow(a)} >BuyNow</button> }
-
-  {' '}
-  
-  </div>
-  )
 
 })
 
@@ -747,6 +862,10 @@ return (
 
             <Route path="/Createandpurchasepage">
               <Createandpurchasepage />
+            </Route>
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
             </Route>
             
             

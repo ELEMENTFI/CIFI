@@ -21,6 +21,7 @@ import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore';
 import {Modal} from 'react-bootstrap';
 import {Button} from 'react-bootstrap'
+import Receivedpage from './Receivedpage';
 
 
 function Nft() {
@@ -29,6 +30,19 @@ function Nft() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
+  const [isLoading, setLoading] = useState(false)
+
+  const [symbolget,setsymbolget] = useState()
+
+  const [currentSymbol, setCurrentSymbol] = useState('ETH')
+  
+  const changeFruit = (newFruit) => {
+    setCurrentSymbol(newFruit)
+  }
+  
+
 
   
 
@@ -177,6 +191,11 @@ const onSubmitImage = async (event) => {
 
    const onSubmitNFT = async (event) => {
 
+    setLoading(true);
+    //setTimeout(()=>{
+      
+    //},10500)
+
 
       
     //alert(localStorage.getItem('myimageuri'));
@@ -192,13 +211,15 @@ const onSubmitImage = async (event) => {
       //alert("waiting for pic url"); 
     
       var ta=tname;
-      var tb=tsymbol;
+      //var tb=tsymbol;
+      var tb=currentSymbol;
       var tc='https://ipfs.io/ipfs/'+ipfsHash;
       var td=toaddress;
       var te=tid;
       tf='https://ipfs.io/ipfs/'+ipfsHash;
       
       
+      //alert("symbol"+tb)
       
     
       //alert("im work ta tb tc  td te tf  "+ta+" "+tb+" "+tc+" "+td+" "+te+" "+tf);
@@ -209,7 +230,7 @@ const onSubmitImage = async (event) => {
 
       var getaddress=localStorage.getItem('myaddress')
 
-    alert("getdata from firebase"+getaddress)
+    //alert("getdata from firebase"+getaddress)
     
     
     
@@ -226,7 +247,7 @@ const onSubmitImage = async (event) => {
     .then(function(newContractInstance){
       console.log(newContractInstance.options.address) // instance with the new contract address
        //acc=newContractInstance.options.address
-      alert(newContractInstance.options.address);
+      //alert(newContractInstance.options.address);
       localStorage.setItem('myData', newContractInstance.options.address);
     
       //alert("completed");
@@ -236,7 +257,7 @@ const onSubmitImage = async (event) => {
     
     
     
-    alert(localStorage.getItem('myData'));
+    //alert(localStorage.getItem('myData'));
     
     var address =  localStorage.getItem('myData');
 
@@ -1391,13 +1412,13 @@ const onSubmitImage = async (event) => {
                          
                         console.log("dbcheck",db)
 
-                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0]})
+                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:""})
 
 
                         let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);
                 
 
-                        ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0]})
+                        ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:""})
 
 
                       
@@ -1414,6 +1435,11 @@ const onSubmitImage = async (event) => {
 
 
      })
+
+     setLoading(false);
+
+     alert("Your token has been deployed and mint successfully......")
+
 
      window.location.reload(false)
 
@@ -1548,13 +1574,13 @@ const onSubmitImage = async (event) => {
   return (
 
     
-    <div className="App">
+    <div className="App" >
 
 
 
 
 
-<center>
+
 
 <button
                 class="btn btn-info btn-block"
@@ -1633,7 +1659,7 @@ const onSubmitImage = async (event) => {
               </button>
 
               {" "}
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -1643,9 +1669,9 @@ const onSubmitImage = async (event) => {
                Mypurchase
               </button>
 
-              {" "}
+              {" "} */}
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -1659,6 +1685,19 @@ const onSubmitImage = async (event) => {
 
               {" "}
 
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "}
+
+ */}
               <button
               id="bu"
                 class="btn btn-info btn-block"
@@ -1683,7 +1722,18 @@ const onSubmitImage = async (event) => {
 
 
 
+<center>
 
+
+<div style={{backgroundColor:'white',height:'600px',width:'500px'}}>
+
+  
+
+
+  <br></br>
+  <h1>CREATE NFT-TOKEN</h1>
+
+  <br></br>
 
 <form onSubmit={onSubmitNFT} id="create-course-form" >
 
@@ -1703,14 +1753,23 @@ id="nameid"
 	  <label for="symbol">Create Your NFT  Symbol    </label>
 	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-<input
+
+    <select style={{backgroundColor:'white',height:'20px',width:'160px'}}
+        onChange={(event) => changeFruit(event.target.value)}
+        value={currentSymbol}>
+
+        <option value="ETH">ETH     </option> 
+        <option value="BNB">BNB     </option>
+        <option value="ALGORAND">ALGORAND  </option>
+      </select>
+{/* <input
   id="symbolid"
   type='text'
   name="tsymbol"
   required
   onChange={event => settSymbol( event.target.value)}
   
-/>
+/> */}
 
 <br></br>
 <br></br>
@@ -1735,13 +1794,9 @@ id="idid"
 
 
 		  <label for="images">Choose Your Image     </label>
-            <input 
-			name="tfile"
-			id="fileid"
-              type = "file"
-              onChange = {captureFile}
-			  required
-            />
+            
+            <input style={{backgroundColor:'white',height:'22px',width:'230px'}}
+             name="tfile" id="fileid" type = "file" onChange = {captureFile} required />
 			
              {/* <button 
              type="submit"> 
@@ -1754,14 +1809,38 @@ id="idid"
 
 
 
+  {/* {isLoading ? "":
+              (<button  */}
+              <button
+                type="submit"> 
+                Upload and Create NFT
+                </button>
+   {/* )} */}
+  
 
-<button 
+
+
+{/* <button 
+
+
+
+
              type="submit"> 
              Upload and Create NFT
-             </button>
+
+             </button> */}
 
 </form>
 
+
+
+</div>
+
+</center>
+
+
+{isLoading ? <div><h4>Fetching........</h4>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
 
 
       
@@ -1869,11 +1948,15 @@ id="idid"
             <Route path="/Explore">
               <Explore />
             </Route>
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
+            </Route>
             
           </Switch>
         </Router>
 
-        </center>
+        
 
       </div>      
     

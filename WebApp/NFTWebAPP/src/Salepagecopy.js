@@ -21,6 +21,7 @@ import {abi} from './data'
 import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore'
 import Createandpurchasepage from './Createandpurchasepage'
+import Receivedpage from './Receivedpage';
 
 
 // console.log(`abi`, abi)
@@ -28,6 +29,8 @@ import Createandpurchasepage from './Createandpurchasepage'
 
 function Salepagecopy() {
 
+
+  const [isLoading, setLoading] = useState(false)
 
 
 
@@ -173,6 +176,9 @@ let btn;
 
   const getImgpa = async() =>{
 
+
+    setLoading(true);
+
     const accounts = await web3.eth.getAccounts();
     let req = [];
     let req2 = [];
@@ -213,7 +219,9 @@ let btn;
           addKeyI:a.keyId,
         addName:a.userName,
       addSymbol:a.userSymbol,
-    addIpfs:a.ipfsUrl})
+    addIpfs:a.ipfsUrl,
+    addsold:a.soldd,
+    addextra1:a.extra1})
               
       //})
     })
@@ -225,6 +233,7 @@ let btn;
     console.log("cfba",req)
 
     setPa(0)
+    setLoading(false);
   }
 
 
@@ -287,10 +296,18 @@ const setprice =async (a)=>{
             console.log(`a`, a)
             let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
             const accounts = await  web3.eth.getAccounts();
-            await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
-           // salepage.settokenstate();
             console.log("checking")
             let price = window.prompt("enter the price for your token");
+
+
+            if(accounts[0] === a.addOwnerAddress)
+            {
+
+              await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
+           // salepage.settokenstate();
+            
+
+
 
 
             await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
@@ -304,15 +321,31 @@ const setprice =async (a)=>{
 
 
             fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
-              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0]
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+              soldd:"",extra1:"readytosold"
+
             
             });
 
 
             fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
-              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0]
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+              soldd:"",extra1:"readytosold"
             
             });
+
+
+            fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI).update({
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+              soldd:"",extra1:"readytosold"
+
+            
+            });
+
+
+            
+
+
 
 
             
@@ -334,8 +367,18 @@ const setprice =async (a)=>{
            console.log("checkcons","not for sale console")
          }
 
-          
+         
+         alert("Your price has been set and ready to sale......")
 
+
+            }
+            else{
+
+              alert("Your are not owner so you does not update or set prizes......")
+
+            }
+
+            
 }
 
 const send=async(a)=>{
@@ -358,8 +401,11 @@ const send=async(a)=>{
     alert("please enter address")
 
   }
-  else{
+  else if(toaddressget === accounts[0])
+  {
+    alert("you are entered owner address so you does not send this address")
 
+  }else{
 
     await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
       from:accounts[0]
@@ -367,22 +413,45 @@ const send=async(a)=>{
   
     console.log("checkinga",a.addOwnerAddress)
   
-    fireDb.database().ref(`imagerefbuy/${toaddressget}`).child(a.addKeyI).set({
-      id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-      userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
-    })
+    // fireDb.database().ref(`imagerefbuy/${toaddressget}`).child(a.addKeyI).set({
+    //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+    //   userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
+    // })
   
-    fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).set({
-      id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-      userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
-    })
+    // fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).set({
+    //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+    //   userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
+    // })
 
 
-    fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
+
+      fireDb.database().ref(`imagerefsended/${toaddressget}`).child(a.addKeyI).set({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+      })
+
+
+      fireDb.database().ref(`imagerefexplore/${toaddressget}`).child(a.addKeyI).update({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+      })
+
+      fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).update({
+        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+      })
+
+
+      fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
 
   try{
 
     fireDb.database().ref('imagerefbuy').child(accounts[0]).child(a.addKeyI).remove();
+
+
+    fireDb.database().ref('imagepurcre').child(accounts[0]).child(a.addKeyI).remove();
+
+    fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).remove();
 
   }catch(error)
   {
@@ -390,10 +459,85 @@ const send=async(a)=>{
   }
 
   
+  alert("Your token has been sent successfully......")
 
-  }  
+  }
+
+    
+  
 
 }
+
+
+//new
+ const setprices =async (a,event)=>{
+
+    
+  var isd = a.addIds;//a
+  console.log("targetid",isd)
+
+ console.log(`a`, a)
+ // let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
+ const accounts = await  web3.eth.getAccounts();
+ // await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
+// salepage.settokenstate();
+ console.log("checking")
+ let price = window.prompt("enter the price for your token");
+
+ if(price !== '')
+ {
+
+   fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
+     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+     soldd:"",extra1:"readytosold"
+
+   
+   });
+
+
+   fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
+     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+     soldd:"",extra1:"readytosold"
+   
+   });
+
+
+   fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI).update({
+     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+     soldd:"",extra1:"readytosold"
+
+   
+   });
+
+   fireDb.database().ref(`imagerefsended/${accounts[0]}`).child(a.addKeyI).update({
+     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+     soldd:"",extra1:"readytosold"
+
+   
+   });
+
+   fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI).update({
+     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+     soldd:"",extra1:"readytosold"
+
+   
+   });
+
+
+
+ }
+
+ else{
+
+   alert("please updated prize")
+
+ }
+
+
+ window.location.reload(false) 
+
+}
+
 
 
   
@@ -484,7 +628,7 @@ const send=async(a)=>{
 
               {" "}
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -494,10 +638,10 @@ const send=async(a)=>{
                Mypurchase
               </button>
 
-              {" "}
+              {" "} */}
 
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -509,7 +653,22 @@ const send=async(a)=>{
                Create and Purchase
               </button>
 
+              
+
               {" "}
+
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "} */}
+
               <button
               id="bu"
                 class="btn btn-info btn-block"
@@ -526,6 +685,11 @@ const send=async(a)=>{
 
               <br></br>
 <br></br>
+
+
+{isLoading ? <div><h4>Fetching........</h4>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
+
 
 
 
@@ -564,9 +728,9 @@ const send=async(a)=>{
 {getIm.length === 0 ? null : 
 <div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
 {getIm.map((a)=>{
-  console.log(`a`, a)
+  console.log("getas", a.extra1)
 
-  if(a.addImgSrc !=='' && pa === 0){
+  if(a.addPrices === ''){
   return (
     <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
 
@@ -579,16 +743,50 @@ const send=async(a)=>{
   <h3>Symbol : {a.addSymbol}</h3>
   
   <h3>price : {a.addPrices}</h3>
+
+
+  {/* <h4>Added to sale </h4> */}
   
-  <button onClick={()=>setprice(a)} >SetPrice</button>
+  <button onClick={()=>setprice(a)} >SetPrice</button>  
 
   {' '}
 
-  <button onClick={()=>send(a)} >Send</button>
+  {/* <button onClick={()=>send(a)} >Send</button> */}
   
   </div>
   )
-  }else{
+  
+  }else if(a.addImgSrc !== '' && a.addPrices !== ''){
+
+
+    return (
+      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+  
+    <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+    {' '}
+    <br></br>
+    
+    <h3>Name : {a.addName}</h3>
+    
+    <h3>Symbol : {a.addSymbol}</h3>
+    
+    <h3>price : {a.addPrices}</h3>
+    
+    {/* <button  >SetPrice</button> */}
+
+    <button onClick={()=>setprices(a)} >UpdatePrice and again sale</button>  
+  {' '}
+  
+  
+    <button onClick={()=>send(a)} >Send</button>
+    
+    </div>
+    )
+
+
+    
+
+
    
     //return (
   //     <div>
@@ -674,6 +872,11 @@ const send=async(a)=>{
 
             <Route path="/Createandpurchasepage">
               <Createandpurchasepage />
+            </Route>
+
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
             </Route>
             
             

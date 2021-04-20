@@ -16,6 +16,7 @@ import Mypurchasepage from './Mypurchasepage'
 import Explore from "./Explore";
 import Createandpurchasepage from './Createandpurchasepage'
 import web3 from './web3';
+import Receivedpage from './Receivedpage';
 
 function Howitworkpage() {
 
@@ -185,7 +186,7 @@ function Howitworkpage() {
 
               {" "}
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -195,9 +196,9 @@ function Howitworkpage() {
                Mypurchase
               </button>
 
-              {" "}
+              {" "} */}
 
-              <button
+              {/* <button
               
                 class="btn btn-info btn-block"
                 type="button"
@@ -210,6 +211,17 @@ function Howitworkpage() {
               </button>
 
               {" "}
+
+              <button
+              
+              class="btn btn-info btn-block"
+              type="button"
+              onClick={() => {
+                history.push("/Receivedpage");
+              }}>
+             Received_Token
+            </button>
+            {" "} */}
 
               <button
               id="bu"
@@ -270,6 +282,11 @@ function Howitworkpage() {
             <Route path="/Createandpurchasepage">
               <Createandpurchasepage />
             </Route>
+
+            <Route path="/Receivedpage">
+              <Receivedpage />
+            </Route>
+            
             
             
           </Switch>

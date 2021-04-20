@@ -19,6 +19,8 @@ import firebase from "./firebase";
 
 function Myitem() {
 
+  const [isLoading, setLoading] = useState(false)
+
   const [contactObjects, setContactObjects] = useState([]);
   const [currentid, setCurrentid] = useState("");
   var studentlist = [];
