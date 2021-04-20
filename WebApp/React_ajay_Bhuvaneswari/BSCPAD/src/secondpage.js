@@ -35,7 +35,8 @@ class secondpage extends Component{
   value:'',
   amount1:'',
   pro:'',
-  isOpen: false
+  isOpen: false,
+  bigInt:''
   };
   openModal = () => this.setState({ isOpen: true });
   closeModal = () => this.setState({ isOpen: false });
@@ -43,7 +44,7 @@ class secondpage extends Component{
     
   async componentDidMount() {
   //  var x = document.getElementById('myDIV').style.visibility = "hidden";
-
+  var bigInt = require("big-integer");
     var amount1;
      const accounts = await  web3.eth.getAccounts();
     const balance = await web3.eth.getBalance(tokencontract.options.address);
@@ -51,7 +52,7 @@ class secondpage extends Component{
     const decimal = await TESTToken.methods.decimals().call();
     
     var pro1= await BEP20Token.methods.balanceOf("0x0Ef04FFA95f2eC2D07a5a196b4cEFB9d1076D43c").call();
-    const At = await TESTToken.methods.balanceOf("0x06c1ca66514073e04977EdB3C19F0F76535e0da3").call();
+    const At = await TESTToken.methods.balanceOf("0x6F96b5F3441D99d91E5b1adD01617c82281e2Db1").call();
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
     const balance_BUSD = await BEP20Token.methods.balanceOf(accounts[0]).call();
@@ -61,7 +62,7 @@ class secondpage extends Component{
     
 var busd=balance_BUSD/1000000000000000000;
 pro1=pro1/1000000000000000000;
-var  pro=pro1.toFixed(1);   
+var  pro=pro1.toFixed(2);   
 var baltest=balance_TEST/1000000000;
 var availtk=At/1000000000;
      if (ooc==true){
@@ -76,20 +77,21 @@ var availtk=At/1000000000;
 
 
      }
-     var a=5000000000000000000-At;
+     var a=5-availtk;
      
-     var p=pro/5000;
+     var a1=a/1000000000;
+     var p=a/5;
      
      p=p*100;
   
      
      
-     var p1=p.toFixed(4);
+     var p1=p.toFixed(6);
     
 
 
   
-    this.setState({totalsupply,balance,name,symbol,decimal,balance_TEST,balance_BUSD,At,p1,a,busd,baltest,availtk,amount1,pro});
+    this.setState({totalsupply,balance,name,bigInt,symbol,decimal,balance_TEST,balance_BUSD,At,p1,a,a1,baltest,availtk,amount1,pro,busd});
 
     
   }
@@ -99,11 +101,11 @@ var availtk=At/1000000000;
      const approve = async (event) =>{
       event.preventDefault();
       const accounts = await  web3.eth.getAccounts();
-      await BEP20Token.methods.approve("0x06c1ca66514073e04977EdB3C19F0F76535e0da3","10000000000000000000000000000000").
+      await BEP20Token.methods.approve("0x6F96b5F3441D99d91E5b1adD01617c82281e2Db1","10000000000000000000000000000000").
       send({
         from: accounts[0]       
       });
-      await TESTToken.methods.approve("0x06c1ca66514073e04977EdB3C19F0F76535e0da3","10000000000000000000000000000").
+      await TESTToken.methods.approve("0x6F96b5F3441D99d91E5b1adD01617c82281e2Db1","10000000000000000000000000000").
       send({
         from: accounts[0]
        
@@ -126,15 +128,15 @@ const popup1 = async()=>{
       const accounts = await  web3.eth.getAccounts();
       var amount=document.getElementById("amount1").value;
     
-     if(amount<=5000000000000000000000){ 
+     if(amount<=5000000000000000000){ 
       var v=0;
      // document.getElementById("exe").style.visibility = "hidden";
 
       v=v+amount;
      // alert(amount);
-     
-   //  amount=amount*10000000000000000000;
-     //var s=amount.toString();
+    amount=amount+"000000000000000000";
+    
+     alert(amount);
 
 //alert(s)
       await TEST.methods.click(amount).send(
@@ -206,7 +208,7 @@ Symbol</span> <br/> {this.state.symbol}.
         </p>
         <br/>
         <p class="p">Progress (Available Tokens)</p>
-        <progress id="file" value={this.state.pro} max="5000" class="progress11"></progress>
+        <progress id="file" value={this.state.a} max="5" class="progress11"></progress>
         <div>
           <div class="container">
             <div class="row">
@@ -217,7 +219,7 @@ Symbol</span> <br/> {this.state.symbol}.
             </div>
               <div class="col align-self-end maxi">
               <p>
-              {this.state.pro}/5000
+              {this.state.availtk}/5
                  </p>     </div>
             
             </div>
@@ -237,7 +239,7 @@ Symbol</span> <br/> {this.state.symbol}.
             <table>
               <div class="row">
                 <div class="col-6 mt-3">
-                <button class="btn btn-primary" onClick={approve} id="ap">aprove name</button>
+                <button class="btn btn-primary" onClick={approve} id="ap">Approve name</button>
 
                 </div>
                
@@ -268,14 +270,6 @@ BuyTest          </Button>
           </Modal.Footer>
         </Modal>
   </div>
-
-
-
-
-
-
-
-
 
               </div>
             </table>

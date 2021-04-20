@@ -74,14 +74,14 @@ return (
 <br/>
 
 <div class="card">
-<Card className="card" style={{backgroundColor: "#00152e" , borderColor:"yellow"}}>
+<Card className="card" style={{backgroundColor: "black",boxShadow:"1px 1px 10px 2px #fa3455" }}>
 <form onSubmit={onSubmitNFT} id="create-course-form" >
 
 
 <br/>
   
     <button
-                class="btn btn-outline-warning"
+                class="btn btn-primary"
                 type="submit">
                 
                 <img src={BDO} width="30px" height="30px"/>
@@ -92,24 +92,24 @@ return (
 </form>
 <br/>
 
-<h4><span class="cl"> bdollar </span>Contract</h4>
+<h4> bdollar Contract</h4>
         <p>
             {tokenname}({tokensymbol})
         </p>
         <p>
-           total supply <br/> {totalsupply}
+          <b><h4> Total Supply</h4></b> {totalsupply}
         </p>
         <p>
-          price<br/> {price}
+          <b><h4>Price</h4></b>{price}
       </p>
         <p>
-          balanceOf<br/> {balance}
+          <b><h4>BalanceOf</h4></b> {balance}
          </p>
 
         
         
        
-<Link className="cl" to="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x190b589cf9fb8ddeabbfeae36a813ffb2a702454">BuyeBNBmon</Link>
+<Link className="primary" to="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x190b589cf9fb8ddeabbfeae36a813ffb2a702454">BuyeBNBmon</Link>
 
      
 

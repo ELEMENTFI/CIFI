@@ -9,6 +9,7 @@ import { Card } from 'react-bootstrap';
 import Background from '../src/images/aa.gif'
 //import TEST from './TEST';
 //import {BrowserRouter as Router , Route , Link , Switch , NavLink} from "react-router-dom";
+import Background2 from '../src/images/logo1.png'
 
 class home extends Component {
   state = {
@@ -48,42 +49,46 @@ class home extends Component {
     console.log(web3.version);
     web3.givenProvider.enable().then(console.log);
     return (
-      <div class="text" style={{backgroundImage:"url("+ Background +")",backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat'}}>
+      <div class=" text App" style={{backgroundColor:'black'}}>
        <br/><br/>
         <h2 class="head"><b>BSC PAD</b></h2>
-        <br/>
+        <br/>  <br/>
+        <div class="container">
+       
         <div class="row justify-content-center">
-          <div class="col-8">
-          <Card bg="dark" border="warning" style={{ width: '25rem' , padding: "30px", borderRadius: "8%"}}  >
 
-<p>
-  Name <br/> {this.state.name}.
-</p>
-<p>
-  Symbol <br/> {this.state.symbol}.
-</p>
-<p>
-   Total Supply <br/> {this.state.totalsupply}. 
-</p>
+          <div class="col-4  align-self-center">
+          <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:"black",boxShadow:"0px 0px 15px #fa3455"}}  >
+
+<h3>
+ <b>Name</b>  <br/> <span class="spantext">{this.state.name}</span>
+</h3><br/> 
+<h3>
+  <b>Symbol </b><br/> <span class="spantext">{this.state.symbol}.</span>
+</h3><br/> 
+<h3>
+   <b>Total Supply</b> <br/><span class="spantext">{this.state.totalsupply}.  </span>
+</h3><br/> 
 
 
 
- <p>
-  Decimals <br/> {this.state.decimal}.
-</p>
+ <h3>
+  <b>Decimals </b><br/> <span class="spantext">{this.state.decimal}.
+</span>
+</h3>
 </Card>
 
          </div>
+         
+         
+
         </div>
         
-     
+     </div>
         <br/> 
         <br/>
-        <br/>
-        <br/>
-        <br/>
+      
+       
         
         </div>
     );

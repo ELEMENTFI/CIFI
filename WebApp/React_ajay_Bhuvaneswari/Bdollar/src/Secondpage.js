@@ -19,9 +19,141 @@ import boardroom from "./Boardroom";
 import Homepage from "./Moa";
 import bdo from "./bdo";
 import share from "./share";
+import { Modal, Button,InputGroup,FormControl } from "react-bootstrap";
+
+function MyVerticallyCenteredModal1(props) {
+  var [staked,setstaked] = useState("");
+  const [geta,setgeta] = useState("");
+  var [rate,setrate] = useState("");
+  var [twap,settwap] = useState("");
+  var [staked,setstaked] = useState("");
+  var [locked,setlock] = useState("");
+  var [app,setapprove] = useState("");
+  var [stake,setstake] = useState("");
+  var [amount,setamount]= useState("");
+  const [tid,setId] = useState("");
+  const [tid1,setId1] = useState("");
+  const [Seigniorage,setSeigniorage] = useState("");
+  var [withdraw,setwithdraw] = useState("");
+  var [bal,setbal] = useState("");
+  var [claim,setclaim] = useState("");
+  var[ear,setear] = useState("");
+  
+
+  const Staked = async (event) =>{
+    event.preventDefault();
+  var x=document.getElementById("mymodal").style.visibility="hidden";
+
+    const accounts = await  web3.eth.getAccounts();
+    var te=document.getElementById("tid").value;
+    alert(te)
+    setstake(await boardroom.methods.stake(te).
+    send({
+      from: accounts[0]
+     
+    }));
+    setSeigniorage(await boardroom.methods.allocateSeigniorage(te).send({ from:accounts[0]}));
+    
+  } 
+
+
+
+  return (
+
+
+    
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      id="mymodal"
+      centered
+    >
+      <Modal.Header className="myModal" closeButton>
+        <Modal.Title id="contained-modal-title-vcenter" >
+          Stake your amount...
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="myModal">
+        <h4 style={{textAlign: "center"}}></h4>
+        <InputGroup>
+  <InputGroup.Prepend>
+   
+  </InputGroup.Prepend>
+  <FormControl className="myInput" id="tid" aria-label="Amount (to the nearest dollar)" />
+  <InputGroup.Append>
+   
+  </InputGroup.Append>
+</InputGroup>
+      </Modal.Body>
+      <Modal.Footer className="myModal">
+        <Button variant="primary" onClick={Staked}>Stake</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+    
+function MyVerticallyCenteredModal2(props) {
+  
+  var [withdraw,setwithdraw] = useState("");
+  
+  const Withdraw = async (event) =>{
+    event.preventDefault();
+    var x1=document.getElementById("mymodal1").style.visibility="hidden";
+
+    const accounts = await  web3.eth.getAccounts();
+    var te1=document.getElementById("tid1").value;
+    alert(te1);
+    setwithdraw(await boardroom.methods.withdraw(te1).
+    send({
+      from: accounts[0]
+     
+    }));
+  }
+
+
+
+  return (
+
+
+    
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      id="mymodal1"
+      centered
+    >
+      <Modal.Header className="myModal" closeButton>
+        <Modal.Title id="contained-modal-title-vcenter" >
+        withdraw your staked coin !!
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="myModal">
+        <h4 style={{textAlign: "center"}}></h4>
+        <InputGroup>
+  <InputGroup.Prepend>
+   
+  </InputGroup.Prepend>
+  <FormControl className="myInput" id="tid1" aria-label="Amount (to the nearest dollar)" />
+  <InputGroup.Append>
+   
+  </InputGroup.Append>
+</InputGroup>
+      </Modal.Body>
+      <Modal.Footer className="myModal">
+        <Button variant="primary" onClick={Withdraw}>Withdraw</Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+    
 
 
 function Secondpage() {
+  const [modalShow1, setModalShow1] = React.useState(false);
+  const [modalShow2, setModalShow2] = React.useState(false);
+
   var [getCurrentEpoch,setepoch] = useState("");
 
   var [nextseigniorage,setnextseigniorage] = useState("");
@@ -57,7 +189,7 @@ function Secondpage() {
       const Staked = async (event) =>{
         event.preventDefault();
         const accounts = await  web3.eth.getAccounts();
-        var te=tid;
+        var te=document.getElementById("tid").value;
         alert(te)
         setstake(await boardroom.methods.stake(te).
         send({
@@ -112,23 +244,19 @@ function Secondpage() {
   };
     
   return (
-    <div className="App">
+    <div className="light">
       
 <center>
 <br></br>
-<h2 class="cl">Stake your Seigniorage Share
-</h2><br/>
-<h4 class="sp">
-Deposit bDollar Shares and earn inflationary rewards<br/>
-using revolutionary Multi-Pegs Mechanism
+<h2 class="dark1"><b>Stake your Seigniorage Share</b>
+</h2>
 
-  </h4>
   <br></br>
 
 		<form onSubmit={onSubmitNFT} id="create-course-form" >
 
     <button
-                class="btn btn-outline-warning"
+                class="btn btn-primary"
                 type="submit">
                 
                 <img src={BDO} width="30px" height="30px"/>
@@ -139,9 +267,9 @@ using revolutionary Multi-Pegs Mechanism
 </form>
 <br/>
 
-<div class="card1">
+<div class="container">
   <div class="row">
-  <div class="col">
+  <div class="col align-self-start">
     <label class="epoch">Epoch :<span>{getCurrentEpoch}</span></label>
   </div>
   </div>
@@ -149,7 +277,7 @@ using revolutionary Multi-Pegs Mechanism
 
   <div class="row">
     <div class="col">
-      <label class="ll">nextEpochPoint<span><br/>{nextseigniorage}</span></label>
+      <label class="ll" width="100%">nextEpochPoint<span><br/>{nextseigniorage}</span></label>
     </div>
     <div class="col">
       <label class="ll">eBNBmom Price(TWAP)<span><br/>{twap}</span></label>
@@ -166,42 +294,53 @@ using revolutionary Multi-Pegs Mechanism
   </div>
 </div>
 <br/>
-
+<br/>
          <p>
-         <b> First we need to approve then only we are able to <span class="cl">call stake and Withdraw</span></b> <br /><br/>
-           <button onClick={approve} class=" approve">Approve</button>
+         <b> First we need to approve then only we are able to call stake and Withdraw</b> <br /><br/>
+           <button onClick={approve} class="btn btn-primary">Approve</button>
          </p> <br />
-        <div class="row">
-          <div class="col-5">
-          <Popup trigger={<button class="btn btn-outline-warning"> Stake</button>} position="right center"><br />
-    <div class="pop">Stake your coin !!</div>
-   
-   <input type = "number" class="poptext" name="tid" required onChange={event => setId( event.target.value)} />
-<br/><br/>
-    <button class="approve" onClick={Staked}>Stake</button>
-  </Popup><br />
+        <div class="container row">
+          <div class="col">
+            <div class="ll1">
+              <br/><br/>
+            <Button variant="primary" onClick={() => setModalShow1(true)}>
+          Stake
+        </Button>
   
-
-          </div>
-          <div class="col-2">
+        <MyVerticallyCenteredModal1
+          show={modalShow1}
+          onHide={() => setModalShow1(false)}
+        /><br/>
+        <br/>
           <b>Your staked amount<br /> {bal}</b>
+          <br/>
+          <Button variant="primary" onClick={() => setModalShow2(true)}>
+          Withdraw
+        </Button>
+  
+        <MyVerticallyCenteredModal2
+          show={modalShow2}
+          onHide={() => setModalShow2(false)}
+        />
+        <br/>
+            </div>
           </div>
-          <div class="col-4">
-          <Popup trigger={<button class="btn btn-outline-warning"> Withdraw</button>} position="right center">
-    <div class="pop">withdraw your staked coin !!</div>
-   
-   <input type = "number" name="tid1" class="poptext" required onChange={event => setId1( event.target.value)} />
-<br/><br/>
-    <button class="approve"  onClick={Withdraw}>Withdraw</button>
-  </Popup>
-
+          <div class="col ll2">
+            <br/>
+            <br/>
+          <b>Your Earned amount=>{ear}</b><br /><br/>
+  <button  class="btn btn-primary" onClick={Claim}>ClaimRewards</button>
+     <br/>
+     <br/>
           </div>
+        
+         
+         
+         
         </div>
 <br></br>
 <br/>
-  <b>Your Earned amount=>{ear}</b><br /><br/>
-  <button  class="approve" onClick={Claim}>ClaimRewards</button>
-         
+     
       
 <br></br>
 <br></br>

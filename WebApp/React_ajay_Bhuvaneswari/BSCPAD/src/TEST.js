@@ -1,8 +1,9 @@
 import web3 from "./web3";
 
-const address =  '0x06c1ca66514073e04977EdB3C19F0F76535e0da3';
+const address =  '0x6F96b5F3441D99d91E5b1adD01617c82281e2Db1';
 
 const abi = [
+	
 	
 	{
 		"inputs": [],
@@ -392,6 +393,5 @@ const abi = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-
 ];
 export default new web3.eth.Contract(abi, address);
