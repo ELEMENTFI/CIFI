@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         // Wait for transaction confirmation
             waitForConfirmation(id);
 
-    // Read the transaction
+    // Read  transaction
             PendingTransactionResponse pTrx = client.PendingTransactionInformation(id).execute().body();
             Log.d("algoDebug","Transaction information (with notes): " + pTrx.toString());
             Log.d("algoDebug","Decoded note: " + new String(pTrx.txn.tx.note));
