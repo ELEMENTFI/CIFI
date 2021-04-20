@@ -25,8 +25,6 @@ class home extends Component {
 
     
   async componentDidMount() {
- 
-
     
    
     const balance = await web3.eth.getBalance(tokencontract.options.address);
@@ -52,11 +50,7 @@ class home extends Component {
     web3.givenProvider.enable().then(console.log);
     return (
       <div class=" text App" style={{backgroundColor:'black'}}>
-       
-       <br/>
-       <p id="demo1" class="time">Back in</p>
-       <h3 id="demo" class="time" style={{textAlign:"center"}}>
-</h3>
+       <br/><br/>
         <h2 class="head"><b>BSC PAD</b></h2>
         <br/>  <br/>
         <div class="container">
@@ -67,28 +61,19 @@ class home extends Component {
           <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:"black",boxShadow:"0px 0px 15px #fa3455"}}  >
 
 <h3>
- <b>Name</b>  <br/> <span class="spantext"id="main1">{this.state.name}</span>
-</h3><p class="tiny" id="main5"></p>
-<p class="tiny"id="main6"></p>
-<p id="dem" class="pp">
-
-</p>
-<h3>
-  <b>Symbol </b><br/> <span class="spantext"id="main2">{this.state.symbol}.</span>
-</h3><p class="tiny"id="ap"></p>
-<p class="tiny"id="ap1"></p>
-
-<h3>
-   <b>Total Supply</b> <br/><span class="spantext"id="main3">{this.state.totalsupply}.  </span>
+ <b>Name</b>  <br/> <span class="spantext">{this.state.name}</span>
 </h3><br/> 
-<p class="tiny" id="main"></p>
+<h3>
+  <b>Symbol </b><br/> <span class="spantext">{this.state.symbol}.</span>
+</h3><br/> 
+<h3>
+   <b>Total Supply</b> <br/><span class="spantext">{this.state.totalsupply}.  </span>
+</h3><br/> 
 
 
-<p class="tiny"id="main7"></p>
-<p class="tiny"id="main8"></p>
 
  <h3>
-  <b>Decimals </b><br/> <span class="spantext"id="main4">{this.state.decimal}.
+  <b>Decimals </b><br/> <span class="spantext">{this.state.decimal}.
 </span>
 </h3>
 </Card>
