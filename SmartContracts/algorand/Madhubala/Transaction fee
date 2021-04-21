@@ -35,11 +35,11 @@ public class TransactionFee
 
         // Shown for demonstration purposes. NEVER reveal secret mnemonics in practice.
         // These three accounts are for testing purposes
-        final String account1_mnemonic = "champion weather blame curtain " 
+        final String account_mnemonic = "champion weather blame curtain " 
         + "thing strike despair month pattern unaware feel congress carpet "
         + "sniff palm predict olive talk mango toe teach jelly priority above squirrel";
 
-        Account acct1  = new Account(account1_mnemonic);   
+        Account acct = new Account(account_mnemonic);   
 
 
         // Create transaction with either suggested fee
