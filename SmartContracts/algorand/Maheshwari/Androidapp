@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         com.algorand.algosdk.account.Account myAccount = new Account(PASSPHRASE);
         Log.d("algoDebug","My Address: " + myAccount.getAddress());
 
-        String myAddress = myAccount.getAddress().toString();
+        Strings myAddress = myAccount.getAddress().toString();
 
         com.algorand.algosdk.v2.client.model.Account accountInfo = client.AccountInformation(myAccount.getAddress())
                 .execute().body();
