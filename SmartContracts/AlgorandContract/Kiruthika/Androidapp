@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         return  myAccount1;
     }
 
-    //Method that creates a new account without using an existing mnemonic String
+    //Method that creates a new account without using an existing mnemonic Strings
     public  void createAccountWithoutMnemonic( ){
         Account myAccount1= null;
 
