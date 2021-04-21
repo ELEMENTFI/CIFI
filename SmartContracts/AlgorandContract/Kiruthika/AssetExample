@@ -57,7 +57,7 @@ public void printCreatedAsset(Account account, Long assetID) throws Exception {
     }
 }
 
-// utility function to print asset holding
+// utility function to print asset are holding
 public void printAssetHolding(Account account, Long assetID) throws Exception {
     if (client == null)
         this.client = connectToNetwork();
