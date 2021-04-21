@@ -22,6 +22,7 @@ import Mypurchasepage from './Mypurchasepage'
 import Explore from './Explore'
 import Createandpurchasepage from './Createandpurchasepage'
 import Receivedpage from './Receivedpage';
+import Popup from './Popup';
 
 
 // console.log(`abi`, abi)
@@ -31,6 +32,28 @@ function Salepagecopy() {
 
 
   const [isLoading, setLoading] = useState(false)
+
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(false);
+
+    window.location.reload(false)
+    
+  }
+
+
+  const [isOpen2, setIsOpen2] = useState(false);
+ 
+  const togglePopup2 = () => {
+    setIsOpen2(false);
+
+    window.location.reload(false)
+    
+  }
+
+
+
 
 
 
@@ -212,6 +235,7 @@ let btn;
 //change here
         req2.push({
           //addAcc:
+          addAddress:a.ownerAddress,
           addPrices:a.priceSet,
           addcAdd:a.cAddress,
           addIds:a.id,
@@ -300,7 +324,7 @@ const setprice =async (a)=>{
             let price = window.prompt("enter the price for your token");
 
 
-            if(accounts[0] === a.addOwnerAddress)
+            if(accounts[0] === a.addAddress)
             {
 
               await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
@@ -368,7 +392,9 @@ const setprice =async (a)=>{
          }
 
          
-         alert("Your price has been set and ready to sale......")
+         //alert("Your price has been set and ready to sale......")
+
+         setIsOpen(true);
 
 
             }
@@ -459,7 +485,9 @@ const send=async(a)=>{
   }
 
   
-  alert("Your token has been sent successfully......")
+  //alert("Your token has been sent successfully......")
+
+  setIsOpen2(true);
 
   }
 
@@ -524,12 +552,13 @@ const send=async(a)=>{
    });
 
 
+   setIsOpen(true);
 
  }
 
  else{
 
-   alert("please updated prize")
+   alert("please enter updated prize..")
 
  }
 
@@ -751,6 +780,15 @@ const send=async(a)=>{
 
   {' '}
 
+  {isOpen && <Popup content={<>
+        <b>Notification</b>
+        <p>Your token prize has been updated successfully......</p>
+        <button type="button" onClick={togglePopup}>close</button>
+      </>}
+      // handleClose={togglePopup}
+    />}
+
+
   {/* <button onClick={()=>send(a)} >Send</button> */}
   
   </div>
@@ -779,6 +817,27 @@ const send=async(a)=>{
   
   
     <button onClick={()=>send(a)} >Send</button>
+
+
+    {' '}
+
+    {isOpen && <Popup content={<>
+        <b>Notification</b>
+        <p>Your token prize has been updated successfully......</p>
+        <button type="button" onClick={togglePopup}>close</button>
+      </>}
+      // handleClose={togglePopup}
+    />}
+
+
+{isOpen2 && <Popup content={<>
+        <b>Notification</b>
+        <p>Your token  has been sended successfully......</p>
+        <button type="button" onClick={togglePopup2}>close</button>
+      </>}
+      // handleClose={togglePopup}
+    />}
+
     
     </div>
     )

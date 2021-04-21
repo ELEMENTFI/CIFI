@@ -22,6 +22,7 @@ import Explore from './Explore';
 import {Modal} from 'react-bootstrap';
 import {Button} from 'react-bootstrap'
 import Receivedpage from './Receivedpage';
+import Popup from './Popup';
 
 
 function Nft() {
@@ -42,6 +43,19 @@ function Nft() {
     setCurrentSymbol(newFruit)
   }
   
+
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(false);
+
+    window.location.reload(false)
+    
+  }
+
+  // const togglePopups = () => {
+  //   setIsOpen(true);
+  // }
 
 
   
@@ -217,18 +231,18 @@ const onSubmitImage = async (event) => {
       var td=toaddress;
       var te=tid;
       tf='https://ipfs.io/ipfs/'+ipfsHash;
-      
-      
-      //alert("symbol"+tb)
-      
-    
-      //alert("im work ta tb tc  td te tf  "+ta+" "+tb+" "+tc+" "+td+" "+te+" "+tf);
-    
-      
-    
-      //const accounts = await  web3.eth.getAccounts();
 
-      var getaddress=localStorage.getItem('myaddress')
+
+      if(Img === '')
+      {
+
+        alert("Please upload images...")
+
+      }
+      else{
+
+
+        var getaddress=localStorage.getItem('myaddress')
 
     //alert("getdata from firebase"+getaddress)
     
@@ -1438,11 +1452,27 @@ const onSubmitImage = async (event) => {
 
      setLoading(false);
 
-     alert("Your token has been deployed and mint successfully......")
+     //alert("Your token has been deployed and mint successfully......")
+
+     setIsOpen(true);
 
 
-     window.location.reload(false)
+     //window.location.reload(false)
 
+
+      }
+      
+      
+      //alert("symbol"+tb)
+      
+    
+      //alert("im work ta tb tc  td te tf  "+ta+" "+tb+" "+tc+" "+td+" "+te+" "+tf);
+    
+      
+    
+      //const accounts = await  web3.eth.getAccounts();
+
+      
 }
 
   const funcall=async()=>{
@@ -1832,9 +1862,41 @@ id="idid"
 
 </form>
 
+{/* <div style={{backgroundColor:'red',height:'100px',width:'500px'}}> */}
+
+{isOpen && <Popup content={<>
+        <b>Notification</b>
+        <p>Your token has been deployed and mint successfully......</p>
+        <button type="button" onClick={togglePopup}>close</button>
+      </>}
+      // handleClose={togglePopup}
+    />}
+
+    {/* </div> */}
+
 
 
 </div>
+
+
+{/* <div style={{backgroundColor:'white',height:'600px',width:'500px'}}>
+    {/* <input
+      type="button"
+      value="Click to Open Popup l"
+      onClick={togglePopup}
+    /> */}
+    {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> */}
+    {/* {isOpen && <Popup
+      content={<>
+        <b>Design your Popups</b>
+        <p>Hello</p>
+        <button type="button" onClick={togglePopup}>Test button</button>
+      </>}
+      // handleClose={togglePopup}
+    />} */}
+  {/* </div> */} 
+
+
 
 </center>
 
@@ -1956,7 +2018,9 @@ id="idid"
           </Switch>
         </Router>
 
+
         
+
 
       </div>      
     

@@ -17,12 +17,23 @@ import Mypurchasepage from './Mypurchasepage'
 import {tra} from './trans'
 import Createandpurchasepage from './Createandpurchasepage'
 import Receivedpage from './Receivedpage';
+import Popup from './Popup';
 
 
 
 function Explore() {
 
   const [isLoading, setLoading] = useState(false)
+
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(false);
+
+    window.location.reload(false)
+    
+  }
+
 
   
     //fb 
@@ -494,7 +505,9 @@ const buynow= async(a) =>{
  //    fireDb.database().ref(`imageref/${a.addOwnerAddress}`).child(a.addKeyI).remove();
  
  
- alert(" Received successfully......")
+ //alert(" Received successfully......")
+
+ setIsOpen(true);
 
 
   }
@@ -502,7 +515,7 @@ const buynow= async(a) =>{
 
   
   
-window.location.reload(false)
+//window.location.reload(false)
    
   }  
 
@@ -780,6 +793,20 @@ return (
     { <button onClick={()=>buynow(a)} >BuyNow</button> }
   
     {' '}
+
+
+    {isOpen && <Popup content={<>
+        <b>Notification</b>
+        <p>Your token has been buyed successfully......</p>
+        <button type="button" onClick={togglePopup}>close</button>
+      </>}
+      // handleClose={togglePopup}
+    />}
+
+    {/* </div> */}
+
+
+
     
     </div>
     )
