@@ -16,7 +16,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,8 @@ body{
 }
 .bg{
   color:#f5f5f7 ;
-  
+  font-weight:700px;
+  font-family:"SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
 
   background-color:#000;
 }
@@ -176,4 +177,16 @@ color: black;
 .card11{
   background: rgb(166,166,166);
 background: linear-gradient(94deg, rgba(166,166,166,0.05085784313725494) 32%, rgba(255,255,255,0.9220063025210083) 100%);
+}
+.time{
+  color: rgb(255, 81, 0);
+  margin-left: 750px;
+ 
+  font-weight: bolder;
+}
+.tiny{
+  font-size: 0px;
+}
+.footer{
+  margin-right: 150px;
 }
