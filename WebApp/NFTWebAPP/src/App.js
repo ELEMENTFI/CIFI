@@ -174,14 +174,14 @@ function App() {
 
   return (
     <div class="container h-100 d-flex justify-content-center" className={isBackgroundRed ? 'background-red' : 'background-blue'}>
-      <div class="jumbotron my-auto">
+      {/* <div class="jumbotron my-auto"> */}
       
 
       
 
       
       
-        <Router history={history}>
+        {/* <Router history={history}>
           <Switch>
             <Route path="/" exact>
               <div class="display-4 mb-1"></div>
@@ -189,7 +189,7 @@ function App() {
               
               
               <Logo  height="55" width="55" />
-              {" "}
+              {" "} */}
 
 
 
@@ -220,86 +220,129 @@ function App() {
               {" "}
               <button type="submit">Search</button> */}
 
-              {" "}
+
+
+<Link
+              to="/">
+
               
               <button
               
               style={{outline: 'none'}}
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Explore");
-                }}
+                
+              >
+                Home
+              </button>
+</Link>
+
+              {" "}
+
+
+            <Link
+              to="/explore">
+
+              
+              <button
+              
+              style={{outline: 'none'}}
+                class="btn btn-info btn-block"
+                type="button"
+                
               >
                 Explore
               </button>
 
+
+              </Link>
+
               {" "}
+
+              <Link
+              to="/salepagecopy">
+
               
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Salepagecopy");
-                }}
+                // onClick={() => {
+                //   history.push("/Salepagecopy");
+                // }}
               >
                 Myitem     
               </button>
+              </Link>
 
               {" "}
+
+              <Link
+              to="/followingpage">
+
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Followingpage");
-                }}
+                // onClick={() => {
+                //   history.push("/Followingpage");
+                // }}
               >
                Following
               </button>
+              </Link>
 
               {" "}
+              <Link
+              to="/activitypage">
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Activitypage");
-                }}
+                // onClick={() => {
+                //   history.push("/Activitypage");
+                // }}
               >
                Activity
               </button>
+              </Link>
 
               {" "}
+
+              <Link
+              to="/howitworkpage">
+
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Howitworkpage");
-                }}
+                
               >
                How it works
               </button>
 
+</Link>
               {" "}
+              <Link
+              to="/communitypage">
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Communitypage");
-                }}
+                
               >
                Community
               </button>
+              </Link>
 
               {" "}
+              <Link
+              to="/nft">
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Nft");
-                }}
+                // onClick={() => {
+                //   history.push("/Nft");
+                // }}
               >
                Create
               </button>
+              </Link>
 
               {" "}
 
@@ -390,7 +433,7 @@ Demo
               
 
               
-            </Route>
+            {/* </Route>
             <Route path="/Myitem">
               <Myitem />
             </Route>
@@ -483,7 +526,7 @@ Demo
           </Switch>
         </Router>
         
-      </div>
+      </div> */}
       
     </div>
   );

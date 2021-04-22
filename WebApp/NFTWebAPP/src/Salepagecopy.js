@@ -1,28 +1,30 @@
 import React, { useState,useEffect } from "react";
-import history from "./utils/history";
+//import history from "./utils/history";
 
 //import {useState} from 'react';
 import web3 from './web3';
 
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch,Link } from "react-router-dom";
 
-import Nft from "./Nft";
-import Sendpage from "./Sendpage";
-import Newpage from "./Newpage";
-import Tokencreate from "./Tokencreate";
-import Printallimage from "./Printallimage";
-//import getaaa from "./abinft";
-import Saleimagepage from "./Saleimagepage";
-import Myitem from "./Myitem";
+// import Nft from "./Nft";
+// import Sendpage from "./Sendpage";
+// import Newpage from "./Newpage";
+// import Tokencreate from "./Tokencreate";
+// import Printallimage from "./Printallimage";
+// //import getaaa from "./abinft";
+// import Saleimagepage from "./Saleimagepage";
+// import Myitem from "./Myitem";
 import firebase from "./firebase";
 import fireDb from "./firebase";
-import Allcontractpage from "./Allcontractpage";
+//import Allcontractpage from "./Allcontractpage";
 import {abi} from './data'
-import Mypurchasepage from './Mypurchasepage'
-import Explore from './Explore'
-import Createandpurchasepage from './Createandpurchasepage'
-import Receivedpage from './Receivedpage';
+// import Mypurchasepage from './Mypurchasepage'
+// import Explore from './Explore'
+// import Createandpurchasepage from './Createandpurchasepage'
+// import Receivedpage from './Receivedpage';
 import Popup from './Popup';
+
+
 
 
 // console.log(`abi`, abi)
@@ -568,7 +570,17 @@ const send=async(a)=>{
 }
 
 
+// const imgcall = (a) => {
 
+//   alert(`Hello, ${a.keyId}`);
+// };
+
+
+// const [state, setstate] = useState({data:""})
+  
+//     const changeState = (a) => {  
+//         setstate({data:`state/hellooooo`}); 
+//        }; 
   
 
   return (    
@@ -576,127 +588,138 @@ const send=async(a)=>{
 
     <div>
 
-    
+  
 
-    
+<Link
+              to="/">
 
-
-
-
-<button
+              
+              <button
+              
+              style={{outline: 'none'}}
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Explore");
-                }}>
+                
+              >
+                Home
+              </button>
+</Link>
+
+              {" "}
+
+
+            <Link
+              to="/explore">
+
+              
+              <button
+              
+              style={{outline: 'none'}}
+                class="btn btn-info btn-block"
+                type="button"
+                
+              >
                 Explore
               </button>
 
+
+              </Link>
+
               {" "}
-      
-<button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Salepagecopy");
-                }}>
-                My items
-              </button>
-              {" "}
+
+              <Link
+              to="/salepagecopy">
+
               
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Followingpage");
-                }}
+                // onClick={() => {
+                //   history.push("/Salepagecopy");
+                // }}
               >
-                Following
+                Myitem     
               </button>
+              </Link>
+
               {" "}
-              <button 
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Activitypage");
-                }}>
-                Activity
-              </button>
-              {" "}
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Howitworkpage");
-                }}
-              >
-                How it work
-              </button>
-              {" "}
+
+              <Link
+              to="/followingpage">
 
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Communitypage");
-                }}
+                // onClick={() => {
+                //   history.push("/Followingpage");
+                // }}
               >
-                Community
+               Following
               </button>
+              </Link>
 
               {" "}
+              <Link
+              to="/activitypage">
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                     history.push("/Nft");
-                }}
+                // onClick={() => {
+                //   history.push("/Activitypage");
+                // }}
               >
-              Create
+               Activity
               </button>
+              </Link>
 
               {" "}
 
-              {/* <button
-              
+              <Link
+              to="/howitworkpage">
+
+              <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Mypurchasepage");
-                }}>
-               Mypurchase
-              </button>
-
-              {" "} */}
-
-
-              {/* <button
-              
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Createandpurchasepage");
-                }}
                 
-                >
-               Create and Purchase
+              >
+               How it works
               </button>
 
-              
+</Link>
+              {" "}
+              <Link
+              to="/communitypage">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                
+              >
+               Community
+              </button>
+              </Link>
+
+              {" "}
+              <Link
+              to="/nft">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                // onClick={() => {
+                //   history.push("/Nft");
+                // }}
+              >
+               Create
+              </button>
+              </Link>
 
               {" "}
 
 
-              <button
-              
-              class="btn btn-info btn-block"
-              type="button"
-              onClick={() => {
-                history.push("/Receivedpage");
-              }}>
-             Received_Token
-            </button>
-            {" "} */}
+    
+
+
+
+
 
               <button
               id="bu"
@@ -763,22 +786,34 @@ const send=async(a)=>{
   return (
     <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
 
+      {/* onClick={() => alert(a.addImgs)} */}
+
+      
+
   <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+
+  {/* </Link> */}
+
+
   {' '}
   <br></br>
   
-  <h3>Name : {a.addName}</h3>
-  
-  <h3>Symbol : {a.addSymbol}</h3>
-  
-  <h3>price : {a.addPrices}</h3>
+  <h5>Name : {a.addName}</h5>
+    
+    <h5>Symbol : {a.addSymbol}</h5>
+    
+    <h5>price : {a.addPrices}</h5>
 
+    <h5>address: {a.addAddress}</h5>
+    
 
   {/* <h4>Added to sale </h4> */}
   
   <button onClick={()=>setprice(a)} >SetPrice</button>  
 
   {' '}
+
+  
 
   {isOpen && <Popup content={<>
         <b>Notification</b>
@@ -799,16 +834,22 @@ const send=async(a)=>{
 
     return (
       <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+
+{/* onClick={() => {imgcall(a); }} */}
   
-    <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+    <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""}   />
     {' '}
     <br></br>
     
-    <h3>Name : {a.addName}</h3>
+    <h5>Name : {a.addName}</h5>
     
-    <h3>Symbol : {a.addSymbol}</h3>
+    <h5>Symbol : {a.addSymbol}</h5>
     
-    <h3>price : {a.addPrices}</h3>
+    <h5>price : {a.addPrices}</h5>
+
+    <h5>address: {a.addAddress}</h5>
+
+
     
     {/* <button  >SetPrice</button> */}
 
@@ -820,6 +861,8 @@ const send=async(a)=>{
 
 
     {' '}
+
+    
 
     {isOpen && <Popup content={<>
         <b>Notification</b>
@@ -894,7 +937,7 @@ const send=async(a)=>{
                     
                     
 
-            <Router history={history}>
+            {/* <Router history={history}>
           <Switch>
             <Route path="/" exact>
               <div class="display-4 mb-1">Choose a route to go to</div>
@@ -940,7 +983,7 @@ const send=async(a)=>{
             
             
           </Switch>
-        </Router>
+        </Router> */}
 
 
 

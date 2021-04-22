@@ -1,22 +1,22 @@
 import React, { useState,useEffect } from "react";
-import history from "./utils/history";
+//import history from "./utils/history";
 import web3 from './web3';
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch,Link } from "react-router-dom";
 
-import Myitem from "./Myitem";
-import Nft from "./Nft";
+//import Myitem from "./Myitem";
+//import Nft from "./Nft";
 //import firebase from "./firebase";
 import fireDb from "./firebase";
 //import Followingpage from "./Followingpage";
-import Activitypage from "./Activitypage";
-import Howitworkpage from "./Howitworkpage";
-import Communitypage from "./Communitypage";
+//import Activitypage from "./Activitypage";
+//import Howitworkpage from "./Howitworkpage";
+//import Communitypage from "./Communitypage";
 import firebase from "firebase";
 import {abi} from './datas'
-import Mypurchasepage from './Mypurchasepage'
+//import Mypurchasepage from './Mypurchasepage'
 import {tra} from './trans'
-import Createandpurchasepage from './Createandpurchasepage'
-import Receivedpage from './Receivedpage';
+//import Createandpurchasepage from './Createandpurchasepage'
+//import Receivedpage from './Receivedpage';
 import Popup from './Popup';
 
 
@@ -521,6 +521,13 @@ const buynow= async(a) =>{
 
 
 
+  // const imgcall = (a) => {
+
+  //   alert(`Hello, ${a.keyId}`);
+  // };
+  
+
+
 
 
 
@@ -534,122 +541,131 @@ const buynow= async(a) =>{
 
       <div class="display-4 mb-1"></div>
 
-      <button
+      <Link
+              to="/">
+
+              
+              <button
+              
+              style={{outline: 'none'}}
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Explore");
-                }}>
+                
+              >
+                Home
+              </button>
+</Link>
+
+              {" "}
+
+
+            <Link
+              to="/explore">
+
+              
+              <button
+              
+              style={{outline: 'none'}}
+                class="btn btn-info btn-block"
+                type="button"
+                
+              >
                 Explore
               </button>
-              {" "}
 
-<button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Salepagecopy");
-                }}>
-                My items
-              </button>
+
+              </Link>
 
               {" "}
+
+              <Link
+              to="/salepagecopy">
+
               
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Followingpage");
-                }}
+                // onClick={() => {
+                //   history.push("/Salepagecopy");
+                // }}
               >
-                Following
+                Myitem     
               </button>
+              </Link>
 
               {" "}
+
+              <Link
+              to="/followingpage">
 
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Activitypage");
-                }}>
-                Activity
+                // onClick={() => {
+                //   history.push("/Followingpage");
+                // }}
+              >
+               Following
               </button>
+              </Link>
 
               {" "}
+              <Link
+              to="/activitypage">
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Howitworkpage");
-                }}
+                // onClick={() => {
+                //   history.push("/Activitypage");
+                // }}
               >
-                How it work
+               Activity
               </button>
+              </Link>
 
               {" "}
+
+              <Link
+              to="/howitworkpage">
 
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Communitypage");
-                }}
-              >
-                Community
-              </button>
-
-              {" "}
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                     history.push("/Nft");
-                }}
-              >
-              Create
-              </button>
-
-              {" "}
-
-              {/* <button
-              
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Mypurchasepage");
-                }}>
-               Mypurchase
-              </button>
-
-
-              {" "} */}
-              {/* <button
-              
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Createandpurchasepage");
-                }}
                 
-                >
-               Create and Purchase
+              >
+               How it works
               </button>
+
+</Link>
+              {" "}
+              <Link
+              to="/communitypage">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                
+              >
+               Community
+              </button>
+              </Link>
+
+              {" "}
+              <Link
+              to="/nft">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                // 
+              >
+               Create
+              </button>
+              </Link>
 
               {" "}
 
 
-              <button
-              
-              class="btn btn-info btn-block"
-              type="button"
-              onClick={() => {
-                history.push("/Receivedpage");
-              }}>
-             Received_Token
-            </button>
-            {" "} */}
 
+      
 
               <button
               id="bu"
@@ -775,8 +791,19 @@ return (
 
     return (
       <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+
+<Link                  
+                  to={{
+                    
+                    pathname: `/explore/${a.addKeyI}/${a.addOwnerAddress}`,
+                    //pathname: `/explore/${combine}`,
+                  }}
+                >
   
     <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
+
+
+    </Link>
     
     
   
@@ -818,8 +845,20 @@ return (
 
     return (
       <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+
+
+<Link                  
+                  to={{
+                    
+                    pathname: `/explore/${a.addKeyI}/${a.addOwnerAddress}`,
+                    //pathname: `/explore/${combine}`,
+                  }}
+                >
+
   
     <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
+
+    </Link>
     
     
   
@@ -831,6 +870,8 @@ return (
     <h3>Symbol : {a.addUsymbol}</h3>
     
     <h3>price : {a.addPrices}</h3>
+
+    
     
 
     <h4>Already solded</h4>
@@ -858,7 +899,7 @@ return (
 }
 </div>                    
 
-            <Router history={history}>
+            {/* <Router history={history}>
           <Switch>
             <Route path="/" exact>
               <div class="display-4 mb-1">Choose a route to go to</div>
@@ -899,8 +940,18 @@ return (
           </Switch>
         </Router>
 
+         */}
+
 
 <div>
+
+{/* <div className="main-cointainer">
+
+{/* <Explore data={props.data} /> */}
+			{/* <h2>Component2</h2> */} 
+			
+{/* <p>hello{props.data} </p> */}
+{/* </div> */}
 
 
 <ul id="prabha">
@@ -919,10 +970,6 @@ return (
 
 
   </div>
-
-
-
-
 
     </>
 

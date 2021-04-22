@@ -5,7 +5,7 @@ import web3 from './web3';
 import lottery from './nftcontract';//this line import lottery folder
 import ipfs from './ipfs';
 //import storehash from './storehash';
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch,Link } from "react-router-dom";
 import history from "./utils/history";
 //import First from "./First";
 //import Second from "./Second";
@@ -1612,122 +1612,130 @@ const onSubmitImage = async (event) => {
 
 
 
-<button
+<Link
+              to="/">
+
+              
+              <button
+              
+              style={{outline: 'none'}}
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Explore");
-                }}>
+                
+              >
+                Home
+              </button>
+</Link>
+
+              {" "}
+
+
+            <Link
+              to="/explore">
+
+              
+              <button
+              
+              style={{outline: 'none'}}
+                class="btn btn-info btn-block"
+                type="button"
+                
+              >
                 Explore
               </button>
 
-{" "}
-<button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Salepagecopy");
-                }}>
-                My items
-              </button>
+
+              </Link>
 
               {" "}
+
+              <Link
+              to="/salepagecopy">
+
               
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Followingpage");
-                }}
+                // onClick={() => {
+                //   history.push("/Salepagecopy");
+                // }}
               >
-                Following
+                Myitem     
               </button>
+              </Link>
 
               {" "}
+
+              <Link
+              to="/followingpage">
 
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Activitypage");
-                }}>
-                Activity
+                // onClick={() => {
+                //   history.push("/Followingpage");
+                // }}
+              >
+               Following
               </button>
+              </Link>
 
               {" "}
+              <Link
+              to="/activitypage">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                // onClick={() => {
+                //   history.push("/Activitypage");
+                // }}
+              >
+               Activity
+              </button>
+              </Link>
+
+              {" "}
+
+              <Link
+              to="/howitworkpage">
 
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                onClick={() => {
-                  history.push("/Howitworkpage");
-                }}
-              >
-                How it work
-              </button>
-
-              {" "}
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Communitypage");
-                }}
-              >
-                Community
-              </button>
-              {" "}
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                     history.push("/Nft");
-                }}
-              >
-              Create
-              </button>
-
-              {" "}
-              {/* <button
-              
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Mypurchasepage");
-                }}>
-               Mypurchase
-              </button>
-
-              {" "} */}
-
-              {/* <button
-              
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={() => {
-                  history.push("/Createandpurchasepage");
-                }}
                 
-                >
-               Create and Purchase
+              >
+               How it works
               </button>
+
+</Link>
+              {" "}
+              <Link
+              to="/communitypage">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                
+              >
+               Community
+              </button>
+              </Link>
+
+              {" "}
+              <Link
+              to="/nft">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                // onClick={() => {
+                //   history.push("/Nft");
+                // }}
+              >
+               Create
+              </button>
+              </Link>
 
               {" "}
 
-
-              <button
-              
-              class="btn btn-info btn-block"
-              type="button"
-              onClick={() => {
-                history.push("/Receivedpage");
-              }}>
-             Received_Token
-            </button>
-            {" "}
-
- */}
               <button
               id="bu"
                 class="btn btn-info btn-block"
@@ -1985,7 +1993,7 @@ id="idid"
 
 
 
-            <Router history={history}>
+            {/* <Router history={history}>
           <Switch>
             <Route path="/" exact>
               <div class="display-4 mb-1">Choose a route to go to</div>
@@ -2016,7 +2024,7 @@ id="idid"
             </Route>
             
           </Switch>
-        </Router>
+        </Router> */}
 
 
         
