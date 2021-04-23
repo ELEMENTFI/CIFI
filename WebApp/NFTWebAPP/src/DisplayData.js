@@ -4,6 +4,9 @@ import React, { useState,useEffect } from "react";
 import web3 from './web3';
 import {abi} from './data'
 import Popup from './Popup';
+import { Offline, Online } from "react-detect-offline";
+
+
 
 const DisplayData=()=>{
 
@@ -323,6 +326,42 @@ const DisplayData=()=>{
 
         </div> */}
 
+
+<div>
+
+<div>
+    <Online>
+    
+
+</Online>
+
+    </div>
+
+    <div>
+
+    <Offline>
+
+
+    {<Popup content={<>
+        <b>Notification</b>
+        <p>Your are offline please check your internet connection......</p>
+        <center>
+        {/* <button type="button" onClick={togglePopup}>close</button> */}
+        </center>
+      </>}
+    //  handleClose={togglePopup}
+    />}
+
+
+    </Offline>
+
+    </div>
+
+</div>
+
+
+
+
 <div>
 
 {getIm.length === 0 ? null :( 
@@ -381,6 +420,10 @@ const DisplayData=()=>{
   
 
 </div>
+
+
+
+
 
     );
 
