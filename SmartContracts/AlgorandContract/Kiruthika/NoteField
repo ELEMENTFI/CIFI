@@ -87,7 +87,7 @@ import org.json.JSONObject;
          printBalance(myAccount); 
  
  
-         // Construct the transactions 
+         // Construct the transaction
          final String RECEIVER = "L5EUPCF4ROKNZMAE37R5FY2T5DF2M3NVYLPKSGWTUKVJRUGIW4RKVPNPD4"; 
          // add some notes to the transaction 
          String note = "showing prefix and more"; 
