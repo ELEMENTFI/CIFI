@@ -2,8 +2,20 @@ import {useParams,Link} from "react-router-dom";
 import firebase from "firebase";
 import React, { useState,useEffect } from "react";
 import web3 from './web3';
+import {abi} from './data'
+import Popup from './Popup';
 
 const DisplayData=()=>{
+
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(false);
+
+    //window.location.reload(false)
+    
+  }
+
 
 
 
@@ -111,7 +123,32 @@ const DisplayData=()=>{
   
       useEffect(()=>{getImgpa()},[getIm])
 
+
+      const[getOwner,setGetOwner]=useState();
+
+      const[getMaker,setGetMaker]=useState();
       
+
+      const imgcall = async(getss) => {
+
+        // const accounts = await  web3.eth.getAccounts();
+
+        //alert(getIm.cAddress+"and "+getIm.id)
+
+        let getsss=new web3.eth.Contract(abi,getIm.cAddress);
+
+
+
+        setGetOwner(await getsss.methods.ownerOf(getIm.id).call());
+
+        setGetMaker(await getsss.methods.maker().call());
+
+
+        setIsOpen(true);
+ 
+
+      };
+
     
 
 
@@ -297,7 +334,7 @@ const DisplayData=()=>{
         <div style={{backgroundColor:'skyblue',height:'600px',width:'300px'}}>
   
     
-        <img   src={getIm.imageUrl}  style={{height:250,width:250}} alt=""    />
+        <img   src={getIm.imageUrl}  style={{height:250,width:250}} alt=""    onClick={() => {imgcall(getIm.id); }} />
   
     
         <h3>Name : {getIm.userName}</h3>
@@ -326,6 +363,20 @@ const DisplayData=()=>{
 )}
 
   </div>    
+
+
+  {isOpen && <Popup content={<>
+  <div>
+        <b>Notification</b>
+        <h5>Owner_Address:-{getOwner}</h5>
+        <h5>Maker_Address:-{getMaker}</h5>
+        <center>
+        <button type="button" onClick={togglePopup}>close</button>
+        </center>
+        </div>
+      </>}
+       handleClose={togglePopup}
+    />}
   
   
 

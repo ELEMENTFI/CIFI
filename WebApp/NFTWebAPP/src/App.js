@@ -1,41 +1,41 @@
 import React, { useState,useEffect } from "react";
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+// import TextField from '@material-ui/core/TextField';
+// import Autocomplete from '@material-ui/lab/Autocomplete';
 //import React from "react";
 import { Router, Route, Switch, Link } from "react-router-dom";
-import history from "./utils/history";
+// import history from "./utils/history";
 
-import Nf from "./Nft";
-import NewPage from "./Newpage";
-import Sendpage from "./Sendpage";
-import Tokencreate from "./Tokencreate";
-import Printallimage from "./Printallimage";
-import Approveaddresspage from "./Approveaddresspage";
-import Salepage from "./Salepage";
-import Saleimagepage from "./Saleimagepage";
-import Test from "./Testing";
-import Myitem from "./Myitem";
-import Explore from "./Explore";
+// import Nf from "./Nft";
+// import NewPage from "./Newpage";
+// import Sendpage from "./Sendpage";
+// import Tokencreate from "./Tokencreate";
+// import Printallimage from "./Printallimage";
+// import Approveaddresspage from "./Approveaddresspage";
+// import Salepage from "./Salepage";
+// import Saleimagepage from "./Saleimagepage";
+// import Test from "./Testing";
+// import Myitem from "./Myitem";
+// import Explore from "./Explore";
 //import Connectmetamask from "./Connectmetamask";
 import web3 from './web3';
-import Newdeploy from "./Newdeploy";
-import Mycontractdata from "./Mycontractdata";
-import Salepagecopy from "./Salepagecopy";
-import Printallimagecopy from "./Printallimagecopy";
+// import Newdeploy from "./Newdeploy";
+// import Mycontractdata from "./Mycontractdata";
+// import Salepagecopy from "./Salepagecopy";
+// import Printallimagecopy from "./Printallimagecopy";
 
 import { ReactComponent as Logo } from './logo.svg';
 
-import Followingpage from "./Followingpage";
-import Activitypage from './Activitypage';
-import Howitworkpage from './Howitworkpage';
-import Communitypage from './Communitypage';
-import Createpage from './Createpage';
-import Connectwalletpage from './Connectwalletpage'
-import ReactPlayer from "react-player";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import Allcontractpage from './Allcontractpage'
-import Mypurchasepage from './Mypurchasepage'
-import Receivedpage from './Receivedpage';
+// import Followingpage from "./Followingpage";
+// import Activitypage from './Activitypage';
+// import Howitworkpage from './Howitworkpage';
+// import Communitypage from './Communitypage';
+// import Createpage from './Createpage';
+// import Connectwalletpage from './Connectwalletpage'
+// import ReactPlayer from "react-player";
+// import { FullScreen, useFullScreenHandle } from "react-full-screen";
+// import Allcontractpage from './Allcontractpage'
+// import Mypurchasepage from './Mypurchasepage'
+// import Receivedpage from './Receivedpage';
 //import SearchBar from './SearchBar';
 
 //import {abi} from data;
