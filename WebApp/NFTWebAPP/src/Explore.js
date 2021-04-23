@@ -825,9 +825,11 @@ return (
     {isOpen && <Popup content={<>
         <b>Notification</b>
         <p>Your token has been buyed successfully......</p>
+        <center>
         <button type="button" onClick={togglePopup}>close</button>
+        </center>
       </>}
-      // handleClose={togglePopup}
+       handleClose={togglePopup}
     />}
 
     {/* </div> */}

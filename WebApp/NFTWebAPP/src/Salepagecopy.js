@@ -40,7 +40,7 @@ function Salepagecopy() {
   const togglePopup = () => {
     setIsOpen(false);
 
-    window.location.reload(false)
+    //window.location.reload(false)
     
   }
 
@@ -72,14 +72,14 @@ const[getIm,setgetIm]=useState([]);
   const [afternames,setAfternames] = useState([]);
   
   console.log("afternamescheck",afternames)
-  const [names,setnames] = useState([]);
+  // const [names,setnames] = useState([]);
 
   // console.log("initialnames",names)
   
   // const accounts = [];
 
   
-  const [getAddressDb,setGetAddressDb]=useState([]);
+  // const [getAddressDb,setGetAddressDb]=useState([]);
 
   const [pa,setPa]=useState();
   // console.log("initialgetaddress",getAddressDb)
@@ -341,7 +341,7 @@ const setprice =async (a)=>{
             console.log(priceamount.price)
 
 
-            await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
+            // await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
 
             await getaaaa.methods.approve(a.addcAdd,a.addIds).send({from:accounts[0]})
 
@@ -818,9 +818,11 @@ const send=async(a)=>{
   {isOpen && <Popup content={<>
         <b>Notification</b>
         <p>Your token prize has been updated successfully......</p>
+        <center>
         <button type="button" onClick={togglePopup}>close</button>
+        </center>
       </>}
-      // handleClose={togglePopup}
+       handleClose={togglePopup}
     />}
 
 
@@ -867,9 +869,11 @@ const send=async(a)=>{
     {isOpen && <Popup content={<>
         <b>Notification</b>
         <p>Your token prize has been updated successfully......</p>
+        <center>
         <button type="button" onClick={togglePopup}>close</button>
+        </center>
       </>}
-      // handleClose={togglePopup}
+     handleClose={togglePopup}
     />}
 
 
