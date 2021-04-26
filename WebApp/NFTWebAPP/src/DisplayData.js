@@ -164,6 +164,7 @@ const DisplayData=()=>{
 
 
 
+
 <Link
               to="/">
 
@@ -362,6 +363,9 @@ const DisplayData=()=>{
 
 
 
+
+<center>
+
 <div>
 
 {getIm.length === 0 ? null :( 
@@ -376,19 +380,19 @@ const DisplayData=()=>{
         <img   src={getIm.imageUrl}  style={{height:250,width:250}} alt=""    onClick={() => {imgcall(getIm.id); }} />
   
     
-        <h3>Name : {getIm.userName}</h3>
+        <h5>Name : {getIm.userName}</h5>
       
-        <h3>Symbol : {getIm.userSymbol}</h3>
+        <h5>Symbol : {getIm.userSymbol}</h5>
 
-        <h3>Token_id : {getIm.id}</h3>
+        <h5>Token_id : {getIm.id}</h5>
       
-        <h3>price : {getIm.priceSet}</h3>
+        <h5>price : {getIm.priceSet}</h5>
 
-        <h3>Contract_Address : {getIm.cAddress}</h3>
+        <h5>Contract_Address : {getIm.cAddress}</h5>
       
-        <h3>Status : {getIm.extra1}</h3>
+        <h5>Status : {getIm.extra1}</h5>
       
-        <h3>Owner_Address : {getIm.ownerAddress}</h3>
+        <h5>Owner_Address : {getIm.ownerAddress}</h5>
 
       
       
@@ -403,6 +407,7 @@ const DisplayData=()=>{
 
   </div>    
 
+</center>
 
   {isOpen && <Popup content={<>
   <div>
@@ -417,6 +422,8 @@ const DisplayData=()=>{
        handleClose={togglePopup}
     />}
   
+
+
   
 
 </div>
