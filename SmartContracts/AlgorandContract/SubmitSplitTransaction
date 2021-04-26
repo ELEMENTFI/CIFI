@@ -13,7 +13,7 @@ import com.algorand.algosdk.templates.ContractTemplate;
 import com.algorand.algosdk.templates.Split;
 
 /**
- * Sign and Submit a transaction example using Split
+ * Sign and Submit a transactions example using Split
  *
  */
 public class SubmitSplitTransaction 
