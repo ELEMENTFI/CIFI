@@ -65,7 +65,6 @@ class App extends Component {
           <Navbar className="bg">
           <Navbar.Brand href="#home">
       
-        <img src={Background1} width="30px" height="30px"/>
         
         <Link class="navlink"  exact to="/h">
 
