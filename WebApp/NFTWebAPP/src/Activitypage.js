@@ -1,21 +1,26 @@
 import React,{useState,useEffect} from "react";
-import history from "./utils/history";
+// import history from "./utils/history";
 
 import { Router, Route, Switch,Link} from "react-router-dom";
 
-import Myitem from "./Myitem";
-import Nft from "./Nft";
+// import Myitem from "./Myitem";
+// import Nft from "./Nft";
 //import firebase from "./firebase";
-import fireDb from "./firebase";
-import Followingpage from "./Followingpage";
+// import fireDb from "./firebase";
+// import Followingpage from "./Followingpage";
 //import Activitypage from "./Activitypage";
-import Howitworkpage from "./Howitworkpage";
-import Communitypage from "./Communitypage";
-import Explore from "./Explore";
-import Createandpurchasepage from './Createandpurchasepage'
+// import Howitworkpage from "./Howitworkpage";
+// import Communitypage from "./Communitypage";
+// import Explore from "./Explore";
+// import Createandpurchasepage from './Createandpurchasepage'
 
 import web3 from './web3';
-import Receivedpage from './Receivedpage';
+//import Receivedpage from './Receivedpage';
+
+import { Offline, Online } from "react-detect-offline";
+
+import Popup from './Popup';
+
 
 function Activitypage() {
 
@@ -237,6 +242,38 @@ function Activitypage() {
 
 <br></br>
 <br></br>
+<div>
+
+<div>
+    <Online>
+    
+
+</Online>
+
+    </div>
+
+    <div>
+
+    <Offline>
+
+
+    {<Popup content={<>
+        <b>Notification</b>
+        <p>Your are offline please check your internet connection......</p>
+        <center>
+        {/* <button type="button" onClick={togglePopup}>close</button> */}
+        </center>
+      </>}
+    //  handleClose={togglePopup}
+    />}
+
+
+    </Offline>
+
+    </div>
+
+</div>
+
 
 
 
@@ -281,11 +318,19 @@ function Activitypage() {
  */}
 
 
+ 
+
+
 
 
 
 
     </>
+
+
+
+
+
 
   );
 }

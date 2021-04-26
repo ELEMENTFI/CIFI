@@ -41,7 +41,12 @@ import { ReactComponent as Logo } from './logo.svg';
 //import {abi} from data;
 
 
-import Createandpurchasepage from './Createandpurchasepage';
+// import Createandpurchasepage from './Createandpurchasepage';
+
+import { Offline, Online } from "react-detect-offline";
+
+import Popup from './Popup';
+
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -52,6 +57,36 @@ import Createandpurchasepage from './Createandpurchasepage';
 
 function App() {
 
+
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(false);
+
+    //window.location.reload(false)
+    
+  }
+
+
+
+  window.addEventListener('offline', function(e) {
+
+    setIsOpen(true)
+
+    //alert('offline'); 
+
+  });
+    
+  window.addEventListener('online', function(e) {
+
+    setIsOpen(false)
+       
+      //alert('online');
+
+    });
+
+
+  
 //   const loader = document.querySelector('.loader');
 
 // // if you want to show the loader when React loads data again
@@ -89,6 +124,8 @@ function App() {
   
   
   const connectmm = async () => {
+
+    
 
      
 
@@ -396,12 +433,62 @@ function App() {
 
               {" "}
 
+              <Link
+              to="/register">
+
+              <button
+              
+                class="btn btn-info btn-block"
+                type="button"
+                // onClick= {connectmm}>
+                >
+               Demo Login
+              </button>
+              </Link>
+
+              {" "}
+
 
 
 
 
               <br></br>
               <hr></hr>
+
+              <div>
+
+
+              
+
+<div>
+    <Online>
+    
+
+</Online>
+
+    </div>
+
+    <div>
+
+    <Offline>
+
+
+    {<Popup content={<>
+        <b>Notification</b>
+        <p>Your are offline please check your internet connection......</p>
+        <center>
+        {/* <button type="button" onClick={togglePopup}>close</button> */}
+        </center>
+      </>}
+    //  handleClose={togglePopup}
+    />}
+
+
+    </Offline>
+
+    </div>
+
+  </div>
 
 
 {/* <header className="APP-header">

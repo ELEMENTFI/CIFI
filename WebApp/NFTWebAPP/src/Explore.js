@@ -18,7 +18,7 @@ import {tra} from './trans'
 //import Createandpurchasepage from './Createandpurchasepage'
 //import Receivedpage from './Receivedpage';
 import Popup from './Popup';
-
+import { Offline, Online } from "react-detect-offline";
 
 
 function Explore() {
@@ -714,6 +714,43 @@ const buynow= async(a) =>{
 
 <br></br>
 <br></br>
+
+
+
+<div>
+
+<div>
+    <Online>
+    
+
+</Online>
+
+    </div>
+
+    <div>
+
+    <Offline>
+
+
+    {<Popup content={<>
+        <b>Notification</b>
+        <p>Your are offline please check your internet connection......</p>
+        <center>
+        {/* <button type="button" onClick={togglePopup}>close</button> */}
+        </center>
+      </>}
+    //  handleClose={togglePopup}
+    />}
+
+
+    </Offline>
+
+    </div>
+
+</div>
+
+
+
 
               {/* {afternames.length === 0 ? null : 
 <div style={{width:'800px',height:'70vh',backgroundColor:'blue',display:'flex',flexDirection:'column',flexWrap:'wrap'}}>
