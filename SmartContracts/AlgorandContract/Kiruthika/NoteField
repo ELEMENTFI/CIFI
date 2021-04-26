@@ -20,7 +20,7 @@ import org.json.JSONObject;
      private AlgodClient connectToNetwork() { 
         final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";          
         final Integer ALGOD_PORT = 443; 
-         final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; 
+         final String ALGOD_API_TOKEN = "usat0kaLvk8eIBpk7XuwXawXu0xRw9n88vYqNFaR"; 
        AlgodClient client = new AlgodClient(ALGOD_API_ADDR, ALGOD_PORT, ALGOD_API_TOKEN); 
          return client; 
     } 
@@ -28,7 +28,7 @@ import org.json.JSONObject;
  
     /** 
      * utility function to wait on a transaction to be confirmed 
-     * the timeout parameter indicates how many rounds do you wish to check pending transactions for 
+     * the timeout parameter indicates how many rounds do you wish to check pending transactions for execute
       */ 
      public PendingTransactionResponse waitForConfirmation(AlgodClient myclient, String txID, Integer timeout) 
              throws Exception { 
@@ -87,7 +87,7 @@ import org.json.JSONObject;
          printBalance(myAccount); 
  
  
-         // Construct the transaction 
+         // Construct the transaction
          final String RECEIVER = "L5EUPCF4ROKNZMAE37R5FY2T5DF2M3NVYLPKSGWTUKVJRUGIW4RKVPNPD4"; 
          // add some notes to the transaction 
          String note = "showing prefix and more"; 
