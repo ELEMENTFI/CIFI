@@ -433,6 +433,21 @@ function App() {
 
               {" "}
 
+              <Link
+              to="/register">
+
+              <button
+              
+                class="btn btn-info btn-block"
+                type="button"
+                // onClick= {connectmm}>
+                >
+               Demo Login
+              </button>
+              </Link>
+
+              {" "}
+
 
 
 

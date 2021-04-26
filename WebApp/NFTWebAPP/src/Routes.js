@@ -15,6 +15,7 @@ import Nft from "./Nft";
 import App from "./App";
 import DisplayData from "./DisplayData";
 import Followingpage from "./Followingpage";
+import Register from "./Login/Register";
 
 
 const Routes=()=>{
@@ -25,6 +26,7 @@ const Routes=()=>{
         
 
         <Switch>
+        <Route path="/register" exact component={Register} />
               <Route path="/" exact component={App} />
               <Route path="/explore" exact component={Explore} />
               <Route path="/explore/:key/:oaddress" component={DisplayData} />
