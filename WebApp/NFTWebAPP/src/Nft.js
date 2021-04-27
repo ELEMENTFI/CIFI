@@ -6,22 +6,22 @@ import lottery from './nftcontract';//this line import lottery folder
 import ipfs from './ipfs';
 //import storehash from './storehash';
 import { Router, Route, Switch,Link } from "react-router-dom";
-import history from "./utils/history";
+//import history from "./utils/history";
 //import First from "./First";
 //import Second from "./Second";
-import NewPage from './Newpage';
-import Tokencreate from './Tokencreate';
-import PrintallImage from './Printallimage';
-import Sendpage from './Sendpage';
-import firebase from "./firebase";
+// import NewPage from './Newpage';
+// import Tokencreate from './Tokencreate';
+// import PrintallImage from './Printallimage';
+// import Sendpage from './Sendpage';
+// import firebase from "./firebase";
 import fireDb from './firebase';
 import Compress from "react-image-file-resizer";
 
-import Mypurchasepage from './Mypurchasepage'
-import Explore from './Explore';
-import {Modal} from 'react-bootstrap';
-import {Button} from 'react-bootstrap'
-import Receivedpage from './Receivedpage';
+// import Mypurchasepage from './Mypurchasepage'
+// import Explore from './Explore';
+// import {Modal} from 'react-bootstrap';
+// import {Button} from 'react-bootstrap'
+// import Receivedpage from './Receivedpage';
 import Popup from './Popup';
 
 
@@ -1596,6 +1596,12 @@ const onSubmitImage = async (event) => {
 
 
   // }
+
+  // const handleLogout=()=>{
+    
+  //   fireDb.auth().signOut();
+    
+  //     }
     
 
   
@@ -1744,6 +1750,10 @@ const onSubmitImage = async (event) => {
                Connect wallet
               </button>
 
+              {' '}
+              
+
+              {/* <button onClick={handleLogout}>Logout</button> */}
 
 
 

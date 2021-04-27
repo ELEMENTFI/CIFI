@@ -5,12 +5,14 @@ import { Router, Route, Switch,Link} from "react-router-dom";
 
 // import Myitem from "./Myitem";
 // import Nft from "./Nft";
-//import firebase from "./firebase";
+import firebase from "./firebase";
 // import fireDb from "./firebase";
 // import Followingpage from "./Followingpage";
 //import Activitypage from "./Activitypage";
 // import Howitworkpage from "./Howitworkpage";
 // import Communitypage from "./Communitypage";
+// import Myitem from "./Myitem";
+// import Nft from "./Nft";
 // import Explore from "./Explore";
 // import Createandpurchasepage from './Createandpurchasepage'
 

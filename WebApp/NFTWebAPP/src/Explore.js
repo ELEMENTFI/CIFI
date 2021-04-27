@@ -21,7 +21,7 @@ import Popup from './Popup';
 import { Offline, Online } from "react-detect-offline";
 
 
-function Explore() {
+const Explore=({handleLogout})=> {
 
   const [isLoading, setLoading] = useState(false)
 
@@ -676,6 +676,13 @@ const buynow= async(a) =>{
               </button>
 
               {" "}
+
+              
+
+{/* <h2>Welcome</h2> */}
+<button onClick={handleLogout}>Logout</button>
+
+{/* </nav> */}
 
 
 
