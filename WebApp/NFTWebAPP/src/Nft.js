@@ -1610,13 +1610,16 @@ const onSubmitImage = async (event) => {
   return (
 
     
-    <div className="App" >
+    <div className="App"  >
 
 
 
+<div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
 
 
+{/* <div style={{backgroundColor:'white',height:'43px',width:'1017px',marginLeft:'20px',marginBlock:'15px', display:'-webkit-inline-flex'}}> */}
 
+<div style={{backgroundColor:'white',height:'43px',width:'1050px',marginLeft:'150px',marginBlock:'15px'}}>
 
 <Link
               to="/">
@@ -1631,9 +1634,10 @@ const onSubmitImage = async (event) => {
               >
                 Home
               </button>
+              {' '}
 </Link>
 
-              {" "}
+              
 
 
             <Link
@@ -1767,7 +1771,9 @@ const onSubmitImage = async (event) => {
 
 
 
+</div>
 
+</div>
 
 
 <center>

@@ -541,6 +541,12 @@ const buynow= async(a) =>{
 
       <div class="display-4 mb-1"></div>
 
+      <div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+
+
+
+      <div style={{backgroundColor:'white',height:'43px',width:'1154px',marginLeft:'150px',marginBlock:'15px'}}>
+
       <Link
               to="/">
 
@@ -556,7 +562,7 @@ const buynow= async(a) =>{
               </button>
 </Link>
 
-              {" "}
+              {' '}
 
 
             <Link
@@ -682,9 +688,11 @@ const buynow= async(a) =>{
 {/* <h2>Welcome</h2> */}
 <button onClick={handleLogout}>Logout</button>
 
+
 {/* </nav> */}
 
-
+</div>
+</div>
 
               <br></br>
 
@@ -817,7 +825,7 @@ return (
 :
 <>
 {getIm.length === 0 ? null :( 
-<div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
+<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
 {getIm.map((a)=>{
   console.log(`a`, a)
 
@@ -834,7 +842,11 @@ return (
   {
 
     return (
-      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+      <div style={{backgroundColor:'black',height:'500px',width:'300px'}}>
+
+<div style={{border: '2px solid white',borderRadius:'5px'}}>
+
+<center>
 
 <Link                  
                   to={{
@@ -844,27 +856,32 @@ return (
                   }}
                 >
   
-    <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
+    <img   src={a.addImgs}  style={{height:250,width:250,marginTop:'10px'}} alt=""    />
 
 
     </Link>
+    
+
     
     
   
     
     {/* <h5>hello{a[b].imageUrl}</h5> */}
   
-    <h3>Name : {a.addUname}</h3>
+    <h3 style={{color:'white'}}>Name : {a.addUname}</h3>
     
-    <h3>Symbol : {a.addUsymbol}</h3>
+    <h3 style={{color:'white'}}>Symbol : {a.addUsymbol}</h3>
     
-    <h3>price : {a.addPrices}</h3>
+    <h3 style={{color:'white'}}>price : {a.addPrices}</h3>
     
     
     { <button onClick={()=>buynow(a)} >BuyNow</button> }
   
     {' '}
 
+    </center>
+
+</div>
 
     {isOpen && <Popup content={<>
         <b>Notification</b>
@@ -890,8 +907,11 @@ return (
 
 
     return (
-      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+      <div style={{backgroundColor:'black',height:'500px',width:'300px'}}>
 
+<div style={{border: '2px solid white',borderRadius:'5px'}}>
+  
+<center>
 
 <Link                  
                   to={{
@@ -902,29 +922,33 @@ return (
                 >
 
   
-    <img   src={a.addImgs}  style={{height:250,width:250}} alt=""    />
+    <img   src={a.addImgs}  style={{height:250,width:250,marginTop:'10px'}} alt=""    />
 
     </Link>
+    
     
     
   
     
     {/* <h5>hello{a[b].imageUrl}</h5> */}
   
-    <h3>Name : {a.addUname}</h3>
+    <h3 style={{color:'white'}}>Name : {a.addUname}</h3>
     
-    <h3>Symbol : {a.addUsymbol}</h3>
+    <h3 style={{color:'white'}}>Symbol : {a.addUsymbol}</h3>
     
-    <h3>price : {a.addPrices}</h3>
+    <h3 style={{color:'white'}}>price : {a.addPrices}</h3>
 
     
     
 
-    <h4>Already solded</h4>
+    <h4 style={{color:'white'}}>Already solded</h4>
     
     {/* { <button onClick={()=>buynow(a)} >BuyNow</button> } */}
   
     {' '}
+    </center>
+
+    </div>
     
     </div>
     )
