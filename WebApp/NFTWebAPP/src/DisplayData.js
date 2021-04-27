@@ -5,12 +5,32 @@ import web3 from './web3';
 import {abi} from './data'
 import Popup from './Popup';
 import { Offline, Online } from "react-detect-offline";
+import axios from 'axios';
 
 
 
 const DisplayData=()=>{
 
+  const {oaddress,key}=useParams()
+
+    //const {key}=useParams()
+
+
+    const[getIm,setgetIm]=useState([]);
+
+    console.log("getIII",getIm)
+
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const [bookss, setBookss] = useState(null);
+
+  //const apiURL = "https://www.anapioficeandfire.com/api/books?pageSize=30";
+
+  //0xdbb163b22e839a26d2a5011841cb4430019020f9
+
+  
+
  
   const togglePopup = () => {
     setIsOpen(false);
@@ -19,7 +39,32 @@ const DisplayData=()=>{
     
   }
 
+  const ownerDisplay= async (getting)=>{
 
+    const getcadd = getting;
+
+    //testnet using
+  //const apiURL = "https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress="+getcadd+"&page=1&offset=10&sort=asc&apikey=9EFYVV4BAJS2M3M3ADUFN8G8XTCTAMR7R9";
+
+  //sample mainnet example
+  //0xdbb163b22e839a26d2a5011841cb4430019020f9
+  const apiURL = "https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress=0xdbb163b22e839a26d2a5011841cb4430019020f9&page=1&offset=2&sort=asc&apikey=9EFYVV4BAJS2M3M3ADUFN8G8XTCTAMR7R9";
+
+  //alert(apiURL);
+
+    axios.get(`${apiURL}`)
+        .then((response)=>{
+          const allNotes=response.data.result;
+          setBookss(allNotes)
+        }).catch(error => console.error(`Error: ${error}`));       
+
+  }
+
+
+
+  useEffect(()=>{ownerDisplay()},[bookss])  
+
+  console.log("getbbb",bookss)
 
 
   let btn;
@@ -97,15 +142,7 @@ const DisplayData=()=>{
 
 
 
-    const {oaddress,key}=useParams()
-
-    //const {key}=useParams()
-
-
-    const[getIm,setgetIm]=useState([]);
-
-    console.log("getIII",getIm)
-
+    
 
     const getImgpa = async() =>{
 
@@ -163,6 +200,12 @@ const DisplayData=()=>{
 
       <div>
 
+
+<div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+
+
+
+      <div style={{backgroundColor:'white',height:'43px',width:'1154px',marginLeft:'150px',marginBlock:'15px'}}>
 
 
 
@@ -303,13 +346,16 @@ const DisplayData=()=>{
               {" "}
 
 
+</div>
+</div>
+
 
               <br></br>
 
               <br></br>
               <br></br>
               <br></br>
-              <br></br>
+              
 
 
 
@@ -367,39 +413,72 @@ const DisplayData=()=>{
 
 <center>
 
+
 <div>
 
 {getIm.length === 0 ? null :( 
-  <div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
+  <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
     
     
       
 
-        <div style={{backgroundColor:'skyblue',height:'600px',width:'300px'}}>
+        <div style={{backgroundColor:'black',height:'600px',width:'300px'}}>
+
+        <div style={{border: '2px solid white',borderRadius:'5px'}}>
+  
+        {/* imgcall(getIm.id); */}
+    
+        <img   src={getIm.imageUrl}  style={{height:250,width:250,marginTop:'10px'}} alt=""    onClick={() => {imgcall(getIm.id)}} />
   
     
-        <img   src={getIm.imageUrl}  style={{height:250,width:250}} alt=""    onClick={() => {imgcall(getIm.id); }} />
-  
-    
-        <h5>Name : {getIm.userName}</h5>
+        <h5 style={{color:'white'}}>Name : {getIm.userName}</h5>
       
-        <h5>Symbol : {getIm.userSymbol}</h5>
+        <h5 style={{color:'white'}}>Symbol : {getIm.userSymbol}</h5>
 
-        <h5>Token_id : {getIm.id}</h5>
+        <h5 style={{color:'white'}}>Token_id : {getIm.id}</h5>
       
-        <h5>price : {getIm.priceSet}</h5>
+        <h5 style={{color:'white'}}>price : {getIm.priceSet}</h5>
 
-        <h5>Contract_Address : {getIm.cAddress}</h5>
+        <h5 style={{color:'white'}}>Contract_Address : {getIm.cAddress}</h5>
       
-        <h5>Status : {getIm.extra1}</h5>
+        <h5 style={{color:'white'}}>Status : {getIm.extra1}</h5>
       
-        <h5>Owner_Address : {getIm.ownerAddress}</h5>
+        <h5 style={{color:'white'}}>Owner_Address : {getIm.ownerAddress}</h5>
 
       
       
       {/* { <button onClick={()=>buynow(a)} >BuyNow</button> } */}
     
       {' '}
+
+
+      <div>
+
+{ <div className="books">
+<h5 style={{color:'white'}}>History of Owner_Address</h5>
+      {bookss &&
+        bookss.map((book) => {
+          
+          return (
+        
+            <div className="details">
+              
+
+                <h5 style={{color:'white'}}> {book.to}</h5>
+                {/* <h5 style={{color:'white'}}> {book.tokenID}</h5> */}
+                {/* <p style={{color:'white'}}>🏘️: {book.country}</p>
+                <p style={{color:'white'}}>⏰: {cleanedDate}</p> */}
+              </div>
+          );
+        })}
+    </div>
+}
+
+</div>
+
+
+      </div>
+
       </div>
       
   
@@ -422,6 +501,8 @@ const DisplayData=()=>{
       </>}
        handleClose={togglePopup}
     />}
+
+
   
 
 
