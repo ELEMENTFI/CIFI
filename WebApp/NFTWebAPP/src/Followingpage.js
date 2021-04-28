@@ -351,6 +351,10 @@ function Followingpage() {
 
       <div class="display-4 mb-1"></div>
 
+      <div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+
+
+      <div style={{backgroundColor:'white',height:'43px',width:'1050px',marginLeft:'150px',marginBlock:'15px'}}>
 
       <Link
               to="/">
@@ -490,7 +494,9 @@ function Followingpage() {
               {" "}
 
 
+</div>
 
+</div>
 
               <br></br>
 <br></br>

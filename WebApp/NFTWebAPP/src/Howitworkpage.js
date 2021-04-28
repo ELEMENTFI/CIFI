@@ -109,6 +109,10 @@ function Howitworkpage() {
   return (
     <div>
 
+<div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+
+<div style={{backgroundColor:'white',height:'43px',width:'1050px',marginLeft:'150px',marginBlock:'15px'}}>
+
 
 <Link
               to="/">
@@ -248,8 +252,9 @@ function Howitworkpage() {
               {" "}
 
 
+</div>
 
-
+</div>
               <br></br>
 <br></br>
 
@@ -291,66 +296,9 @@ function Howitworkpage() {
 
 </div>
 
-
-
-
-                    
-                    
-
-            {/* <Router history={history}>
-          <Switch>
-            <Route path="/" exact>
-              <div class="display-4 mb-1">Choose a route to go to</div>
-              
-            </Route>
-            
-            <Route path="/Myitem">
-              <Myitem />
-            </Route>
-            
-            <Route path="/Activitypage">
-              <Activitypage />
-            </Route>
-            <Route path="/Communitypage">
-              <Communitypage />
-            </Route>
-            <Route path="/Followingpage">
-              <Followingpage />
-            </Route>
-            <Route path="/Nft">
-              <Nft />
-            </Route>
-
-            <Route path="/Mypurchasepage">
-              <Mypurchasepage />
-            </Route>
-            <Route path="/Explore">
-              <Explore />
-            </Route>
-
-            <Route path="/Createandpurchasepage">
-              <Createandpurchasepage />
-            </Route>
-
-            <Route path="/Receivedpage">
-              <Receivedpage />
-            </Route>
-            
-            
-            
-          </Switch>
-        </Router>
- */}
-
-
-
-
-
-
-
 <center>
 
-      <ReactPlayer
+      <ReactPlayer style={{backgroundColor:'white',height:'500px',width:'1000px',marginBlock:'5px',border: '2px solid red',borderRadius:'5px',display:'flex'}}
         url="https://www.youtube.com/watch?v=dA1lXZhWPoQ"
         
 />
@@ -360,6 +308,18 @@ function Howitworkpage() {
       </FullScreen>
 
 </center>
+
+<center>
+<div style={{backgroundColor:'white',height:'500px',width:'640px',marginBlock:'5px',border: '2px solid red',borderRadius:'5px',display:'flex'}}>
+<h1>document here...</h1>
+  </div>
+  <br></br>
+  <div style={{backgroundColor:'white',height:'500px',width:'640px',marginBlock:'5px',border: '2px solid red',borderRadius:'5px',display:'flex'}}>
+<h1>document here....</h1>
+  </div>
+  </center>
+
+
       </div>
   )
 }

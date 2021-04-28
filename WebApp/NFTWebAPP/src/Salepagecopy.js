@@ -587,6 +587,9 @@ const send=async(a)=>{
 
     <div>
 
+<div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+
+<div style={{backgroundColor:'white',height:'43px',width:'1050px',marginLeft:'150px',marginBlock:'15px'}}>
   
 
 <Link
@@ -734,9 +737,16 @@ const send=async(a)=>{
 
 
 
+
               <br></br>
 <br></br>
+</div>
 
+</div>
+
+<br></br>
+<br></br><br></br>
+<br></br>
 
 {isLoading ? <div><h4>Fetching........</h4>
               <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
@@ -777,19 +787,24 @@ const send=async(a)=>{
               Refresh
               </button> */}
 {getIm.length === 0 ? null : 
-<div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
+<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
 {getIm.map((a)=>{
   console.log("getas", a.extra1)
 
   if(a.addPrices === ''){
   return (
-    <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+    <div style={{backgroundColor:'black',height:'500px',width:'300px'}}>
 
       {/* onClick={() => alert(a.addImgs)} */}
 
-      
 
-  <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+
+      
+      <div style={{border: '2px solid white',borderRadius:'5px'}}>
+
+        <center>
+
+  <img   src={a.addImgs}  style={{height:250,width:250,marginTop:'10px'}}    alt={""} />
 
   {/* </Link> */}
 
@@ -797,22 +812,23 @@ const send=async(a)=>{
   {' '}
   <br></br>
   
-  <h5>Name : {a.addName}</h5>
+  <h5 style={{color:'white'}}>Name : {a.addName}</h5>
     
-    <h5>Symbol : {a.addSymbol}</h5>
+    <h5 style={{color:'white'}}>Symbol : {a.addSymbol}</h5>
     
-    <h5>price : {a.addPrices}</h5>
+    <h5 style={{color:'white'}}>price : {a.addPrices}</h5>
 
-    <h5>address: {a.addAddress}</h5>
+    <h5 style={{color:'white'}}>address: {a.addAddress}</h5>
     
 
   {/* <h4>Added to sale </h4> */}
   
-  <button onClick={()=>setprice(a)} >SetPrice</button>  
+  <button onClick={()=>setprice(a)} style={{width:'80px',height:'43px'}} >SetPrice</button>  
 
   {' '}
+  </center>
 
-  
+  </div>
 
   {isOpen && <Popup content={<>
         <b>Notification</b>
@@ -834,35 +850,41 @@ const send=async(a)=>{
 
 
     return (
-      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+      <div style={{backgroundColor:'black',height:'500px',width:'300px'}}>
 
 {/* onClick={() => {imgcall(a); }} */}
+
+<div style={{border: '2px solid white',borderRadius:'5px'}}>
+  <center>
   
-    <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""}   />
+    <img   src={a.addImgs}  style={{height:250,width:250,marginTop:'10px'}}    alt={""}   />
     {' '}
     <br></br>
     
-    <h5>Name : {a.addName}</h5>
+    <h5 style={{color:'white'}}>Name : {a.addName}</h5>
     
-    <h5>Symbol : {a.addSymbol}</h5>
+    <h5 style={{color:'white'}}>Symbol : {a.addSymbol}</h5>
     
-    <h5>price : {a.addPrices}</h5>
+    <h5 style={{color:'white'}}>price : {a.addPrices}</h5>
 
-    <h5>address: {a.addAddress}</h5>
+    <h5 style={{color:'white'}}>address: {a.addAddress}</h5>
 
 
     
     {/* <button  >SetPrice</button> */}
+    {/* style={{width:'200px',height:'50px'}} */}
 
-    <button onClick={()=>setprices(a)} >UpdatePrice and again sale</button>  
+    <button onClick={()=>setprices(a)}  >UpdatePrice and again sale</button>  
   {' '}
   
   
-    <button onClick={()=>send(a)} >Send</button>
+    <button onClick={()=>send(a)} style={{width:'80px',height:'43px'}}>Send</button>
 
 
     {' '}
+    </center>
 
+</div>
     
 
     {isOpen && <Popup content={<>
