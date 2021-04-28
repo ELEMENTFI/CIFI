@@ -1,7 +1,7 @@
 import React from "react";
 import history from "./utils/history";
 import BDO from "./BDO.png"
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 //import { Link } from 'react-router'
 import web3 from './web3';
 import './App.css';
@@ -27,14 +27,13 @@ function Moa(){
   var [price,setprice] = useState("");
 
   
- 
+  useEffect(()=>{bal()},[])
+ const bal = async () => {
 
   
-  const onSubmitNFT = async (event) => {
+  
 
-
-
-    event.preventDefault();
+   // event.preventDefault();
   
     const accounts = await  web3.eth.getAccounts();
 
@@ -73,20 +72,11 @@ return (
 
 <br/>
 <div class="row">
-<div class="col">
-<div class="card">
-<Card className="card" style={{backgroundColor: "black",boxShadow:"1px 1px 10px 2px #fa3455" }}>
-  
-<form onSubmit={onSubmitNFT} id="create-course-form" >
+  <div class="col">
 
-<br/>
-  
-    <button
-                class="btn btn-primary"
-                type="submit">
-                
-                <img src={BDO} width="30px" height="30px"/>
-              </button>
+  <div class="card">
+<Card className="card" style={{backgroundColor: "black",boxShadow:"1px 1px 10px 2px #fa3455" }}>
+<form onSubmit={bal} id="create-course-form" >
 
 
 
@@ -115,26 +105,13 @@ return (
      
 
 </Card >
-</div> 
 </div>
+  </div>
+  <div class="col">
 
-<div class="col">
-<div class="card">
+  <div class="card">
 <Card className="card" style={{backgroundColor: "black",boxShadow:"1px 1px 10px 2px #fa3455" }}>
-<form onSubmit={onSubmitNFT} id="create-course-form" >
 
-<br/>
-  
-    <button
-                class="btn btn-primary"
-                type="submit">
-                
-                <img src={BDO} width="30px" height="30px"/>
-              </button>
-
-
-
-</form>
 <br/>
 
 <h4> bdollar Contract</h4>
@@ -159,27 +136,13 @@ return (
      
 
 </Card >
-</div> 
 </div>
+  </div>
+  <div class="col">
 
-
-<div class="col">
-<div class="card">
+  <div class="card">
 <Card className="card" style={{backgroundColor: "black",boxShadow:"1px 1px 10px 2px #fa3455" }}>
-<form onSubmit={onSubmitNFT} id="create-course-form" >
 
-<br/>
-  
-    <button
-                class="btn btn-primary"
-                type="submit">
-                
-                <img src={BDO} width="30px" height="30px"/>
-              </button>
-
-
-
-</form>
 <br/>
 
 <h4> bdollar Contract</h4>
@@ -204,10 +167,10 @@ return (
      
 
 </Card >
-</div> 
+</div>
+  </div>
 </div>
 
-</div>
               
 </center>
 <br/>

@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family:"SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+  font-family:"SF Pro Text","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
 
   background-color: black;
   color: rgb(238, 238, 238);
@@ -35,6 +35,9 @@
   color: #61dafb;
 }
 .navlink{
+  align-items: center;
+  text-align: center;
+  
   margin-left: 25px;
   font-size: large;
   color: white;
@@ -50,12 +53,6 @@
 .bgnav{
 
   background-color: black;
-  font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
-  text-align: center;
-}
-.navlink1 {
- text-align:center;
- width: 100%;
 }
 .btn1{
   background-color: black;

@@ -30,14 +30,14 @@ function App() {
         <div>
           <Router>
         <Navbar className="bgnav">
-          <Navbar.Brand href="" className="navlink1">
-          {/* <img src={logo} width="100px" height="30px"/> */}
-          
+          <Navbar.Brand href="">
+      
         <Link exact to="/Moa" class="navlink"> Home</Link>
         <Link exact to="/Secondpage" class="navlink"> BoardRoom</Link>
         <Link exact to="/Thirdpage" class="navlink">Share</Link>
         <Link exact to="/FourthPage" class="navlink"> Deposit</Link>
-        
+
+      
     </Navbar.Brand>
     <Navbar.Collapse className="justify-content-end">
 
