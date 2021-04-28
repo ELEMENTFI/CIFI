@@ -9,7 +9,7 @@ import com.algorand.algosdk.util.Encoder;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class SubmitTx {
-    // Function from Algorand Inc. - Utility function to wait on a transactions to be confirmed
+    // Function from Algorand Inc. - Utility function to wait on a transaction to be confirmed
     public static void waitForConfirmation(AlgodClient client, String txID, String[] headers, String[] values) throws Exception {
         Long lastRound = client.GetStatus().execute(headers, values).body().lastRound;
         while (true) {
@@ -31,7 +31,7 @@ public class SubmitTx {
     public static void main(String[] args) throws Exception {
         final String ALGOD_API_ADDR = "https://testnet-algorand.api.purestake.io/ps2";
         final int  ALGOD_PORT = 443;
-        final String ALGOD_API_TOKEN = "";
+        final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
         String[] headers = {"X-API-Key"};
         String[] values = {"YOUR API KEY HERE"};
@@ -49,7 +49,7 @@ public class SubmitTx {
         Transaction tx = Transaction.PaymentTransactionBuilder().sender(src.getAddress()).receiver(DEST_ADDR).amount(amount).suggestedParams(params).build();
         SignedTransaction signedTx = src.signTransaction(tx);
 
-        // send the transaction to the network
+        // send the transactions to the network
         try {
             String[] txHeaders = ArrayUtils.add(headers, "Content-Type");
             String[] txValues = ArrayUtils.add(values, "application/x-binary");
