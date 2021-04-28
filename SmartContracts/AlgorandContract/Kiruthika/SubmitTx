@@ -9,7 +9,7 @@ import com.algorand.algosdk.util.Encoder;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class SubmitTx {
-    // Function from Algorand Inc. - Utility function to wait on a transaction to be confirmed
+    // Function from Algorand Inc. - Utility function to wait on a transactions to be confirmed
     public static void waitForConfirmation(AlgodClient client, String txID, String[] headers, String[] values) throws Exception {
         Long lastRound = client.GetStatus().execute(headers, values).body().lastRound;
         while (true) {
