@@ -47,7 +47,7 @@ static  final String SANDBOX_ALGOD_API_TOKEN ="usat0kaLvk8eIBpk7XuwXawXu0xRw9n88
     String receiverAddress="FMBQKMGDE7LYNDHCSUPJBXNMMT3HC2TXMIFAJKGBYJQDZN4R3M554N4QTY";
     Transaction transaction=createTransaction(account,receiverAddress,"Note",1266666,multisigAddress.toAddress().toString());
 
-    //print out the balance of the multisig address and the receiver address before the transaction
+    //print out the balance of the Multisig address and the receiver address before the transaction done
     Long multisigBalanceBeforeTransaction=getAccountBalance(multisigAddress.toAddress(), algodClient);
     long receiverBalanceBeforeTransaction=getAccountBalance(new Address(receiverAddress),algodClient);
     System.out.println("multisigBalanceBeforeTransaction: "+multisigBalanceBeforeTransaction);
