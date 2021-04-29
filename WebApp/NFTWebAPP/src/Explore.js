@@ -399,7 +399,7 @@ const buynow= async(a) =>{
  
  
  
-     alert("amount has been sent")
+     //alert("amount has been sent")
 
  //end trans
  
