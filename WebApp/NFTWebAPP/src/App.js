@@ -68,7 +68,71 @@ const App=() => {
 
   const handleSignup=()=>{
 
+
     clearErrors();
+
+    
+    // let recaptcha=new firebaseConfig.auth().RecaptchaVerifier('recaptcha');
+    // let number ="+916383116826";
+    // firebaseConfig.auth().signInWithPhoneNumber(number,recaptcha)
+    // .then(function(e){
+    //   let code=prompt('enter the otp','')
+
+    //   if(code === null){
+    //     alert("nulll")
+    //   }
+    //   else{
+    //     e.confirm(code).then(function(result){
+    //       alert('user',result.user)
+    //     })
+    //   }
+
+    // }).catch((error)=>{
+    //   console.log(error)
+
+    // })
+
+  //   const actionCodeSettings = {
+  //     // URL you want to redirect back to. The domain (www.example.com) for this
+  //     // URL must be in the authorized domains list in the Firebase Console.
+  //     url: 'https://www.example.com/finishSignUp?cartId=1234',
+  //     // This must be true.
+  //     handleCodeInApp: true,
+  //     iOS: {
+  //       bundleId: 'com.example.ios'
+  //     },
+  //     android: {
+  //       packageName: 'com.example.android',
+  //       installApp: true,
+  //       minimumVersion: '12'
+  //     },
+  //     //example.page.link
+  //     dynamicLinkDomain: 'demonft-2e778.firebaseapp.com'
+      
+  //   };
+
+  // firebaseConfig
+  // .auth()
+  // .sendSignInLinkToEmail(email,actionCodeSettings)
+  // .then(result => {
+
+  //   alert("result",result)
+  //   // The link was successfully sent. Inform the user.
+  //   // Save the email locally so you don't need to ask the user for it again
+  //   // if they open the link on the same device.
+  //   window.localStorage.setItem('emailForSignIn', email);
+    
+  // })
+  // .catch((error) => {
+  //   var errorCode = error.code;
+    
+  //   var errorMessage = error.message;
+
+  //   alert("error alert-1  "+errorCode)
+  //   alert("error alert-2  "+errorMessage)
+    
+  // });
+
 
     firebaseConfig
     .auth()
@@ -87,21 +151,6 @@ const App=() => {
       }
     });
 
-
-    // const auth = firebaseConfig.auth();
-    // firebaseConfig.auth().sendSignInLinkToEmail(email)
-    // .then(() => {
-    //   // The link was successfully sent. Inform the user.
-    //   // Save the email locally so you don't need to ask the user for it again
-    //   // if they open the link on the same device.
-    //   window.localStorage.setItem('emailForSignIn', email);
-    //   // ...
-    // })
-    // .catch((error) => {
-    //   alert( error.code);
-      
-    //   // ...
-    // });
   };
 
 

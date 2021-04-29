@@ -356,7 +356,9 @@ let btn;
 
 const buynow= async(a) =>{
 
-    let gettrans=new web3.eth.Contract(tra,'0xED3c6A02F152CaeA0f6F86EFADF55e638543DED3');
+//eth 0xED3c6A02F152CaeA0f6F86EFADF55e638543DED3
+  //bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
+    let gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
 
     //let gettrans=new web3.eth.Contract(tra,a.addOwnerAddress);
 
@@ -391,11 +393,14 @@ const buynow= async(a) =>{
 
     await gettrans.methods.sendss(a.addOwnerAddress).send({
       from: accounts[0],
-      value: web3.utils.toWei(a.addPrices, 'ether')
+      //value:web3.utils.toWei(a.addPrices,'BNB')
+      value: web3.utils.toWei(a.addPrices, 'ether')//ether
      });
  
  
  
+     alert("amount has been sent")
+
  //end trans
  
    
