@@ -246,7 +246,8 @@ let btn;
       addSymbol:a.userSymbol,
     addIpfs:a.ipfsUrl,
     addsold:a.soldd,
-    addextra1:a.extra1})
+    addextra1:a.extra1,
+    addPoAddress:a.previousoaddress})
               
       //})
     })
@@ -366,17 +367,6 @@ const setprice =async (a)=>{
 
             
             });
-
-
-            
-
-
-
-
-            
-                      
-
-
             
            //let pa = priceamount.state;
            setPa(priceamount.state)
@@ -465,7 +455,7 @@ const send=async(a)=>{
 
       fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).update({
         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed",addPoAddress:accounts[0]
       })
 
 
@@ -498,7 +488,7 @@ const send=async(a)=>{
 }
 
 
-//new
+//new update price below
  const setprices =async (a,event)=>{
 
     
@@ -529,6 +519,10 @@ const send=async(a)=>{
      soldd:"",extra1:"readytosold"
    
    });
+
+   //previousoaddress:a.addOwnerAddress
+
+   fireDb.database().ref(`imagerefexplore/${a.addPoAddress}`).child(a.addKeyI).remove();
 
 
    fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI).update({
