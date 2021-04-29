@@ -1,11 +1,11 @@
-import React,{useState,useEffect} from "react";
+import React,{useEffect} from "react";
 // import history from "./utils/history";
 
-import { Router, Route, Switch,Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 
 // import Myitem from "./Myitem";
 // import Nft from "./Nft";
-import firebase from "./firebase";
+//import firebase from "./firebase";
 // import fireDb from "./firebase";
 // import Followingpage from "./Followingpage";
 //import Activitypage from "./Activitypage";

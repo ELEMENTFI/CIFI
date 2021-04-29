@@ -298,7 +298,7 @@ function Howitworkpage() {
 
 <center>
 
-      <ReactPlayer style={{backgroundColor:'white',height:'500px',width:'1000px',marginBlock:'5px',border: '2px solid red',borderRadius:'5px',display:'flex'}}
+      <ReactPlayer style={{backgroundColor:'white',height:'500px',width:'1000px',marginBlock:'5px',border: '2px solid white',borderRadius:'5px',display:'flex'}}
         url="https://www.youtube.com/watch?v=dA1lXZhWPoQ"
         
 />
@@ -310,11 +310,11 @@ function Howitworkpage() {
 </center>
 
 <center>
-<div style={{backgroundColor:'white',height:'500px',width:'640px',marginBlock:'5px',border: '2px solid red',borderRadius:'5px',display:'flex'}}>
+<div style={{backgroundColor:'white',height:'500px',width:'640px',marginBlock:'5px',border: '2px solid white',borderRadius:'5px',display:'flex'}}>
 <h1>document here...</h1>
   </div>
   <br></br>
-  <div style={{backgroundColor:'white',height:'500px',width:'640px',marginBlock:'5px',border: '2px solid red',borderRadius:'5px',display:'flex'}}>
+  <div style={{backgroundColor:'white',height:'500px',width:'640px',marginBlock:'5px',border: '2px solid white',borderRadius:'5px',display:'flex'}}>
 <h1>document here....</h1>
   </div>
   </center>
