@@ -444,10 +444,12 @@ const buynow= async(a) =>{
  
  
  
-     let ref1=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);
+     let ref1=fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI);//ref1
 
 
-     let ref12=fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI);
+     let ref12=fireDb.database().ref(`imagerefexplore/${a.addOwnerAddress}`).child(a.addKeyI);//ref12
+
+     let ref12new=fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI);//ref12new
  
      let ref2=fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI);
  
@@ -463,7 +465,7 @@ const buynow= async(a) =>{
 
      ref1.set({
       id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
-      ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed"})
+      ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",previousoaddress:a.addOwnerAddress})
  
        ref2.set({
        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,

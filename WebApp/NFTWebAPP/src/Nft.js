@@ -1426,7 +1426,7 @@ const onSubmitImage = async (event) => {
                          
                         console.log("dbcheck",db)
 
-                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:""})
+                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:""})
 
 
                         let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);
