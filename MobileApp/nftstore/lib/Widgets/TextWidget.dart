@@ -172,7 +172,7 @@ class TextWidgetState extends State<TextWidget> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    Mystore store = VxState.store;
+    //Mystore store = VxState.store;
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
