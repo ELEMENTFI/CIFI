@@ -31,6 +31,31 @@ import { Offline, Online } from "react-detect-offline";
 
 function Salepagecopy() {
 
+  const [tprice,setTprice] = useState("");
+  const [isOpenset, setIsOpenset] = useState(false);
+
+
+  //alert(tprice);
+ 
+  const togglePopupset = () => {
+    setIsOpenset(false);
+    
+
+    //window.location.reload(false)
+    
+  }
+
+  const [tsend,setTsend] = useState("");
+  const [isOpensetsend, setIsOpensetsend] = useState(false);
+ 
+  const togglePopupsetsend = () => {
+    setIsOpensetsend(false);
+
+    window.location.reload(false)
+    
+  }
+
+
 
   const [isLoading, setLoading] = useState(false)
 
@@ -39,7 +64,9 @@ function Salepagecopy() {
   const togglePopup = () => {
     setIsOpen(false);
 
-    //window.location.reload(false)
+  
+
+    window.location.reload(false)
     
   }
 
@@ -223,15 +250,15 @@ let btn;
     setgetImgreff(req)
 
       getImgreff.map((a)=>{
-      console.log(`a`, a)
+      //console.log(`a`, a)
     
       //Object.keys(a).map((b)=>{
     
-        console.log(`bba`, a)
-        console.log(`bbnexta`, a.imageUrl)
-        console.log(`bbaddessa`,a.cAddress)
-        console.log(`bbpricea`,a.priceSet)
-        console.log(`bbkeyid`,a.keyIds)
+        // console.log(`bba`, a)
+        // console.log(`bbnexta`, a.imageUrl)
+        // console.log(`bbaddessa`,a.cAddress)
+        // console.log(`bbpricea`,a.priceSet)
+        // console.log(`bbkeyid`,a.keyIds)
         //console.log(`bbowner`,)
 //change here
         req2.push({
@@ -256,7 +283,7 @@ let btn;
     
     setgetIm(req2)
     
-    console.log("cfba",req)
+    //console.log("cfba",req)
 
     setPa(0)
     setLoading(false);
@@ -323,7 +350,16 @@ const setprice =async (a)=>{
             let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
             const accounts = await  web3.eth.getAccounts();
             console.log("checking")
-            let price = window.prompt("enter the price for your token");
+            //popup here
+
+            setIsOpenset(true)
+
+            //let price = window.prompt("enter the price for your token");
+
+            let price=tprice;
+
+            
+
 
 
             if(accounts[0] === a.addAddress)
@@ -407,11 +443,19 @@ const send=async(a)=>{
 
 
   //console.log("logdele",ab)
+  //setIsOpensetsend(true)
+
+  //let toaddressget=tprice;
 
   let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
+
   const accounts = await  web3.eth.getAccounts();
 
+  
+
   let toaddressget = window.prompt("enter for your sender address");
+
+  
 
   if(toaddressget === null){
 
@@ -482,17 +526,30 @@ const send=async(a)=>{
 
   }
 
-    
+}
+
+
+// const setpricesadd =async (a,event)=>{
+
+
+//   //setTprice([]);
+
   
 
-}
+// }
 
 
 //new update price below
  const setprices =async (a,event)=>{
 
-    
-  var isd = a.addIds;//a
+
+  setTprice([]);
+
+
+  if(tprice!==''){
+
+    var isd = a.addIds;//a
+
   console.log("targetid",isd)
 
  console.log(`a`, a)
@@ -501,7 +558,16 @@ const send=async(a)=>{
  // await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
 // salepage.settokenstate();
  console.log("checking")
- let price = window.prompt("enter the price for your token");
+
+ 
+
+ //let price = window.prompt("enter the price for your token");
+
+ let price=tprice;
+
+ console.log("setpri",price)
+
+ //alert(price)
 
  if(price !== '')
  {
@@ -547,18 +613,36 @@ const send=async(a)=>{
    });
 
 
-   setIsOpen(true);
+   
+   setTprice([]);
+}
+else{
 
- }
+  setIsOpenset(true);
 
- else{
+  alert("null price");
+   //setIsOpen(true);
+  }
 
-   alert("please enter updated prize..")
+  }
+  else{
 
- }
 
+    setIsOpenset(true);
 
- window.location.reload(false) 
+  }
+  
+  
+
+  setIsOpenset(true);
+
+  //alert(tprice);
+
+  //setprices(a);
+
+ 
+
+  //alert("null outer else price");
 
 }
 
@@ -574,6 +658,10 @@ const send=async(a)=>{
 //     const changeState = (a) => {  
 //         setstate({data:`state/hellooooo`}); 
 //        }; 
+
+
+
+
   
 
   return (    
@@ -868,7 +956,9 @@ const send=async(a)=>{
     {/* <button  >SetPrice</button> */}
     {/* style={{width:'200px',height:'50px'}} */}
 
-    <button onClick={()=>setprices(a)}  >UpdatePrice and again sale</button>  
+    {/* setprices(a) */}
+
+    <button onClick={()=>setprices(a)}  >UpdatePrice and sell</button>  
   {' '}
   
   
@@ -894,7 +984,7 @@ const send=async(a)=>{
 
 {isOpen2 && <Popup content={<>
         <b>Notification</b>
-        <p>Your token  has been sended successfully......</p>
+        <p>Your token  has been send successfully......</p>
         <button type="button" onClick={togglePopup2}>close</button>
       </>}
       // handleClose={togglePopup}
@@ -968,15 +1058,15 @@ const send=async(a)=>{
     <Offline>
 
 
-    {<Popup content={<>
+    {/* {<Popup content={<>
         <b>Notification</b>
         <p>Your are offline please check your internet connection......</p>
-        <center>
+        <center> */}
         {/* <button type="button" onClick={togglePopup}>close</button> */}
-        </center>
-      </>}
-    //  handleClose={togglePopup}
-    />}
+        {/* </center> */}
+      {/* </>} */}
+    {/* //  handleClose={togglePopup} */}
+    {/* />} */}
 
 
     </Offline>
@@ -984,14 +1074,7 @@ const send=async(a)=>{
     </div>
 
 </div>
-
-
-
-
-                    
-                    
-
-            {/* <Router history={history}>
+{/* <Router history={history}>
           <Switch>
             <Route path="/" exact>
               <div class="display-4 mb-1">Choose a route to go to</div>
@@ -1062,6 +1145,60 @@ const send=async(a)=>{
 </ul>
 
     </div> */}
+
+
+    <div>
+
+    {isOpenset && <Popup content={<>
+        <b>Notification</b>
+        <p>Enter prize </p>
+        <center>
+        <input
+            id="setprice"
+            type='text'
+            name="tnumber"
+            required
+            onChange={(event)=>{setTprice(event.target.value)}}/>
+            <br></br>
+            {/* event => setTprice( event.target.value */}
+            <br></br>
+
+        <button type="button" onClick={togglePopupset}>close</button>
+        </center>
+      </>}
+       handleClose={togglePopupset}
+    />}
+
+
+
+      </div>
+
+
+
+      <div>
+
+{isOpensetsend && <Popup content={<>
+    <b>Notification</b>
+    <p>Send Address </p>
+    <center>
+    <input
+        id="setprice"
+        type='text'
+        name="tnumber"
+        required
+        onChange={event => setTsend( event.target.value)}/>
+        <br></br>
+        <br></br>
+
+    <button type="button" onClick={togglePopupsetsend}>close</button>
+    </center>
+  </>}
+   handleClose={togglePopupsetsend}
+/>}
+
+
+
+  </div>
 	  
 
     </div>

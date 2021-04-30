@@ -1,9 +1,16 @@
 import React from 'react';
+import {GoogleLogin} from 'react-google-login';
 
 const Logins=(props)=>{
 
     const {email,setEmail,password,setPassword,handleLogin,handleSignup,
         hasAccount,setHasAccount,emailError,passwordError}=props;
+
+
+        const responseGoogle=(response)=>{
+            
+            console.log("getlogin",response);
+        }
 
     return(
 
@@ -54,7 +61,14 @@ setPassword(e.target.value)}/>
         )
 
     }
+
 </div>
+<GoogleLogin 
+clientId="842516165307-tgselej93rqplidfcdu6rttl1drdt8eu.apps.googleusercontent.com"
+onSuccess={responseGoogle}
+onFailure={responseGoogle}
+
+ ></GoogleLogin>
     </div>
             </section>
             </center>
