@@ -1791,7 +1791,7 @@ const onSubmitImage = async (event) => {
 
 <form onSubmit={onSubmitNFT} id="create-course-form" >
 
-<label for="name">Create Your NFT  Name    </label>
+<label for="name">NFT  Name    </label>
 	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input
 id="nameid"
@@ -1804,7 +1804,7 @@ id="nameid"
 <br></br>
       <br></br>
 
-	  <label for="symbol">Create Your NFT  Symbol    </label>
+	  <label for="symbol">NFT  Symbol    </label>
 	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
@@ -1829,7 +1829,7 @@ id="nameid"
 <br></br>
 
 
-	  <label for="id">Create Your Unique Token-Id {' '}   </label>
+<label for="id">NFT Token-Id   {' '}   </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <input
 id="idid"
@@ -1847,7 +1847,7 @@ id="idid"
 <form onSubmit={onSubmitImage}>
 
 
-		  <label for="images">Choose Your Image     </label>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="images">Choose Your Image     </label>
             
             <input style={{backgroundColor:'white',height:'22px',width:'230px'}}
              name="tfile" id="fileid" type = "file" onChange = {captureFile} required />
@@ -1867,7 +1867,7 @@ id="idid"
               (<button  */}
               <button
                 type="submit"> 
-                Upload and Create NFT
+                Create NFT
                 </button>
    {/* )} */}
   

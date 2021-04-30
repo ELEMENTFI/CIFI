@@ -399,7 +399,7 @@ const buynow= async(a) =>{
  
  
  
-     alert("amount has been sent")
+     //alert("amount has been sent")
 
  //end trans
  
@@ -754,15 +754,15 @@ const buynow= async(a) =>{
     <Offline>
 
 
-    {<Popup content={<>
+    {/* {<Popup content={<>
         <b>Notification</b>
         <p>Your are offline please check your internet connection......</p>
-        <center>
+        <center> */}
         {/* <button type="button" onClick={togglePopup}>close</button> */}
-        </center>
-      </>}
-    //  handleClose={togglePopup}
-    />}
+        {/* </center> */}
+      {/* </>} */}
+    {/* //  handleClose={togglePopup} */}
+    {/* />} */}
 
 
     </Offline>
