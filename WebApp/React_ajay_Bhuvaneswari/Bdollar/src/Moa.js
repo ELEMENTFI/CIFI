@@ -68,7 +68,7 @@ return (
 <br/>
 
 
-<h1 class="homehead"><span class="cl">bDollar (BDO)</span> is an algorithmic stablecoin running <br/>on Binance Smart-chain.</h1>
+<h1 class="homehead">STASIS</h1>
 
 <br/>
 <div class="row">
@@ -83,7 +83,7 @@ return (
 </form>
 <br/>
 
-<h4> bdollar Contract</h4>
+<h4> <b>TREE</b></h4><br/>
         <p>
             {tokenname}({tokensymbol})
         </p>
@@ -100,7 +100,7 @@ return (
         
         
        
-<Link className="primary" to="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x190b589cf9fb8ddeabbfeae36a813ffb2a702454">BuyeBNBmon</Link>
+<Link className="primary" to="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x190b589cf9fb8ddeabbfeae36a813ffb2a702454">Buy TREE</Link>
 
      
 
@@ -114,7 +114,7 @@ return (
 
 <br/>
 
-<h4> bdollar Contract</h4>
+<h4> <b>PAI</b></h4><br/>
         <p>
             {tokenname}({tokensymbol})
         </p>
@@ -131,7 +131,7 @@ return (
         
         
        
-<Link className="primary" to="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x190b589cf9fb8ddeabbfeae36a813ffb2a702454">BuyeBNBmon</Link>
+<Link className="primary" to="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x190b589cf9fb8ddeabbfeae36a813ffb2a702454">Buy PAI</Link>
 
      
 
@@ -145,7 +145,7 @@ return (
 
 <br/>
 
-<h4> bdollar Contract</h4>
+<h4> <b>SAI</b></h4><br/>
         <p>
             {tokenname}({tokensymbol})
         </p>
@@ -162,7 +162,7 @@ return (
         
         
        
-<Link className="primary" to="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x190b589cf9fb8ddeabbfeae36a813ffb2a702454">BuyeBNBmon</Link>
+<Link className="primary" to="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x190b589cf9fb8ddeabbfeae36a813ffb2a702454">Buy SAI</Link>
 
      
 

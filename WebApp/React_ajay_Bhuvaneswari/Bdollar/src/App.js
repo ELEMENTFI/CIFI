@@ -1,11 +1,12 @@
 import logo from './s.svg';
 import './App.css';
 import web3 from './web3';
-import React from "react";
+import React, { useEffect } from "react";
 import {BrowserRouter as Router , Route , Link , Switch , NavLink} from "react-router-dom";
 import history from "./utils/history";
 import { Button } from 'react-bootstrap';
 import { Navbar ,Nav,Form} from 'react-bootstrap';
+import {useState} from 'react';
 
 
 import Firstpage from "./Firstpage";
@@ -17,11 +18,19 @@ import Fifthpage from "./Fifthpage";
 import Home from "./Moa";
 
 function App() {
+  const [accounts,setaccounts] = useState("");
 
   
-  const accounts =  web3.eth.getAccounts();
+  //const accounts =  web3.eth.getAccounts();
 
+  useEffect(()=>{bal()},[])
+  const bal = async () => {
 
+    setaccounts ( await  web3.eth.getAccounts());
+  
+//alert(accounts)
+  } 
+  
   return (
     <div>
              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -42,7 +51,7 @@ function App() {
     <Navbar.Collapse className="justify-content-end">
 
 
-      <button class="btn btn1"> Metamask Connected</button>
+      <button class="btn btn1" id="add">{accounts}</button>
          
 
 

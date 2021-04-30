@@ -55,15 +55,16 @@
   background-color: black;
 }
 .btn1{
-  background-color: black;
-  color: #fa3455;
+  background-color: #fa3455;
+  color: #ffffff;
   border-style: solid;
   border-width: 2px;
+  border-radius: 20%;
   
 }
 .homehead{
   text-align:center;
-  font-size: 40px;
+  font-size: 80px;
   background: -webkit-radial-gradient(rgb(255, 255, 255), rgb(131, 131, 131));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
