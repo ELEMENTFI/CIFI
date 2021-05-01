@@ -13,7 +13,8 @@ class NFTCreation extends StatelessWidget {
   TextEditingController controller13 = TextEditingController();
   TextEditingController controller14 = TextEditingController();
   TextEditingController controller15 = TextEditingController();
-  
+  TextEditingController controller16 = TextEditingController();
+
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,15 @@ class NFTCreation extends StatelessWidget {
               prefix: false,
               keybordtype: TextInputType.text,
               controller: controller8,
+            ),
+            (context.percentHeight * 5).heightBox,
+            TextWidget(
+              label: 'NFT SYMBOL',
+              prefix: true,
+              id: 16,
+              obsecure: false,
+              keybordtype: TextInputType.text,
+              controller: controller16,
             ),
             (context.percentHeight * 5).heightBox,
             TextWidget(

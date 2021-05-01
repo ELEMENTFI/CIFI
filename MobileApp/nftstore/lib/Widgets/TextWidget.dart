@@ -172,7 +172,7 @@ class TextWidgetState extends State<TextWidget> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    Mystore store = VxState.store;
+    //Mystore store = VxState.store;
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
@@ -228,12 +228,8 @@ class TextWidgetState extends State<TextWidget> {
             if (value.isEmpty) return 'Please enter your Password';
             break;
           case 8:
-            final nftname = store.nftname;
             if (value.isEmpty) return 'Please enter your NFT Name';
-            if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&@'*+-/=?^_`{|}~]+[0-9]")
-                .hasMatch(value)) return 'Please Enter valid Name(eg. lion@01)';
-            final result = nftname.filter((element) => element == value);
-            if (result.isNotEmpty) return 'Nft name is Already Takened';
+
             break;
           case 9:
             if (value.isEmpty) return 'In vaild address';
@@ -253,7 +249,11 @@ class TextWidgetState extends State<TextWidget> {
             }
             break;
           case 15:
-            // if (value.isEmpty) return 'Please Enter URL';
+            if (value.isEmpty) return 'Please Enter URL';
+            break;
+          case 16:
+            if (value.isEmpty) return 'Please enter your NFT Symbol';
+
             break;
           default:
             return null;
