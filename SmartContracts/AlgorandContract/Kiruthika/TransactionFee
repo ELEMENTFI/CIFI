@@ -33,7 +33,7 @@ public class TransactionFee
         BigInteger lastRound = firstRound.add(BigInteger.valueOf(1000));
         Digest genHash = new Digest(params.getGenesishashb64());
 
-        // Shown for demonstration purposes. NEVER reveal secret mnemonics in practice.
+        // Shown for demonstration purposes. NEVER reveals secret mnemonics in practice.
         // These three accounts are for testing purposes
         final String account1_mnemonic = "champion weather blame curtain " 
         + "thing strike despair month pattern unaware feel congress carpet "
