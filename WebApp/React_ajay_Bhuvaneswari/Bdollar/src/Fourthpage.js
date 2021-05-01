@@ -3,7 +3,7 @@ import history from "./utils/history";
 import BDO from "./BDO.png"
 import { Modal, Button,InputGroup,FormControl } from "react-bootstrap";
 
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import web3 from './web3';
 import lottery from './storeabicon';//this line import lottery folder
 
@@ -27,6 +27,9 @@ function MyVerticallyCenteredModal1(props) {
   var[withd,setwithdraw] = useState("");
   var [withd1,setwithdraw1] = useState("");
 
+
+  
+ 
 
   const Staked = async (event) =>{
     event.preventDefault();
@@ -154,10 +157,9 @@ function Fourthpage() {
   var [withd1,setwithdraw1] = useState("");
 
   
-      const onSubmitNFT = async (event) => {
+  useEffect(()=>{bal1()},[])
+  const bal1 = async () => {
     
-  
-      event.preventDefault();
       const accounts = await  web3.eth.getAccounts();
       setbal(await lp.methods.balanceOf(accounts[0]).call());            
      alert("completed");    
@@ -222,14 +224,8 @@ const accept = async (event) =>{
 <br/>
 <p ><b>Deposit Cake-LP PRABH/BUSD and earn eBNBshare</b></p>
 
-		<form onSubmit={onSubmitNFT} id="create-course-form" >
-    <button
-                class="btn "
-                type="submit">
-                
-                <img src={BDO} width="30px" height="30px"/>
-
-              </button>
+		<form onSubmit={bal1} id="create-course-form" >
+    
 </form>
 <br/><br/>
 <b> First we need to approve then only we are able to call stake and Withdraw </b> <br /><br />
@@ -268,10 +264,10 @@ const accept = async (event) =>{
             <div class="col">
               <div class="ll2">
                 <br/><br/>
-              <b>Your Deposit amount<br /> {bal}</b>.
+              <h4>Your Deposit amount<br /> {bal}</h4>.
 
 <br/><br/><br/>
-              <b>Settle and withdraw your LpToken !!</b><br></br><br/>
+              <h4>Settle and withdraw your LpToken !!</h4><br></br><br/>
     <button class="btn btn-primary" onClick={settle}>Settle & Withdraw</button>
 <br/>
 <br/><br/>
