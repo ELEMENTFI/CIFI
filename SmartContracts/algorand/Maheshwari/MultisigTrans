@@ -105,8 +105,8 @@ static  final String SANDBOX_ALGOD_API_TOKEN ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         algodClient = (AlgodClient) new AlgodClient(HACKATHON_API_ADDRESS,
                 HACKATHON_API_PORT, HACKATHON_API_TOKEN);
         try {
-            String[] headers = {"X-API-Key"};
-            String[] values = {HACKATHON_API_TOKEN};
+            Strings[] headers = {"X-API-Key"};
+            Strings[] values = {HACKATHON_API_TOKEN};
             NodeStatusResponse status = algodClient.GetStatus().execute(headers, values).body();
             System.out.println("algod last round: " + status.lastRound);
         } catch (Exception e) {
