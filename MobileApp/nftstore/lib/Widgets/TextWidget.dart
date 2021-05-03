@@ -229,7 +229,6 @@ class TextWidgetState extends State<TextWidget> {
             break;
           case 8:
             if (value.isEmpty) return 'Please enter your NFT Name';
-
             break;
           case 9:
             if (value.isEmpty) return 'In vaild address';
