@@ -270,7 +270,7 @@ function Communitypage() {
 
     <div>
 
-    <Offline>
+    {/* <Offline>
 
 
     {<Popup content={<>
@@ -278,13 +278,13 @@ function Communitypage() {
         <p>Your are offline please check your internet connection......</p>
         <center>
         {/* <button type="button" onClick={togglePopup}>close</button> */}
-        </center>
-      </>}
-    //  handleClose={togglePopup}
-    />}
+        {/* </center> */}
+      {/* </>} */}
+    {/* //  handleClose={togglePopup} */}
+    {/* />} */}
 
 
-    </Offline>
+    {/* </Offline> */} */}
 
     </div>
 

@@ -1,16 +1,29 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {GoogleLogin} from 'react-google-login';
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 const Logins=(props)=>{
 
+    
+
+        
+
     const {email,setEmail,password,setPassword,handleLogin,handleSignup,
-        hasAccount,setHasAccount,emailError,passwordError}=props;
+        hasAccount,setHasAccount,emailError,passwordError,phoneAuth,phoneNumber,setPhoneNumber}=props;
 
 
         const responseGoogle=(response)=>{
             
             console.log("getlogin",response);
+            console.log("getlogin",response.gt.Rt);
+            //this place setEmail
+            
         }
+
+
+        
+    
 
     return(
 
@@ -40,6 +53,9 @@ setEmail(e.target.value)}/>
 setPassword(e.target.value)}/>
 <p className="errorMsg">{passwordError}</p>
 
+
+
+
 <div className="btnContainer">
 
     {
@@ -63,15 +79,56 @@ setPassword(e.target.value)}/>
     }
 
 </div>
-<GoogleLogin 
+
+
+
+<div id="recaptcha-container" style={{}}/>
+
+<center>
+<div style={{backgroundColor:'white',width:'220px',height:'20px'}} >
+
+
+<label>Phone_Number        </label>
+
+{/* <PhoneInput 
+      placeholder="Enter phone number"
+value={phoneNumber} onChange={(e)=>
+setPhoneNumber(e.target.value)}
+/> */}
+
+<input type="text" placeholder="enter email-id" autoFocus required value={phoneNumber} onChange={(e)=>
+setPhoneNumber
+(e.target.value)}/>
+
+      <br></br>
+
+      <button type="button" onClick={phoneAuth}>GetOtp</button>
+        
+
+      </div>
+      </center>
+
+
+
+
+
+
+{/* <GoogleLogin 
 clientId="842516165307-tgselej93rqplidfcdu6rttl1drdt8eu.apps.googleusercontent.com"
 onSuccess={responseGoogle}
-onFailure={responseGoogle}
-
- ></GoogleLogin>
+onFailure={responseGoogle}>    
+</GoogleLogin> */}
     </div>
+    
             </section>
+
+
+
+
             </center>
+
+
+
 
     );
 
