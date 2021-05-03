@@ -1,28 +1,32 @@
 import React, { useState,useEffect } from "react";
 
-import { Router, Route, Switch, Link } from "react-router-dom";
+//import { Router, Route, Switch, Link } from "react-router-dom";
 
-import web3 from './web3';
+//import web3 from './web3';
 
-import { ReactComponent as Logo } from './logo.svg';
+//import { ReactComponent as Logo } from './logo.svg';
 
-import { Offline, Online } from "react-detect-offline";
+// import { Offline, Online } from "react-detect-offline";
 
-import Popup from './Popup';
+// import Popup from './Popup';
 
 import firebaseConfig from './firebase';
 
 import Login from './Logins';
-import Heros from './Heros';
+//import Heros from './Heros';
 import Explore from './Explore';
-import Followingpage from "./Followingpage";
-import Activitypage from "./Activitypage";
-import Howitworkpage from "./Howitworkpage";
-import Communitypage from "./Communitypage";
-import Salepagecopy from "./Salepagecopy";
-import Nft from "./Nft";
+// import Followingpage from "./Followingpage";
+// import Activitypage from "./Activitypage";
+// import Howitworkpage from "./Howitworkpage";
+// import Communitypage from "./Communitypage";
+// import Salepagecopy from "./Salepagecopy";
+// import Nft from "./Nft";
+import {  RecaptchaVerifier } from "firebase";
 
 const App=() => {
+
+  const [value, setValue] = useState(0);
+  const[phoneNumber,setPhoneNumber]=useState('');  
 
   const clearInputs=()=>{
     setEmail('');
@@ -40,14 +44,151 @@ const App=() => {
   const[emailError,setEmailError]=useState('');
   const[passwordError,setPasswordError]=useState('');
   const[hasAccount,setHasAccount]=useState(false);
+
+
+  
+
+// const auth = firebaseConfig.auth();
+// auth.languageCode = 'it';
+// const appVerifier = window.recaptchaVerifier;
+
+// // To apply the default browser preference instead of explicitly setting it.
+// // firebase.auth().useDeviceLanguage();
+
+// window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+//   'size': 'normal',
+//   'callback': (response) => {
+//     // reCAPTCHA solved, allow signInWithPhoneNumber.
+//     // ...
+
+//     firebaseConfig.auth().signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+//     .then((confirmationResult) => {
+//       // SMS sent. Prompt user to type the code from the message, then sign the
+//       // user in with confirmationResult.confirm(code).
+//       window.confirmationResult = confirmationResult;
+//       // ...
+//     }).catch((error) => {
+//       // Error; SMS not sent
+//       // ...
+//     });
+
+
+
+//   },
+//   'expired-callback': () => {
+//     // Response expired. Ask user to solve reCAPTCHA again.
+//     // ...
+//   }
+// }, auth);
+
+
+const setuprecaptcha =()=>{
+  window.recaptchaVerifier = new firebaseConfig.auth.RecaptchaVerifier('recaptcha-container', {
+      size: 'invisible',
+      callback: function (response) {
+          console.log("recature resolved")
+          this.onSignInSubmit();
+      }
+  });
+
+}
+
+
+const phoneAuth=(event) =>{
+
+  console.log("mbnumber",phoneNumber);
+    
+  event.preventDefault();
+  setuprecaptcha();
+  //var phoneNumber = valu;
+  var appVerifier = window.recaptchaVerifier;
+  firebaseConfig.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+      .then(function (confirmationResult) {
+          console.log("Success");
+          // SMS sent. Prompt user to type the code from the message, then sign the
+          // user in with confirmationResult.confirm(code).
+          window.confirmationResult = confirmationResult;
+          var verificationId = window.prompt("Enter otp")
+          confirmationResult
+              .confirm(verificationId)
+              .then(function (result) {
+                  // User signed in successfully.
+                  var user = result.user;
+                  user.getIdToken().then(idToken => {
+                      window.localStorage.setItem('idToken', idToken);
+
+                     
+                      console.log(idToken);
+                  });
+              })
+              .catch(function (error) {
+                  // User couldn't sign in (bad verification code?)
+                  console.error("Error while checking the verification code", error);
+                  window.alert(
+                      "Error while checking the verification code:\n\n" +
+                      error.code +
+                      "\n\n" +
+                      error.message
+                  );
+              });
+
+      })
+      .catch(function (error) {
+          console.log("sign Up error:" + error.code);
+      });
+
+}
+
+
+  //const phoneAuth=()=>{
+
+    // let recaptcha=new firebaseConfig.auth.RecaptchaVerifier('recaptcha');
+    // let numberss=phoneNumber;
+    // firebaseConfig.auth().signInWithPhoneNumber(numberss,recaptcha).then(function(e){
+    //   let code=prompt('enter otp');
+    //   if(code === null){
+
+    //     return;
+
+    //   }else{
+
+    //     e.confirm(code).then(function(result){
+    //       console.log("presult",result.user);
+
+    //     })
+
+    //   }
+    // }).catch((error)=>{
+    //   console.log("perror",error);
+    // })
+    
+    // console.log("resp",phoneNumber);
+
+    //     firebaseConfig.auth().signInWithPhoneNumber(phoneNumber)
+    // .then((confirmationResult) => {
+    //   // SMS sent. Prompt user to type the code from the message, then sign the
+    //   // user in with confirmationResult.confirm(code).
+    //   window.confirmationResult = confirmationResult;
+    //   console.log("res1",confirmationResult);
+    //   // ...
+    // }).catch((error) => {
+    //   // Error; SMS not sent
+    //   // ...
+    //   console.log("res2",error);
+    // });
+
+  //}
+  
+  
   
   const handleLogin=()=>{
 
     clearErrors();
 
 
-    
-    
+    //alert("email",email)
+
+    //console.log("emails",email)
 
     firebaseConfig
     .auth()
@@ -196,17 +337,16 @@ firebaseConfig.auth().signOut();
 
   return(
 
+
+
+    <div>
+
     <div>
 
       {user ? (
-
 <Explore handleLogout={handleLogout} />
-
-        
       ):(
-
-
-        <Login 
+<Login 
 email={email}
 setEmail={setEmail}
 password={password} 
@@ -217,11 +357,17 @@ hasAccount={hasAccount}
 setHasAccount={setHasAccount}
 emailError={emailError}
 passwordError={passwordError}
+phonenumber={phoneNumber}
+phoneAuth={phoneAuth}
+setPhoneNumber={setPhoneNumber}
+
+//phoneAuth={phoneAuth}
 />
 
 
 
       )}
+</div>
 
 
 
@@ -229,6 +375,8 @@ passwordError={passwordError}
       </div>
 
   );  
+
+  
 };
 
 export default App;
