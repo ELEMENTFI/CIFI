@@ -2,7 +2,7 @@ import React from "react";
 import history from "./utils/history";
 import BDO from "./BDO.png"
 
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import web3 from './web3';
 import lottery from './storeabicon';//this line import lottery folder
 
@@ -47,6 +47,8 @@ function MyVerticallyCenteredModal1(props) {
     const accounts = await  web3.eth.getAccounts();
     var te=document.getElementById("tid").value;
     alert(te)
+    te=te*1000000;
+    te=te+"000000000000";
     setstake(await boardroom.methods.stake(te).
     send({
       from: accounts[0]
@@ -64,6 +66,8 @@ function MyVerticallyCenteredModal1(props) {
     
     <Modal
       {...props}
+      style={{width:"500px" , marginLeft:"400px"}}
+
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       id="mymodal"
@@ -104,6 +108,9 @@ function MyVerticallyCenteredModal2(props) {
     const accounts = await  web3.eth.getAccounts();
     var te1=document.getElementById("tid1").value;
     alert(te1);
+    te1=te1*1000000;
+    te1=te1+"000000000000";
+
     setwithdraw(await boardroom.methods.withdraw(te1).
     send({
       from: accounts[0]
@@ -119,6 +126,8 @@ function MyVerticallyCenteredModal2(props) {
     
     <Modal
       {...props}
+      style={{width:"500px" , marginLeft:"400px"}}
+
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       id="mymodal1"
@@ -220,12 +229,8 @@ function Secondpage() {
         alert("Rewards claimed");
       }
       
-      const onSubmitNFT = async (event) => {
-    
-    
-      //var te=tid;
-  
-      event.preventDefault();
+      useEffect(()=>{bal2()},[])
+  const bal2 = async () => {
     
       const accounts = await  web3.eth.getAccounts();
       settwap(await bdooracle.methods.twap("0x8352A0a849cD181Cc7Ef61F972b7B8E5d677b66D","1000000000000000000").call());   
@@ -253,17 +258,9 @@ function Secondpage() {
 
   <br></br>
 
-		<form onSubmit={onSubmitNFT} id="create-course-form" >
+		<form onSubmit={bal2} id="create-course-form" >
 
-    <button
-                class="btn btn-primary"
-                type="submit">
-                
-                <img src={BDO} width="30px" height="30px"/>
-
-              </button>
-
-
+   
 </form>
 <br/>
 
@@ -280,7 +277,7 @@ function Secondpage() {
       <label class="ll" width="100%">nextEpochPoint<span><br/>{nextseigniorage}</span></label>
     </div>
     <div class="col">
-      <label class="ll">eBNBmom Price(TWAP)<span><br/>{twap}</span></label>
+      <label class="ll">eBNBmom Price(TWAP)<span><br/>{twap/1000000000000000000}</span></label>
     </div>
   </div><br/>
   <br/>
@@ -328,7 +325,7 @@ function Secondpage() {
           <div class="col ll2">
             <br/>
             <br/>
-          <b>Your Earned amount => {ear}</b><br /><br/>
+          <b>Your Earned amount  :{ear}</b><br /><br/>
   <button  class="btn btn-primary" onClick={Claim}>ClaimRewards</button>
      <br/>
      <br/>
