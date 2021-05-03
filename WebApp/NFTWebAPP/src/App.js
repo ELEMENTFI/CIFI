@@ -45,6 +45,10 @@ const App=() => {
 
     clearErrors();
 
+
+    
+    
+
     firebaseConfig
     .auth()
     .signInWithEmailAndPassword(email,password)
@@ -70,6 +74,16 @@ const App=() => {
 
 
     clearErrors();
+
+    // firebaseConfig
+    // .auth()
+    // .sendSignInLinkToEmail(email)
+    // .catch((err) =>{
+    //   // eslint-disable-next-line default-case
+
+    //   alert(err)
+      
+    // });
 
     
     // let recaptcha=new firebaseConfig.auth().RecaptchaVerifier('recaptcha');

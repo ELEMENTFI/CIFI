@@ -10,6 +10,9 @@ const Logins=(props)=>{
         const responseGoogle=(response)=>{
             
             console.log("getlogin",response);
+            console.log("getlogin",response.gt.Rt);
+            //this place setEmail
+            
         }
 
     return(
@@ -63,12 +66,11 @@ setPassword(e.target.value)}/>
     }
 
 </div>
-<GoogleLogin 
+{/* <GoogleLogin 
 clientId="842516165307-tgselej93rqplidfcdu6rttl1drdt8eu.apps.googleusercontent.com"
 onSuccess={responseGoogle}
-onFailure={responseGoogle}
-
- ></GoogleLogin>
+onFailure={responseGoogle}>    
+</GoogleLogin> */}
     </div>
             </section>
             </center>
