@@ -116,16 +116,16 @@ return (
 
 <h4> <b>PAI</b></h4><br/>
         <p>
-            {tokenname}({tokensymbol})
+            )
         </p>
         <p>
-          <b><h4> Total Supply</h4></b> {totalsupply}
+          <b><h4> Total Supply</h4></b> 
         </p>
         <p>
-          <b><h4>Price</h4></b>{price}
+          <b><h4>Price</h4></b>
       </p>
         <p>
-          <b><h4>BalanceOf</h4></b> {balance}
+          <b><h4>BalanceOf</h4></b> 
          </p>
 
         
