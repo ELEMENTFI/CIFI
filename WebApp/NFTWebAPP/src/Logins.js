@@ -7,10 +7,11 @@ const Logins=(props)=>{
 
     
 
-        
+
+    // const[SignInM,setSignInM]=useState();
 
     const {email,setEmail,password,setPassword,handleLogin,handleSignup,
-        hasAccount,setHasAccount,emailError,passwordError,phoneAuth,phoneNumber,setPhoneNumber}=props;
+        hasAccount,setHasAccount,emailError,passwordError,phoneAuth,phoneNumber,setPhoneNumber,passwordPhone,setpasswordPhone,phoneAuthLogin,hasAccountO,setHasAccountO}=props;
 
 
         const responseGoogle=(response)=>{
@@ -23,38 +24,52 @@ const Logins=(props)=>{
 
 
         
+        
     
 
     return(
 
-
-        <center>
-
-
-        <section className="login">
-<div className="loginContainer" style={{backgroundColor:'white',height:'600px',width:'500px'}}>
+        
 
 
+<section className="login">
+<div className="loginContainer" style={{backgroundColor:'white',height:'600px',width:'700px'}}>
+
+
+<center>
+<h4 style={{color:'black'}}>User Login/Signup</h4>
+</center>
+    
+
+{/* <div>
+<button type="button" onClick={setSignInM(true)} style={{width:'210px'}}>sign-in with Email</button>
+<br></br>
+<br></br>
+<button type="button" onClick={setSignInM(false)} style={{width:'210px'}}>sign-in with Mobile-Number</button> */}
+
+
+{/* </div> */}
+
+{/* {SignInM?( */}
+
+<div style={{float:'left',marginLeft:'50px'}}>
 
     <br></br>
     <br></br>
     <br></br><br></br><br></br>
     <br></br><br></br><br></br>
 
-    <h4 style={{color:'black'}}>User Login/Signup</h4>
+
     
 
 <label>Email-Id        </label>
-<input type="text" placeholder="enter email-id" autoFocus required value={email} onChange={(e)=>
+<input type="text" placeholder="email-id" autoFocus required value={email} onChange={(e)=>
 setEmail(e.target.value)}/>
 <p className="errorMsg">{emailError}</p>
 <label>Password  </label>
-<input type="password" placeholder="enter password" autoFocus required value={password} onChange={(e)=>
+<input type="password" placeholder="password" autoFocus required value={password} onChange={(e)=>
 setPassword(e.target.value)}/>
 <p className="errorMsg">{passwordError}</p>
-
-
-
 
 <div className="btnContainer">
 
@@ -73,61 +88,73 @@ setPassword(e.target.value)}/>
             <button onClick={handleSignup}>Sign Up</button>
             <p>Have an account ? <span onClick={()=> setHasAccount(!hasAccount)}> Sign in</span></p>
             </>
-
-        )
-
-    }
-
+             )}
 </div>
 
 
+</div>
+    {/* ):( */}
 
-<div id="recaptcha-container" style={{}}/>
-
-<center>
-<div style={{backgroundColor:'white',width:'220px',height:'20px'}} >
+    {/* <div style={{borderleft:'6px',height:'500px'}}>
 
 
-<label>Phone_Number        </label>
+    
 
-{/* <PhoneInput 
-      placeholder="Enter phone number"
-value={phoneNumber} onChange={(e)=>
-setPhoneNumber(e.target.value)}
-/> */}
+        </div> */}
 
-<input type="text" placeholder="enter email-id" autoFocus required value={phoneNumber} onChange={(e)=>
+<div  style={{float:'right',marginTop:'150px',marginRight:'50px'}}>
+<div style={{backgroundColor:'white',height:'20px'}} >
+
+
+
+<input type="text" placeholder="Mobile Number" autoFocus required value={phoneNumber} onChange={(e)=>
 setPhoneNumber
 (e.target.value)}/>
 
       <br></br>
+      <br></br>
 
-      <button type="button" onClick={phoneAuth}>GetOtp</button>
+      <input type="text" placeholder="password" autoFocus required value={passwordPhone} onChange={(e)=>
+setpasswordPhone
+(e.target.value)}/>
+
+<br></br>
+      <br></br>
+
+
+      <div className="btnContainers">
+
+{
+    hasAccountO ? (
+
+        <>
+        <button onClick={phoneAuthLogin}>Sign in</button>
+        <p>Don't have an account ? <span onClick={()=> setHasAccountO(!hasAccountO)}> Sign Up</span></p>
+        </>
+
+
+    ) : (
+
+        <>
+        <button onClick={phoneAuth}>Sign Up</button>
+        <p>Have an account ? <span onClick={()=> setHasAccountO(!hasAccountO)}> Sign in</span></p>
+        </>
+         )}
+</div>
+
+
+
+      {/* <button type="button" onClick={phoneAuth}>GetOtp</button> */}
         
 
+</div>
       </div>
-      </center>
+    {/* )}       */}
 
 
 
-
-
-
-{/* <GoogleLogin 
-clientId="842516165307-tgselej93rqplidfcdu6rttl1drdt8eu.apps.googleusercontent.com"
-onSuccess={responseGoogle}
-onFailure={responseGoogle}>    
-</GoogleLogin> */}
     </div>
-    
-            </section>
-
-
-
-
-            </center>
-
-
+</section>
 
 
     );
@@ -135,3 +162,6 @@ onFailure={responseGoogle}>
 }
 
 export default Logins;
+
+
+
