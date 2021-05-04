@@ -81,7 +81,7 @@ const App=() => {
   const[hasAccount,setHasAccount]=useState(false);
   const[hasAccountO,setHasAccountO]=useState(false);
 
-  // const[SignInM,setSignInM]=useState();
+  //const[SignInM,setSignInM]=useState();
 
   
   //const apikeyuri='https://2factor.in/API/V1/0824764a-ac0e-11eb-80ea-0200cd936042/BAL/SMS';
@@ -342,6 +342,12 @@ const App=() => {
     firebaseConfig
     .auth()
     .signInWithEmailAndPassword(email,password)
+    .then(()=>{
+
+      localStorage.setItem('mymailid',email); 
+      localStorage.setItem('mypassword',password);  
+
+    })
     .catch((err) =>{
       // eslint-disable-next-line default-case
       switch(err.code) {
@@ -437,10 +443,21 @@ const App=() => {
     
   // });
 
+  let ref2=firebaseConfig.database().ref(`emailsignup/`);
 
-    firebaseConfig
+  const db = ref2.push().key;
+
+  console.log("dbcheckappjs",db)
+
+  firebaseConfig
     .auth()
     .createUserWithEmailAndPassword(email,password)
+    .then(()=>
+     {
+      localStorage.setItem('mymailid',email); 
+      localStorage.setItem('mypassword',password);  
+      ref2.child(db).set({id:db,profileimageUrl:"",name:"",emailid:email,password:password});
+    })
     .catch((err) =>{
       // eslint-disable-next-line default-case
       switch(err.code) {
@@ -453,13 +470,16 @@ const App=() => {
           break;
         
       }
-    });
+    })
+    
 
   };
 
 
   const handleLogout=()=>{
 firebaseConfig.auth().signOut();
+localStorage.setItem('mymailid',''); 
+localStorage.setItem('mypassword','');  
 
   }
 
@@ -505,7 +525,8 @@ firebaseConfig.auth().signOut();
       {user ? (
 <Explore handleLogout={handleLogout} />
       ):(
-<Login 
+
+        <Login 
 email={email}
 setEmail={setEmail}
 password={password} 
@@ -528,9 +549,6 @@ setHasAccountO={setHasAccountO}
 
 //phoneAuth={phoneAuth}
 />
-
-
-
       )}
 </div>
 

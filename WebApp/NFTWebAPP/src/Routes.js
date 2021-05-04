@@ -18,6 +18,7 @@ import Followingpage from "./Followingpage";
 import Register from "./Login/Register";
 import History from "./History";
 import AdminRoute from "./AdminRoute";
+import StartPage from "./StartPage";
 //import historys from "./History";
 
 
@@ -29,6 +30,7 @@ const Routes=()=>{
         
 
         <Switch>
+        {/* <Route path="/" exact component={StartPage} /> */}
         <Route path="/" exact component={App} />
             <AdminRoute path="/register" exact component={Register} />
             <AdminRoute path="/explore" exact component={Explore} />

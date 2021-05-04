@@ -19,9 +19,45 @@ import {tra} from './trans'
 //import Receivedpage from './Receivedpage';
 import Popup from './Popup';
 import { Offline, Online } from "react-detect-offline";
+import Footer from './footer'
 
 
 const Explore=({handleLogout})=> {
+
+
+  const [selected, setSelected] = React.useState("");
+
+  const [selecteds, setSelecteds] = React.useState("");
+
+  const changeSelectOptionHandler = (event) => {
+    setSelected(event.target.value);
+  };
+
+  const changeSelectOptionHandlers = (event) => {
+    setSelecteds(event.target.value);
+  };
+
+  const [currentSymbol, setCurrentSymbol] = useState('Sellers')
+  
+  const changeFruit = (newFruit) => {
+    setCurrentSymbol(newFruit)
+  }
+
+  const [currentSymbols, setCurrentSymbols] = useState('1 day')
+  
+  const changeFruits = (newFruit) => {
+    setCurrentSymbols(newFruit)
+  }
+
+
+  const [isOpenFeed, setIsOpenFeed] = useState(false);
+ 
+  const togglePopupFeed = () => {
+    setIsOpenFeed(false);
+    window.location.reload(false)    
+  }
+
+  const [Feedbackc,setFeedbackc]=useState('');
 
   const [isLoading, setLoading] = useState(false)
 
@@ -533,15 +569,35 @@ const buynow= async(a) =>{
   //   alert(`Hello, ${a.keyId}`);
   // };
   
-
-
-
-
-
   //temp end
 
+  const feedbackset=()=>{
 
-  
+    //alert("im here"+Feedbackc);
+
+    //setFeedbackc
+
+  const mail = localStorage.getItem("mymailid");
+
+  let reffeedback=fireDb.database().ref(`feedbacksave/`);
+
+  const db = reffeedback.push().key;
+
+  console.log("dbcheckappjs",db)
+
+  reffeedback.child(db).set({id:db,profileimageUrl:"",name:"",emailid:mail,feedbacks:Feedbackc});
+
+  setFeedbackc('');
+
+  setIsOpenFeed(true);
+
+  }
+
+
+
+  const filterSet=()=>{
+    alert("select   "+selected+"  "+selecteds)
+  }
 
   return (
     <>
@@ -825,6 +881,42 @@ return (
 </center>
 
 
+<div  style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+<h3 style={{color:'skyblue'}}>Top &nbsp;
+
+
+{/* style={{backgroundColor:'white',height:'20px',width:'100px',border:'none'}} */}
+
+
+      <select onChange={changeSelectOptionHandler}>
+            <option>Sellers</option>
+            <option>Buyers</option>
+          </select>
+
+      &nbsp;in&nbsp;
+
+      
+{/* style={{color:'white'}} */}
+
+
+      <select onChange={changeSelectOptionHandlers}>
+            <option>1 day</option>
+            <option>7 days</option>
+            <option>30 days</option>
+          </select>
+
+&nbsp;
+
+      {/* onClick={()=>{feedbackset()}} */}
+
+      <button type="button" onClick={()=>{filterSet()}}  style={{height:'5px',backgroundColor:'skyblue',border:'none'}}>Filter</button>
+
+
+      </h3>
+
+  </div>
+
+
 <div>
 
 {Loader?
@@ -1047,6 +1139,41 @@ return (
 
 
   </div>
+
+
+  
+  <div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+  <Footer/>
+
+<div>
+  <br></br>
+    &nbsp;&nbsp;
+
+  <input
+  type='text'
+  name="Feedbackc"
+  required
+  onChange={event => setFeedbackc( event.target.value)}
+  
+/>
+
+{' '}
+    <button type="button" onClick={()=>{feedbackset()}} style={{height:'40px'}}>Submit</button>
+
+    </div>
+  
+
+  </div>
+
+  {isOpenFeed && <Popup content={<>
+        <b>Notification</b>
+        <p>Your Feedback has been sent successfully......</p>
+        <button type="button" onClick={togglePopupFeed}>close</button>
+      </>}
+      // handleClose={togglePopup}
+    />}
+
 
     </>
 

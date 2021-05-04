@@ -6,6 +6,7 @@ import fireDb from "./firebase";
 import {abi} from './data'
 import Popup from './Popup';
 import { Offline, Online } from "react-detect-offline";
+import Footer from './footer'
 
 function Salepagecopy() {
 
@@ -301,6 +302,7 @@ if(price !== '')
 
 return (    
     
+  <>
 
     <div>
 
@@ -617,6 +619,9 @@ return (
        handleClose={togglePopupset}
     />}
 </div>
+
+
+
 <div>
 
 {isOpensetsend && <Popup content={<>
@@ -652,7 +657,19 @@ return (
     />}
 
 
+
+
 </div>
+
+
+<div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+  <Footer/>
+  
+  </div>
+
+</>
+
 );
 }
 

@@ -33,6 +33,7 @@ const Logins=(props)=>{
 
 
 <section className="login">
+    <center>
 <div className="loginContainer" style={{backgroundColor:'white',height:'600px',width:'700px'}}>
 
 
@@ -52,7 +53,9 @@ const Logins=(props)=>{
 
 {/* {SignInM?( */}
 
-<div style={{float:'left',marginLeft:'50px'}}>
+<center>
+{/* float:'left',marginLeft:'50px' */}
+<div style={{}}>
 
     <br></br>
     <br></br>
@@ -93,68 +96,12 @@ setPassword(e.target.value)}/>
 
 
 </div>
-    {/* ):( */}
-
-    {/* <div style={{borderleft:'6px',height:'500px'}}>
-
-
-    
-
-        </div> */}
-
-<div  style={{float:'right',marginTop:'150px',marginRight:'50px'}}>
-<div style={{backgroundColor:'white',height:'20px'}} >
-
-
-
-<input type="text" placeholder="Mobile Number" autoFocus required value={phoneNumber} onChange={(e)=>
-setPhoneNumber
-(e.target.value)}/>
-
-      <br></br>
-      <br></br>
-
-      <input type="text" placeholder="password" autoFocus required value={passwordPhone} onChange={(e)=>
-setpasswordPhone
-(e.target.value)}/>
-
-<br></br>
-      <br></br>
-
-
-      <div className="btnContainers">
-
-{
-    hasAccountO ? (
-
-        <>
-        <button onClick={phoneAuthLogin}>Sign in</button>
-        <p>Don't have an account ? <span onClick={()=> setHasAccountO(!hasAccountO)}> Sign Up</span></p>
-        </>
-
-
-    ) : (
-
-        <>
-        <button onClick={phoneAuth}>Sign Up</button>
-        <p>Have an account ? <span onClick={()=> setHasAccountO(!hasAccountO)}> Sign in</span></p>
-        </>
-         )}
-</div>
-
-
-
-      {/* <button type="button" onClick={phoneAuth}>GetOtp</button> */}
-        
-
-</div>
-      </div>
-    {/* )}       */}
-
-
-
+</center>
     </div>
+    </center>
 </section>
+
+
 
 
     );
@@ -162,6 +109,63 @@ setpasswordPhone
 }
 
 export default Logins;
+
+
+
+
+
+
+
+
+
+
+// {/* <div  style={{float:'right',marginTop:'150px',marginRight:'50px'}}>
+// <div style={{backgroundColor:'white',height:'20px'}} >
+
+
+
+// <input type="text" placeholder="Mobile Number" autoFocus required value={phoneNumber} onChange={(e)=>
+// setPhoneNumber
+// (e.target.value)}/>
+
+//       <br></br>
+//       <br></br>
+
+//       <input type="text" placeholder="password" autoFocus required value={passwordPhone} onChange={(e)=>
+// setpasswordPhone
+// (e.target.value)}/>
+
+// <br></br>
+//       <br></br>
+
+
+//       <div className="btnContainers">
+
+// {
+//     hasAccountO ? (
+
+//         <>
+//         <button onClick={phoneAuthLogin}>Sign in</button>
+//         <p>Don't have an account ? <span onClick={()=> setHasAccountO(!hasAccountO)}> Sign Up</span></p>
+//         </>
+
+
+//     ) : (
+
+//         <>
+//         <button onClick={phoneAuth}>Sign Up</button>
+//         <p>Have an account ? <span onClick={()=> setHasAccountO(!hasAccountO)}> Sign in</span></p>
+//         </>
+//          )}
+// </div>
+
+
+
+//       {/* <button type="button" onClick={phoneAuth}>GetOtp</button> */}
+        
+
+// </div>
+    //   </div> */}
 
 
 
