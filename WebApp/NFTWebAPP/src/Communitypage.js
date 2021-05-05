@@ -21,6 +21,7 @@ import web3 from './web3';
 import { Offline, Online } from "react-detect-offline";
 
 import Popup from './Popup';
+import Footer from './footer'
 
 
 function Communitypage() {
@@ -98,7 +99,7 @@ function Communitypage() {
   
 
   return (
-    <>
+    <div>
 
       <div class="display-4 mb-1"></div>
 
@@ -342,13 +343,18 @@ function Communitypage() {
  */}
 
 
- 
+
+<div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px',position:'relative'}} >
+
+  <Footer/>
+  
+  </div> 
 
 
 
 
 
-    </>
+    </div>
 
   );
 }

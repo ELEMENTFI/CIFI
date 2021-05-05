@@ -22,6 +22,7 @@ import web3 from './web3';
 import { Offline, Online } from "react-detect-offline";
 
 import Popup from './Popup';
+import Footer from './footer'
 
 
 function Activitypage() {
@@ -328,6 +329,13 @@ function Activitypage() {
 
  
 
+
+
+<div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+  <Footer/>
+  
+  </div>
 
 
 

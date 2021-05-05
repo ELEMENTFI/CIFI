@@ -20,6 +20,7 @@ import web3 from './web3';
 import { Offline, Online } from "react-detect-offline";
 
 import Popup from './Popup';
+import Footer from './footer'
 
 
 function Howitworkpage() {
@@ -278,17 +279,17 @@ function Howitworkpage() {
 
     <Offline>
 
-
+{/* 
     {<Popup content={<>
         <b>Notification</b>
         <p>Your are offline please check your internet connection......</p>
         <center>
-        {/* <button type="button" onClick={togglePopup}>close</button> */}
+        <button type="button" onClick={togglePopup}>close</button>
         </center>
       </>}
-    //  handleClose={togglePopup}
+     handleClose={togglePopup}
     />}
-
+ */}
 
     </Offline>
 
@@ -318,6 +319,12 @@ function Howitworkpage() {
 <h1>document here....</h1>
   </div>
   </center>
+
+  <div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+  <Footer/>
+  
+  </div>
 
 
       </div>

@@ -21,6 +21,7 @@ import { Router, Route, Switch ,Link} from "react-router-dom";
 import { Offline, Online } from "react-detect-offline";
 
 import Popup from './Popup';
+import Footer from './footer'
 
 
 
@@ -710,6 +711,11 @@ return (
 
 
 
+  <div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+<Footer/>
+
+</div>
 
     </>
 

@@ -6,6 +6,7 @@ import {abi} from './data'
 import Popup from './Popup';
 import { Offline, Online } from "react-detect-offline";
 import axios from 'axios';
+import Footer from './footer'
 
 
 
@@ -389,17 +390,17 @@ const DisplayData=()=>{
 
     <Offline>
 
-
+{/* 
     {<Popup content={<>
         <b>Notification</b>
         <p>Your are offline please check your internet connection......</p>
         <center>
-        {/* <button type="button" onClick={togglePopup}>close</button> */}
+        <button type="button" onClick={togglePopup}>close</button>
         </center>
       </>}
-    //  handleClose={togglePopup}
+     handleClose={togglePopup}
     />}
-
+ */}
 
     </Offline>
 
@@ -503,6 +504,13 @@ const DisplayData=()=>{
     />}
 
 
+
+
+<div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+  <Footer/>
+  
+  </div>
   
 
 
