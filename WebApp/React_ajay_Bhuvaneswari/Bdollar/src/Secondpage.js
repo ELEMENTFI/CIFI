@@ -326,7 +326,8 @@ function Secondpage() {
             <br/>
             <br/>
           <b>Your Earned amount  :{ear}</b><br /><br/>
-  <button  class="btn btn-primary" onClick={Claim}>ClaimRewards</button>
+
+
      <br/>
      <br/>
           </div>
