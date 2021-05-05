@@ -49,14 +49,17 @@ class NFTCreation extends StatelessWidget {
               controller: controller16,
             ),
             (context.percentHeight * 5).heightBox,
-            TextWidget(
-              label: 'WALLET ADDRESS',
-              id: 9,
-              obsecure: false,
-              prefix: false,
-              keybordtype: TextInputType.text,
-              controller: controller9,
-            ),
+            Row(children: [
+              TextWidget(
+                label: 'WALLET ADDRESS',
+                id: 9,
+                obsecure: false,
+                prefix: false,
+                keybordtype: TextInputType.text,
+                controller: controller9,
+              ),
+            ]),
+
             (context.percentHeight * 5).heightBox,
             TextWidget(
               label: 'QTY',
@@ -126,3 +129,4 @@ class NFTCreation extends StatelessWidget {
     );
   }
 }
+//
