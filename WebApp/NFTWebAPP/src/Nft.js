@@ -27,6 +27,8 @@ import Popup from './Popup';
 
 function Nft() {
 
+
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -1400,18 +1402,22 @@ const onSubmitImage = async (event) => {
 
                         let ref2=fireDb.database().ref(`imageref/${accounts[0]}`);
 
+                        let dateset=new Date().toDateString();
+
+                        console.log("dateget",dateset)
+
                         const db = ref2.push().key;
 
                          
                         console.log("dbcheck",db)
 
-                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:""})
+                        ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:''})
 
 
                         let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);
                 
 
-                        ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:""})
+                        ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:tf,ownerAddress:accounts[0],soldd:"",extra1:"",datesets:dateset,whois:''})
 
 
                       

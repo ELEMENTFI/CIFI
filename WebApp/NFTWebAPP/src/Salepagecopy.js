@@ -121,7 +121,10 @@ var accounts;
     addIpfs:a.ipfsUrl,
     addsold:a.soldd,
     addextra1:a.extra1,
-    addPoAddress:a.previousoaddress})
+    addPoAddress:a.previousoaddress,
+    adddatesets:a.dateset,
+    addwhois:a.whois    
+  })
     })
 
     setgetIm(req2)
@@ -200,13 +203,25 @@ const setprice =async ()=>{
             console.log(priceamount.price)
             // await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
             await getaaaa.methods.approve(a.addcAdd,a.addIds).send({from:accounts[0]})
+
+            let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
+            const keysellers = refsellers.push().key;
+          
+          
+            refsellers.child(keysellers).set({
+              id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+              soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+            })
+          
+          
+            
 fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-              soldd:"",extra1:"readytosold"
+              soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
 });
 fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-              soldd:"",extra1:"readytosold"
+              soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
 }).then(()=> {
   setTprice("");
   //setIsOpensetFirst(false);
@@ -247,11 +262,23 @@ const send=async()=>{
     });
   
     console.log("checkinga",a.addOwnerAddress)
+
+
+    let refsellers=fireDb.database().ref(`buyerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
+    const keysellers = refsellers.push().key;
   
+  
+    refsellers.child(keysellers).set({
+      id:a.addIds,imageUrl:a.addImgs,priceSet:a.price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+      soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Buyers'
+    })
+  
+    
     
       fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).update({
         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed",addPoAddress:accounts[0]
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed",addPoAddress:accounts[0],
+        datesets:new Date().toDateString(),whois:'Buyers'
       })
 
 
@@ -261,6 +288,8 @@ const send=async()=>{
         
        });
 
+
+      
   }
 
 }
@@ -279,14 +308,32 @@ let price=tprice;
 if(price !== '')
  {
 
+  let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
+  const keysellers = refsellers.push().key;
+
+
+  refsellers.child(keysellers).set({
+    id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+    soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+  })
+
+
+  
+    
+
+    // refsellers.child(a.addKeyI).set({
+    //         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+    //         ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",datesets:new Date().toDateString(),whois:'Sellers'});
+
+
    fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
      id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-     soldd:"",extra1:"readytosold"
+     soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
 });
 
   fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
      id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-     soldd:"",extra1:"readytosold"
+     soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
    
    });
 
