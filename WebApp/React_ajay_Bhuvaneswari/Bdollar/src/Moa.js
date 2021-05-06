@@ -6,7 +6,7 @@ import {useState,useEffect} from 'react';
 import web3 from './web3';
 import './App.css';
 import lottery from './bdo';
-//import oracle from './oracle.js'; 
+import bdooracle from './bdooracle.js'; 
 import { Router, Route, Switch,Link } from "react-router-dom";
 import Firstpage from "./Firstpage";
 import Secondpage from "./Secondpage";
@@ -52,7 +52,7 @@ function Moa(){
     settotalsupply1(await share.methods.totalSupply().call());
 
     setprice( await Treasury.methods.getDollarPrice().call());
-   // setprice1( await oracle.methods.getDollarPrice().call());
+    //setprice1( await bdooracle.methods.getDollarPrice().call());
     settokenname(await lottery.methods.name().call());
     settokensymbol(await lottery.methods.symbol().call());
     

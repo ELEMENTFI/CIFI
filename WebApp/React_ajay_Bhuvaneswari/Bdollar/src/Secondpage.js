@@ -164,6 +164,7 @@ function Secondpage() {
   const [modalShow2, setModalShow2] = React.useState(false);
 
   var [getCurrentEpoch,setepoch] = useState("");
+  var [getnextEpoch,setepoch1] = useState("");
 
   var [nextseigniorage,setnextseigniorage] = useState("");
 
@@ -236,6 +237,8 @@ function Secondpage() {
       settwap(await bdooracle.methods.twap("0x8352A0a849cD181Cc7Ef61F972b7B8E5d677b66D","1000000000000000000").call());   
       //setrate(await Treasury.events.maxSupplyExpansionPercent);
       setepoch(await bdooracle.methods.getCurrentEpoch().call());
+      setepoch1(await bdooracle.methods.nextEpochPoint().call());
+
       setstaked(await boardroom.methods.totalSupply().call());
     setnextseigniorage(await Treasury.methods.nextEpochPoint().call()); 
     setlock(await bdo.methods.balanceOf("0xF277De5B326C3538c81e73cE9a6f7232eAEE4439").call()); 
@@ -274,10 +277,10 @@ function Secondpage() {
 
   <div class="row">
     <div class="col">
-      <label class="ll" width="100%">nextEpochPoint<span><br/>{nextseigniorage}</span></label>
+      <label class="ll" width="100%">nextEpochPoint<span><br/>{getnextEpoch}</span></label>
     </div>
     <div class="col">
-      <label class="ll">eBNBmom Price(TWAP)<span><br/>{twap/1000000000000000000}</span></label>
+      <label class="ll">eBNBmom Price(TWAP)<span><br/>{twap}</span></label>
     </div>
   </div><br/>
   <br/>
@@ -326,8 +329,7 @@ function Secondpage() {
             <br/>
             <br/>
           <b>Your Earned amount  :{ear}</b><br /><br/>
-
-
+  <button  class="btn btn-primary" onClick={Claim}>ClaimRewards</button>
      <br/>
      <br/>
           </div>
