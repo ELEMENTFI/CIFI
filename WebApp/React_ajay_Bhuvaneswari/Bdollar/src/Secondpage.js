@@ -1,6 +1,8 @@
 import React from "react";
 import history from "./utils/history";
 import BDO from "./BDO.png"
+//import Moment from 'react-moment';
+import 'moment-timezone';
 
 import {useState,useEffect} from 'react';
 import web3 from './web3';
@@ -172,6 +174,9 @@ function Secondpage() {
   const [geta,setgeta] = useState("");
   var [rate,setrate] = useState("");
   var [twap,settwap] = useState("");
+  var [twap1,settwap1] = useState("");
+  var [d,setd] = useState("");
+
   var [staked,setstaked] = useState("");
   var [locked,setlock] = useState("");
   var [app,setapprove] = useState("");
@@ -230,25 +235,36 @@ function Secondpage() {
         alert("Rewards claimed");
       }
       
-      useEffect(()=>{bal2()},[])
-  const bal2 = async () => {
+      useEffect(()=>{bal1()},[]);
+      useEffect(()=>{check()},[]);
+
+      var check=async()=>{
+        alert("completed");  
+        setepoch1(await bdooracle.methods.nextEpochPoint().call());
+
+        d=new Date(getnextEpoch * 1000);
+        var d1=(d.toLocaleTimeString('en-US'));
+
+      // var dateStringWithTime = moment(d).format('HH:MM:SS');
+
+       
+        alert(d1)
+        document.getElementById("nextepo").innerHTML =d1;
+      }
+  var bal1 = async () => {
     
+
       const accounts = await  web3.eth.getAccounts();
       settwap(await bdooracle.methods.twap("0x8352A0a849cD181Cc7Ef61F972b7B8E5d677b66D","1000000000000000000").call());   
       //setrate(await Treasury.events.maxSupplyExpansionPercent);
       setepoch(await bdooracle.methods.getCurrentEpoch().call());
-      setepoch1(await bdooracle.methods.nextEpochPoint().call());
 
       setstaked(await boardroom.methods.totalSupply().call());
     setnextseigniorage(await Treasury.methods.nextEpochPoint().call()); 
     setlock(await bdo.methods.balanceOf("0xF277De5B326C3538c81e73cE9a6f7232eAEE4439").call()); 
     setbal(await boardroom.methods.balanceOf(accounts[0]).call());  
     setear(await boardroom.methods.earned(accounts[0]).call()); 
-     alert("completed");    
-
-   
-
-      
+     
   };
     
   return (
@@ -261,7 +277,7 @@ function Secondpage() {
 
   <br></br>
 
-		<form onSubmit={bal2} id="create-course-form" >
+		<form onSubmit={bal1} id="create-course-form" >
 
    
 </form>
@@ -277,10 +293,13 @@ function Secondpage() {
 
   <div class="row">
     <div class="col">
-      <label class="ll" width="100%">nextEpochPoint<span><br/>{getnextEpoch}</span></label>
+      <label class="ll"  width="100%">nextEpochPoint<br/><span id="nextepo"><br/></span></label>
+
     </div>
     <div class="col">
-      <label class="ll">eBNBmom Price(TWAP)<span><br/>{twap}</span></label>
+      <label class="ll">eBNBmom Price(TWAP)<br/>$<span>{((twap/100000000000000000)/(73.66)).toFixed(2)
+
+      }</span></label>
     </div>
   </div><br/>
   <br/>
