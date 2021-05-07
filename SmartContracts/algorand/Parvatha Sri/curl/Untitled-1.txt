@@ -1,0 +1,14 @@
+curl -i -X POST \
+   -H "Content-Type:application/json" \
+   -H "Authorization:Bearer 1.BO9wxGpDbI2Oh2OPbhb7wW4ghj0=" \
+   -d \
+'[{
+  "Scope": "System (All Projects)",
+  "AssetType": "Story",
+  "Name": "Story A"
+},
+{
+"Scope": "System (All Projects)",
+  "AssetType": "Defect",
+  "Name": "Defect A"
+}
