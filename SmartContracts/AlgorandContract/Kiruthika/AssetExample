@@ -14,20 +14,20 @@ import com.algorand.algosdk.transaction.Transaction;
 import com.algorand.algosdk.util.Encoder;
 import org.apache.commons.lang3.ArrayUtils;
 
-// Show Creating, modifying, sending and listing assets
+// Show Creating, modifying, sending and listing asset
 
 public class AssetExample {
 
 public AlgodClient client = null;
 
-// utility function to connect to a node
+// utility functions to connect to a node
 private AlgodClient connectToNetwork() {
     // final String ALGOD_API_ADDR = "<var>algod-address</var>";
     // final String ALGOD_API_TOKEN = "<var>algod-token</var>";
     final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";
     final int ALGOD_PORT = 443;
     final String ALGOD_API_TOKEN = "usat0kaLvk8eIBpk7XuwXawXu0xRw9n88vYqNFaR";
-    // instantiate the algod wrapper
+    // instantiates the algod wrapper
     AlgodClient client = new AlgodClient(ALGOD_API_ADDR, ALGOD_PORT, ALGOD_API_TOKEN);
     return client;
 }
