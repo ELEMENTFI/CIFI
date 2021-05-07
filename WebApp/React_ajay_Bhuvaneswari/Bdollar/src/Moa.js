@@ -6,7 +6,7 @@ import {useState,useEffect} from 'react';
 import web3 from './web3';
 import './App.css';
 import lottery from './bdo';
-
+//import oracle from './oracle.js'; 
 import { Router, Route, Switch,Link } from "react-router-dom";
 import Firstpage from "./Firstpage";
 import Secondpage from "./Secondpage";
@@ -17,14 +17,21 @@ import Fifthpage from "./Fifthpage";
 import Treasury from './Treasury';
 import { Card } from "react-bootstrap";
 import bdo from "./bdo";
+import share from "./share";
 
 function Moa(){
   
   const [balance,setbalance] = useState("");
+  const [balance1,setbalance1] = useState("");
+
   const [totalsupply,settotalsupply] = useState("");
+  const [totalsupply1,settotalsupply1] = useState("");
   const [tokenname,settokenname] = useState("");
   const [tokensymbol,settokensymbol]= useState("");
   var [price,setprice] = useState("");
+  const [tokenname1,settokenname1] = useState("");
+  const [tokensymbol1,settokensymbol1]= useState("");
+  var [price1,setprice1] = useState("");
 
   
   useEffect(()=>{bal()},[])
@@ -42,8 +49,10 @@ function Moa(){
 
     setbalance(await lottery.methods.balanceOf(accounts[0]).call());
     settotalsupply(await lottery.methods.totalSupply().call());
+    settotalsupply1(await share.methods.totalSupply().call());
+
     setprice( await Treasury.methods.getDollarPrice().call());
-    //setprice( await oracle.methods.getDollarPrice().call());
+   // setprice1( await oracle.methods.getDollarPrice().call());
     settokenname(await lottery.methods.name().call());
     settokensymbol(await lottery.methods.symbol().call());
     
@@ -119,7 +128,7 @@ return (
             {tokenname}({tokensymbol})
         </p>
         <p>
-          <b><h4> Total Supply</h4></b> {totalsupply}
+          <b><h4> Total Supply</h4></b> {totalsupply1}
         </p>
         <p>
           <b><h4>Price</h4></b>{price}
