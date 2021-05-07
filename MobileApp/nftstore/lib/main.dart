@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:nftstore/Providers/Datafunction.dart';
+import 'Providers/Datafunction.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'Screens/AccountCreate.dart';
 import 'Screens/BuyerScreen.dart';
