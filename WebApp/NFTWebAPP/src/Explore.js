@@ -245,7 +245,7 @@ const connectmm = async () => {
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
+        btn.innerHTML = accounts[0];
         localStorage.setItem('myaddress', accounts[0]);
       }
       else{
@@ -442,33 +442,42 @@ const buynow= async(a) =>{
   }
   
   
-  const filterSet=()=>{
-    alert("select   "+selected+"  "+selecteds)
-
-  }
-
-
 
   const filterdata=()=>{
+
+    let getprice;
     
     if(selected === 'Sellers') {
 
       if(selecteds === '1')
       {
-        let data = getImsellers.filter((val)=>{
+          let data = getImsellers.filter((val)=>{
           let date=moment()
           let createddate=moment(val.adddate)
+          getprice = val.addPrices
+          for(let i=0;i<15;i++){
+
+          if(getprice >= 1)
+          // alert("price"+getprice)
           return date===createddate 
+          }
         })
         return data;
       }    
         let data = getImsellers.filter((val)=>{
-
           let date=moment().subtract(1,"days")
           let weekdate=moment().subtract(parseInt(selecteds),"days")
           let createddate=moment(val.adddate)
+          getprice = val.addPrices
+          for(let i=0;i<15;i++){
 
-          return moment(createddate).isBetween(weekdate,date)
+            if(getprice >= 1)
+          // alert("price2"+getprice2)
+              return moment(createddate).isBetween(weekdate,date)
+
+          }
+           
+          
         })
 
         return data;    
@@ -480,7 +489,12 @@ const buynow= async(a) =>{
       let data = getImbuyers.filter((val)=>{
         let date=moment()
         let createddate=moment(val.adddate)
+        getprice = val.addPrices
+        for(let i=0;i<15;i++){
+
+        if(getprice >= 1)
         return date===createddate 
+        }
       })
       return data;
     }    
@@ -489,11 +503,20 @@ const buynow= async(a) =>{
         let date=moment().subtract(1,"days")
         let weekdate=moment().subtract(parseInt(selecteds),"days")
         let createddate=moment(val.adddate)
+        getprice = val.addPrices
 
+        for(let i=0;i<15;i++){
+
+        if(getprice >= 2)
         return moment(createddate).isBetween(weekdate,date)
-      })
-
+      
+    }
+  })
       return data;    
+
+
+
+    // alert("price2"+getprice)
 
     //return getImbuyers;
 
@@ -639,7 +662,10 @@ const buynow= async(a) =>{
               </button>
               </Link>
               {" "}
-              <button
+              <button style={{whitespace: 'nowrap', 
+  width:'200px', 
+  overflow:'hidden',
+  textoverflow:'ellipsis'}}
               id="bu"
                 class="btn btn-info btn-block"
                 type="button"
@@ -657,9 +683,6 @@ const buynow= async(a) =>{
 </div>
 </div>
               <br></br>     
-<br></br>
-<br></br>
-<br></br>
 <div>
 <div>
     <Online>
@@ -690,14 +713,14 @@ const buynow= async(a) =>{
     </div>
 
 </div>
-<center>
+{/* <center> */}
 
 {/* {isLoading ? <div>
               <img style={{width:"300px",height:"300px"}} src="/4V0b.gif" alt=""/></div>:' '} */}
 
-</center>
-<div  style={{backgroundColor:'white',marginBlock:'5px',display:'flex'}}>
-<h6 style={{color:'skyblue'}}>Top &nbsp;
+{/* </center> */}
+<div  style={{backgroundColor:'white',marginBlock:'5px',display:'flex',width:'1500px'}}>
+<h4 style={{color:'skyblue'}}>Top &nbsp;
 
       <select onChange={changeSelectOptionHandler}>
             <option value='Sellers'>Sellers</option>
@@ -721,15 +744,18 @@ const buynow= async(a) =>{
       {/* <button type="button" onClick={()=>{filterSet()}}  style={{height:'5px',backgroundColor:'white',border:'none',color:'skyblue',fontSize:'15px'}}>Filter</button> */}
 
 
-      </h6>
+      </h4>
+
+
+</div>    
 
 {getImsellers.length === 0 ? null :( 
-  <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
+  <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap',marginBottom:'5px'}}>
 {filterdata().map((a)=>{  
     return (
-      <div style={{backgroundColor:'black',height:'300px',width:'300px'}}>
+      <div style={{backgroundColor:'black',height:'360px',width:'300px',marginLeft:'60px',marginTop:'30px',marginBottom:'10px'}}>
 
-<div style={{border: '2px solid white',borderRadius:'5px'}}>
+<div style={{border: '2px solid white',borderRadius:'5px',marginBottom:'10px'}}>
 
 <center>
     <Link                  
@@ -766,7 +792,7 @@ const buynow= async(a) =>{
 )})}
   </div>
 )}
-  </div>
+  
 
 <div>
 
@@ -774,8 +800,10 @@ const buynow= async(a) =>{
 <h1>Loading.....</h1>
 : */}
 <>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 {getIm.length === 0 ? null :( 
-<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
+<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap',marginBottom:'20px'}}>
+{/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
 {filterdatas().map((a)=>{
   console.log(`a`, a)
   // Object.keys(a).map((b)=>{
@@ -786,11 +814,14 @@ const buynow= async(a) =>{
 //  if(a.addsold === '')
 //  {
     return (
-      <div style={{backgroundColor:'black',height:'500px',width:'300px'}}>
-
+      
+      <div style={{backgroundColor:'black',height:'350px',width:'300px',marginLeft:'60px',marginBottom:'10px'}}>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <div style={{border: '2px solid white',borderRadius:'5px'}}>
 
+{/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
 <center>
+  
     <Link                  
                   to={{   
                     pathname: `/explore/${a.addKeyI}/${a.addOwnerAddress}`,
@@ -798,6 +829,8 @@ const buynow= async(a) =>{
                   }}
                 >
     <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}} alt=""    />
+    
+    
     </Link>
     {/* <h5>hello{a[b].imageUrl}</h5> */}
   
@@ -810,17 +843,26 @@ const buynow= async(a) =>{
     {a.addsold === '' ? (
 <>
 { <button onClick={()=>buynow(a)} >BuyNow</button> }
+
+
   
     {' '}
 </>
+
     ):(
 
       <h6 style={{color:'white'}}>Already solded</h6>
+
+
     )}
     
     </center>
 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 </div>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
     {isOpen && <Popup content={<>
         <b>Notification</b>
@@ -845,7 +887,7 @@ const buynow= async(a) =>{
   <div style={{backgroundColor:'white',height:'200px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
   <Footer/>
   <div>
-  <h6>Get the latest Rarible updates</h6>
+  <h4 style={{color:'black'}}>Get the latest Rarible updates</h4>
 &nbsp;
   <input
   placeholder='Your e-mail'
@@ -864,16 +906,25 @@ const buynow= async(a) =>{
 <div style={{marginLeft:'100px'}}>  
 
 <h4 style={{color:'black'}}>Rarible</h4>
-<h4 style={{color:'black'}}>Explore</h4>
-<h4 style={{color:'black'}}>How it works</h4>
-<h4 style={{color:'black'}}>Create</h4>
+
+<Link
+              to="/explore" style={{ textDecoration: 'none' }}><h4 style={{color:'black'}}>Explore</h4></Link>
+<Link
+style={{ textDecoration: 'none' }}
+              to="/howitworkpage"><h4 style={{color:'black'}}>How it works</h4></Link>
+<Link
+style={{ textDecoration: 'none' }}
+              to="/nft"><h4 style={{color:'black'}}>Create</h4></Link>
 <h4 style={{color:'black'}}>Support</h4>
 
 </div>
 
 <div style={{marginLeft:'200px'}}>  
 
-<h4 style={{color:'black'}}>Community</h4>
+
+<Link
+style={{ textDecoration: 'none' }}
+              to="/communitypage"><h4 style={{color:'black'}}>Community</h4></Link>
 <h4 style={{color:'black'}}>RARI Token</h4>
 <h4 style={{color:'black'}}>Discussion</h4>
 <h4 style={{color:'black'}}>Voting</h4>

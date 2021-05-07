@@ -32,17 +32,17 @@ const Routes=()=>{
         <Switch>
         {/* <Route path="/" exact component={StartPage} /> */}
         <Route path="/" exact component={App} />
-            <AdminRoute path="/register" exact component={Register} />
-            <AdminRoute path="/explore" exact component={Explore} />
-            <AdminRoute path="/explore/:key/:oaddress" component={DisplayData} />
-            <AdminRoute path="/salepagecopy" exact component={Salepagecopy} />
+            <Route path="/register" exact component={Register} />
+            <Route path="/explore" exact component={Explore} />
+            <Route path="/explore/:key/:oaddress" component={DisplayData} />
+            <Route path="/salepagecopy" exact component={Salepagecopy} />
               {/* <Route path="/salepagecopy/:address" component={DisplayData} /> */}
-              <AdminRoute path="/communitypage"  component={Communitypage} />
-              <AdminRoute path="/activitypage" component={Activitypage} />
-              <AdminRoute path="/howitworkpage"  component={Howitworkpage} />
-              <AdminRoute path="/followingpage"  component={Followingpage} />
-              <AdminRoute path="/receivedpage" component={Receivedpage} />
-              <AdminRoute path="/nft" component={Nft} />
+              <Route path="/communitypage"  component={Communitypage} />
+              <Route path="/activitypage" component={Activitypage} />
+              <Route path="/howitworkpage"  component={Howitworkpage} />
+              <Route path="/followingpage"  component={Followingpage} />
+              <Route path="/receivedpage" component={Receivedpage} />
+              <Route path="/nft" component={Nft} />
               
               
         </Switch>

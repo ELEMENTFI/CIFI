@@ -63,7 +63,8 @@ var accounts;
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
+        // btn.innerHTML = "CONNECTED"
+        btn.innerHTML = accounts[0];
         localStorage.setItem('myaddress', accounts[0]);
       
       }
@@ -483,6 +484,10 @@ return (
               {" "}
 
               <button
+              style={{whitespace: 'nowrap', 
+              width:'200px', 
+              overflow:'hidden',
+              textoverflow:'ellipsis'}}
               id="bu"
                 class="btn btn-info btn-block"
                 type="button"
@@ -498,21 +503,19 @@ return (
 
 </div>
 
-<br></br>
-<br></br><br></br>
-<br></br>
 
 {/* {isLoading ? <div><h4>Fetching........</h4>
               <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '} */}
 
+
 {getIm.length === 0 ? null : 
-<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
+<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap',marginBottom:'10px'}}>
 {getIm.map((a)=>{
   console.log("getas", a.extra1)
 
   // if(a.addPrices === ''){
   return (
-    <div style={{backgroundColor:'black',height:'500px',width:'300px'}}>
+    <div style={{backgroundColor:'black',height:'350px',width:'300px',marginLeft:'60px',marginBottom:'15px'}}>
 
       {/* onClick={() => alert(a.addImgs)} */}
 
@@ -523,7 +526,7 @@ return (
 
         <center>
 
-  <img   src={a.addImgs}  style={{height:250,width:250,marginTop:'10px'}}    alt={""} />
+  <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}}    alt={""} />
 
   {/* </Link> */}
 
@@ -531,13 +534,13 @@ return (
   {' '}
   <br></br>
   
-  <h5 style={{color:'white'}}>Name : {a.addName}</h5>
+  <h6 style={{color:'white'}}>Name : {a.addName}</h6>
     
-    <h5 style={{color:'white'}}>Symbol : {a.addSymbol}</h5>
+    <h6 style={{color:'white'}}>Symbol : {a.addSymbol}</h6>
     
-    <h5 style={{color:'white'}}>price : {a.addPrices}</h5>
+    <h6 style={{color:'white'}}>price : {a.addPrices}</h6>
 
-    <h5 style={{color:'white'}}>address: {a.addAddress}</h5>
+    <h6 style={{color:'white'}}>address: {a.addAddress}</h6>
     
 
     {/* <button onClick={()=>setprice(a)} style={{width:'80px',height:'43px'}} >SetPrice</button>   */}
