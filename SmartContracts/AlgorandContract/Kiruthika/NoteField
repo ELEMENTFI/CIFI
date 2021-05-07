@@ -70,7 +70,7 @@ import org.json.JSONObject;
  
  
     /** 
-      * note field example. 
+      * note field examples. 
       */ 
      public void gettingStartedNoteFieldExample() throws Exception { 
  
