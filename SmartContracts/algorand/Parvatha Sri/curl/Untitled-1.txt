@@ -6,9 +6,4 @@ curl -i -X POST \
   "Scope": "System (All Projects)",
   "AssetType": "Story",
   "Name": "Story A"
-},
-{
-"Scope": "System (All Projects)",
-  "AssetType": "Defect",
-  "Name": "Defect A"
-}
+},}
