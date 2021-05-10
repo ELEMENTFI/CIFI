@@ -34,6 +34,7 @@ class AccountCreation extends StatelessWidget {
             prefix: false,
             keybordtype: TextInputType.emailAddress,
             controller: controller1,
+            ctx: context,
           ),
           TextWidget(
             label: 'PHONE_NO',
@@ -42,6 +43,7 @@ class AccountCreation extends StatelessWidget {
             prefix: false,
             keybordtype: TextInputType.phone,
             controller: controller2,
+            ctx: context,
           ),
           TextWidget(
             label: 'USER_NAME',
@@ -50,6 +52,7 @@ class AccountCreation extends StatelessWidget {
             prefix: false,
             keybordtype: TextInputType.text,
             controller: controller3,
+            ctx: context,
           ),
           TextWidget(
             label: 'PASSWORD',
@@ -58,6 +61,7 @@ class AccountCreation extends StatelessWidget {
             prefix: false,
             keybordtype: TextInputType.text,
             controller: controller5,
+            ctx: context,
           ),
           TextWidget(
             label: 'REPASSWORD',
@@ -66,6 +70,7 @@ class AccountCreation extends StatelessWidget {
             prefix: false,
             keybordtype: TextInputType.text,
             controller: controller5,
+            ctx: context,
           ),
           HStack(
             [

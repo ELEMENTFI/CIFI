@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nftstore/Widgets/Card.dart';
 import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -38,28 +39,18 @@ class NFTCreation extends StatelessWidget {
               prefix: false,
               keybordtype: TextInputType.text,
               controller: controller8,
+              ctx: context,
             ),
             (context.percentHeight * 5).heightBox,
             TextWidget(
-              label: 'NFT SYMBOL',
-              prefix: true,
-              id: 16,
+              label: 'WALLET ADDRESS',
+              id: 9,
               obsecure: false,
+              prefix: false,
               keybordtype: TextInputType.text,
-              controller: controller16,
+              controller: controller9,
+              ctx: context,
             ),
-            
-            (context.percentHeight * 5).heightBox,
-           
-              TextWidget(
-                label: 'WALLET ADDRESS',
-                id: 9,
-                obsecure: false,
-                prefix: false,
-                keybordtype: TextInputType.text,
-                controller: controller9,
-              ),
-
             (context.percentHeight * 5).heightBox,
             TextWidget(
               label: 'QTY',
@@ -68,6 +59,7 @@ class NFTCreation extends StatelessWidget {
               prefix: false,
               keybordtype: TextInputType.number,
               controller: controller10,
+              ctx: context,
             ),
             (context.percentHeight * 5).heightBox,
             TextWidget(
@@ -77,6 +69,7 @@ class NFTCreation extends StatelessWidget {
               prefix: false,
               keybordtype: TextInputType.number,
               controller: controller11,
+              ctx: context,
             ),
             (context.percentHeight * 5).heightBox,
             TextWidget(
@@ -86,6 +79,7 @@ class NFTCreation extends StatelessWidget {
               prefix: false,
               keybordtype: TextInputType.text,
               controller: controller12,
+              ctx: context,
             ),
             (context.percentHeight * 5).heightBox,
             TextWidget(
@@ -95,6 +89,7 @@ class NFTCreation extends StatelessWidget {
               prefix: false,
               keybordtype: TextInputType.text,
               controller: controller13,
+              ctx: context,
             ),
             (context.percentHeight * 5).heightBox,
             TextWidget(
@@ -104,6 +99,7 @@ class NFTCreation extends StatelessWidget {
               prefix: false,
               keybordtype: TextInputType.multiline,
               controller: controller14,
+              ctx: context,
             ),
             (context.percentHeight * 5).heightBox,
             TextWidget(
@@ -113,9 +109,26 @@ class NFTCreation extends StatelessWidget {
               obsecure: false,
               keybordtype: TextInputType.url,
               controller: controller15,
+              ctx: context,
+            ),
+            (context.percentHeight * 5).heightBox,
+            TextWidget(
+              label: 'NFT SYMBOL',
+              prefix: true,
+              id: 16,
+              obsecure: false,
+              keybordtype: TextInputType.text,
+              controller: controller16,
+              ctx: context,
             ),
             (context.percentHeight * 3).heightBox,
-            //CardWidget().px(context.percentWidth * 15),
+            CardWidget(
+              title: controller12.text,
+              price: controller11.text,
+              stock: controller10.text,
+              url: controller15.text,
+              list: false,
+            ).px(context.percentWidth * 15),
             (context.percentHeight * 1).heightBox,
             Button(
               id: 6,

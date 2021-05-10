@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nftstore/Providers/Datafunction.dart';
 import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -12,33 +14,20 @@ class Login extends StatelessWidget {
   static final scaffold = GlobalKey<ScaffoldState>();
   final formkey = GlobalKey<FormState>();
 
-  static authentication(username, password) async {
-    final fstore = FirebaseFirestore.instance;
+  static authentication(name, password) async {
+    final auth = FirebaseAuth.instance;
+    final cloudstore = FirebaseFirestore.instance;
     try {
-      fstore.collection('User').doc(username).get().then((value) {
-        if (value['password'] == password) {
-          scaffold.currentContext.vxNav.push(Uri(path: '/main'));
-        } else {
-          Alert(
-            context: scaffold.currentContext,
-            type: AlertType.error,
-            title: "ERROR",
-            desc: "User name and Password not matched",
-            buttons: [
-              DialogButton(
-                child: Text(
-                  "RETRY",
-                  style: TextStyle(
-                      color: Theme.of(scaffold.currentContext).accentColor,
-                      fontSize: 20),
-                ),
-                onPressed: () => Navigator.pop(scaffold.currentContext),
-                width: 120,
-              )
-            ],
-          ).show();
-        }
-      });
+      String uid;
+      if (uid.contains('@'))
+        uid = name;
+      else
+        await cloudstore.collection('User').doc(name).get().then((value) {
+          uid = value['email_id'];
+        });
+      auth
+          .signInWithEmailAndPassword(email: uid, password: password).then((value) =>Initial())
+          .then((_) => scaffold.currentContext.vxNav.push(Uri(path: '/main')));
     } catch (e) {
       Alert(
         context: scaffold.currentContext,
@@ -78,12 +67,13 @@ class Login extends StatelessWidget {
               child: VStack(
             [
               TextWidget(
-                label: 'USER NAME',
+                label: 'USER NAME or Email_ID',
                 id: 6,
                 obsecure: false,
                 prefix: false,
                 keybordtype: TextInputType.text,
                 controller: controller6,
+                ctx: context,
               ),
               TextWidget(
                 keybordtype: TextInputType.text,
@@ -92,6 +82,7 @@ class Login extends StatelessWidget {
                 obsecure: true,
                 prefix: false,
                 controller: controller7,
+                ctx: context,
               ),
               (context.percentHeight * 5).heightBox,
               HStack(
@@ -101,7 +92,7 @@ class Login extends StatelessWidget {
                     label: 'LOG IN',
                     navname: '/main',
                     form: formkey,
-                  ),
+                  ).onTap(()=>authentication(controller6.text, controller7.text)),
                   Button(
                     id: 4,
                     label: 'SIGN IN',
