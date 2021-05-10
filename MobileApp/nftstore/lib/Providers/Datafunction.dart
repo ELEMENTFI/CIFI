@@ -22,6 +22,26 @@ class Nftdatas {
       @required this.desc});
 }
 
+class Auth {
+  final username;
+  final password;
+
+  Auth({@required this.username, @required this.password});
+}
+
+class Logindata {
+  final email;
+  final phone;
+  final username;
+  final password;
+
+  Logindata(
+      {@required this.email,
+      @required this.phone,
+      @required this.username,
+      @required this.password});
+}
+
 class Mystore extends VxStore {
   List<Nftdatas> animals = [];
   List<Nftdatas> space = [];

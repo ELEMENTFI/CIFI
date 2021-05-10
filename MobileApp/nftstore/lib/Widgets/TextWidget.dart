@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nftstore/Providers/Datafunction.dart';
+import '../Providers/Datafunction.dart';
+import '../Screens/LoginScreen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class TextWidget extends StatefulWidget {
@@ -28,144 +29,85 @@ class TextWidgetState extends State<TextWidget> {
   final fstore = FirebaseFirestore.instance;
   var temp;
   String catagoroy;
-  Nftdatas inputdata = Nftdatas(
-    nftname: "",
-    price: "",
-    owner: "harshan",
-    qty: "",
-    url: "",
-    title: "",
-    popular: false,
-    desc: "",
-  );
+  Logindata data = Logindata(email: '', phone: '', username: '', password: '');
+  Auth authdata = Auth(username: '', password: '');
 
   void datasubmit(id, value) async {
-    switch (id) {
-      case 9:
-        inputdata = Nftdatas(
-          nftname: value,
-          price: inputdata.price,
-          owner: inputdata.owner,
-          qty: inputdata.qty,
-          url: inputdata.url,
-          title: inputdata.title,
-          popular: inputdata.popular,
-          desc: inputdata.desc,
-        );
-        break;
-      case 10:
-        inputdata = Nftdatas(
-          nftname: inputdata.nftname,
-          price: inputdata.price,
-          owner: inputdata.owner,
-          qty: value,
-          url: inputdata.url,
-          title: inputdata.title,
-          popular: inputdata.popular,
-          desc: inputdata.desc,
-        );
-        break;
-      case 11:
-        inputdata = Nftdatas(
-          nftname: inputdata.nftname,
-          price: value,
-          owner: inputdata.owner,
-          qty: inputdata.qty,
-          url: inputdata.url,
-          title: inputdata.title,
-          popular: inputdata.popular,
-          desc: inputdata.desc,
-        );
-        break;
-      case 12:
-        inputdata = Nftdatas(
-            nftname: inputdata.nftname,
-            price: inputdata.price,
-            owner: inputdata.owner,
-            qty: inputdata.qty,
-            url: inputdata.url,
-            title: value,
-            popular: inputdata.popular,
-            desc: inputdata.desc);
-        break;
-      case 13:
-        catagoroy = value;
-        break;
-      case 14:
-        inputdata = Nftdatas(
-          nftname: inputdata.nftname,
-          price: inputdata.price,
-          owner: inputdata.owner,
-          qty: inputdata.qty,
-          url: inputdata.url,
-          title: inputdata.title,
-          popular: inputdata.popular,
-          desc: value,
-        );
-        break;
-      case 15:
-        inputdata = Nftdatas(
-          nftname: inputdata.nftname,
-          price: inputdata.price,
-          owner: inputdata.owner,
-          qty: inputdata.qty,
-          url: value,
-          title: inputdata.title,
-          popular: inputdata.popular,
-          desc: inputdata.desc,
-        );
-        break;
-      default:
+    if (id <= 5) {
+      switch (id) {
+        case 1:
+          data = Logindata(
+              email: value,
+              phone: data.phone,
+              username: data.username,
+              password: data.password);
+          break;
+        case 2:
+          data = Logindata(
+              email: data.email,
+              phone: value,
+              username: data.username,
+              password: data.password);
+          break;
+        case 3:
+          data = Logindata(
+              email: data.email,
+              phone: data.phone,
+              username: value,
+              password: data.password);
+          break;
+        case 4:
+          data = Logindata(
+              email: data.email,
+              phone: data.phone,
+              username: data.username,
+              password: value);
+          break;
+        default:
+          data = Logindata(
+              email: data.email,
+              phone: data.phone,
+              username: data.username,
+              password: data.password);
+      }
+      if ((data.email != null) &&
+          (data.phone != null) &&
+          (data.username != null) &&
+          (data.password != null)) {
+            try{
+        fstore.collection('User').doc(data.username).set({
+          'email_id': data.email,
+          'password': data.password,
+          'phone_no': data.phone,
+          'user_name': data.username
+        }).then((_) async {
+          final cdata = await fstore.collection('Username').doc('list').get();
+          int count = cdata.data().length;
+          fstore.collection('Username').doc('list').set({
+            '${count + 1}': data.username,
+          });
+        });
+            }
+            catch(e){
+            
+            }
+      }
     }
-    if ((inputdata.nftname != null) &&
-        (inputdata.price != null) &&
-        (inputdata.owner != null) &&
-        (inputdata.qty != null) &&
-        (inputdata.url != null) &&
-        (inputdata.title != null) &&
-        (inputdata.popular != null) &&
-        (inputdata.desc != null) &&
-        (catagoroy != null)) {
-      await fstore
-          .collection('Myitems')
-          .doc(inputdata.owner)
-          .set({
-            'nftname': inputdata.nftname,
-            'owner': inputdata.owner,
-            'price': inputdata.price,
-            'qty': inputdata.qty,
-            'title': inputdata.title,
-            'url': inputdata.url,
-            'desc': inputdata.desc,
-            'popular': inputdata.popular,
-            'catogory': catagoroy,
-          })
-          .then((value) async => await fstore
-                  .collection('Items')
-                  .doc(catagoroy)
-                  .collection(inputdata.nftname)
-                  .doc(inputdata.nftname)
-                  .set({
-                'nftname': inputdata.nftname,
-                'owner': inputdata.owner,
-                'price': inputdata.price,
-                'qty': inputdata.qty,
-                'title': inputdata.title,
-                'url': inputdata.url,
-                'desc': inputdata.desc,
-                'popular': inputdata.popular,
-              }))
-          .then((value) async {
-            final length = await fstore
-                .collection('Nftname')
-                .doc(catagoroy)
-                .snapshots()
-                .length;
-            await fstore.collection('Nftname').doc(catagoroy).set({
-              length.toString(): inputdata.nftname,
-            });
-          })
-          .then((value) => Initial());
+    if ((id > 5) && (id <= 7)) {
+      switch (id) {
+        case 6:
+          authdata = Auth(username: value, password: authdata.password);
+          break;
+        case 7:
+          authdata = Auth(username: authdata.username, password: value);
+          break;
+        default:
+          authdata =
+              Auth(username: authdata.username, password: authdata.password);
+      }
+      if ((authdata.username != null) && (authdata.password != null)) {
+        Login.authentication(authdata.username, authdata.password);
+      }
     }
   }
 
@@ -197,7 +139,7 @@ class TextWidgetState extends State<TextWidget> {
       keyboardType: widget.keybordtype,
       style: theme.textTheme.headline1.copyWith(fontSize: 15),
       obscureText: widget.obsecure,
-      onSaved: (_) {},
+      onSaved: (value) => datasubmit(widget.id, value),
       validator: (value) {
         switch (widget.id) {
           case 1:

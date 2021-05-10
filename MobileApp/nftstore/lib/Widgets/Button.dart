@@ -30,9 +30,9 @@ void submit(BuildContext context, name, formkey) {
       borderRadius: BorderRadius.circular(20),
       child: VxBox(
         child: ElevatedButton(
-            onPressed: () => (id == 4 || id == 2 || id == 5)
+            onPressed: () => (id == 2 || id == 5)
                 ? context.vxNav.push(Uri(path: navname))
-                : submit(context, navname, form),
+                :submit(context, navname, form),
             child: label.richText
                 .textStyle(theme.textTheme.headline2.copyWith(fontSize: 13))
                 .make()),
