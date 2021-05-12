@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nftstore/Providers/Datafunction.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -22,25 +23,16 @@ class _HomePageState extends State<HomePage> {
         ),
       ],
     );
-
+    VxState.watch(context, on: [Initial]);
     Mystore data = VxState.store;
     var animals = data.animals;
     var arts = data.arts;
     var nature = data.nature;
     var space = data.space;
-
     return RefreshIndicator(
       onRefresh: () {
         return Future.delayed(Duration(seconds: 3), () {
-          Initial();
-          Timer(Duration(seconds: 1), () {
-            setState(() {
-              animals = data.animals;
-              arts = data.arts;
-              nature = data.nature;
-              space = data.space;
-            });
-          });
+          Initial(FirebaseAuth.instance.currentUser.email);
         });
       },
       child: VStack([
@@ -57,7 +49,7 @@ class _HomePageState extends State<HomePage> {
               context.vxNav.push(Uri(path: '/list'), params: ['ARTS', arts]);
             }),
             (arts == null)
-                ? CircularProgressIndicator()
+                ? CircularProgressIndicator().centered()
                 : ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: arts.length,

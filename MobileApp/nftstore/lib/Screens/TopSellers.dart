@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../Providers/Datafunction.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -22,35 +23,21 @@ class _TopSellersState extends State<TopSellers> {
         ),
       ],
     );
+    VxState.watch(context, on: [Initial]);
     Mystore data = VxState.store;
     var animals =
-        data.animals.filter((element) => element.popular == true).toList();
-    var arts = data.arts.filter((element) => element.popular == true).toList();
+        data.animals.filter((element) => element.popular == 'true').toList();
+    var arts =
+        data.arts.filter((element) => element.popular == 'true').toList();
     var nature =
-        data.nature.filter((element) => element.popular == true).toList();
+        data.nature.filter((element) => element.popular == 'true').toList();
     var space =
-        data.space.filter((element) => element.popular == true).toList();
+        data.space.filter((element) => element.popular == 'true').toList();
 
     return RefreshIndicator(
       onRefresh: () {
         return Future.delayed(Duration(seconds: 3), () {
-          Initial();
-          Timer(Duration(seconds: 1), () {
-            setState(() {
-              animals = data.animals
-                  .filter((element) => element.popular == true)
-                  .toList();
-              arts = data.arts
-                  .filter((element) => element.popular == true)
-                  .toList();
-              nature = data.nature
-                  .filter((element) => element.popular == true)
-                  .toList();
-              space = data.space
-                  .filter((element) => element.popular == true)
-                  .toList();
-            });
-          });
+          Initial(FirebaseAuth.instance.currentUser.email);
         });
       },
       child: VStack([

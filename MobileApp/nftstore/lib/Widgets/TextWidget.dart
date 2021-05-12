@@ -1,12 +1,13 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:nftstore/Providers/Datafunction.dart';
+import 'package:nftstore/Screens/AccountCreate.dart';
+import 'package:nftstore/Screens/NFT.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../Providers/Datafunction.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class TextWidget extends StatefulWidget {
@@ -37,267 +38,34 @@ class TextWidgetState extends State<TextWidget> {
   final ref = FirebaseDatabase.instance.reference();
   final auth = FirebaseAuth.instance;
   var temp;
-  String catagoroy;
-  Logindata data = Logindata(email: '', phone: '', username: '', password: '');
-  Nftdatas data1 = Nftdatas(
-    nftname: '',
-    price: '',
-    owner: '',
-    qty: '',
-    url: '',
-    title: '',
-    popular: '',
-    desc: '',
-    symbol: '',
-    wallet: '',
-    catagory: '',
-  );
 
-  void datasubmit(id, value, BuildContext ctx) async {
+  void logindata(BuildContext ctx) async {
     try {
-      
-      if (id <= 5) {
-        switch (id) {
-          case 1:
-            data = Logindata(
-                email: value,
-                phone: data.phone,
-                username: data.username,
-                password: data.password);
-            break;
-          case 2:
-            data = Logindata(
-                email: data.email,
-                phone: value,
-                username: data.username,
-                password: data.password);
-            break;
-          case 3:
-            data = Logindata(
-                email: data.email,
-                phone: data.phone,
-                username: value,
-                password: data.password);
-            break;
-          case 4:
-            data = Logindata(
-                email: data.email,
-                phone: data.phone,
-                username: data.username,
-                password: value);
-            break;
-          default:
-            data = Logindata(
-                email: data.email,
-                phone: data.phone,
-                username: data.username,
-                password: data.password);
-        }
-        if ((data.email != null) &&
-            (data.phone != null) &&
-            (data.username != null) &&
-            (data.password != null)) {
-          fstore.collection('User').doc(data.username).set({
-            'email_id': data.email,
-            'password': data.password,
-            'phone_no': data.phone,
-            'user_name': data.username,
-          }).then((value) {
-            auth.createUserWithEmailAndPassword(
-                email: data.email, password: data.password);
-          });
-        }
-      }
-      if ((id > 7) && (id <= 15)) {
-        switch (id) {
-          case 8:
-            data1 = Nftdatas(
-              nftname: value,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: data1.title,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: data1.symbol,
-              wallet: data1.wallet,
-              catagory: data1.catagory,
-            );
-            break;
-          case 9:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: data1.title,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: data1.symbol,
-              wallet: value,
-              catagory: data1.catagory,
-            );
-            break;
-          case 10:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: data1.title,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: data1.symbol,
-              wallet: value,
-              catagory: data1.catagory,
-            );
-            break;
-          case 11:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: value,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: data1.title,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: data1.symbol,
-              wallet: data1.wallet,
-              catagory: data1.catagory,
-            );
-            break;
-          case 12:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: value,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: data1.symbol,
-              wallet: data1.wallet,
-              catagory: data1.catagory,
-            );
-            break;
-          case 13:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: data1.title,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: data1.symbol,
-              wallet: data1.wallet,
-              catagory: value,
-            );
-            break;
-          case 14:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: data1.title,
-              popular: data1.popular,
-              desc: value,
-              symbol: data1.symbol,
-              wallet: data1.wallet,
-              catagory: data1.catagory,
-            );
-            break;
-          case 15:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: value,
-              title: data1.title,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: data1.symbol,
-              wallet: data1.wallet,
-              catagory: data1.catagory,
-            );
-            break;
-          case 16:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: data1.title,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: value,
-              wallet: data1.wallet,
-              catagory: data1.catagory,
-            );
-            break;
-          default:
-            data1 = Nftdatas(
-              nftname: data1.nftname,
-              price: data1.price,
-              owner: data1.owner,
-              qty: data1.qty,
-              url: data1.url,
-              title: data1.title,
-              popular: data1.popular,
-              desc: data1.desc,
-              symbol: data1.symbol,
-              wallet: data1.wallet,
-              catagory: data1.catagory,
-            );
-        }
-        if ((data1.nftname != null) &&
-            (data1.owner != null) &&
-            (data1.popular != null) &&
-            (data1.price != null) &&
-            (data1.qty != null) &&
-            (data1.symbol != null) &&
-            (data1.title != null) &&
-            (data1.url != null) &&
-            (data1.wallet != null)) {
-          ref.child('NFT').child(data1.nftname + data1.symbol).set({
-            'Image_url': data1.url,
-            'Qty': data1.qty,
-            'Discription': data1.desc,
-            'Price': data1.price,
-            'Catagory': data1.catagory,
-            'Popular': data1.popular,
-            'Nft_Symbol': data1.nftname,
-            'Owner': auth.currentUser,
-            'Title': data1.title,
-          }).then((_) {
-            ref.child('count').once().then((count) {
-              int i = count.value;
-              int index = i + 1;
-              ref.child('NFTNAME').update(
-                  {index.toString(): data1.nftname + data1.symbol}).then((_) {
-                ref.update({'count': index});
-              }).then((value) {
-                ref.update({'pending': data1.nftname + data1.symbol});
-              }).then((_) async => await launch(
-                    'https://hungry-kalam-03b7d1.netlify.app/',
-                    forceSafariVC: false,
-                    forceWebView: false,
-                    enableJavaScript: true,
-                  ));
-              Timer(Duration(minutes: 5), () => ref.update({'pending': ''}));
-            });
-          });
-        }
+      var email = AccountCreation.controller1;
+      var phoneno = AccountCreation.controller2;
+      var username = AccountCreation.controller3;
+      var password = AccountCreation.controller4;
+      var repassword = AccountCreation.controller5;
+      final newuser = await auth.createUserWithEmailAndPassword(
+          email: email.text, password: password.text);
+      if (newuser != null) {
+        await newuser.user.sendEmailVerification();
+        await fstore.collection('email').doc(username.text).set({
+          'email': email.text,
+        }).then((value) {
+          fstore.collection('User').doc(email.text).set({
+            'email_id': email.text,
+            'password': password.text,
+            'phone_no': phoneno.text,
+            'user_name': username.text,
+          }).then((value) => context.vxNav.push(Uri(path: '/')));
+        }).then((value) {
+          email.clear();
+          phoneno.clear();
+          username.clear();
+          password.clear();
+          repassword.clear();
+        });
       }
     } catch (e) {
       Alert(
@@ -319,10 +87,66 @@ class TextWidgetState extends State<TextWidget> {
     }
   }
 
+  void nftdata(counts, user) {
+    var nftname = NFTCreation.controller8;
+    var nftsymbol = NFTCreation.controller9;
+    var qty = NFTCreation.controller10;
+    var price = NFTCreation.controller11;
+    var title = NFTCreation.controller12;
+    var catagory = NFTCreation.controller13;
+    var discription = NFTCreation.controller14;
+    var url = NFTCreation.controller15;
+    var data =
+        counts.where((element) => element == nftname.text + nftsymbol.text);
+    ref.child('NFT').child(nftname.text + nftsymbol.text).set({
+      'Image_url': url.text,
+      'Qty': qty.text,
+      'Discription': discription.text,
+      'Price': price.text,
+      'Catagory': catagory.text,
+      'Popular': '',
+      'Nft_Symbol': nftsymbol.text,
+      'Owner': user,
+      'Title': title.text,
+    }).then((_) {
+      ref.child('count').once().then((count) {
+        int i = count.value;
+        int index = i + 1;
+
+        if (data == null)
+          ref.child('NFTNAME').update(
+              {index.toString(): nftname.text + nftsymbol.text}).then((_) {
+            ref.update({'count': index});
+          }).then((value) {
+            if (data == null)
+              ref.update({'pending': nftname.text + nftsymbol.text});
+          }).then((_) async => await launch(
+                'https://hungry-kalam-03b7d1.netlify.app/',
+                forceSafariVC: false,
+                forceWebView: false,
+                enableJavaScript: true,
+              ));
+        Timer(Duration(minutes: 5), () {
+          ref.update({'pending': ''});
+          nftname.clear();
+          nftsymbol.clear();
+          qty.clear();
+          discription.clear();
+          price.clear();
+          catagory.clear();
+          title.clear();
+          url.clear();
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    //Mystore store = VxState.store;
+    Mystore stores = VxState.store;
+    var count = stores.nftname;
+    var user = stores.username;
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
@@ -343,11 +167,38 @@ class TextWidgetState extends State<TextWidget> {
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             borderSide: BorderSide(color: theme.accentColor, width: 2)),
       ),
-      maxLines: widget.id == 13 ? 5 : 1,
+      maxLines: widget.id == 14 ? 5 : 1,
       keyboardType: widget.keybordtype,
       style: theme.textTheme.headline1.copyWith(fontSize: 15),
       obscureText: widget.obsecure,
-      onSaved: (value) => datasubmit(widget.id, value,widget.ctx),
+      onSaved: (value) async {
+        try {
+          if (widget.id == 5) {
+            logindata(context);
+          }
+          if (widget.id == 16) {
+            nftdata(count, user);
+          }
+        } catch (e) {
+          Alert(
+            context: context,
+            type: AlertType.error,
+            title: "ERROR",
+            desc: e.toString(),
+            buttons: [
+              DialogButton(
+                child: Text(
+                  "OK",
+                  style: TextStyle(
+                      color: Theme.of(context).accentColor, fontSize: 20),
+                ),
+                onPressed: () => Navigator.pop(context),
+                width: 120,
+              ),
+            ],
+          ).show();
+        }
+      },
       validator: (value) {
         switch (widget.id) {
           case 1:
@@ -368,9 +219,7 @@ class TextWidgetState extends State<TextWidget> {
               temp = value;
             });
             break;
-          case 5:
-            if (temp != value) return 'Password not matched';
-            break;
+
           case 6:
             if (value.isEmpty)
               return 'Please enter your Valid User Name or Email_Id';
@@ -382,7 +231,8 @@ class TextWidgetState extends State<TextWidget> {
             if (value.isEmpty) return 'Please enter your NFT Name';
             break;
           case 9:
-            if (value.isEmpty) return 'In vaild address';
+            if (value.isEmpty) return 'Please enter your NFT Symbol';
+
             break;
           case 10:
             if (!RegExp(r"^[0-9]").hasMatch(value)) return 'Invalid QTY';
@@ -400,10 +250,6 @@ class TextWidgetState extends State<TextWidget> {
             break;
           case 15:
             if (value.isEmpty) return 'Please Enter URL';
-            break;
-          case 16:
-            if (value.isEmpty) return 'Please enter your NFT Symbol';
-
             break;
           default:
             return null;

@@ -16,7 +16,7 @@ class _DropButonState extends State<DropButon> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i <= widget.qty; i++) {
+    for (int i = 0; i <= int.parse(widget.qty); i++) {
       list.add(i.toString());
     }
   }
