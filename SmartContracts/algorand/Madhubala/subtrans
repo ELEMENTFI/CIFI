@@ -1,7 +1,5 @@
 package algorand.test;
-
 import java.math.BigInteger;
-
 import com.algorand.algosdk.account.Account;
 import com.algorand.algosdk.algod.client.AlgodClient;
 import com.algorand.algosdk.algod.client.api.AlgodApi;
@@ -13,15 +11,11 @@ import com.algorand.algosdk.crypto.Digest;
 import com.algorand.algosdk.templates.ContractTemplate;
 import com.algorand.algosdk.templates.LimitOrder;
 
-/**
- * Sign and Submit a transaction example using LimitOrder
- *
- */
 public class SubmitLimitTransaction {
     public static void main(String args[]) throws Exception {
         // Setup conection parameters
         final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";
-        final String ALGOD_API_TOKEN = "ZEsvuOCGhA7IqRiNrIvPPa7NNJZ6T8aH6SVeGiyW";
+        final String ALGOD_API_TOKEN = " ";
         // Instaniate the algod wrapper
         AlgodClient client = (AlgodClient) new AlgodClient().setBasePath(ALGOD_API_ADDR);
         ApiKeyAuth api_key = (ApiKeyAuth) client.getAuthentication("api_key");
