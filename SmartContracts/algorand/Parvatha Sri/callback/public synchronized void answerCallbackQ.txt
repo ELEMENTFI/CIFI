@@ -1,5 +1,0 @@
-public synchronized void answerCallbackQuery(String callbackId, String message) {
-        AnswerCallbackQuery answer = new AnswerCallbackQuery();
-        answer.setCallbackQueryId(callbackId);
-        answer.setText(message);
-        answer.setShowAlert(true);
