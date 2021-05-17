@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 const appId = 13793863;
 
 
-
 /**
  * React Component displaying a title, a button doing some (AlgoSigner-related) actions
  * and a message with the result.
