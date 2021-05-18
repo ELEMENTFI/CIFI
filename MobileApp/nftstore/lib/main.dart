@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:nftstore/Screens/splashscreen.dart';
 import 'Providers/Datafunction.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'Screens/AccountCreate.dart';
@@ -26,8 +28,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
     var ref = FirebaseDatabase.instance.reference();
+    Initial(FirebaseAuth.instance.currentUser.email);
     ref.update({'pending': ''});
   }
 
@@ -46,19 +48,13 @@ class _MyAppState extends State<MyApp> {
       '/': (uri, params) => MaterialPage(child: Authcheck()),
       '/signin': (uri, params) => MaterialPage(child: AccountCreation()),
       '/nft': (uri, params) => MaterialPage(child: NFTCreation()),
-      '/main': (uri, params) => MaterialPage(
-              child: MainPage(
-            ctx: params[0],
-          )),
-      '/list': (uri, params) => MaterialPage(
-              child: ListScreen(
-            name: params[0],
-            data: params[1],
-          )),
+      '/main': (uri, params) => MaterialPage(child: MainPage()),
+      
       '/buy': (uri, params) => MaterialPage(
               child: BuyerScreen(
             data: params,
           )),
+      '/s': (uri, params) => MaterialPage(child: SplashScreen()),
     },
   );
 

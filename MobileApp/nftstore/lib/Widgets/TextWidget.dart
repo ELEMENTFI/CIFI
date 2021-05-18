@@ -1,14 +1,19 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:nftstore/Providers/Datafunction.dart';
 import 'package:nftstore/Screens/AccountCreate.dart';
 import 'package:nftstore/Screens/NFT.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import 'DropDwonButton.dart';
 
 class TextWidget extends StatefulWidget {
   final label;
@@ -37,15 +42,18 @@ class TextWidgetState extends State<TextWidget> {
   final fstore = FirebaseFirestore.instance;
   final ref = FirebaseDatabase.instance.reference();
   final auth = FirebaseAuth.instance;
+  var nftname = NFTCreation.controller8;
+  var nftsymbol = NFTCreation.controller9;
+  var url = NFTCreation.controller10;
+  var email = AccountCreation.controller1;
+  var phoneno = AccountCreation.controller2;
+  var username = AccountCreation.controller3;
+  var password = AccountCreation.controller4;
+  var repassword = AccountCreation.controller5;
   var temp;
 
   void logindata(BuildContext ctx) async {
     try {
-      var email = AccountCreation.controller1;
-      var phoneno = AccountCreation.controller2;
-      var username = AccountCreation.controller3;
-      var password = AccountCreation.controller4;
-      var repassword = AccountCreation.controller5;
       final newuser = await auth.createUserWithEmailAndPassword(
           email: email.text, password: password.text);
       if (newuser != null) {
@@ -77,7 +85,7 @@ class TextWidgetState extends State<TextWidget> {
           DialogButton(
             child: Text(
               "OK",
-              style: TextStyle(color: Theme.of(ctx).accentColor, fontSize: 20),
+              style: Theme.of(context).textTheme.headline2,
             ),
             onPressed: () => Navigator.pop(ctx),
             width: 120,
@@ -88,53 +96,35 @@ class TextWidgetState extends State<TextWidget> {
   }
 
   void nftdata(counts, user) {
-    var nftname = NFTCreation.controller8;
-    var nftsymbol = NFTCreation.controller9;
-    var qty = NFTCreation.controller10;
-    var price = NFTCreation.controller11;
-    var title = NFTCreation.controller12;
-    var catagory = NFTCreation.controller13;
-    var discription = NFTCreation.controller14;
-    var url = NFTCreation.controller15;
-    var data =
-        counts.where((element) => element == nftname.text + nftsymbol.text);
-    ref.child('NFT').child(nftname.text + nftsymbol.text).set({
+    var name = nftname.text;
+    ref.child('NFT').child(name).set({
       'Image_url': url.text,
-      'Qty': qty.text,
-      'Discription': discription.text,
-      'Price': price.text,
-      'Catagory': catagory.text,
+      'Price': '',
       'Popular': '',
       'Nft_Symbol': nftsymbol.text,
-      'Owner': user,
-      'Title': title.text,
+      'WalletAddress':'',
+      'ContractAddress':'',
+      'Token':0,
     }).then((_) {
       ref.child('count').once().then((count) {
         int i = count.value;
         int index = i + 1;
 
-        if (data == null)
-          ref.child('NFTNAME').update(
-              {index.toString(): nftname.text + nftsymbol.text}).then((_) {
-            ref.update({'count': index});
-          }).then((value) {
-            if (data == null)
-              ref.update({'pending': nftname.text + nftsymbol.text});
-          }).then((_) async => await launch(
-                'https://hungry-kalam-03b7d1.netlify.app/',
-                forceSafariVC: false,
-                forceWebView: false,
-                enableJavaScript: true,
-              ));
+        ref.child('NFTNAME').update({index.toString(): name}).then((_) {
+          ref.update({'count': index});
+        }).then((value) {
+          ref.update({'pending': name});
+        }).then((_) async => await launch(
+              'https://hungry-kalam-03b7d1.netlify.app/?nftname=$nftname',
+              forceSafariVC: false,
+              forceWebView: false,
+              enableJavaScript: true,
+            ));
         Timer(Duration(minutes: 5), () {
           ref.update({'pending': ''});
           nftname.clear();
           nftsymbol.clear();
-          qty.clear();
-          discription.clear();
-          price.clear();
-          catagory.clear();
-          title.clear();
+
           url.clear();
         });
       });
@@ -144,6 +134,8 @@ class TextWidgetState extends State<TextWidget> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    final picker = ImagePicker();
+    File pickedImage;
     Mystore stores = VxState.store;
     var count = stores.nftname;
     var user = stores.username;
@@ -156,13 +148,32 @@ class TextWidgetState extends State<TextWidget> {
         labelStyle: theme.textTheme.headline2.copyWith(fontSize: 15),
         prefixIcon: widget.prefix
             ? IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final pickimage = await picker.getImage(
+                    source: ImageSource.gallery,
+                  );
+                  setState(() {
+                    pickedImage = File(pickimage.path);
+                  });
+                  final ref = FirebaseStorage.instance
+                      .ref()
+                      .child('nft_image')
+                      .child(nftname.text + '.jpg');
+
+                  await ref.putFile(pickedImage);
+                  final urllink = await ref.getDownloadURL();
+                  setState(() {
+                    url.text = urllink;
+                  });
+                  Images();
+                },
                 icon: Icon(
                   Icons.image,
                   color: theme.accentColor,
                 ),
               )
             : null,
+        suffix: (widget.id == 10) ? DropButon(): null,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             borderSide: BorderSide(color: theme.accentColor, width: 2)),
@@ -173,10 +184,11 @@ class TextWidgetState extends State<TextWidget> {
       obscureText: widget.obsecure,
       onSaved: (value) async {
         try {
+          print(widget.id);
           if (widget.id == 5) {
             logindata(context);
           }
-          if (widget.id == 16) {
+          if (widget.id == 15) {
             nftdata(count, user);
           }
         } catch (e) {
@@ -189,8 +201,7 @@ class TextWidgetState extends State<TextWidget> {
               DialogButton(
                 child: Text(
                   "OK",
-                  style: TextStyle(
-                      color: Theme.of(context).accentColor, fontSize: 20),
+                  style: Theme.of(context).textTheme.headline2,
                 ),
                 onPressed: () => Navigator.pop(context),
                 width: 120,
@@ -229,26 +240,15 @@ class TextWidgetState extends State<TextWidget> {
             break;
           case 8:
             if (value.isEmpty) return 'Please enter your NFT Name';
+            var repeat = count.where((element) => element == value);
+
+            if (repeat.length > 1) return 'nft name already takened';
             break;
           case 9:
             if (value.isEmpty) return 'Please enter your NFT Symbol';
 
             break;
           case 10:
-            if (!RegExp(r"^[0-9]").hasMatch(value)) return 'Invalid QTY';
-            break;
-          case 11:
-            if (!RegExp(r"^[0-9]").hasMatch(value)) return 'Invalid Price';
-            break;
-          case 12:
-            if (value.isEmpty) return 'Invalid Title';
-            break;
-          case 14:
-            if (value.isNotEmpty) {
-              if (value.length > 50) return 'Please Enter Text Between 1 to 50';
-            }
-            break;
-          case 15:
             if (value.isEmpty) return 'Please Enter URL';
             break;
           default:

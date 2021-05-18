@@ -1,20 +1,13 @@
-import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nftstore/Providers/Datafunction.dart';
-import 'package:nftstore/Screens/splashscreen.dart';
 import 'package:nftstore/Widgets/Button.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'ListScreen.dart';
 import 'LoginScreen.dart';
-import 'Myitems.dart';
-import '../Screens/HomePage.dart';
-import '../Screens/TopSellers.dart';
+
 
 class MainPage extends StatefulWidget {
-  final BuildContext ctx;
-
-  const MainPage({Key key, @required this.ctx}) : super(key: key);
-  
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -32,20 +25,19 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    print('s1');
-    Initial(FirebaseAuth.instance.currentUser.email);
+    print(FirebaseAuth.instance.currentUser.email);
     Login.controller6.clear();
     Login.controller7.clear();
-    Timer(Duration(seconds: 2), splash);
-  }
-
-  splash() {
-    Navigator.push(
-        widget.ctx, MaterialPageRoute(builder: (context) => SplashScreen()));
   }
 
   @override
   Widget build(BuildContext context) {
+    VxState.watch(context, on: [Initial]);
+    Mystore data = VxState.store;
+    var alldata = data.nftdatas;
+    var topdata =
+        data.nftdatas.filter((element) => element.popular == 'true').toList();
+    var mydata = data.mydata;
     var theme = Theme.of(context);
     final auth = FirebaseAuth.instance;
     return Scaffold(
@@ -53,19 +45,18 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.settings_power,
-              color: theme.accentColor,
-            ),
-            onPressed: () => auth.signOut(),
-          ),
+              icon: Icon(
+                Icons.logout,
+                color: theme.accentColor,
+              ),
+              onPressed: () => auth.signOut()),
         ],
       ),
       body: (index == 0)
-          ? HomePage()
+          ? ListScreen(data: alldata,index: index,)
           : (index == 1)
-              ? TopSellers()
-              : NFT(),
+              ? ListScreen(data: topdata,index: index,)
+              : ListScreen(data: mydata,index: index,),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

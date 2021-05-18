@@ -8,25 +8,23 @@ import 'package:velocity_x/velocity_x.dart';
 class Nftdatas {
   final nftname;
   final price;
-  final owner;
-  final qty;
+  final wallet;
+  final contract;
   final url;
-  final title;
+  final tokenid;
   final popular;
-  final desc;
+
   final symbol;
-  final catagory;
+
   Nftdatas({
     @required this.nftname,
     @required this.price,
-    @required this.owner,
-    @required this.qty,
     @required this.url,
-    @required this.title,
     @required this.popular,
-    @required this.desc,
     @required this.symbol,
-    this.catagory,
+    @required this.wallet,
+    @required this.contract,
+    @required this.tokenid,
   });
 }
 
@@ -51,16 +49,21 @@ class Logindata {
 }
 
 class Mystore extends VxStore {
-  List<Nftdatas> animals = [];
-  List<Nftdatas> space = [];
-  List<Nftdatas> nature = [];
-  List<Nftdatas> arts = [];
+  List<Nftdatas> nftdatas = [];
   List<Nftdatas> mydata = [];
   List<String> nftname = [];
+  bool image = false;
   bool sign = false;
-  bool r = false;
-  var repeat;
+  var count = 0;
+  var start;
   String username;
+}
+
+class Images extends VxMutation<Mystore> {
+  @override
+  perform() {
+    store.image = !store.image;
+  }
 }
 
 class Initial extends VxMutation<Mystore> {
@@ -70,101 +73,75 @@ class Initial extends VxMutation<Mystore> {
   final user;
 
   Initial(this.user);
+
+  adddata(start, count) {
+    print(user);
+    for (int k = start; k < count; k++) {
+      ref.child('NFT').child(store.nftname[k]).once().then((result) {
+        store.nftdatas.add(Nftdatas(
+          nftname: store.nftname[k],
+          price: result.value['Price'],
+          wallet: result.value['WalletAddress'],
+          contract: result.value['ContractAddress'],
+          url: result.value['Image_url'],
+          popular: result.value['Popular'],
+          symbol: result.value['Nft_Symbol'],
+          tokenid: result.value['Token'],
+        ));
+
+        if (user.toString().contains('@')) {
+          print('u1');
+          fs.collection('User').doc(user).get().then((value) {
+            store.username = value['user_name'];
+          }).then((value) {
+            if (result.value['Owner'] == store.username) {
+              store.mydata.add(Nftdatas(
+          nftname: store.nftname[k],
+          price: result.value['Price'],
+          wallet: result.value['WalletAddress'],
+          contract: result.value['ContractAddress'],
+          url: result.value['Image_url'],
+          popular: result.value['Popular'],
+          symbol: result.value['Nft_Symbol'],
+          tokenid: result.value['Token'],
+        ));
+            }
+          });
+        }
+      });
+    }
+  }
+
   @override
   perform() async {
     try {
-      if (store.nftname.isNotEmpty) {
-        ref.child('NFTNAME').once().then((nftname) {
-          for (var i = 0; i <= store.nftname.length; i++) {
-            print(i.toString() + 'i');
-            store.repeat =
-                store.nftname.where((element) => element == nftname.value[i]);
-            if (store.repeat != null)
-              store.r = true;
-            else
-              store.r = false;
-          }
-        });
-      }
-      if (store.r == false) {
-        fs.collection('User').doc(user).get().then((value) {
-          store.username = value['user_name'];
-        }).then((_) {
-          ref.child('count').once().then((count) {
-            var i = count.value;
-
-            ref.child('NFTNAME').once().then((nftname) {
-              for (int j = 1; j <= i; j++) {
-                print('w1' + j.toString());
-                if (store.r == false)
-                  store.nftname.add(nftname.value[j].toString());
-              }
-            }).then((_) {
-              for (int k = 0; k < i; k++) {
-                print(k.toString() + 'k');
-                ref.child('NFT').child(store.nftname[k]).once().then((result) {
-                  var cathegory = result.value['Catagory'];
-                  switch (cathegory.toString()) {
-                    case 'animal':
-                      store.animals.add(Nftdatas(
-                        nftname: store.nftname[k],
-                        price: result.value['Price'],
-                        owner: result.value['Owner'],
-                        qty: result.value['Qty'],
-                        url: result.value['Image_url'],
-                        title: result.value['Title'],
-                        popular: result.value['Popular'],
-                        desc: result.value['Discription'],
-                        symbol: result.value['Nft_Symbol'],
-                      ));
-                      break;
-                    case 'nature':
-                      store.nature.add(Nftdatas(
-                        nftname: store.nftname[k],
-                        price: result.value['Price'],
-                        owner: result.value['Owner'],
-                        qty: result.value['Qty'],
-                        url: result.value['Image_url'],
-                        title: result.value['Title'],
-                        popular: result.value['Popular'],
-                        desc: result.value['Discription'],
-                        symbol: result.value['Nft_Symbol'],
-                      ));
-                      break;
-                    case 'arts':
-                      store.arts.add(Nftdatas(
-                        nftname: store.nftname[k],
-                        price: result.value['Price'],
-                        owner: result.value['Owner'],
-                        qty: result.value['Qty'],
-                        url: result.value['Image_url'],
-                        title: result.value['Title'],
-                        popular: result.value['Popular'],
-                        desc: result.value['Discription'],
-                        symbol: result.value['Nft_Symbol'],
-                      ));
-                      break;
-                    case 'space':
-                      store.space.add(Nftdatas(
-                        nftname: store.nftname[k],
-                        price: result.value['Price'],
-                        owner: result.value['Owner'],
-                        qty: result.value['Qty'],
-                        url: result.value['Image_url'],
-                        title: result.value['Title'],
-                        popular: result.value['Popular'],
-                        desc: result.value['Discription'],
-                        symbol: result.value['Nft_Symbol'],
-                      ));
-                      break;
-                    default:
-                  }
-                });
-              }
-            });
+      ref.child('count').once().then((count) {
+        var i = count.value;
+        if (store.count == i) {
+          ref.child('NFTNAME').once().then((nftname) {
+            if (store.nftname[i - 1] != nftname.value[i]) {
+              store.nftname.add(nftname.value[i]);
+              adddata(i - 1, i - 1);
+            }
           });
-        });
-      }
+        }
+        if (store.count != i) {
+          var dif = i - store.count;
+          store.count = i;
+          var j = (store.count - dif) + 1;
+          store.start = j - 1;
+          print(j);
+          print(store.count);
+          ref.child('NFTNAME').once().then((nftname) {
+            for (int i = j; i <= store.count; i++) {
+              print(i);
+              store.nftname.add(nftname.value[i]);
+            }
+          }).then((_) {
+            adddata(store.start, store.count);
+          });
+        }
+      });
     } catch (e) {
       print(e);
     }
@@ -175,63 +152,5 @@ class Authstate extends VxMutation<Mystore> {
   @override
   perform() {
     store.sign = !store.sign;
-  }
-}
-
-class Mydata extends VxMutation<Mystore> {
-  final ref = FirebaseDatabase.instance.reference();
-  final auth = FirebaseAuth.instance;
-  final fs = FirebaseFirestore.instance;
-  @override
-  perform() async {
-    try {
-      if (store.nftname.isNotEmpty) {
-        ref.child('NFTNAME').once().then((nftname) {
-          for (var i = 0; i <= store.nftname.length; i++) {
-            print(i.toString() + 'i');
-            store.repeat =
-                store.nftname.where((element) => element == nftname.value[i]);
-            if (store.repeat != null)
-              store.r = true;
-            else
-              store.r = false;
-          }
-        });
-      }
-      if (store.r == false) {
-        fs.collection('User').doc(auth.currentUser.email).get().then((value) {
-          store.username = value['user_name'];
-        }).then((_) {
-          ref.child('count').once().then((count) {
-            var i = count.value;
-
-            ref.child('NFTNAME').once().then((nftname) {
-              for (int j = 1; j <= i; j++) {
-                store.nftname.add(nftname.value[j].toString());
-              }
-            }).then((_) {
-              for (int k = 0; k < i; k++) {
-                ref.child('NFT').child(store.nftname[k]).once().then((result) {
-                  if (result.value['Owner'] == store.username)
-                    store.mydata.add(Nftdatas(
-                      nftname: store.nftname[k],
-                      price: result.value['Price'],
-                      owner: result.value['Owner'],
-                      qty: result.value['Qty'],
-                      url: result.value['Image_url'],
-                      title: result.value['Title'],
-                      popular: result.value['Popular'],
-                      desc: result.value['Discription'],
-                      symbol: result.value['Nft_Symbol'],
-                    ));
-                });
-              }
-            });
-          });
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 }

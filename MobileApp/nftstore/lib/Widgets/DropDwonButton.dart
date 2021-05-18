@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nftstore/Screens/NFT.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class DropButon extends StatefulWidget {
-  final qty;
-
-  const DropButon({Key key, @required this.qty}) : super(key: key);
-
   @override
   _DropButonState createState() => _DropButonState();
 }
 
 class _DropButonState extends State<DropButon> {
-  String value = '0';
-  List<String> list = [];
-  @override
-  void initState() {
-    super.initState();
-    for (int i = 0; i <= int.parse(widget.qty); i++) {
-      list.add(i.toString());
-    }
-  }
+  String value = '';
+  List<String> list = ['ETH', 'BNP', 'ALGOREN'];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +23,7 @@ class _DropButonState extends State<DropButon> {
       style: Theme.of(context).textTheme.headline2,
       onChanged: (String newValue) {
         setState(() {
-          value = newValue;
+          NFTCreation.controller10.text = newValue;
         });
       },
       items: <String>[...list].map<DropdownMenuItem<String>>((String value) {

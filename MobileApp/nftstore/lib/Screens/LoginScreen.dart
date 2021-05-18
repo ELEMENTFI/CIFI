@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nftstore/Providers/Datafunction.dart';
+import 'package:nftstore/Screens/splashscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -14,10 +16,11 @@ class Authcheck extends StatelessWidget {
     return StreamBuilder(
         stream: Login.auth.authStateChanges(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SplashScreen();
+          }
           if (snapshot.hasData) {
-            return MainPage(
-              ctx: context,
-            );
+            return MainPage();
           } else {
             return Login();
           }
@@ -32,21 +35,29 @@ class Login extends StatefulWidget {
   static final scaffold = GlobalKey<ScaffoldState>();
   static final auth = FirebaseAuth.instance;
 
-  static authentication() async {
+  static Future<String> user() async {
     final cloudstore = FirebaseFirestore.instance;
+    String user;
+    if (controller6.text.contains('@'))
+      user = controller6.text;
+    else
+      await cloudstore
+          .collection('email')
+          .doc(controller6.text)
+          .get()
+          .then((value) {
+        user = value['email'];
+      });
+    return user;
+  }
+
+  static authentication(BuildContext context) async {
     try {
-      String uid;
-      if (controller6.text.contains('@'))
-        uid = controller6.text;
-      else
-        await cloudstore
-            .collection('email')
-            .doc(controller6.text)
-            .get()
-            .then((value) {
-          uid = value['email'];
-        });
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      String uid = await user();
+
       auth.signInWithEmailAndPassword(email: uid, password: controller7.text);
+      sp.setBool('login', true);
     } catch (e) {
       Alert(
         context: scaffold.currentContext,
@@ -57,9 +68,7 @@ class Login extends StatefulWidget {
           DialogButton(
             child: Text(
               "OK",
-              style: TextStyle(
-                  color: Theme.of(scaffold.currentContext).accentColor,
-                  fontSize: 20),
+              style: Theme.of(context).textTheme.headline2,
             ),
             onPressed: () => Navigator.pop(scaffold.currentContext),
             width: 120,
@@ -142,12 +151,39 @@ class _LoginState extends State<Login> {
                   ],
                   alignment: MainAxisAlignment.spaceAround,
                   axisSize: MainAxisSize.max,
-                )
+                ),
+                (context.percentHeight * 2).heightBox,
+                "Forgot Password?"
+                    .richText
+                    .textStyle(theme.textTheme.headline2)
+                    .makeCentered()
+                    .onTap(() async {
+                  try {
+                    final email = await Login.user();
+
+                    Login.auth.sendPasswordResetEmail(email: email);
+                  } catch (e) {
+                    Alert(
+                      context: context,
+                      type: AlertType.error,
+                      title: "ERROR",
+                      desc: e.toString(),
+                      buttons: [
+                        DialogButton(
+                          child: Text("OK",
+                              style: Theme.of(context).textTheme.headline2),
+                          onPressed: () => Navigator.pop(context),
+                          width: 120,
+                        ),
+                      ],
+                    ).show();
+                  }
+                })
               ],
               alignment: MainAxisAlignment.center,
               axisSize: MainAxisSize.max,
             )).square(500).make().p(40),
-          )
+          ),
         ]).scrollVertical());
   }
 }

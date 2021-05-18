@@ -49,10 +49,7 @@ class BuyerScreen extends StatelessWidget {
               .textStyle(theme.textTheme.headline2)
               .make(),
         ).p(10),
-        ListTile(
-          title: "QTY".richText.textStyle(theme.textTheme.headline1).make(),
-           trailing: DropButon(qty: data.qty).expand(),
-        ).p(10),
+       
         Button(label: 'BUY', id: 7).centered()
       ]),
     );

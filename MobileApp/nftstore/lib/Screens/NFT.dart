@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:nftstore/Providers/Datafunction.dart';
+import 'package:nftstore/Widgets/Card.dart';
 import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 // ignore: must_be_immutable
 class NFTCreation extends StatelessWidget {
- static TextEditingController controller8 = TextEditingController();
- static TextEditingController controller9 = TextEditingController();
- static TextEditingController controller10 = TextEditingController();
- static TextEditingController controller11 = TextEditingController();
- static TextEditingController controller12 = TextEditingController();
- static TextEditingController controller13 = TextEditingController();
- static TextEditingController controller14 = TextEditingController();
- static TextEditingController controller15 = TextEditingController();
+  static TextEditingController controller8 = TextEditingController();
+  static TextEditingController controller9 = TextEditingController();
+  static TextEditingController controller10 = TextEditingController();
+  
 
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-
+    VxState.watch(context, on: [Images]);
+    Mystore store = VxState.store;
+    var img = store.image;
     return Scaffold(
       backgroundColor: theme.primaryColor,
       appBar: AppBar(
@@ -40,7 +40,6 @@ class NFTCreation extends StatelessWidget {
               ctx: context,
             ),
             (context.percentHeight * 5).heightBox,
-            
             TextWidget(
               label: 'NFT SYMBOL',
               prefix: false,
@@ -50,68 +49,18 @@ class NFTCreation extends StatelessWidget {
               controller: controller9,
               ctx: context,
             ),
-            TextWidget(
-              label: 'QTY',
-              id: 10,
-              obsecure: false,
-              prefix: false,
-              keybordtype: TextInputType.number,
-              controller: controller10,
-              ctx: context,
-            ),
-            (context.percentHeight * 5).heightBox,
-            TextWidget(
-              label: 'PRICE',
-              id: 11,
-              obsecure: false,
-              prefix: false,
-              keybordtype: TextInputType.number,
-              controller: controller11,
-              ctx: context,
-            ),
-            (context.percentHeight * 5).heightBox,
-            TextWidget(
-              label: 'TITLE',
-              id: 12,
-              obsecure: false,
-              prefix: false,
-              keybordtype: TextInputType.text,
-              controller: controller12,
-              ctx: context,
-            ),
-            (context.percentHeight * 5).heightBox,
-            TextWidget(
-              label: 'CATAGORY',
-              id: 13,
-              obsecure: false,
-              prefix: false,
-              keybordtype: TextInputType.text,
-              controller: controller13,
-              ctx: context,
-            ),
-            (context.percentHeight * 5).heightBox,
-            TextWidget(
-              label: 'DESCRIPTION(OPTIONAL)',
-              id: 14,
-              obsecure: false,
-              prefix: false,
-              keybordtype: TextInputType.multiline,
-              controller: controller14,
-              ctx: context,
-            ),
-            (context.percentHeight * 5).heightBox,
+           
             TextWidget(
               label: 'IMAGE URL',
               prefix: true,
-              id: 15,
+              id: 10,
               obsecure: false,
               keybordtype: TextInputType.url,
-              controller: controller15,
+              controller: controller10,
               ctx: context,
             ),
-            
-            // (context.percentHeight * 3).heightBox,
-            // if (controller16.text != null)
+            (context.percentHeight * 3).heightBox,
+            // if (img == true)
             //   CardWidget(
             //     title: controller12.text,
             //     price: controller11.text,
@@ -132,4 +81,3 @@ class NFTCreation extends StatelessWidget {
     );
   }
 }
-//0x306D6fa40D13171f15107D099AE98CF0E6e7C48C

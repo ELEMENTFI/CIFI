@@ -3,17 +3,13 @@ import 'package:velocity_x/velocity_x.dart';
 
 class CardWidget extends StatelessWidget {
   final bool list;
-  final String title;
+  final String nftname;
+  final String nftsymbol;
   final String price;
-  final String stock;
+
   final String url;
   const CardWidget(
-      {Key key,
-      this.list,
-      @required this.price,
-      @required this.stock,
-      @required this.title,
-      @required this.url})
+      {Key key, this.list, @required this.price, @required this.url,@required this.nftname,@required this.nftsymbol})
       : super(key: key);
 
   @override
@@ -24,17 +20,17 @@ class CardWidget extends StatelessWidget {
             child: VxBox(
                     child: VStack(
               [
-                title.richText
+                nftname.richText
                     .textStyle(theme.textTheme.headline1
                         .copyWith(color: theme.accentColor))
                     .make()
                     .px(10),
                 VxBox(
                     child: VStack([
-                  "Stock:"
+                  "Symbol:"
                       .richText
                       .withTextSpanChildren([
-                        stock.textSpan
+                        nftsymbol.textSpan
                             .textStyle(theme.textTheme.headline2
                                 .copyWith(fontSize: 18))
                             .make(),
@@ -48,19 +44,17 @@ class CardWidget extends StatelessWidget {
                       "Price:"
                           .richText
                           .withTextSpanChildren([
-                            price.textSpan
-                                .textStyle(theme.textTheme.headline2
-                                    .copyWith(fontSize: 18))
+                            (price.textSpan)
+                                .textStyle(theme.textTheme.headline2.copyWith(
+                                  fontSize: 18,
+                                ))
                                 .make(),
+                           
                           ])
                           .textStyle(theme.textTheme.headline1
                               .copyWith(fontSize: 20, color: theme.accentColor))
                           .make()
                           .px(10),
-                      Icon(
-                        Icons.favorite_outline_sharp,
-                        color: theme.accentColor,
-                      ),
                     ],
                     alignment: MainAxisAlignment.spaceBetween,
                     axisSize: MainAxisSize.max,
