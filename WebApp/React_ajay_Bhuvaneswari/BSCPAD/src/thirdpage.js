@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 //import secondpage from './secondpage';
 import './App.css';
-import firebase from './firebase';
+import fireDB from './firebase';
 
 import web3 from './web3';
 import tokencontract from './tokencontract';
@@ -30,6 +30,7 @@ class home extends Component {
  
 
     
+
    
     const balance = await web3.eth.getBalance(tokencontract.options.address);
     const totalsupply = await tokencontract.methods.totalSupply().call();
@@ -52,10 +53,21 @@ class home extends Component {
    {
     console.log(web3.version);
     web3.givenProvider.enable().then(console.log);
+    function save(){
+      var db=document.getElementById("save").value;
+      alert(db);
+      var database = fireDB.database();
+
+      fireDB.database().ref().child(db).push(db);
+      
+      db="";
+    }
     return (
      <div class="bg-light">
-         <br/>
-   <marquee> <b>   Under Construction</b></marquee> 
+        <input type="text" id="save" class="Form-control"/>
+        <button onClick={save}>save</button>
+
+
         </div>
     );
   }
