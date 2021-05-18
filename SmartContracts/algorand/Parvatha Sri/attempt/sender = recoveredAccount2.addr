@@ -1,5 +1,7 @@
-    sender = recoveredAccount2.addr;
+    sender = recoveredAccount2.addr
+    /
     recipient = recoveredAccount1.addr;
     revocationTarget = recoveredAccount3.addr;
     closeRemainderTo = undefined;
+    /
     amount = 10;
