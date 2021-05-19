@@ -57,17 +57,17 @@ class home extends Component {
       var db=document.getElementById("save").value;
       alert(db);
       var database = fireDB.database();
-
       fireDB.database().ref().child(db).push(db);
-      
       db="";
     }
+    function Exit(){
+      return;
+      }
     return (
      <div class="bg-light">
         <input type="text" id="save" class="Form-control"/>
         <button onClick={save}>save</button>
-
-
+        <button onClick={Exit}>Cancel</button>
         </div>
     );
   }
