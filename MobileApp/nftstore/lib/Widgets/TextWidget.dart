@@ -74,6 +74,7 @@ class TextWidgetState extends State<TextWidget> {
           password.clear();
           repassword.clear();
         });
+        
       }
     } catch (e) {
       Alert(
@@ -102,9 +103,10 @@ class TextWidgetState extends State<TextWidget> {
       'Price': '',
       'Popular': '',
       'Nft_Symbol': nftsymbol.text,
-      'WalletAddress':'',
-      'ContractAddress':'',
-      'Token':0,
+      'WalletAddress': '',
+      'ContractAddress': '',
+      'user': auth.currentUser.email,
+      'Token': 0,
     }).then((_) {
       ref.child('count').once().then((count) {
         int i = count.value;
@@ -173,7 +175,7 @@ class TextWidgetState extends State<TextWidget> {
                 ),
               )
             : null,
-        suffix: (widget.id == 10) ? DropButon(): null,
+        suffix: (widget.id == 10) ? DropButon() : null,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             borderSide: BorderSide(color: theme.accentColor, width: 2)),

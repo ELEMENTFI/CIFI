@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nftstore/Providers/Datafunction.dart';
 import 'package:nftstore/Widgets/Button.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'ListScreen.dart';
 import 'LoginScreen.dart';
-
 
 class MainPage extends StatefulWidget {
   @override
@@ -25,7 +23,8 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    print(FirebaseAuth.instance.currentUser.email);
+    Initial();
+
     Login.controller6.clear();
     Login.controller7.clear();
   }
@@ -39,24 +38,23 @@ class _MainPageState extends State<MainPage> {
         data.nftdatas.filter((element) => element.popular == 'true').toList();
     var mydata = data.mydata;
     var theme = Theme.of(context);
-    final auth = FirebaseAuth.instance;
+
     return Scaffold(
       backgroundColor: theme.primaryColor,
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.logout,
-                color: theme.accentColor,
-              ),
-              onPressed: () => auth.signOut()),
-        ],
-      ),
       body: (index == 0)
-          ? ListScreen(data: alldata,index: index,)
+          ? ListScreen(
+              data: alldata,
+              id: false,
+            )
           : (index == 1)
-              ? ListScreen(data: topdata,index: index,)
-              : ListScreen(data: mydata,index: index,),
+              ? ListScreen(
+                  data: topdata,
+                  id: false,
+                )
+              : ListScreen(
+                  data: mydata,
+                  id: true,
+                ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

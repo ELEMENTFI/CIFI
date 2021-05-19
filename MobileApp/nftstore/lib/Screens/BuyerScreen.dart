@@ -1,32 +1,121 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:nftstore/Widgets/TextWidget.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../Widgets/Button.dart';
-import '../Widgets/DropDwonButton.dart';
+
 import 'package:velocity_x/velocity_x.dart';
 
-class BuyerScreen extends StatelessWidget {
+class BuyerScreen extends StatefulWidget {
   final data;
+  final mydata;
+  final index;
+  BuyerScreen(
+      {Key key,
+      @required this.data,
+      @required this.mydata,
+      @required this.index})
+      : super(key: key);
 
-  const BuyerScreen({Key key, @required this.data}) : super(key: key);
+  @override
+  BuyerScreenState createState() => BuyerScreenState();
+}
+
+class BuyerScreenState extends State<BuyerScreen> {
+  static final databse = FirebaseDatabase.instance.reference();
+  static TextEditingController c11 = TextEditingController();
+  static final scaffold1 = GlobalKey<ScaffoldState>();
+  static var name;
+  static var url;
+  static var symbol;
+  static var token;
+  static var contract;
+  static var wallet;
+  static var user;
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      name = widget.data[widget.index].nftname;
+      url = widget.data[widget.index].url;
+      symbol = widget.data[widget.index].symbol;
+      token = widget.data[widget.index].tokenid;
+      contract = widget.data[widget.index].contract;
+      wallet = widget.data[widget.index].wallet;
+      user = widget.data[widget.index].user;
+    });
+  }
+
+  // ignore: unused_element
+  static newupdate() {
+    if (c11.text != '') {
+      databse.child('NFT').child(name.toString()).update({
+        'Image_url': url.toString(),
+        'Price': c11.text,
+        'Popular': '',
+        'Nft_Symbol': symbol.toString(),
+        'WalletAddress': wallet,
+        'ContractAddress': contract,
+        'user': user,
+        'Token': token,
+      }).then((value) {
+        Alert(
+          context: scaffold1.currentContext,
+          type: AlertType.success,
+          title: "SCUCCESS",
+          desc: 'YOUR NFT UPDATED FOR SALE',
+          buttons: [
+            DialogButton(
+              child: Text(
+                "OK",
+                style: Theme.of(scaffold1.currentContext).textTheme.headline2,
+              ),
+              onPressed: () => Navigator.pop(scaffold1.currentContext),
+              width: 120,
+            ),
+          ],
+        ).show();
+      });
+    } else {
+      Alert(
+        context: scaffold1.currentContext,
+        type: AlertType.error,
+        title: "ERROR",
+        desc: 'PLEASE ENTER PRICE TO SALE YOUR NFT',
+        buttons: [
+          DialogButton(
+            child: Text(
+              "OK",
+              style: Theme.of(scaffold1.currentContext).textTheme.headline2,
+            ),
+            onPressed: () => Navigator.pop(scaffold1.currentContext),
+            width: 120,
+          ),
+        ],
+      ).show();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
     return Scaffold(
+      key: scaffold1,
       appBar: AppBar(
         centerTitle: true,
-        title: (data.title.toString())
+        title: (widget.data[widget.index].nftname.toString())
             .richText
             .textStyle(theme.textTheme.headline1)
             .make(),
       ),
       backgroundColor: theme.primaryColor,
-      body: VStack([
+      body: ListView(children: [
         VxBox()
             .square(context.percentHeight * 20)
             .neumorphic(color: theme.cardColor, elevation: 5.0)
             .bgImage(DecorationImage(
-              image: NetworkImage(data.url),
+              image: NetworkImage(widget.data[widget.index].url),
               fit: BoxFit.fill,
             ))
             .makeCentered()
@@ -35,22 +124,50 @@ class BuyerScreen extends StatelessWidget {
         ListTile(
           title: "OWENER NAME"
               .richText
-              .textStyle(theme.textTheme.headline1)
+              .textStyle(theme.textTheme.headline1.copyWith(fontSize: 19))
               .make(),
-          trailing: (data.owner.toString())
+          trailing: (widget.data[widget.index].user.toString())
               .richText
               .textStyle(theme.textTheme.headline2)
               .make(),
         ).p(10),
         ListTile(
-          title: "PRICE".richText.textStyle(theme.textTheme.headline1).make(),
-          trailing: (data.price.toString())
+          title: "SYMBOL"
+              .richText
+              .textStyle(theme.textTheme.headline1.copyWith(fontSize: 19))
+              .make(),
+          trailing: (widget.data[widget.index].symbol.toString())
               .richText
               .textStyle(theme.textTheme.headline2)
               .make(),
         ).p(10),
-       
-        Button(label: 'BUY', id: 7).centered()
+        ListTile(
+          title: (widget.mydata == true)
+              ? TextWidget(
+                  label: 'PRICE',
+                  prefix: false,
+                  obsecure: false,
+                  id: 11,
+                  keybordtype: TextInputType.number,
+                  controller: c11,
+                  ctx: context)
+              : "PRICE"
+                  .richText
+                  .textStyle(theme.textTheme.headline1.copyWith(fontSize: 19))
+                  .make()
+                  .expand(),
+          trailing: (widget.mydata == true)
+              ? null
+              : (widget.data[widget.index].price.toString())
+                  .richText
+                  .textStyle(theme.textTheme.headline2)
+                  .make(),
+        ).p(10),
+        Button(
+          label: (widget.mydata == true) ? 'SALE' : 'BUY',
+          id: 7,
+          update: true,
+        ).centered()
       ]),
     );
   }

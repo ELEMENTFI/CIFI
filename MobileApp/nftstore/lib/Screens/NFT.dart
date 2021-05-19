@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nftstore/Providers/Datafunction.dart';
 import 'package:nftstore/Widgets/Card.dart';
+
 import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -10,7 +11,6 @@ class NFTCreation extends StatelessWidget {
   static TextEditingController controller8 = TextEditingController();
   static TextEditingController controller9 = TextEditingController();
   static TextEditingController controller10 = TextEditingController();
-  
 
   final formkey = GlobalKey<FormState>();
   @override
@@ -49,7 +49,6 @@ class NFTCreation extends StatelessWidget {
               controller: controller9,
               ctx: context,
             ),
-           
             TextWidget(
               label: 'IMAGE URL',
               prefix: true,
@@ -60,14 +59,14 @@ class NFTCreation extends StatelessWidget {
               ctx: context,
             ),
             (context.percentHeight * 3).heightBox,
-            // if (img == true)
-            //   CardWidget(
-            //     title: controller12.text,
-            //     price: controller11.text,
-            //     stock: controller10.text,
-            //     url: controller15.text,
-            //     list: false,
-            //   ).px(context.percentWidth * 15),
+            if (img == true)
+              CardWidget(
+                list: false,
+                nftname: controller8.text,
+                nftsymbol: controller9.text,
+                url: controller10.text,
+                price: '',
+              ).px(context.percentWidth * 15),
             (context.percentHeight * 1).heightBox,
             Button(
               id: 6,

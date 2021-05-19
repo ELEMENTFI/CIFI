@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,7 +7,7 @@ import 'Providers/Datafunction.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'Screens/AccountCreate.dart';
 import 'Screens/BuyerScreen.dart';
-import 'Screens/ListScreen.dart';
+
 import 'Screens/LoginScreen.dart';
 import 'Screens/MainScreen.dart';
 import 'Screens/NFT.dart';
@@ -25,12 +24,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
+  void iniState() {
     super.initState();
-    var ref = FirebaseDatabase.instance.reference();
-    Initial(FirebaseAuth.instance.currentUser.email);
-    ref.update({'pending': ''});
+    print('m' + ' ' + FirebaseAuth.instance.currentUser.email);
   }
 
   final _routerDelegate = VxNavigator(
@@ -49,10 +45,11 @@ class _MyAppState extends State<MyApp> {
       '/signin': (uri, params) => MaterialPage(child: AccountCreation()),
       '/nft': (uri, params) => MaterialPage(child: NFTCreation()),
       '/main': (uri, params) => MaterialPage(child: MainPage()),
-      
       '/buy': (uri, params) => MaterialPage(
               child: BuyerScreen(
-            data: params,
+            data: params[0],
+            mydata: params[1],
+            index: params[2],
           )),
       '/s': (uri, params) => MaterialPage(child: SplashScreen()),
     },

@@ -6,10 +6,14 @@ class CardWidget extends StatelessWidget {
   final String nftname;
   final String nftsymbol;
   final String price;
-
   final String url;
   const CardWidget(
-      {Key key, this.list, @required this.price, @required this.url,@required this.nftname,@required this.nftsymbol})
+      {Key key,
+      this.list,
+      @required this.price,
+      @required this.url,
+      @required this.nftname,
+      @required this.nftsymbol})
       : super(key: key);
 
   @override
@@ -49,7 +53,6 @@ class CardWidget extends StatelessWidget {
                                   fontSize: 18,
                                 ))
                                 .make(),
-                           
                           ])
                           .textStyle(theme.textTheme.headline1
                               .copyWith(fontSize: 20, color: theme.accentColor))
@@ -67,6 +70,7 @@ class CardWidget extends StatelessWidget {
                 .square(list == true
                     ? context.percentHeight * 40
                     : context.percentHeight * 30)
+                .neumorphic(color: theme.cardColor, elevation: 5.0)
                 .bgImage(
                     DecorationImage(image: NetworkImage(url), fit: BoxFit.fill))
                 .color(theme.cardColor)

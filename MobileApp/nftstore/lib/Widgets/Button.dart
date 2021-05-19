@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nftstore/Screens/BuyerScreen.dart';
 import 'package:nftstore/Screens/LoginScreen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -7,12 +8,14 @@ class Button extends StatelessWidget {
   final navname;
   final id;
   final form;
+  final update;
   const Button(
       {Key key,
       @required this.label,
       this.navname,
       @required this.id,
-      this.form})
+      this.form,
+      this.update})
       : super(key: key);
 
   void submit(BuildContext context, name, formkey) async {
@@ -43,7 +46,9 @@ class Button extends StatelessWidget {
                     ? Login.authentication(context)
                     : (id == 6)
                         ? submit2(form)
-                        : submit(context, navname, form),
+                        : (id == 7)
+                            ? BuyerScreenState.newupdate()
+                            : submit(context, navname, form),
             child: label.richText
                 .textStyle(theme.textTheme.headline2.copyWith(fontSize: 13))
                 .make()),
