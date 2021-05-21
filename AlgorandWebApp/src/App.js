@@ -180,6 +180,9 @@ const App = () => {
 
   const [tname,setName] = useState("");
 
+  const [tAddress,setAddess] = useState("");
+  
+
   const [currentSymbol, setCurrentSymbol] = useState('ETH')
 
   const [buffer,setBuffer] = useState("");
@@ -265,15 +268,167 @@ const printAssetHolding = async function (algodclient, account, assetid) {
   }
 };
 
+
+const RSend=async()=>{
+
+  let AssId='';
+
+const algosdk = require('algosdk');
+var account1_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
+var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
+var account3_mnemonic = "runway genuine lazy assist ticket junior pilot flush rocket swallow ripple risk alien mobile chat recall run quiz cause weekend range april vicious about spoon";
+var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
+var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
+var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
+
+console.log(recoveredAccount3.addr);
+const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+
+    
+const port = "";
+
+//B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
+
+const token = {
+
+    'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+}
+
+let algodclient = new algosdk.Algodv2(token, baseServer, port);
+
+console.log("re",algodclient);
+
+
+    let params = await algodclient.getTransactionParams().do();
+    //comment out the next two lines to use suggested fee
+    params.fee = 1000;
+    params.flatFee = true;
+
+    let sender = recoveredAccount3.addr;
+    let recipient = sender;
+    // We set revocationTarget to undefined as 
+    // This is not a clawback operation
+    let revocationTarget = undefined;
+    // CloseReaminerTo is set to undefined as
+    // we are not closing out an asset
+    let closeRemainderTo = undefined;
+    // We are sending 0 assets
+    let amount = 0;
+    let note=undefined
+    let assetIDs=localStorage.getItem("myasset")
+
+    alert("lasset"+assetIDs);
+
+    let assetID='YOSMZ2WZI6OQY7ZCGQKFZUXYMWBF4LUVCNTXLESMGZO74RLP72JQ';
+
+     // signing and sending "txn" allows sender to begin accepting asset specified by creator and index
+     let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
+      amount, note, assetID, params);
+
+ // Must be signed by the account wishing to opt in to the asset    
+ let rawSignedTxn = opttxn.signTxn(recoveredAccount3.sk);
+ let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+ console.log("Transaction : " + opttx.txId);
+ // wait for transaction to be confirmed
+ await waitForConfirmation(algodclient, opttx.txId);
+
+ //You should now see the new asset listed in the account information
+ console.log("Account 3 = " + recoveredAccount3.addr);
+ await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
+
+
+ params = await algodclient.getTransactionParams().do();
+ //comment out the next two lines to use suggested fee
+ params.fee = 1000;
+ params.flatFee = true;
+
+ sender = recoveredAccount1.addr;
+ recipient = recoveredAccount3.addr;
+ revocationTarget = undefined;
+ closeRemainderTo = undefined;
+ //Amount of the asset to transfer
+ amount = 1000;
+
+ // signing and sending "txn" will send "amount" assets from "sender" to "recipient"
+ let xtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
+      amount,  note, assetID, params);
+ // Must be signed by the account sending the asset  
+ rawSignedTxn = xtxn.signTxn(recoveredAccount1.sk)
+ let xtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+ console.log("Transaction : " + xtx.txId);
+ // wait for transaction to be confirmed
+ await waitForConfirmation(algodclient, xtx.txId);
+
+ // You should now see the 10 assets listed in the account information
+ console.log("Account 3 = " + recoveredAccount3.addr);
+ await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
+
+
+ params = await algodclient.getTransactionParams().do();
+    //comment out the next two lines to use suggested fee
+    params.fee = 1000;
+    params.flatFee = true;
+
+    let from = recoveredAccount2.addr;
+    let freezeTarget = recoveredAccount3.addr;
+    let freezeState = true;
+
+    // The freeze transaction needs to be signed by the freeze account
+    let ftxn = algosdk.makeAssetFreezeTxnWithSuggestedParams(from, note,
+        assetID, freezeTarget, freezeState, params)
+
+    // Must be signed by the freeze account   
+    rawSignedTxn = ftxn.signTxn(recoveredAccount2.sk)
+    let ftx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+    console.log("Transaction : " + ftx.txId);
+    // wait for transaction to be confirmed
+    await waitForConfirmation(algodclient, ftx.txId);
+
+    // You should now see the asset is frozen listed in the account information
+    console.log("Account 3 = " + recoveredAccount3.addr);
+    await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
+
+
+    params = await algodclient.getTransactionParams().do();
+    //comment out the next two lines to use suggested fee
+    params.fee = 1000;
+    params.flatFee = true;   
+    
+    sender = recoveredAccount2.addr;
+    recipient = recoveredAccount1.addr;
+    revocationTarget = recoveredAccount3.addr;
+    closeRemainderTo = undefined;
+    amount = 1000;
+    // signing and sending "txn" will send "amount" assets from "revocationTarget" to "recipient",
+    // if and only if sender == clawback manager for this asset
+    
+    let rtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
+       amount, note, assetID, params);
+    // Must be signed by the account that is the clawback address    
+    rawSignedTxn = rtxn.signTxn(recoveredAccount2.sk)
+    let rtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+    console.log("Transaction : " + rtx.txId);
+    // wait for transaction to be confirmed
+    await waitForConfirmation(algodclient, rtx.txId);
+
+    // You should now see 0 assets listed in the account information
+    // for the third account
+    console.log("Account 3 = " + recoveredAccount3.addr);
+    await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
+
+
+
+}
+
 const Rasset=async()=>{
 
 let AssId='';
 
 const algosdk = require('algosdk');
-//
+//gallery relief plastic pen hidden outer artist shrimp pioneer body icon banner siege palace prefer wedding path minor moon mosquito among cloud dwarf about history
 
 var account1_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
-var account2_mnemonic = "gallery relief plastic pen hidden outer artist shrimp pioneer body icon banner siege palace prefer wedding path minor moon mosquito among cloud dwarf about history";
+var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
 var account3_mnemonic = "runway genuine lazy assist ticket junior pilot flush rocket swallow ripple risk alien mobile chat recall run quiz cause weekend range april vicious about spoon";
 
 var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
@@ -465,6 +620,9 @@ let accountInfo = await algodclient.accountInformation(recoveredAccount1.addr).d
     // The manager should now be the same as the creator
     await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
 
+    localStorage.setItem('myasset', AssId);
+
+//cmd line below
 
     params = await algodclient.getTransactionParams().do();
     //comment out the next two lines to use suggested fee
@@ -578,7 +736,7 @@ let accountInfo = await algodclient.accountInformation(recoveredAccount1.addr).d
     console.log("Account 3 = " + recoveredAccount3.addr);
     await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
 
-
+//cmd line above
 
     // params = await algodclient.getTransactionParams().do();
     // //comment out the next two lines to use suggested fee
@@ -609,32 +767,7 @@ let accountInfo = await algodclient.accountInformation(recoveredAccount1.addr).d
     // await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);  
 
 
-  
-
-
-
-//   // Asset configuration specific parameters
-// // all other values are the same so we leave 
-// // Them set.
-// // specified address can change reserve, freeze, clawback, and manager
-// manager = recoveredAccount1.addr;
-// // Note that the change has to come from the existing manager
-// let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(recoveredAccount2.addr, note, 
-//     assetID, manager, reserve, freeze, clawback, params);
-// // This transaction must be signed by the current manager
-// rawSignedTxn = ctxn.signTxn(recoveredAccount2.sk)
-// let ctx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-// console.log("Transaction : " + ctx.txId);
-// // wait for transaction to be confirmed
-// await waitForConfirmation(algodclient, ctx.txId);
-// // Get the asset information for the newly changed asset
-// // use indexer or utiltiy function for Account info
-// // The manager should now be the same as the creator
-// //await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
-
-
-
-alert("your Asset id "+AssId);  
+alert("your Asset id "+AssId)  
 
 window.location.reload(false)
   }
@@ -748,6 +881,26 @@ onChange={event => setId( event.target.value)}
                 onClick= {Rasset}>
                   {/* TransferAss */}
                Create Asset
+              </button>
+              <br></br>
+              <br></br>
+              <br></br>
+
+              <label for="name">Enter Address   </label>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input
+type='text'
+name="tsendAdd"
+required
+onChange={event => setAddess(event.target.value)}
+/>
+
+
+              <button
+                type="button"
+                onClick= {RSend}>
+                  {/* TransferAss */}
+               Send
               </button>
               </div>
 </center>
