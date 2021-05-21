@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:nftstore/Widgets/TextWidget.dart';
+import 'package:nftstore/Providers/Datafunction.dart';
+import '../Widgets/TextWidget.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../Widgets/Button.dart';
 
@@ -8,13 +9,10 @@ import 'package:velocity_x/velocity_x.dart';
 
 class BuyerScreen extends StatefulWidget {
   final data;
-  final mydata;
+  final id;
   final index;
   BuyerScreen(
-      {Key key,
-      @required this.data,
-      @required this.mydata,
-      @required this.index})
+      {Key key, @required this.data, @required this.id, @required this.index})
       : super(key: key);
 
   @override
@@ -24,6 +22,7 @@ class BuyerScreen extends StatefulWidget {
 class BuyerScreenState extends State<BuyerScreen> {
   static final databse = FirebaseDatabase.instance.reference();
   static TextEditingController c11 = TextEditingController();
+  FocusNode f11 = FocusNode();
   static final scaffold1 = GlobalKey<ScaffoldState>();
   static var name;
   static var url;
@@ -35,6 +34,7 @@ class BuyerScreenState extends State<BuyerScreen> {
   @override
   void initState() {
     super.initState();
+    print(widget.id);
     setState(() {
       name = widget.data[widget.index].nftname;
       url = widget.data[widget.index].url;
@@ -47,7 +47,7 @@ class BuyerScreenState extends State<BuyerScreen> {
   }
 
   // ignore: unused_element
-  static newupdate() {
+  static newupdate(store) {
     if (c11.text != '') {
       databse.child('NFT').child(name.toString()).update({
         'Image_url': url.toString(),
@@ -59,6 +59,12 @@ class BuyerScreenState extends State<BuyerScreen> {
         'user': user,
         'Token': token,
       }).then((value) {
+        store.nftname.clear();
+        store.nftdatas.clear();
+        store.mydata.clear();
+        store.username = '';
+        store.count = 0;
+        Initial();
         Alert(
           context: scaffold1.currentContext,
           type: AlertType.success,
@@ -142,7 +148,7 @@ class BuyerScreenState extends State<BuyerScreen> {
               .make(),
         ).p(10),
         ListTile(
-          title: (widget.mydata == true)
+          title: (widget.id == 1 && widget.data[widget.index].price == '')
               ? TextWidget(
                   label: 'PRICE',
                   prefix: false,
@@ -150,13 +156,17 @@ class BuyerScreenState extends State<BuyerScreen> {
                   id: 11,
                   keybordtype: TextInputType.number,
                   controller: c11,
-                  ctx: context)
+                  ctx: context,
+                  focusnode: f11,
+                  focusfun: (_) => f11.unfocus(),
+                  action: TextInputAction.done,
+                )
               : "PRICE"
                   .richText
                   .textStyle(theme.textTheme.headline1.copyWith(fontSize: 19))
                   .make()
                   .expand(),
-          trailing: (widget.mydata == true)
+          trailing: (widget.id == 1 && widget.data[widget.index].price == '')
               ? null
               : (widget.data[widget.index].price.toString())
                   .richText
@@ -164,9 +174,10 @@ class BuyerScreenState extends State<BuyerScreen> {
                   .make(),
         ).p(10),
         Button(
-          label: (widget.mydata == true) ? 'SALE' : 'BUY',
+          label: (widget.id == 1 && widget.data[widget.index].price == '')
+              ? 'SALE'
+              : 'BUY',
           id: 7,
-          update: true,
         ).centered()
       ]),
     );

@@ -2,12 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:nftstore/Screens/splashscreen.dart';
+import './Screens/splashscreen.dart';
 import 'Providers/Datafunction.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'Screens/AccountCreate.dart';
 import 'Screens/BuyerScreen.dart';
-
 import 'Screens/LoginScreen.dart';
 import 'Screens/MainScreen.dart';
 import 'Screens/NFT.dart';
@@ -48,7 +47,7 @@ class _MyAppState extends State<MyApp> {
       '/buy': (uri, params) => MaterialPage(
               child: BuyerScreen(
             data: params[0],
-            mydata: params[1],
+            id: params[1],
             index: params[2],
           )),
       '/s': (uri, params) => MaterialPage(child: SplashScreen()),

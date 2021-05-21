@@ -6,14 +6,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nftstore/Providers/Datafunction.dart';
-import 'package:nftstore/Screens/AccountCreate.dart';
-import 'package:nftstore/Screens/NFT.dart';
+import '../Providers/Datafunction.dart';
+import '../Screens/AccountCreate.dart';
+import '../Screens/NFT.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import 'DropDwonButton.dart';
 
 class TextWidget extends StatefulWidget {
   final label;
@@ -23,6 +21,9 @@ class TextWidget extends StatefulWidget {
   final id;
   final controller;
   final ctx;
+  final focusnode;
+  final focusfun;
+  final action;
   const TextWidget({
     Key key,
     @required this.label,
@@ -32,6 +33,9 @@ class TextWidget extends StatefulWidget {
     @required this.keybordtype,
     @required this.controller,
     @required this.ctx,
+    @required this.focusnode,
+    @required this.focusfun,
+    @required this.action,
   }) : super(key: key);
 
   @override
@@ -74,7 +78,6 @@ class TextWidgetState extends State<TextWidget> {
           password.clear();
           repassword.clear();
         });
-        
       }
     } catch (e) {
       Alert(
@@ -105,7 +108,7 @@ class TextWidgetState extends State<TextWidget> {
       'Nft_Symbol': nftsymbol.text,
       'WalletAddress': '',
       'ContractAddress': '',
-      'user': auth.currentUser.email,
+      'user': user,
       'Token': 0,
     }).then((_) {
       ref.child('count').once().then((count) {
@@ -114,19 +117,15 @@ class TextWidgetState extends State<TextWidget> {
 
         ref.child('NFTNAME').update({index.toString(): name}).then((_) {
           ref.update({'count': index});
-        }).then((value) {
-          ref.update({'pending': name});
         }).then((_) async => await launch(
-              'https://hungry-kalam-03b7d1.netlify.app/?nftname=$nftname',
+              'https://hungry-kalam-03b7d1.netlify.app/?nftname=${nftname.text}',
               forceSafariVC: false,
               forceWebView: false,
               enableJavaScript: true,
             ));
-        Timer(Duration(minutes: 5), () {
-          ref.update({'pending': ''});
+        Timer(Duration(minutes: 10), () {
           nftname.clear();
           nftsymbol.clear();
-
           url.clear();
         });
       });
@@ -143,6 +142,9 @@ class TextWidgetState extends State<TextWidget> {
     var user = stores.username;
     return TextFormField(
       controller: widget.controller,
+      focusNode: widget.focusnode,
+      onFieldSubmitted: widget.focusfun,
+      textInputAction: widget.action,
       decoration: InputDecoration(
         errorStyle: theme.textTheme.headline2
             .copyWith(fontSize: 10, fontStyle: FontStyle.italic),
@@ -175,7 +177,6 @@ class TextWidgetState extends State<TextWidget> {
                 ),
               )
             : null,
-        suffix: (widget.id == 10) ? DropButon() : null,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             borderSide: BorderSide(color: theme.accentColor, width: 2)),
@@ -190,7 +191,7 @@ class TextWidgetState extends State<TextWidget> {
           if (widget.id == 5) {
             logindata(context);
           }
-          if (widget.id == 15) {
+          if (widget.id == 10) {
             nftdata(count, user);
           }
         } catch (e) {

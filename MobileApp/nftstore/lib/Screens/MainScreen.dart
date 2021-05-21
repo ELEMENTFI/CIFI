@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nftstore/Providers/Datafunction.dart';
-import 'package:nftstore/Widgets/Button.dart';
+import '../Providers/Datafunction.dart';
+import '../Widgets/Button.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'ListScreen.dart';
 import 'LoginScreen.dart';
@@ -16,14 +16,12 @@ class _MainPageState extends State<MainPage> {
   changeindex(int cindex) {
     setState(() {
       index = cindex;
-      print(cindex);
     });
   }
 
   @override
   void initState() {
     super.initState();
-    Initial();
 
     Login.controller6.clear();
     Login.controller7.clear();
@@ -34,8 +32,6 @@ class _MainPageState extends State<MainPage> {
     VxState.watch(context, on: [Initial]);
     Mystore data = VxState.store;
     var alldata = data.nftdatas;
-    var topdata =
-        data.nftdatas.filter((element) => element.popular == 'true').toList();
     var mydata = data.mydata;
     var theme = Theme.of(context);
 
@@ -44,32 +40,20 @@ class _MainPageState extends State<MainPage> {
       body: (index == 0)
           ? ListScreen(
               data: alldata,
-              id: false,
+              id: index,
             )
-          : (index == 1)
-              ? ListScreen(
-                  data: topdata,
-                  id: false,
-                )
-              : ListScreen(
-                  data: mydata,
-                  id: true,
-                ),
+          : ListScreen(
+              data: mydata,
+              id: index,
+            ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home,
+              Icons.functions_sharp,
               color: Colors.blue,
             ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.school,
-              color: Colors.blue,
-            ),
-            label: 'Top Sellers',
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -86,7 +70,7 @@ class _MainPageState extends State<MainPage> {
         onTap: changeindex,
         backgroundColor: theme.primaryColor,
       ),
-      floatingActionButton: (index == 2)
+      floatingActionButton: (index == 1)
           ? Button(
               label: 'CREATE',
               id: 5,

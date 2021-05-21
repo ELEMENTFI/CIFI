@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nftstore/Screens/NFT.dart';
+import '../Screens/NFT.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class DropButon extends StatefulWidget {
@@ -8,30 +8,36 @@ class DropButon extends StatefulWidget {
 }
 
 class _DropButonState extends State<DropButon> {
-  String value = '';
-  List<String> list = ['ETH', 'BNP', 'ALGOREN'];
+  String value;
+  List<String> list = [];
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return DropdownButton<String>(
-      underline: 2.widthBox,
-      icon: Icon(
-        Icons.arrow_drop_down_circle_sharp,
-        color: Theme.of(context).accentColor,
-      ),
+      focusColor: Colors.white,
       value: value,
-      style: Theme.of(context).textTheme.headline2,
-      onChanged: (String newValue) {
-        setState(() {
-          NFTCreation.controller10.text = newValue;
-        });
-      },
-      items: <String>[...list].map<DropdownMenuItem<String>>((String value) {
+      underline: VxBox().color(theme.primaryColor).make(),
+      style: theme.textTheme.headline2,
+      iconEnabledColor: theme.accentColor,
+      items: <String>['', 'ETH', 'BNP', 'ALGOREN']
+          .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value),
+          child: Text(
+            value,
+          ),
         );
       }).toList(),
+      hint: Text(
+        "",
+        style: theme.textTheme.headline2,
+      ),
+      onChanged: (String newvalue) {
+        setState(() {
+          NFTCreation.controller9.text = newvalue;
+        });
+      },
     );
   }
 }

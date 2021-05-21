@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nftstore/Providers/Datafunction.dart';
-import 'package:nftstore/Screens/splashscreen.dart';
+import '../Providers/Datafunction.dart';
+import '../Screens/splashscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
@@ -32,6 +32,8 @@ class Authcheck extends StatelessWidget {
 class Login extends StatefulWidget {
   static TextEditingController controller6 = TextEditingController();
   static TextEditingController controller7 = TextEditingController();
+  FocusNode f6 = FocusNode();
+  FocusNode f7 = FocusNode();
   static final scaffold = GlobalKey<ScaffoldState>();
   static final auth = FirebaseAuth.instance;
 
@@ -121,9 +123,15 @@ class _LoginState extends State<Login> {
                   id: 6,
                   obsecure: false,
                   prefix: false,
-                  keybordtype: TextInputType.text,
+                  keybordtype: TextInputType.emailAddress,
                   controller: Login.controller6,
                   ctx: context,
+                  focusnode: widget.f6,
+                  focusfun: (_) {
+                    widget.f6.unfocus();
+                    FocusScope.of(context).requestFocus(widget.f7);
+                  },
+                  action: TextInputAction.next,
                 ),
                 TextWidget(
                   keybordtype: TextInputType.text,
@@ -133,6 +141,9 @@ class _LoginState extends State<Login> {
                   prefix: false,
                   controller: Login.controller7,
                   ctx: context,
+                  focusnode: widget.f7,
+                  focusfun: (_) => widget.f7.unfocus(),
+                  action: TextInputAction.done,
                 ),
                 (context.percentHeight * 5).heightBox,
                 HStack(

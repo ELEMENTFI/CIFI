@@ -74,6 +74,7 @@ class Initial extends VxMutation<Mystore> {
 
   adddata(start, count) {
     for (int k = start; k < count; k++) {
+      print('nft' + k.toString());
       ref.child('NFT').child(store.nftname[k]).once().then((result) {
         if (result.value['Price'] != '') {
           store.nftdatas.add(Nftdatas(
@@ -93,6 +94,7 @@ class Initial extends VxMutation<Mystore> {
             store.username = value['user_name'];
           }).then((value) {
             if (result.value['user'] == store.username) {
+              print('nftt' + k.toString());
               store.mydata.add(Nftdatas(
                   nftname: store.nftname[k],
                   price: result.value['Price'],
@@ -114,11 +116,25 @@ class Initial extends VxMutation<Mystore> {
   perform() async {
     try {
       if (store.nftname.isNotEmpty) {
-        for (int i = 0; i <= store.nftname.length; i++) {
+        print(store.nftname.length);
+        for (int i = 0; i < store.nftname.length; i++) {
           ref.child('NFT').child(store.nftname[i]).once().then((result) {
             if (result.value['Price'] != '' &&
                 store.nftdatas[i].nftname != store.nftname[i]) {
               store.nftdatas.add(Nftdatas(
+                  nftname: store.nftname[i],
+                  price: result.value['Price'],
+                  wallet: result.value['WalletAddress'],
+                  contract: result.value['ContractAddress'],
+                  url: result.value['Image_url'],
+                  popular: result.value['Popular'],
+                  symbol: result.value['Nft_Symbol'],
+                  tokenid: result.value['Token'],
+                  user: result.value['user']));
+            }
+            if (result.value['user'] == store.username) {
+              print('nftt' + i.toString());
+              store.mydata.add(Nftdatas(
                   nftname: store.nftname[i],
                   price: result.value['Price'],
                   wallet: result.value['WalletAddress'],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nftstore/Providers/Datafunction.dart';
+import '../Providers/Datafunction.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,9 +12,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    print('op');
+    print('lok');
     Initial();
-   
   }
 
   @override
