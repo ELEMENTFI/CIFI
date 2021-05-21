@@ -114,8 +114,16 @@ ref.on("value", function(snapshot) {
 
     function gotdata(data){
 //console.log(data);
-var name=data.val();
-console.log(name)
+var name = data.val();
+//console.log(name);
+var acc1_object = {
+  prop_1: 'val_11',
+  prop_2: 'val_12', 
+  
+};
+alert(name.value);
+//alert( JSON.stringify(name));
+
     }
     function errdata(err){
       console.log("error");
