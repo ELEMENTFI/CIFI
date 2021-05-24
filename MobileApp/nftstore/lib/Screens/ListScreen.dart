@@ -4,10 +4,16 @@ import '../Providers/Datafunction.dart';
 import '../Widgets/Card.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+// ignore: must_be_immutable
 class ListScreen extends StatelessWidget {
   final id;
   final data;
-  const ListScreen({Key key, @required this.data, @required this.id})
+  final empttext;
+  ListScreen(
+      {Key key,
+      @required this.data,
+      @required this.id,
+      @required this.empttext})
       : super(key: key);
 
   @override
@@ -26,26 +32,26 @@ class ListScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   auth.signOut();
-
+                  store.buyednft.clear();
                   store.nftname.clear();
                   store.nftdatas.clear();
                   store.mydata.clear();
                   store.username = '';
                   store.count = 0;
+                  print('loged out');
                 }),
           ],
         ),
         body: RefreshIndicator(
             onRefresh: () {
               return Future.delayed(Duration(seconds: 3), () {
-                print('re');
                 store.mydata.clear();
-
+                store.buyednft.clear();
                 Initial();
               });
             },
             child: (data.isEmpty)
-                ? "NO NFT AVAILABLE"
+                ? (empttext.toString())
                     .richText
                     .textStyle(theme.textTheme.headline2.copyWith(fontSize: 18))
                     .makeCentered()
@@ -53,7 +59,7 @@ class ListScreen extends StatelessWidget {
                 : ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) => CardWidget(
-                          price: data[index].price,
+                          price: data[index].price.toString(),
                           nftname: data[index].nftname,
                           nftsymbol: data[index].symbol,
                           url: data[index].url,

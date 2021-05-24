@@ -53,7 +53,7 @@ class Login extends StatefulWidget {
     return user;
   }
 
-  static authentication(BuildContext context) async {
+  static authentication(BuildContext stylecontext) async {
     try {
       SharedPreferences sp = await SharedPreferences.getInstance();
       String uid = await user();
@@ -70,7 +70,7 @@ class Login extends StatefulWidget {
           DialogButton(
             child: Text(
               "OK",
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(stylecontext).textTheme.headline2,
             ),
             onPressed: () => Navigator.pop(scaffold.currentContext),
             width: 120,

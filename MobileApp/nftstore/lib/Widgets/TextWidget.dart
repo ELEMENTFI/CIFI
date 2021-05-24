@@ -110,6 +110,9 @@ class TextWidgetState extends State<TextWidget> {
       'ContractAddress': '',
       'user': user,
       'Token': 0,
+      'buyed': 'false',
+      'buyedowner': '',
+      'buyername':'',
     }).then((_) {
       ref.child('count').once().then((count) {
         int i = count.value;

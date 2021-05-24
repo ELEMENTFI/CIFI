@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:nftstore/Providers/Datafunction.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../Widgets/Button.dart';
@@ -31,6 +32,7 @@ class BuyerScreenState extends State<BuyerScreen> {
   static var contract;
   static var wallet;
   static var user;
+  var buyed;
   @override
   void initState() {
     super.initState();
@@ -43,45 +45,75 @@ class BuyerScreenState extends State<BuyerScreen> {
       contract = widget.data[widget.index].contract;
       wallet = widget.data[widget.index].wallet;
       user = widget.data[widget.index].user;
+      buyed = widget.data[widget.index].buyer;
     });
+  }
+
+  static nftsend() async {
+    await launch(
+      'https://hungry-kalam-03b7d1.netlify.app/?setprice=transfer&nftname=$name',
+      forceSafariVC: false,
+      forceWebView: false,
+      enableJavaScript: true,
+    );
+  }
+
+  static nftbuy() async {
+    await launch(
+      'https://hungry-kalam-03b7d1.netlify.app/?setprice=false&nftname=$name',
+      forceSafariVC: false,
+      forceWebView: false,
+      enableJavaScript: true,
+    );
   }
 
   // ignore: unused_element
   static newupdate(store) {
     if (c11.text != '') {
-      databse.child('NFT').child(name.toString()).update({
-        'Image_url': url.toString(),
-        'Price': c11.text,
-        'Popular': '',
-        'Nft_Symbol': symbol.toString(),
-        'WalletAddress': wallet,
-        'ContractAddress': contract,
-        'user': user,
-        'Token': token,
-      }).then((value) {
-        store.nftname.clear();
-        store.nftdatas.clear();
-        store.mydata.clear();
-        store.username = '';
-        store.count = 0;
-        Initial();
-        Alert(
-          context: scaffold1.currentContext,
-          type: AlertType.success,
-          title: "SCUCCESS",
-          desc: 'YOUR NFT UPDATED FOR SALE',
-          buttons: [
-            DialogButton(
-              child: Text(
-                "OK",
-                style: Theme.of(scaffold1.currentContext).textTheme.headline2,
-              ),
-              onPressed: () => Navigator.pop(scaffold1.currentContext),
-              width: 120,
-            ),
-          ],
-        ).show();
-      });
+      databse
+          .child('NFT')
+          .child(name.toString())
+          .update({
+            'Image_url': url.toString(),
+            'Price': c11.text,
+            'Popular': '',
+            'Nft_Symbol': symbol.toString(),
+            'WalletAddress': wallet,
+            'ContractAddress': contract,
+            'user': user,
+            'Token': token,
+          })
+          .then((value) async => await launch(
+                'https://hungry-kalam-03b7d1.netlify.app/?setprice=true&price=${c11.text}&nftname=$name',
+                forceSafariVC: false,
+                forceWebView: false,
+                enableJavaScript: true,
+              ))
+          .then((value) {
+            store.nftname.clear();
+            store.nftdatas.clear();
+            store.mydata.clear();
+            store.username = '';
+            store.count = 0;
+            Initial();
+            Alert(
+              context: scaffold1.currentContext,
+              type: AlertType.success,
+              title: "SCUCCESS",
+              desc: 'YOUR NFT UPDATED FOR SALE',
+              buttons: [
+                DialogButton(
+                  child: Text(
+                    "OK",
+                    style:
+                        Theme.of(scaffold1.currentContext).textTheme.headline2,
+                  ),
+                  onPressed: () => Navigator.pop(scaffold1.currentContext),
+                  width: 120,
+                ),
+              ],
+            ).show();
+          });
     } else {
       Alert(
         context: scaffold1.currentContext,
@@ -173,12 +205,30 @@ class BuyerScreenState extends State<BuyerScreen> {
                   .textStyle(theme.textTheme.headline2)
                   .make(),
         ).p(10),
-        Button(
-          label: (widget.id == 1 && widget.data[widget.index].price == '')
-              ? 'SALE'
-              : 'BUY',
-          id: 7,
-        ).centered()
+        (buyed == true)
+            ? "This nft already buyed"
+                .text
+                .textStyle(Theme.of(context).textTheme.headline2)
+                .makeCentered()
+            : HStack(
+                [
+                  if (widget.id == 1) Button(label: 'send', id: 8),
+                  if (widget.data[widget.index].price == '')
+                    Button(
+                      label: (widget.id == 1 &&
+                              widget.data[widget.index].price == '')
+                          ? 'SALE'
+                          : 'BUY',
+                      id: 7,
+                      buy: (widget.id == 1 &&
+                              widget.data[widget.index].price == '')
+                          ? false
+                          : true,
+                    ),
+                ],
+                alignment: MainAxisAlignment.spaceAround,
+                axisSize: MainAxisSize.max,
+              )
       ]),
     );
   }

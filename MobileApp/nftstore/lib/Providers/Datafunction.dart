@@ -15,7 +15,9 @@ class Nftdatas {
   final popular;
   final user;
   final symbol;
-
+  final buyer;
+  final buyeraddress;
+  final buyername;
   Nftdatas({
     @required this.nftname,
     @required this.price,
@@ -26,6 +28,9 @@ class Nftdatas {
     @required this.contract,
     @required this.tokenid,
     @required this.user,
+    @required this.buyer,
+    @required this.buyeraddress,
+    @required this.buyername,
   });
 }
 
@@ -52,6 +57,7 @@ class Logindata {
 class Mystore extends VxStore {
   List<Nftdatas> nftdatas = [];
   List<Nftdatas> mydata = [];
+  List<Nftdatas> buyednft = [];
   List<String> nftname = [];
   bool image = false;
   bool sign = false;
@@ -77,7 +83,8 @@ class Initial extends VxMutation<Mystore> {
       print('nft' + k.toString());
       ref.child('NFT').child(store.nftname[k]).once().then((result) {
         if (result.value['Price'] != '') {
-          store.nftdatas.add(Nftdatas(
+          store.nftdatas.add(
+            Nftdatas(
               nftname: store.nftname[k],
               price: result.value['Price'],
               wallet: result.value['WalletAddress'],
@@ -86,7 +93,12 @@ class Initial extends VxMutation<Mystore> {
               popular: result.value['Popular'],
               symbol: result.value['Nft_Symbol'],
               tokenid: result.value['Token'],
-              user: result.value['user']));
+              user: result.value['user'],
+              buyer: result.value['buyed'],
+              buyeraddress: result.value['buyedowner'],
+              buyername: result.value['buyername'],
+            ),
+          );
         }
 
         if (user.toString().contains('@')) {
@@ -95,7 +107,8 @@ class Initial extends VxMutation<Mystore> {
           }).then((value) {
             if (result.value['user'] == store.username) {
               print('nftt' + k.toString());
-              store.mydata.add(Nftdatas(
+              store.mydata.add(
+                Nftdatas(
                   nftname: store.nftname[k],
                   price: result.value['Price'],
                   wallet: result.value['WalletAddress'],
@@ -104,7 +117,31 @@ class Initial extends VxMutation<Mystore> {
                   popular: result.value['Popular'],
                   symbol: result.value['Nft_Symbol'],
                   tokenid: result.value['Token'],
-                  user: result.value['user']));
+                  user: result.value['user'],
+                  buyer: result.value['buyed'],
+                  buyeraddress: result.value['buyedowner'],
+                  buyername: result.value['buyername'],
+                ),
+              );
+            }
+          }).then((value) {
+            if (result.value['buyername'] == store.username) {
+              store.buyednft.add(
+                Nftdatas(
+                  nftname: store.nftname[k],
+                  price: result.value['Price'],
+                  wallet: result.value['WalletAddress'],
+                  contract: result.value['ContractAddress'],
+                  url: result.value['Image_url'],
+                  popular: result.value['Popular'],
+                  symbol: result.value['Nft_Symbol'],
+                  tokenid: result.value['Token'],
+                  user: result.value['user'],
+                  buyer: result.value['buyed'],
+                  buyeraddress: result.value['buyedowner'],
+                  buyername: result.value['buyername'],
+                ),
+              );
             }
           });
         }
@@ -121,7 +158,8 @@ class Initial extends VxMutation<Mystore> {
           ref.child('NFT').child(store.nftname[i]).once().then((result) {
             if (result.value['Price'] != '' &&
                 store.nftdatas[i].nftname != store.nftname[i]) {
-              store.nftdatas.add(Nftdatas(
+              store.nftdatas.add(
+                Nftdatas(
                   nftname: store.nftname[i],
                   price: result.value['Price'],
                   wallet: result.value['WalletAddress'],
@@ -130,11 +168,17 @@ class Initial extends VxMutation<Mystore> {
                   popular: result.value['Popular'],
                   symbol: result.value['Nft_Symbol'],
                   tokenid: result.value['Token'],
-                  user: result.value['user']));
+                  user: result.value['user'],
+                  buyer: result.value['buyed'],
+                  buyeraddress: result.value['buyedowner'],
+                  buyername: result.value['buyername'],
+                ),
+              );
             }
             if (result.value['user'] == store.username) {
               print('nftt' + i.toString());
-              store.mydata.add(Nftdatas(
+              store.mydata.add(
+                Nftdatas(
                   nftname: store.nftname[i],
                   price: result.value['Price'],
                   wallet: result.value['WalletAddress'],
@@ -143,7 +187,31 @@ class Initial extends VxMutation<Mystore> {
                   popular: result.value['Popular'],
                   symbol: result.value['Nft_Symbol'],
                   tokenid: result.value['Token'],
-                  user: result.value['user']));
+                  user: result.value['user'],
+                  buyer: result.value['buyed'],
+                  buyeraddress: result.value['buyedowner'],
+                  buyername: result.value['buyername'],
+                ),
+              );
+            }
+
+            if (result.value['buyername'] == store.username) {
+              store.buyednft.add(
+                Nftdatas(
+                  nftname: store.nftname[i],
+                  price: result.value['Price'],
+                  wallet: result.value['WalletAddress'],
+                  contract: result.value['ContractAddress'],
+                  url: result.value['Image_url'],
+                  popular: result.value['Popular'],
+                  symbol: result.value['Nft_Symbol'],
+                  tokenid: result.value['Token'],
+                  user: result.value['user'],
+                  buyer: result.value['buyed'],
+                  buyeraddress: result.value['buyedowner'],
+                  buyername: result.value['buyername'],
+                ),
+              );
             }
           });
         }

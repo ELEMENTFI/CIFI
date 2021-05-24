@@ -33,6 +33,7 @@ class _MainPageState extends State<MainPage> {
     Mystore data = VxState.store;
     var alldata = data.nftdatas;
     var mydata = data.mydata;
+    var byeddata = data.buyednft;
     var theme = Theme.of(context);
 
     return Scaffold(
@@ -41,11 +42,19 @@ class _MainPageState extends State<MainPage> {
           ? ListScreen(
               data: alldata,
               id: index,
+              empttext: 'NO NFT AVAILABLE',
             )
-          : ListScreen(
-              data: mydata,
-              id: index,
-            ),
+          : (index == 1)
+              ? ListScreen(
+                  data: mydata,
+                  id: index,
+                  empttext: 'NO NFT AVAILABLE CREATE SOME',
+                )
+              : ListScreen(
+                  data: byeddata,
+                  id: index,
+                  empttext: 'NO NFT AVAILABLE BUY SOME',
+                ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -57,10 +66,17 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.storage,
+              Icons.store_rounded,
               color: Colors.blue,
             ),
             label: 'My Items',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.storage,
+              color: Colors.blue,
+            ),
+            label: 'byed nft',
           ),
         ],
         currentIndex: index,

@@ -9,13 +9,14 @@ class Button extends StatelessWidget {
   final navname;
   final id;
   final form;
-
+  final buy;
   const Button({
     Key key,
     @required this.label,
     this.navname,
     @required this.id,
     this.form,
+    this.buy,
   }) : super(key: key);
 
   void submit(BuildContext context, name, formkey) async {
@@ -36,7 +37,7 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-       Mystore store = VxState.store;
+    Mystore store = VxState.store;
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: VxBox(
@@ -48,8 +49,8 @@ class Button extends StatelessWidget {
                     : (id == 6)
                         ? submit2(form)
                         : (id == 7)
-                            ? BuyerScreenState.newupdate(store)
-                            : submit(context, navname, form),
+                            ? (buy == true)? BuyerScreenState.nftbuy():BuyerScreenState.newupdate(store)
+                            :(id == 8)?BuyerScreenState.nftsend(): submit(context, navname, form),
             child: label.richText
                 .textStyle(theme.textTheme.headline2.copyWith(fontSize: 13))
                 .make()),
@@ -57,3 +58,4 @@ class Button extends StatelessWidget {
     );
   }
 }
+
