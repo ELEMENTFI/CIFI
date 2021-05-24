@@ -26,7 +26,7 @@ public class TransactionFee
         AlgodApi algodApiInstance = new AlgodApi(client);
 
 
-        // Setup suggested parameters
+        // Setup suggested parameter
         TransactionParams params = algodApiInstance.transactionParams();
         BigInteger suggestedFee = algodApiInstance.suggestedFee().getFee();
         BigInteger firstRound = params.getLastRound();
