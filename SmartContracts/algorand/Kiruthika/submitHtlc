@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class SubmitHtlcTransaction 
 {
     public static void main(String args[]) throws Exception {
-        // Setup conection parameters
+        // Setup conection parameter
         final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";
         final int ALGO_PORT = 443;
         final String ALGOD_API_TOKEN = "usat0kaLvk8eIBpk7XuwXawXu0xRw9n88vYqNFaR";
