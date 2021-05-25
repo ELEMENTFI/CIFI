@@ -41,8 +41,8 @@ class home extends Component {
   
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
-    fireDB.database().ref("acc1").child("balance").push(balance);
-fireDB.database().ref("acc1").child("name").push(name);
+   //fireDB.database().ref("acc1").child("balance").push(balance);
+//fireDB.database().ref("acc1").child("name").push(name);
 
 //var d=fireDB.database().ref().child("acc1").fetch(name);
 
@@ -57,14 +57,6 @@ var a= 1;
      
 //fireDB.database().ref().child(accounts).push(name);
 
-fireDB.database().ref("acc1").on("value", snapshot => {
-  let studentlist = [];
-  snapshot.forEach(snap => {
-      // snap.val() is the dictionary with all your keys/values from the 'students-list' path
-      studentlist.push(snap.val());
-  });
-  this.setState({ studentslist: studentlist });
-});
 
 
 }
@@ -121,7 +113,7 @@ var acc1_object = {
   prop_2: 'val_12', 
   
 };
-alert(name.value);
+
 //alert( JSON.stringify(name));
 
     }
@@ -129,15 +121,32 @@ alert(name.value);
       console.log("error");
       console.log(err);
     }
+
+    function get(){
+      var firebase= fireDB.database().ref("acc1/name");
+      firebase.once("value",  function(snapshot){
+        snapshot.forEach(function(element){
+          var key=element.key;
+          var name=element.val();
+      alert(name);
+         //var bal=Object.values(a[i]);
+         // var name=Object.values(a);
+          //alert(name);
+      document.getElementById("root").innerHTML =name;
+        
+        })
+      })
+    }
     return (
      <div class="bg-light">
         <input type="text" id="save" class="Form-control"/>
         <input type="text" id="save1" class="Form-control"/>
 
         <button onClick={save}>save</button><br/>
-        <button onClick={ret}>show</button>
-
-            </div>
+        <button onClick={get}>show</button>
+<br></br>
+<p id="root"></p>
+</div>
     );
   }
 }
