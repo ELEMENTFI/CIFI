@@ -53,7 +53,7 @@ fireDB.database().ref("acc1").child("name").push(name);
     this.setState({totalsupply,balance,name,symbol,decimal,accounts});
 
     var database = fireDB.database();
-
+var a= 1;
      
 //fireDB.database().ref().child(accounts).push(name);
 
