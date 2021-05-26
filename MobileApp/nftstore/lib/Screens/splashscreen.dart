@@ -14,6 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     print('lok');
     Initial();
+    BuyedNft();
   }
 
   @override

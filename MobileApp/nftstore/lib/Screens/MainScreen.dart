@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../Providers/Datafunction.dart';
 import '../Widgets/Button.dart';
@@ -22,9 +24,19 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    print('p');
+    Initial();
+    delay();
 
     Login.controller6.clear();
     Login.controller7.clear();
+  }
+
+  delay() async {
+    Timer(Duration(seconds: 5), () {
+      print('lo');
+      BuyedNft();
+    });
   }
 
   @override

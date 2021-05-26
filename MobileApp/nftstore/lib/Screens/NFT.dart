@@ -70,7 +70,7 @@ class NFTCreation extends StatelessWidget {
             ]),
             (context.percentHeight * 5).heightBox,
             TextWidget(
-              label: 'IMAGE URL',
+              label: 'URL',
               prefix: true,
               id: 10,
               obsecure: false,

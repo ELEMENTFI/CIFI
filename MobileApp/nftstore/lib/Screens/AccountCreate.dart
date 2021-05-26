@@ -10,11 +10,13 @@ class AccountCreation extends StatelessWidget {
   static TextEditingController controller3 = TextEditingController();
   static TextEditingController controller4 = TextEditingController();
   static TextEditingController controller5 = TextEditingController();
+  static TextEditingController controller12 = TextEditingController();
   FocusNode f1 = FocusNode();
   FocusNode f2 = FocusNode();
   FocusNode f3 = FocusNode();
   FocusNode f4 = FocusNode();
   FocusNode f5 = FocusNode();
+  FocusNode f12 = FocusNode();
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -57,6 +59,21 @@ class AccountCreation extends StatelessWidget {
             focusnode: f2,
             focusfun: (_) {
               f2.unfocus();
+              FocusScope.of(context).requestFocus(f12);
+            },
+            action: TextInputAction.next,
+          ),
+           TextWidget(
+            label: 'YOUR WALLET ADDRESS',
+            id: 12,
+            obsecure: false,
+            prefix: false,
+            keybordtype: TextInputType.text,
+            controller: controller12,
+            ctx: context,
+            focusnode: f12,
+            focusfun: (_) {
+              f12.unfocus();
               FocusScope.of(context).requestFocus(f3);
             },
             action: TextInputAction.next,

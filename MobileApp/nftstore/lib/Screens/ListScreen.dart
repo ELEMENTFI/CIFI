@@ -48,6 +48,8 @@ class ListScreen extends StatelessWidget {
                 store.mydata.clear();
                 store.buyednft.clear();
                 Initial();
+                BuyedNft();
+              
               });
             },
             child: (data.isEmpty)

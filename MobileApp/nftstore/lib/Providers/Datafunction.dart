@@ -124,25 +124,6 @@ class Initial extends VxMutation<Mystore> {
                 ),
               );
             }
-          }).then((value) {
-            if (result.value['buyername'] == store.username) {
-              store.buyednft.add(
-                Nftdatas(
-                  nftname: store.nftname[k],
-                  price: result.value['Price'],
-                  wallet: result.value['WalletAddress'],
-                  contract: result.value['ContractAddress'],
-                  url: result.value['Image_url'],
-                  popular: result.value['Popular'],
-                  symbol: result.value['Nft_Symbol'],
-                  tokenid: result.value['Token'],
-                  user: result.value['user'],
-                  buyer: result.value['buyed'],
-                  buyeraddress: result.value['buyedowner'],
-                  buyername: result.value['buyername'],
-                ),
-              );
-            }
           });
         }
       });
@@ -194,25 +175,6 @@ class Initial extends VxMutation<Mystore> {
                 ),
               );
             }
-
-            if (result.value['buyername'] == store.username) {
-              store.buyednft.add(
-                Nftdatas(
-                  nftname: store.nftname[i],
-                  price: result.value['Price'],
-                  wallet: result.value['WalletAddress'],
-                  contract: result.value['ContractAddress'],
-                  url: result.value['Image_url'],
-                  popular: result.value['Popular'],
-                  symbol: result.value['Nft_Symbol'],
-                  tokenid: result.value['Token'],
-                  user: result.value['user'],
-                  buyer: result.value['buyed'],
-                  buyeraddress: result.value['buyedowner'],
-                  buyername: result.value['buyername'],
-                ),
-              );
-            }
           });
         }
       }
@@ -244,6 +206,38 @@ class Initial extends VxMutation<Mystore> {
       });
     } catch (e) {
       print(e);
+    }
+  }
+}
+
+class BuyedNft extends VxMutation<Mystore> {
+  final ref = FirebaseDatabase.instance.reference();
+  @override
+  perform() {
+    for (int i = 0; i < store.nftname.length; i++) {
+      ref.child('NFT').child(store.nftname[i]).once().then((result) {
+        print('worked');
+        if (result.value['buyername'] == store.username &&
+            store.username.length > 0) {
+          print(store.username);
+          store.buyednft.add(
+            Nftdatas(
+              nftname: store.nftname[i],
+              price: result.value['Price'],
+              wallet: result.value['WalletAddress'],
+              contract: result.value['ContractAddress'],
+              url: result.value['Image_url'],
+              popular: result.value['Popular'],
+              symbol: result.value['Nft_Symbol'],
+              tokenid: result.value['Token'],
+              user: result.value['user'],
+              buyer: result.value['buyed'],
+              buyeraddress: result.value['buyedowner'],
+              buyername: result.value['buyername'],
+            ),
+          );
+        }
+      });
     }
   }
 }

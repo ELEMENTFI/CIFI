@@ -54,6 +54,7 @@ class TextWidgetState extends State<TextWidget> {
   var username = AccountCreation.controller3;
   var password = AccountCreation.controller4;
   var repassword = AccountCreation.controller5;
+  var wallet = AccountCreation.controller12;
   var temp;
 
   void logindata(BuildContext ctx) async {
@@ -70,6 +71,12 @@ class TextWidgetState extends State<TextWidget> {
             'password': password.text,
             'phone_no': phoneno.text,
             'user_name': username.text,
+            
+          }).then((value) {
+            ref.child('User').child(email.text).set({
+              'user': username.text,
+              'wallet_address': wallet.text,
+            });
           }).then((value) => context.vxNav.push(Uri(path: '/')));
         }).then((value) {
           email.clear();
@@ -112,7 +119,7 @@ class TextWidgetState extends State<TextWidget> {
       'Token': 0,
       'buyed': 'false',
       'buyedowner': '',
-      'buyername':'',
+      'buyername': '',
     }).then((_) {
       ref.child('count').once().then((count) {
         int i = count.value;

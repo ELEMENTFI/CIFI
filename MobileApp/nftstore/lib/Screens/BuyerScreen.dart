@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:nftstore/Providers/Datafunction.dart';
@@ -33,10 +34,12 @@ class BuyerScreenState extends State<BuyerScreen> {
   static var wallet;
   static var user;
   var buyed;
+  static var email =
+      FirebaseAuth.instance.currentUser.email.toString().split('.');
+
   @override
   void initState() {
     super.initState();
-    print(widget.id);
     setState(() {
       name = widget.data[widget.index].nftname;
       url = widget.data[widget.index].url;
@@ -51,7 +54,7 @@ class BuyerScreenState extends State<BuyerScreen> {
 
   static nftsend() async {
     await launch(
-      'https://hungry-kalam-03b7d1.netlify.app/?setprice=transfer&nftname=$name',
+      'https://hungry-kalam-03b7d1.netlify.app/?setprice=transfer&nftname=$name&eamil=${email[0]}',
       forceSafariVC: false,
       forceWebView: false,
       enableJavaScript: true,
@@ -60,7 +63,7 @@ class BuyerScreenState extends State<BuyerScreen> {
 
   static nftbuy() async {
     await launch(
-      'https://hungry-kalam-03b7d1.netlify.app/?setprice=false&nftname=$name',
+      'https://hungry-kalam-03b7d1.netlify.app/?setprice=false&nftname=$name&eamil=${email[0]}',
       forceSafariVC: false,
       forceWebView: false,
       enableJavaScript: true,
@@ -196,8 +199,7 @@ class BuyerScreenState extends State<BuyerScreen> {
               : "PRICE"
                   .richText
                   .textStyle(theme.textTheme.headline1.copyWith(fontSize: 19))
-                  .make()
-                  .expand(),
+                  .make(),
           trailing: (widget.id == 1 && widget.data[widget.index].price == '')
               ? null
               : (widget.data[widget.index].price.toString())
@@ -205,30 +207,33 @@ class BuyerScreenState extends State<BuyerScreen> {
                   .textStyle(theme.textTheme.headline2)
                   .make(),
         ).p(10),
-        (buyed == true)
+        (buyed == 'true' && widget.id != 2)
             ? "This nft already buyed"
                 .text
                 .textStyle(Theme.of(context).textTheme.headline2)
                 .makeCentered()
-            : HStack(
-                [
-                  if (widget.id == 1) Button(label: 'send', id: 8),
-                  if (widget.data[widget.index].price == '')
-                    Button(
-                      label: (widget.id == 1 &&
-                              widget.data[widget.index].price == '')
-                          ? 'SALE'
-                          : 'BUY',
-                      id: 7,
-                      buy: (widget.id == 1 &&
-                              widget.data[widget.index].price == '')
-                          ? false
-                          : true,
-                    ),
-                ],
-                alignment: MainAxisAlignment.spaceAround,
-                axisSize: MainAxisSize.max,
-              )
+            : (widget.id == 2)
+                ? VxBox().make()
+                : HStack(
+                    [
+                      if (widget.id == 1) Button(label: 'send', id: 8),
+                      if (widget.data[widget.index].price == '' ||
+                          widget.data[widget.index].price != '')
+                        Button(
+                          label: (widget.id == 1 &&
+                                  widget.data[widget.index].price == '')
+                              ? 'SALE'
+                              : 'BUY',
+                          id: 7,
+                          buy: (widget.id == 1 &&
+                                  widget.data[widget.index].price == '')
+                              ? false
+                              : true,
+                        ),
+                    ],
+                    alignment: MainAxisAlignment.spaceAround,
+                    axisSize: MainAxisSize.max,
+                  )
       ]),
     );
   }
