@@ -312,10 +312,10 @@ const connectmm = async () => {
 
   
 const buynow= async(a) =>{
-
+//mactimum 0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83
 //eth 0xED3c6A02F152CaeA0f6F86EFADF55e638543DED3
   //bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
-    let gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
+    let gettrans=new web3.eth.Contract(tra,'0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83');
 
     //let gettrans=new web3.eth.Contract(tra,a.addOwnerAddress);
 
@@ -442,10 +442,10 @@ const buynow= async(a) =>{
   }
   
   
-  const filterSet=()=>{
-    alert("select   "+selected+"  "+selecteds)
+  // const filterSet=()=>{
+  //   alert("select   "+selected+"  "+selecteds)
 
-  }
+  // }
 
 
 
