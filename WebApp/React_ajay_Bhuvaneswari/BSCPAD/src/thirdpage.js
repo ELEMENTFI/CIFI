@@ -174,6 +174,12 @@ var acc1_object = {
          <p id ="balance">
 
          </p>
+         <h4>
+           Account
+         </h4>
+         <p>
+         {this.state.accounts}
+         </p>
        </div>
 
    </Card>
