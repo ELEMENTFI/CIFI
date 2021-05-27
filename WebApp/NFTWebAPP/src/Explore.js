@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useState,useEffect } from "react";
 //import history from "./utils/history";
 import web3 from './web3';
@@ -25,7 +26,12 @@ import Logo from './logo.svg';
 // import SearchBar from './SearchBar';
 //import CountryList from './CountryList';
 
+import "./App.css"
+import DarkMode from "./DarkMode"
+
 const Explore=({handleLogout})=> {
+
+  // const [initialData,setinitialDate]=useState('Sellers');
 
   //
   const [searchTerm,setSearchTerm]=useState('');
@@ -51,7 +57,7 @@ const Explore=({handleLogout})=> {
 //
   const [selected, setSelected] = React.useState("Sellers");
 
-  const [selecteds, setSelecteds] = React.useState("1 day");
+  const [selecteds, setSelecteds] = React.useState("1");
 
   const changeSelectOptionHandler = (event) => {
     setSelected(event.target.value);
@@ -93,6 +99,18 @@ const Explore=({handleLogout})=> {
  //console.log("initialgetaddress",getAddressDb)
  //console.log("ipname",name)
 
+const[getImgbuyers,setgetImgbuyers]=useState([]);
+const[getImbuyers,setgetImbuyers]=useState([]);//
+console.log("firb1",getImgbuyers)
+console.log("firb2",getImbuyers)
+
+
+
+const[getImgsellers,setgetImgsellers]=useState([]);
+const[getImsellers,setgetImsellers]=useState([]);//
+console.log("firs1",getImgsellers)
+console.log("firs2",getImsellers)
+
 const[getImgreff,setgetImgreff]=useState([]);
 const[getIm,setgetIm]=useState([]);
 console.log("fir1",getImgreff)
@@ -101,6 +119,109 @@ console.log("fir2",getIm)
 const[Loader,setLoader]=useState(false);
 let btn;
 var accounts;
+
+//buyers start
+
+const getbuyers = async() =>{
+  setLoader(true)
+  setLoading(true)
+  //window.location.reload(false)
+  let req = [];
+  let req2 = [];//imagerefexplore
+  firebase.database().ref("buyerssavedb").on("value", (data) => {
+    if (data) {
+      data.forEach((d) => {
+        req.push(d.val())          
+      });        
+    }
+  });
+  setgetImgbuyers(req)
+
+  getImgbuyers.map((a)=>{
+    console.log(`abb`, a)
+  
+    Object.keys(a).map((b)=>{
+    //  console.log(`bb`, b)
+      req2.push({
+        //addAcc:
+        addKeyI:a[b].keyId,
+        addPrices:a[b].priceSet,
+        addcAdd:a[b].cAddress,
+        addIds:a[b].id,
+        addImgs:a[b].imageUrl,
+      addUname:a[b].userName,
+    addUsymbol:a[b].userSymbol,
+  addIpfs:a[b].ipfsUrl,
+  addOwnerAddress:a[b].ownerAddress,
+  addsold:a[b].soldd,
+  addextra1:a[b].extra1,
+  adddate:a[b].datesets
+})              
+    })
+  })    
+  setgetImbuyers(req2)    
+  console.log("cfbb",req) 
+  setLoader(false)
+  setLoading(false)
+}
+useEffect(()=>{getbuyers()},[getImbuyers])
+
+
+
+
+
+//end buyers
+
+//sellers start
+
+const getSellers = async() =>{
+  setLoader(true)
+  setLoading(true)
+  //window.location.reload(false)
+  let req = [];
+  let req2 = [];//imagerefexplore
+  firebase.database().ref("sellerssavedb").on("value", (data) => {
+    if (data) {
+      data.forEach((d) => {
+        req.push(d.val())          
+      });        
+    }
+  });
+  setgetImgsellers(req)
+
+  getImgsellers.map((a)=>{
+    console.log(`abs`, a)
+  
+    Object.keys(a).map((b)=>{
+    //  console.log(`bb`, b)
+      req2.push({
+        //addAcc:
+        addKeyI:a[b].keyId,
+        addPrices:a[b].priceSet,
+        addcAdd:a[b].cAddress,
+        addIds:a[b].id,
+        addImgs:a[b].imageUrl,
+      addUname:a[b].userName,
+    addUsymbol:a[b].userSymbol,
+  addIpfs:a[b].ipfsUrl,
+  addOwnerAddress:a[b].ownerAddress,
+  addsold:a[b].soldd,
+  addextra1:a[b].extra1,
+  adddate:a[b].datesets
+})              
+    })
+  })    
+  setgetImsellers(req2)    
+  console.log("cfbs",req) 
+  setLoader(false)
+  setLoading(false)
+}
+useEffect(()=>{getSellers()},[getImsellers])
+
+
+
+//sellers stop
+
 const connectmm = async () => {
 
     //var getaddress=localStorage.getItem('myaddress')
@@ -124,7 +245,7 @@ const connectmm = async () => {
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
+        btn.innerHTML = accounts[0];
         localStorage.setItem('myaddress', accounts[0]);
       }
       else{
@@ -155,7 +276,7 @@ const connectmm = async () => {
 
     getImgreff.map((a)=>{
       console.log(`a`, a)
-    
+
       Object.keys(a).map((b)=>{
       //  console.log(`bb`, b)
       //   console.log(`bbnext`, a[b].imageUrl)
@@ -319,10 +440,90 @@ const buynow= async(a) =>{
   setFeedbackc('');
   setIsOpenFeed(true);
   }
-  const filterSet=()=>{
-    alert("select   "+selected+"  "+selecteds)
-  }
+  
+  
+
   const filterdata=()=>{
+
+    let getprice;
+    
+    if(selected === 'Sellers') {
+
+      if(selecteds === '1')
+      {
+          let data = getImsellers.filter((val)=>{
+          let date=moment()
+          let createddate=moment(val.adddate)
+          getprice = val.addPrices
+          for(let i=0;i<15;i++){
+
+          if(getprice >= 1)
+          // alert("price"+getprice)
+          return date===createddate 
+          }
+        })
+        return data;
+      }    
+        let data = getImsellers.filter((val)=>{
+          let date=moment().subtract(1,"days")
+          let weekdate=moment().subtract(parseInt(selecteds),"days")
+          let createddate=moment(val.adddate)
+          getprice = val.addPrices
+          for(let i=0;i<15;i++){
+
+            if(getprice >= 1)
+          // alert("price2"+getprice2)
+              return moment(createddate).isBetween(weekdate,date)
+
+          }
+           
+          
+        })
+
+        return data;    
+    }
+
+
+    if(selecteds === '1')
+    {
+      let data = getImbuyers.filter((val)=>{
+        let date=moment()
+        let createddate=moment(val.adddate)
+        getprice = val.addPrices
+        for(let i=0;i<15;i++){
+
+        if(getprice >= 1)
+        return date===createddate 
+        }
+      })
+      return data;
+    }    
+      let data = getImbuyers.filter((val)=>{
+
+        let date=moment().subtract(1,"days")
+        let weekdate=moment().subtract(parseInt(selecteds),"days")
+        let createddate=moment(val.adddate)
+        getprice = val.addPrices
+
+        for(let i=0;i<15;i++){
+
+        if(getprice >= 2)
+        return moment(createddate).isBetween(weekdate,date)
+      
+    }
+  })
+      return data;    
+
+
+
+    // alert("price2"+getprice)
+
+    //return getImbuyers;
+
+  }
+
+  const filterdatas=()=>{
+
     if(searchTerm === '') return getIm
     let data= getIm.filter((val)=>{
       return val.addUname.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
@@ -461,7 +662,10 @@ const buynow= async(a) =>{
               </button>
               </Link>
               {" "}
-              <button
+              <button style={{whitespace: 'nowrap', 
+  width:'200px', 
+  overflow:'hidden',
+  textoverflow:'ellipsis'}}
               id="bu"
                 class="btn btn-info btn-block"
                 type="button"
@@ -472,12 +676,13 @@ const buynow= async(a) =>{
 {/* <h2>Welcome</h2> */}
 <button onClick={handleLogout}>Logout</button>
 {/* </nav> */}
+
+
+
+
 </div>
 </div>
               <br></br>     
-<br></br>
-<br></br>
-<br></br>
 <div>
 <div>
     <Online>
@@ -508,18 +713,18 @@ const buynow= async(a) =>{
     </div>
 
 </div>
-<center>
+{/* <center> */}
 
-{isLoading ? <div>
-              <img style={{width:"300px",height:"300px"}} src="/4V0b.gif" alt=""/></div>:' '}
+{/* {isLoading ? <div>
+              <img style={{width:"300px",height:"300px"}} src="/4V0b.gif" alt=""/></div>:' '} */}
 
-</center>
-<div  style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
-<h3 style={{color:'skyblue'}}>Top &nbsp;
+{/* </center> */}
+<div  style={{backgroundColor:'white',marginBlock:'5px',display:'flex',width:'1500px'}}>
+<h4 style={{color:'skyblue'}}>Top &nbsp;
 
       <select onChange={changeSelectOptionHandler}>
-            <option>Sellers</option>
-            <option>Buyers</option>
+            <option value='Sellers'>Sellers</option>
+            <option value='Buyers'>Buyers</option>
           </select>
 
       &nbsp;in&nbsp;
@@ -527,22 +732,67 @@ const buynow= async(a) =>{
 {/* style={{color:'white'}} */}
 
       <select onChange={changeSelectOptionHandlers}>
-            <option>1 day</option>
-            <option>7 days</option>
-            <option>30 days</option>
+            <option value='1'>1 day</option>
+            <option value='8'>7 days</option>
+            <option value='32'>30 days</option>
           </select>
 
 &nbsp;
 
       {/* onClick={()=>{feedbackset()}} */}
 
-      <button type="button" onClick={()=>{filterSet()}}  style={{height:'5px',backgroundColor:'white',border:'none',color:'skyblue',fontSize:'15px'}}>Filter</button>
+      {/* <button type="button" onClick={()=>{filterSet()}}  style={{height:'5px',backgroundColor:'white',border:'none',color:'skyblue',fontSize:'15px'}}>Filter</button> */}
 
 
-      </h3>
+      </h4>
 
+
+</div>    
+
+{getImsellers.length === 0 ? null :( 
+  <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap',marginBottom:'5px'}}>
+{filterdata().map((a)=>{  
+    return (
+      <div style={{backgroundColor:'black',height:'360px',width:'300px',marginLeft:'60px',marginTop:'30px',marginBottom:'10px'}}>
+
+<div style={{border: '2px solid white',borderRadius:'5px',marginBottom:'10px'}}>
+
+<center>
+    <Link                  
+                  to={{   
+                    pathname: `/explore/${a.addKeyI}/${a.addOwnerAddress}`,
+                    //pathname: `/explore/${combine}`,
+                  }}
+                >
+    <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}} alt=""    />
+    </Link>
+    {/* <h5>hello{a[b].imageUrl}</h5> */}
+  
+    <h6 style={{color:'white'}}>Name : {a.addUname}</h6>
+    
+    <h6 style={{color:'white'}}>Symbol : {a.addUsymbol}</h6>
+    
+    <h6 style={{color:'white'}}>price : {a.addPrices}</h6>
+
+    {a.addsold === '' ? (
+<>
+{/* onClick={()=>buynow(a)} */}
+{ <button  >BuyNow</button> }
+  
+    {' '}
+</>
+    ):(
+
+      <h4 style={{color:'white'}}>Already solded</h4>
+    )}
+</center>
+</div>
+
+</div>
+)})}
   </div>
-
+)}
+  
 
 <div>
 
@@ -550,9 +800,11 @@ const buynow= async(a) =>{
 <h1>Loading.....</h1>
 : */}
 <>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 {getIm.length === 0 ? null :( 
-<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
-{filterdata().map((a)=>{
+<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap',marginBottom:'20px'}}>
+{/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
+{filterdatas().map((a)=>{
   console.log(`a`, a)
   // Object.keys(a).map((b)=>{
   //   console.log(`b`, b)
@@ -562,41 +814,55 @@ const buynow= async(a) =>{
 //  if(a.addsold === '')
 //  {
     return (
-      <div style={{backgroundColor:'black',height:'500px',width:'300px'}}>
-
+      
+      <div style={{backgroundColor:'black',height:'350px',width:'300px',marginLeft:'60px',marginBottom:'10px'}}>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <div style={{border: '2px solid white',borderRadius:'5px'}}>
 
+{/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
 <center>
+  
     <Link                  
                   to={{   
                     pathname: `/explore/${a.addKeyI}/${a.addOwnerAddress}`,
                     //pathname: `/explore/${combine}`,
                   }}
                 >
-    <img   src={a.addImgs}  style={{height:250,width:250,marginTop:'10px'}} alt=""    />
+    <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}} alt=""    />
+    
+    
     </Link>
     {/* <h5>hello{a[b].imageUrl}</h5> */}
   
-    <h3 style={{color:'white'}}>Name : {a.addUname}</h3>
+    <h6 style={{color:'white'}}>Name : {a.addUname}</h6>
     
-    <h3 style={{color:'white'}}>Symbol : {a.addUsymbol}</h3>
+    <h6 style={{color:'white'}}>Symbol : {a.addUsymbol}</h6>
     
-    <h3 style={{color:'white'}}>price : {a.addPrices}</h3>
+    <h6 style={{color:'white'}}>price : {a.addPrices}</h6>
 
     {a.addsold === '' ? (
 <>
 { <button onClick={()=>buynow(a)} >BuyNow</button> }
+
+
   
     {' '}
 </>
+
     ):(
 
-      <h4 style={{color:'white'}}>Already solded</h4>
+      <h6 style={{color:'white'}}>Already solded</h6>
+
+
     )}
     
     </center>
 
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 </div>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
     {isOpen && <Popup content={<>
         <b>Notification</b>
@@ -621,7 +887,7 @@ const buynow= async(a) =>{
   <div style={{backgroundColor:'white',height:'200px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
   <Footer/>
   <div>
-  <h3>Get the latest Rarible updates</h3>
+  <h4 style={{color:'black'}}>Get the latest Rarible updates</h4>
 &nbsp;
   <input
   placeholder='Your e-mail'
@@ -640,16 +906,25 @@ const buynow= async(a) =>{
 <div style={{marginLeft:'100px'}}>  
 
 <h4 style={{color:'black'}}>Rarible</h4>
-<h4 style={{color:'black'}}>Explore</h4>
-<h4 style={{color:'black'}}>How it works</h4>
-<h4 style={{color:'black'}}>Create</h4>
+
+<Link
+              to="/explore" style={{ textDecoration: 'none' }}><h4 style={{color:'black'}}>Explore</h4></Link>
+<Link
+style={{ textDecoration: 'none' }}
+              to="/howitworkpage"><h4 style={{color:'black'}}>How it works</h4></Link>
+<Link
+style={{ textDecoration: 'none' }}
+              to="/nft"><h4 style={{color:'black'}}>Create</h4></Link>
 <h4 style={{color:'black'}}>Support</h4>
 
 </div>
 
 <div style={{marginLeft:'200px'}}>  
 
-<h4 style={{color:'black'}}>Community</h4>
+
+<Link
+style={{ textDecoration: 'none' }}
+              to="/communitypage"><h4 style={{color:'black'}}>Community</h4></Link>
 <h4 style={{color:'black'}}>RARI Token</h4>
 <h4 style={{color:'black'}}>Discussion</h4>
 <h4 style={{color:'black'}}>Voting</h4>
@@ -658,6 +933,9 @@ const buynow= async(a) =>{
 </div>
 
 <div style={{marginLeft:'250px'}}>  
+
+
+<DarkMode />
 
 {/* <h4 style={{color:'black'}}>Language</h4> */}
 </div>

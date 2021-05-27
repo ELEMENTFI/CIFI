@@ -116,7 +116,9 @@ const DisplayData=()=>{
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
+        // btn.innerHTML = "CONNECTED"
+
+        btn.innerHTML = accounts[0];
 
 
         localStorage.setItem('myaddress', accounts[0]);
@@ -337,6 +339,10 @@ const DisplayData=()=>{
       
 
               <button
+              style={{whitespace: 'nowrap', 
+              width:'200px', 
+              overflow:'hidden',
+              textoverflow:'ellipsis'}}
               id="bu"
                 class="btn btn-info btn-block"
                 type="button"
