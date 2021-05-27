@@ -25,6 +25,7 @@ import Compress from "react-image-file-resizer";
 // import {Button} from 'react-bootstrap'
 // import Receivedpage from './Receivedpage';
 import Popup from './Popup';
+import nextId from "react-id-generator";
 
 
 function Nft() {
@@ -798,8 +799,17 @@ const onSubmitImage = async (event) => {
       var tb=currentSymbol;
       var tc='https://ipfs.io/ipfs/'+ipfsHash;
       var td=toaddress;
-      var te=tid;
+      //var te=tid;
       tf='https://ipfs.io/ipfs/'+ipfsHash;
+      //const id1 = nextId(); // id: id-1
+//const id2 = nextId("test-id-"); // id: test-id-2
+// const id3 = nextId(); // id: id-3
+
+
+      const id1 = nextId(); // id: id-1
+      let myString = id1.replace(/\D/g,'');
+      var te=myString;
+      alert(myString);
 
 
       if(Img === '')
@@ -2459,7 +2469,7 @@ id="nameid"
         <option value="ETH">ETH     </option> 
         <option value="BNB">BNB     </option>
         <option value="Maticmum">MATICMUM </option>
-        <option value="Algos">Algos</option>
+        {/* <option value="Algos">Algos</option> */}
       </select>
 {/* <input
   id="symbolid"
@@ -2474,7 +2484,8 @@ id="nameid"
 <br></br>
 
 
-<label for="id">NFT Token-Id   {' '}   </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+{/* <label for="id">NFT Token-Id   {' '}   </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <input
 id="idid"
@@ -2486,7 +2497,7 @@ id="idid"
 />
 
 <br></br>
-<br></br>
+<br></br> */}
 
 
 <form onSubmit={onSubmitImage}>

@@ -205,11 +205,18 @@ const setprice =async ()=>{
                 gasPrice:'10000000000'
               });
            // salepage.settokenstate();
-            await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
+            await getaaaa.methods.setTokenPrice([isd],price).send({
+              from:accounts[0],
+              gas: 51753,
+              gasPrice:'10000000000'
+
+            })
             const priceamount = await getaaaa.methods.items(isd).call();
             console.log(priceamount.price)
             // await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
-            await getaaaa.methods.approve(a.addcAdd,a.addIds).send({from:accounts[0]})
+            await getaaaa.methods.approve(a.addcAdd,a.addIds).send({
+              from:accounts[0]
+            })
 
             let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
             const keysellers = refsellers.push().key;
@@ -290,7 +297,7 @@ await getaaaa.methods.transferFrom(accounts[0],toaddressget,a.addIds).send({
     //alert("get"+a.addPrices);
   
     refsellers.child(keysellers).set({
-      id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+      id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,
       soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Buyers'
     })
 

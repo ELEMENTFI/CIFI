@@ -29,6 +29,15 @@ import Logo from './logo.svg';
 import "./App.css"
 //import DarkMode from "./DarkMode"
 
+import {
+  TwitterShareButton,
+  TwitterIcon,
+} from "react-share";
+
+
+
+// import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
+
 const Explore=({handleLogout})=> {
 
   // const [initialData,setinitialDate]=useState('Sellers');
@@ -510,6 +519,25 @@ const buynow= async(a) =>{
     return data;
   }
 
+  const testingdata =()=>{
+
+    //alert("testing data");
+
+  //  const crypto = require("crypto");
+
+//const id = crypto.randomBytes(1).toString("hex");
+
+//alert("idnumber     "+id); // => f9b327e70bbcf42494ccb28b2d98e00e
+
+
+//const id1 = nextId(); // id: id-1
+//const id2 = nextId("test-id-"); // id: test-id-2
+// const id3 = nextId(); // id: id-3
+
+// alert(id3)
+
+  }
+
   return (
     <>
 
@@ -869,7 +897,7 @@ const buynow= async(a) =>{
 <h4 style={{color:'black'}}>Create</h4>
 <h4 style={{color:'black'}}>Support</h4>
 
-</div>
+</div>  
 
 <div style={{marginLeft:'200px'}}>  
 
@@ -881,8 +909,45 @@ const buynow= async(a) =>{
 
 </div>
 
+
 <div style={{marginLeft:'250px'}}>  
 
+<div>
+
+{/* <Link to=" https://publish.twitter.com/"> */}
+
+{/* <h4 style={{color:'black'}}>twitter</h4> */}
+
+{/* <a style={{color:'black'}} class="btn-floating btn btn-tw" type="button" role="button" title="Share on twitter"
+   href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com"
+   rel="noopener">
+  <i class="fab fa-2x fa-twitter"></i>
+  twitter
+</a> */}
+
+{/* <a href="https://twitter.com/intent/tweet?url=link_to_be_shared">Share To Twitter</a> */}
+
+
+<TwitterShareButton
+              title="Hello everyone "
+             url="https://stackoverflow.com/"
+            >
+             
+              <TwitterIcon size={35} round />
+            </TwitterShareButton>    
+
+{/* </Link> */}
+
+<br></br>
+
+{/* <TelegramLoginButton
+    botName="test"
+    dataOnauth={(user: TelegramUser) => console.log(user)}
+  /> */}
+
+{/* <h4 style={{color:'black'}} onClick={testingdata}>Testing</h4> */}
+
+</div>
 
 {/* <DarkMode /> */}
 
