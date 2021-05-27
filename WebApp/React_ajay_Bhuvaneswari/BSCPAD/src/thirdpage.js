@@ -21,7 +21,8 @@ class home extends Component {
     circulatingsupply:'',
     name:'',
     symbol:'',
-    decimal:'' 
+    decimal:'' ,
+    name1:''
 
 
   };
@@ -38,28 +39,42 @@ class home extends Component {
     const decimal = await TESTToken.methods.decimals().call();
     const accounts = await  web3.eth.getAccounts();
 
-  
+  var name1;
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
    //fireDB.database().ref("acc1").child("balance").push(balance);
 //fireDB.database().ref("acc1").child("name").push(name);
 
 //var d=fireDB.database().ref().child("acc1").fetch(name);
+var firebase= fireDB.database().ref("acc1/name");
+firebase.once("value",  function(snapshot){
+  snapshot.forEach(function(element){
+    name1=element.val();
+    document.getElementById("name").innerHTML=name1;
+return(name1);
+})
+});
+var firebase= fireDB.database().ref("acc1/balance");
+firebase.once("value",  function(snapshot){
+  snapshot.forEach(function(element){
+  var  balance1=element.val();
+    document.getElementById("balance").innerHTML=balance1;
+return(name1);
+})
+});
 
 
 
     //const price=await testtoken.methods.getDollarPrice().call();
   
-    this.setState({totalsupply,balance,name,symbol,decimal,accounts});
+    this.setState({totalsupply,balance,name,symbol,decimal,accounts,name1 });
 
     var database = fireDB.database();
 var a= 1;
      
 //fireDB.database().ref().child(accounts).push(name);
 
-
-
-}
+  }
     
   
   
@@ -132,24 +147,46 @@ var acc1_object = {
          //var bal=Object.values(a[i]);
          // var name=Object.values(a);
           //alert(name);
-      document.getElementById("root").innerHTML =name;
+      
         
         })
       })
     }
     return (
-     <div class="bg-light">
-        <input type="text" id="save" class="Form-control"/>
-        <input type="text" id="save1" class="Form-control"/>
+     <div class=" text App" style={{backgroundColor:"white"}}>
+       <div class="container">
+       <h3 style={{color:"black"}}>Current sale</h3>
 
-        <button onClick={save}>save</button><br/>
-        <button onClick={get}>show</button>
-<br></br>
-<p id="root"></p>
+       <div class="row justify-content-center">
+         <div class="col-4  align-self-center">
+         <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:"gray",color:"black"}}  >
+
+       <div class="">
+         <h4>
+           Name:
+         </h4>
+         <p id ="name">
+
+         </p>
+         <h4>
+           Balance
+         </h4>
+         <p id ="balance">
+
+         </p>
+       </div>
+
+   </Card>
+   </div>
+   </div>
+      
+</div>
 </div>
     );
   }
 }
+
+
 
 
 export default home;
