@@ -98,7 +98,9 @@ class NFTCreation extends StatelessWidget {
             ).centered(),
             (context.percentHeight * 2).heightBox,
           ],
-        ).scrollVertical(),
+        ).scrollVertical().onTap(() {
+          FocusScope.of(context).unfocus();
+        }),
       ),
     );
   }

@@ -105,7 +105,8 @@ class Initial extends VxMutation<Mystore> {
           fs.collection('User').doc(user).get().then((value) {
             store.username = value['user_name'];
           }).then((value) {
-            if (result.value['user'] == store.username) {
+            if ((result.value['user'] == store.username) &&
+                (result.value['buyed'] == 'false')) {
               print('nftt' + k.toString());
               store.mydata.add(
                 Nftdatas(
@@ -156,7 +157,8 @@ class Initial extends VxMutation<Mystore> {
                 ),
               );
             }
-            if (result.value['user'] == store.username) {
+            if ((result.value['user'] == store.username) &&
+                (result.value['buyed'] == 'false')) {
               print('nftt' + i.toString());
               store.mydata.add(
                 Nftdatas(

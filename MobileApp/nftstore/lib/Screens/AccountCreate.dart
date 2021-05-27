@@ -63,7 +63,7 @@ class AccountCreation extends StatelessWidget {
             },
             action: TextInputAction.next,
           ),
-           TextWidget(
+          TextWidget(
             label: 'YOUR WALLET ADDRESS',
             id: 12,
             obsecure: false,
@@ -139,7 +139,9 @@ class AccountCreation extends StatelessWidget {
             alignment: MainAxisAlignment.spaceAround,
             axisSize: MainAxisSize.max,
           )
-        ]).scrollVertical(),
+        ]).scrollVertical().onTap(() {
+          FocusScope.of(context).unfocus();
+        }),
       ),
     );
   }

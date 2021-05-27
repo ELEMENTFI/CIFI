@@ -195,6 +195,8 @@ class _LoginState extends State<Login> {
               axisSize: MainAxisSize.max,
             )).square(500).make().p(40),
           ),
-        ]).scrollVertical());
+        ]).scrollVertical().onTap(() {
+          FocusScope.of(context).unfocus();
+        }));
   }
 }
