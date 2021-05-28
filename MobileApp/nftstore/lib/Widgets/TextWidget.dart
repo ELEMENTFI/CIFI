@@ -120,6 +120,7 @@ class TextWidgetState extends State<TextWidget> {
       'buyed': 'false',
       'buyedowner': '',
       'buyername': '',
+      'setPrice':'false',
     }).then((_) {
       ref.child('count').once().then((count) {
         int i = count.value;

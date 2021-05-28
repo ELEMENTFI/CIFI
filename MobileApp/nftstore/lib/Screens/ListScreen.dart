@@ -43,32 +43,39 @@ class ListScreen extends StatelessWidget {
           ],
         ),
         body: RefreshIndicator(
+            backgroundColor: theme.accentColor,
+            color: theme.cardColor,
             onRefresh: () {
               return Future.delayed(Duration(seconds: 3), () {
                 store.mydata.clear();
                 store.buyednft.clear();
                 Initial();
                 BuyedNft();
-              
               });
             },
-            child: (data.isEmpty)
-                ? (empttext.toString())
-                    .richText
-                    .textStyle(theme.textTheme.headline2.copyWith(fontSize: 18))
-                    .makeCentered()
-                    .shimmer()
-                : ListView.builder(
-                    itemCount: data.length,
-                    itemBuilder: (context, index) => CardWidget(
-                          price: data[index].price.toString(),
-                          nftname: data[index].nftname,
-                          nftsymbol: data[index].symbol,
-                          url: data[index].url,
-                          list: true,
-                        ).p(30).onTap(() => context.vxNav.push(
-                              Uri(path: '/buy'),
-                              params: [data, id, index],
-                            )))));
+            child: ListView.builder(
+                itemCount: data.length == 0 ? 1 : data.length,
+                itemBuilder: (context, index) {
+                  if (data.length != 0) {
+                    return CardWidget(
+                      price: data[index].price.toString(),
+                      nftname: data[index].nftname,
+                      nftsymbol: data[index].symbol,
+                      url: data[index].url,
+                      list: true,
+                    ).p(30).onTap(() => context.vxNav.push(
+                          Uri(path: '/buy'),
+                          params: [data, id, index],
+                        ));
+                  } else {
+                    return (empttext.toString())
+                        .richText
+                        .textStyle(
+                            theme.textTheme.headline2.copyWith(fontSize: 18))
+                        .makeCentered()
+                        .py(context.percentHeight * 35)
+                        .shimmer();
+                  }
+                })));
   }
 }

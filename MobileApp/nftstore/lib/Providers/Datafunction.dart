@@ -18,6 +18,7 @@ class Nftdatas {
   final buyer;
   final buyeraddress;
   final buyername;
+  final setprice;
   Nftdatas({
     @required this.nftname,
     @required this.price,
@@ -31,6 +32,7 @@ class Nftdatas {
     @required this.buyer,
     @required this.buyeraddress,
     @required this.buyername,
+    @required this.setprice,
   });
 }
 
@@ -82,7 +84,7 @@ class Initial extends VxMutation<Mystore> {
     for (int k = start; k < count; k++) {
       print('nft' + k.toString());
       ref.child('NFT').child(store.nftname[k]).once().then((result) {
-        if (result.value['Price'] != '') {
+        if ((result.value['Price'] != '')) {
           store.nftdatas.add(
             Nftdatas(
               nftname: store.nftname[k],
@@ -97,6 +99,7 @@ class Initial extends VxMutation<Mystore> {
               buyer: result.value['buyed'],
               buyeraddress: result.value['buyedowner'],
               buyername: result.value['buyername'],
+              setprice: result.value['setPrice'],
             ),
           );
         }
@@ -122,6 +125,7 @@ class Initial extends VxMutation<Mystore> {
                   buyer: result.value['buyed'],
                   buyeraddress: result.value['buyedowner'],
                   buyername: result.value['buyername'],
+                  setprice: result.value['setPrice'],
                 ),
               );
             }
@@ -154,6 +158,7 @@ class Initial extends VxMutation<Mystore> {
                   buyer: result.value['buyed'],
                   buyeraddress: result.value['buyedowner'],
                   buyername: result.value['buyername'],
+                  setprice: result.value['setPrice'],
                 ),
               );
             }
@@ -174,6 +179,7 @@ class Initial extends VxMutation<Mystore> {
                   buyer: result.value['buyed'],
                   buyeraddress: result.value['buyedowner'],
                   buyername: result.value['buyername'],
+                  setprice: result.value['setPrice'],
                 ),
               );
             }
@@ -236,6 +242,7 @@ class BuyedNft extends VxMutation<Mystore> {
               buyer: result.value['buyed'],
               buyeraddress: result.value['buyedowner'],
               buyername: result.value['buyername'],
+              setprice: result.value['setPrice'],
             ),
           );
         }

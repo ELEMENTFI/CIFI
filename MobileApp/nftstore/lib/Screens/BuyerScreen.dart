@@ -217,7 +217,8 @@ class BuyerScreenState extends State<BuyerScreen> {
                 : HStack(
                     [
                       if (widget.id == 1) Button(label: 'send', id: 8),
-                      if (widget.id == 0)
+                      if (widget.data[widget.index].setprice != 'true' ||
+                          widget.id == 0)
                         Button(
                           label: (widget.id == 1 &&
                                   widget.data[widget.index].price == '')
@@ -234,8 +235,8 @@ class BuyerScreenState extends State<BuyerScreen> {
                     axisSize: MainAxisSize.max,
                   )
       ]).onTap(() {
-          FocusScope.of(context).unfocus();
-        }),
+        FocusScope.of(context).unfocus();
+      }),
     );
   }
 }
