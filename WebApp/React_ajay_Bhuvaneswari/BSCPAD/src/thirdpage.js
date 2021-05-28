@@ -158,8 +158,8 @@ var acc1_object = {
        <h3 style={{color:"black"}}>Current sale</h3>
 
        <div class="row justify-content-center">
-         <div class="col-4  align-self-center">
-         <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:"gray",color:"black"}}  >
+         <div class="col-4 align-self-center">
+         <Card class="mt-2  shadow" style={{ width: '20rem' , padding: "25px",backgroundColor:"white",color:"black"}}>
 
        <div class="">
          <h4>
