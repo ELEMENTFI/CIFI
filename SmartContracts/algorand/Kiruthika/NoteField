@@ -15,7 +15,7 @@ import org.json.JSONObject;
  
  
     /** 
-      * Initialize an algod clients 
+      * Initialize an algod client
       */ 
      private AlgodClient connectToNetwork() { 
         final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";          
