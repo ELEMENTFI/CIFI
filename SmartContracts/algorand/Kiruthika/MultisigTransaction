@@ -64,7 +64,7 @@ static  final String SANDBOX_ALGOD_API_TOKEN ="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     SignedTransaction completeTransaction=approveMultisigTransaction(account1,signedTransaction,multisigAddress);
     submitTransactionToNetwork(completeTransaction);
 
-    //print out multisig Address balance and receiver address balance after transactions
+    //print out multisig Address balance and receiver address balance after transaction
     Long multisigBalanceAfterTransaction=getAccountBalance(multisigAddress.toAddress(), algodClient);
     long receiverBalanceAfterTransaction=getAccountBalance(new Address(receiverAddress),algodClient);
     System.out.println("multisigBalanceAfterTransaction: "+multisigBalanceAfterTransaction);
