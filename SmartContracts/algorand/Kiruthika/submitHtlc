@@ -18,7 +18,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 /**
- * Sign and Submit a transaction examples using HTLC
+ * Sign and Submit a transaction example using HTLC
  *
  */
 public class SubmitHtlcTransaction 
