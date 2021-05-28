@@ -182,6 +182,8 @@ const setprice =async ()=>{
 
   setIsOpensetFirst(false)
 
+  let mynetworks =  localStorage.getItem('mynetwork');
+
              var isd = a.addIds;//a
              console.log("targetid",isd)
 
@@ -211,11 +213,13 @@ const setprice =async ()=>{
               gasPrice:'10000000000'
 
             })
-            const priceamount = await getaaaa.methods.items(isd).call();
-            console.log(priceamount.price)
+            //const priceamount = await getaaaa.methods.items(isd).call();
+            //console.log(priceamount.price)
             // await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
             await getaaaa.methods.approve(a.addcAdd,a.addIds).send({
-              from:accounts[0]
+              from:accounts[0],
+              gas: 51753,
+              gasPrice:'10000000000'
             })
 
             let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
@@ -253,6 +257,8 @@ const send=async()=>{
 
   setIsOpensetsend(false)
 
+  let mynetworks =  localStorage.getItem('mynetwork');
+
   let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
 
   const accounts = await  web3.eth.getAccounts();
@@ -270,11 +276,39 @@ const send=async()=>{
     alert("you are entered owner address so you does not send this address")
 
   }else{
-//eth
-    // await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
-    //   from:accounts[0]
 
-    // });
+
+    if(mynetworks === "ETH"){
+
+      //eth
+    await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
+      from:accounts[0]
+
+    });
+
+
+    }
+    else if(mynetworks === "BNB"){
+
+      //bnb
+    await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
+      from:accounts[0]
+
+    });
+
+
+    }
+    else if(mynetworks === "Maticmum"){
+
+      await getaaaa.methods.transferFrom(accounts[0],toaddressget,a.addIds).send({
+        from:accounts[0]
+      });  
+      
+
+    }
+    else{
+
+    }
 
     //mactimum
     // await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
@@ -286,9 +320,6 @@ const send=async()=>{
 
   
 
-await getaaaa.methods.transferFrom(accounts[0],toaddressget,a.addIds).send({
-  from:accounts[0]
-});  
     console.log("checkinga",a.addOwnerAddress)
 
     let refsellers=fireDb.database().ref(`buyerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
@@ -307,8 +338,11 @@ await getaaaa.methods.transferFrom(accounts[0],toaddressget,a.addIds).send({
         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
         userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed",addPoAddress:accounts[0],
         datesets:new Date().toDateString(),whois:'Buyers'
-      })
+      });
 
+      //alert("a.addkeyI"+a.addKeyI);
+
+      fireDb.database().ref('imagerefexplore').child(accounts[0]).child(a.addKeyI).remove();
 
       fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove().then(()=> {
         settsAddress("")
@@ -325,6 +359,8 @@ await getaaaa.methods.transferFrom(accounts[0],toaddressget,a.addIds).send({
 //update prize
 
 const setprices =async ()=>{
+
+  //let mynetworks =  localStorage.getItem('mynetwork');
 
 
 var isd = a.addIds;//a
@@ -559,13 +595,19 @@ return (
   {' '}
   <br></br>
   
-  <h5 style={{color:'white'}}>Name : {a.addName}</h5>
+  <h5 style={{color:'white'}}>Name : {a.addName}
+
+  <h5 style={{color:'white'}}>Token : {a.addIds}
     
-    <h5 style={{color:'white'}}>Symbol : {a.addSymbol}</h5>
+    <h5 style={{color:'white'}}>Symbol : {a.addSymbol}
     
-    <h5 style={{color:'white'}}>price : {a.addPrices}</h5>
+    <h3 style={{color:'white'}}>price : {a.addPrices}</h3>
 
     <h5 style={{color:'white'}}>address: {a.addAddress}</h5>
+    </h5>
+
+    </h5>
+    </h5>
     
 
     {/* <button onClick={()=>setprice(a)} style={{width:'80px',height:'43px'}} >SetPrice</button>   */}
@@ -737,6 +779,8 @@ return (
 </div>
 
 <div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+{/* <h5 style={{Color:'black'}} onClick={()=>{alert("hello alert ")}}>Hello {window.name}</h5> */}
 
   <Footer/>
   

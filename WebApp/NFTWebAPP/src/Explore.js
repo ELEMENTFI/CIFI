@@ -40,6 +40,9 @@ import {
 
 const Explore=({handleLogout})=> {
 
+
+  window.name = "John";
+
   // const [initialData,setinitialDate]=useState('Sellers');
 
   //
@@ -321,10 +324,31 @@ const connectmm = async () => {
 
   
 const buynow= async(a) =>{
-//mactimum 0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83
-//eth 0xED3c6A02F152CaeA0f6F86EFADF55e638543DED3
-  //bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
-    let gettrans=new web3.eth.Contract(tra,'0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83');
+
+  let mynetworks =  localStorage.getItem('mynetwork');
+
+  alert("network check  "+mynetworks);
+
+  let gettrans="";
+
+  if(mynetworks === "BNB"){
+//bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
+gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
+
+  }
+  else if(mynetworks === "ETH"){
+    //eth 0xED3c6A02F152CaeA0f6F86EFADF55e638543DED3
+    gettrans=new web3.eth.Contract(tra,'0xED3c6A02F152CaeA0f6F86EFADF55e638543DED3');
+
+  }
+  else if(mynetworks === "Maticmum"){
+
+    //mactimum 0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83
+    gettrans=new web3.eth.Contract(tra,'0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83');
+
+  }
+  
+    //let gettrans=new web3.eth.Contract(tra,'0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83');
 
     //let gettrans=new web3.eth.Contract(tra,a.addOwnerAddress);
 
@@ -829,11 +853,24 @@ const buynow= async(a) =>{
     </Link>
     {/* <h5>hello{a[b].imageUrl}</h5> */}
   
-    <h6 style={{color:'white'}}>Name : {a.addUname}</h6>
+    {/* <h6 style={{color:'white'}}>Name : {a.addUname}</h6>
     
     <h6 style={{color:'white'}}>Symbol : {a.addUsymbol}</h6>
     
-    <h6 style={{color:'white'}}>price : {a.addPrices}</h6>
+    <h6 style={{color:'white'}}>price : {a.addPrices}</h6> */}
+    <h5 style={{color:'white'}}>Name : {a.addUname}
+
+<h5 style={{color:'white'}}>Token : {a.addIds}
+  
+  <h5 style={{color:'white'}}>Symbol : {a.addUsymbol}
+  
+  <h3 style={{color:'white'}}>price : {a.addPrices}</h3>
+
+  <h4 style={{color:'white'}}>address: {a.addOwnerAddress}</h4>
+  </h5>
+
+  </h5>
+  </h5>
 
     {a.addsold === '' ? (
 <>

@@ -30,13 +30,14 @@ import nextId from "react-id-generator";
 
 function Nft() {
 
+  const [isWork, setisWork] = useState(false)
 
+  window.name = "1";
 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
 
   const [isLoading, setLoading] = useState(false)
 
@@ -790,7 +791,33 @@ const onSubmitImage = async (event) => {
       //new write below
 
       const accounts = await web3.eth.getAccounts();
+
+      var refName = fireDb.database().ref();
+
+      //let rootRef = firebase.database().ref();
+
+// refName
+//   .child('nftname')
+//   .orderByChild('name')
+//   .equalTo(tname)
+//   .once('value')
+//   .then(snapshot => {
+//     if (snapshot.exists()) {
+//       let userData = snapshot.val();
+//       console.log(userData);
+//       //alert('Your NFT name is already taken try another Name ?'+userData);
+//       return userData;
+//     } else {
+      
+//       setisWork(true);
+//     }
+//   }); 
     
+
+
+  //if(isWork){
+
+  
     
       //alert("waiting for pic url"); 
     
@@ -806,11 +833,30 @@ const onSubmitImage = async (event) => {
 // const id3 = nextId(); // id: id-3
 
 
-      const id1 = nextId(); // id: id-1
-      let myString = id1.replace(/\D/g,'');
-      var te=myString;
-      alert(myString);
+      //const id1 = nextId(); // id: id-1
+      //let myString = id1.replace(/\D/g,'');
+      //var te=myString;
+      //alert(myString);
+      //const getw=window.name;
+      //window.name= (parseInt(getw)+parseInt(1));
+      //alert("window  "+ window.name);
+      //alert("window and plus one "+getw);
 
+      let ref23=fireDb.database().ref(`tokenkey`);      
+      let getfire="";
+      let setfire="";
+      fireDb.database().ref(`tokenkey`).on("value", (data) => {
+        if (data) {
+           data.forEach((d) => {
+            getfire=d.val();
+          });        
+        }
+      });
+      //alert("")
+      setfire= (parseInt(getfire)+parseInt(1));
+      //alert("your token"+setfire+"getfire"+getfire);
+      ref23.update({id:setfire.toString()});
+      var te= parseInt(getfire);
 
       if(Img === '')
       {
@@ -819,13 +865,10 @@ const onSubmitImage = async (event) => {
 
       }
       else{
-
-
         var getaddress=localStorage.getItem('myaddress')
 
     //alert("getdata from SYMBOL  "+tb);
     
-
     if(tb==="BNB")
     {
 
@@ -836,7 +879,7 @@ const onSubmitImage = async (event) => {
         })
       .send({
       from: accounts[0],
-      gas: 6241620,//9088550,
+      //gas: 6241620,//9088550,
       //gasPrice:'10' //'1000000000'
     })
     .then(function(newContractInstance){
@@ -1967,9 +2010,10 @@ const onSubmitImage = async (event) => {
     
     var geta=new web3.eth.Contract(abi,address);
 
+    localStorage.setItem('mynetwork',tb);
+    
 
-
-    alert("check maticmum"+address);
+    //alert("check maticmum"+address);
     
     
     //let a=this.state.toaddress;
@@ -2011,6 +2055,11 @@ const onSubmitImage = async (event) => {
                         });
                       
                     
+                        let nftname=fireDb.database().ref(`nftname`);
+                        const nftdb = nftname.push().key;
+                        nftname.child(nftdb).set({name:tname});
+
+                      
 
                         let ref2=fireDb.database().ref(`imageref/${accounts[0]}`);
 
@@ -2056,8 +2105,15 @@ const onSubmitImage = async (event) => {
 
      //window.location.reload(false)
 
+     
+
 
       }
+
+    // }
+    // else{
+    //   alert("please try another Name");
+    // }    
       
       
 }
@@ -2259,6 +2315,26 @@ alert("alert message"+ await geta.methods.message().call());
     
 
   
+  const testingdata=async()=>{
+
+    //alert("testing data");
+
+    // let ref23=fireDb.database().ref(`tokenkey`);
+                
+
+    //                     ref23.set({id:"0"});
+
+    //let ref23=fireDb.database().ref(`tokenkey`);
+
+    // fireDb.database().ref(`tokenkey`).on("value", (data) => {
+    //   if (data) {
+    //      data.forEach((d) => {
+    //       alert(d.val());
+    //     });        
+    //   }
+    // });
+
+  }
 
 
   return (
@@ -2723,6 +2799,7 @@ id="idid"
 
         
 
+<h4 style={{color:'white'}} onClick={testingdata}>Testing</h4>
 
       </div>      
     
