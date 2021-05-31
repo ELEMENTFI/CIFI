@@ -50,6 +50,7 @@ class BuyerScreenState extends State<BuyerScreen> {
       user = widget.data[widget.index].user;
       buyed = widget.data[widget.index].buyer;
     });
+    Search(true);
   }
 
   static nftsend() async {

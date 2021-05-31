@@ -5,7 +5,7 @@ import '../Widgets/Card.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 // ignore: must_be_immutable
-class ListScreen extends StatelessWidget {
+class ListScreen extends StatefulWidget {
   final id;
   final data;
   final empttext;
@@ -17,30 +17,73 @@ class ListScreen extends StatelessWidget {
       : super(key: key);
 
   @override
+  _ListScreenState createState() => _ListScreenState();
+}
+
+class _ListScreenState extends State<ListScreen> {
+  List<Nftdatas> datas;
+  List<Nftdatas> showdata;
+  @override
+  void initState() {
+    super.initState();
+    datas = widget.data;
+    showdata = widget.data;
+    print('li');
+  }
+
+  datachange() {
+    setState(() {
+      datas = widget.data;
+      showdata = widget.data;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     final auth = FirebaseAuth.instance;
     Mystore store = VxState.store;
+    if (widget.id != null && store.search == false) {
+      datachange();
+      print(widget.id);
+    }
     return Scaffold(
         backgroundColor: theme.primaryColor,
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.logout,
-                  color: theme.accentColor,
-                ),
-                onPressed: () {
-                  auth.signOut();
-                  store.buyednft.clear();
-                  store.nftname.clear();
-                  store.nftdatas.clear();
-                  store.mydata.clear();
-                  store.username = '';
-                  store.count = 0;
-                  print('loged out');
-                }),
-          ],
+        appBar: VxAppBar(
+          searchBar: true,
+          searchHintText: 'SEARCH NFT HERE...',
+          searchTextStyle: theme.textTheme.headline2.copyWith(fontSize: 12),
+          searchHintStyle: theme.textTheme.headline2.copyWith(fontSize: 12),
+          onSubmitted: (_) {
+            if (widget.id != 0) datachange();
+          },
+          onChanged: (value) {
+            setState(() {
+              try {
+                store.search != false ? Search(false) : Search(true);
+                showdata = datas
+                    .where((element) => element.nftname.contains(value))
+                    .toList();
+              } catch (e) {
+                print(e);
+              }
+            });
+          },
+          leading: IconButton(
+              icon: Icon(
+                Icons.logout,
+                color: theme.cardColor,
+              ),
+              onPressed: () {
+                auth.signOut();
+                store.buyednft.clear();
+                store.nftname.clear();
+                store.nftdatas.clear();
+                store.mydata.clear();
+                store.username = '';
+                store.count = 0;
+                print('loged out');
+              }),
         ),
         body: RefreshIndicator(
             backgroundColor: theme.accentColor,
@@ -54,21 +97,21 @@ class ListScreen extends StatelessWidget {
               });
             },
             child: ListView.builder(
-                itemCount: data.length == 0 ? 1 : data.length,
+                itemCount: showdata.length == 0 ? 1 : showdata.length,
                 itemBuilder: (context, index) {
-                  if (data.length != 0) {
+                  if (showdata.length != 0) {
                     return CardWidget(
-                      price: data[index].price.toString(),
-                      nftname: data[index].nftname,
-                      nftsymbol: data[index].symbol,
-                      url: data[index].url,
+                      price: showdata[index].price.toString(),
+                      nftname: showdata[index].nftname,
+                      nftsymbol: showdata[index].symbol,
+                      url: showdata[index].url,
                       list: true,
                     ).p(30).onTap(() => context.vxNav.push(
                           Uri(path: '/buy'),
-                          params: [data, id, index],
+                          params: [showdata, widget.id, index],
                         ));
                   } else {
-                    return (empttext.toString())
+                    return (widget.empttext.toString())
                         .richText
                         .textStyle(
                             theme.textTheme.headline2.copyWith(fontSize: 18))

@@ -15,10 +15,11 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int index = 0;
 
-  changeindex(int cindex) {
+  changeindex(int cindex, store) {
     setState(() {
       index = cindex;
     });
+    store.search == false ? Search(false) : Search(true);
   }
 
   @override
@@ -72,21 +73,21 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.functions_sharp,
-              color: Colors.blue,
+              color: Colors.white,
             ),
             label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.store_rounded,
-              color: Colors.blue,
+              color: Colors.white,
             ),
             label: 'My Items',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.storage,
-              color: Colors.blue,
+              color: Colors.white,
             ),
             label: 'byed nft',
           ),
@@ -95,7 +96,7 @@ class _MainPageState extends State<MainPage> {
         selectedItemColor: theme.accentColor,
         showSelectedLabels: true,
         showUnselectedLabels: false,
-        onTap: changeindex,
+        onTap: (ci) => changeindex(ci, data),
         backgroundColor: theme.primaryColor,
       ),
       floatingActionButton: (index == 1)

@@ -64,6 +64,7 @@ class Mystore extends VxStore {
   bool image = false;
   bool sign = false;
   var count = 0;
+  bool search = false;
   var start;
   String username;
 }
@@ -255,5 +256,14 @@ class Authstate extends VxMutation<Mystore> {
   @override
   perform() {
     store.sign = !store.sign;
+  }
+}
+
+class Search extends VxMutation<Mystore> {
+  final bool change;
+  Search(this.change);
+  @override
+  perform() {
+    if (change == true) store.search = !store.search;
   }
 }
