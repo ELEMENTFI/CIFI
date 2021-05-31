@@ -21,7 +21,7 @@ public class SubmitLimitTransaction
     public static void main(String args[]) throws Exception {
         // Setup conection parameters
         final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";
-        final String ALGOD_API_TOKEN = "usat0kaLvk8eIBpk7XuwXawXu0xRw9n88vYqNFaR";
+        final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         // Instaniate the algod wrapper
         AlgodClient client = (AlgodClient) new AlgodClient().setBasePath(ALGOD_API_ADDR);
         ApiKeyAuth api_key = (ApiKeyAuth) client.getAuthentication("api_key");
