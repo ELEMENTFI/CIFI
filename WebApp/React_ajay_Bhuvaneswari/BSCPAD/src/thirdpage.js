@@ -37,24 +37,28 @@ class home extends Component {
     const balance = await web3.eth.getBalance(tokencontract.options.address);
     const totalsupply = await tokencontract.methods.totalSupply().call();
     const decimal = await TESTToken.methods.decimals().call();
-    const accounts = await  web3.eth.getAccounts();
+    var accounts = await  web3.eth.getAccounts();
 
   var name1;
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
-   //fireDB.database().ref("acc1").child("balance").push(balance);
-//fireDB.database().ref("acc1").child("name").push(name);
+    var ss=String(accounts);
+   fireDB.database().ref(ss).child("Balance").set({"Balance":balance});
+fireDB.database().ref(ss).child("Name").set({"Name":name});
+fireDB.database().ref(ss).child("ggg").set({"Total Supply":totalsupply});
+fireDB.database().ref(ss).child("Decimal").set({"Decimal":decimal});
+fireDB.database().ref(ss).child("Symbol").set({"Symbol":symbol});
+ 
 
-//var d=fireDB.database().ref().child("acc1").fetch(name);
-var firebase= fireDB.database().ref("acc1/name");
-firebase.once("value",  function(snapshot){
-  snapshot.forEach(function(element){
-    name1=element.val();
-    document.getElementById("name").innerHTML=name1;
-return(name1);
-})
-});
-var firebase= fireDB.database().ref("acc1/balance");
+
+
+
+
+//var d=fireDB.database().ref("acc1").child("Name").once('value').val();
+//var n =  d.child("Name").once('value').val();
+//alert(d);
+
+/*var firebase= fireDB.database().ref("acc1");
 firebase.once("value",  function(snapshot){
   snapshot.forEach(function(element){
   var  balance1=element.val();
@@ -62,16 +66,40 @@ firebase.once("value",  function(snapshot){
 return(name1);
 })
 });
+*/
+var firebase= fireDB.database().ref(ss);
+firebase.child("Balance").once("value",  function(snapshot){
+  snapshot.forEach(function(element){
+  var  balance1=element.val();
+  balance1=Object.values(balance1);
+    document.getElementById("balance").innerHTML=balance1;
+    //alert(balance1);
 
+})
+});
 
+var a= firebase.child("Name").on("value",function(snapshot){
+  var n=snapshot.val();
+  n=Object.values(n);
+  document.getElementById("name").innerHTML=n;
+});
+var a= firebase.child("ggg").on("value",function(snapshot){
+  var n=snapshot.val();
+  n=Object.values(n);
+  document.getElementById("ts").innerHTML=n;
+});var a= firebase.child("Symbol").on("value",function(snapshot){
+  var n=snapshot.val();
+  n=Object.values(n);
+  document.getElementById("symbol").innerHTML=n;
+});
 
     //const price=await testtoken.methods.getDollarPrice().call();
-  
+
     this.setState({totalsupply,balance,name,symbol,decimal,accounts,name1 });
 
     var database = fireDB.database();
 var a= 1;
-     
+  
 //fireDB.database().ref().child(accounts).push(name);
 
   }
@@ -154,12 +182,12 @@ var acc1_object = {
     }
     return (
      <div class=" text App" style={{backgroundColor:"white"}}>
-       <div class="container">
+       <div class="container"><br/>
        <h3 style={{color:"black"}}>Current sale</h3>
 
        <div class="row justify-content-center">
-         <div class="col-4 align-self-center">
-         <Card class="mt-2  shadow" style={{ width: '20rem' , padding: "25px",backgroundColor:"white",color:"black"}}>
+         <div class="col-4  align-self-center">
+         <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:"gray",color:"black"}}  >
 
        <div class="">
          <h4>
@@ -169,16 +197,22 @@ var acc1_object = {
 
          </p>
          <h4>
+           Symbol:
+         </h4>
+         <p id ="symbol">
+
+         </p>
+         <h4>
+           Total Supply:
+         </h4>
+         <p id ="ts">
+
+         </p>
+         <h4>
            Balance
          </h4>
          <p id ="balance">
 
-         </p>
-         <h4>
-           Account
-         </h4>
-         <p>
-         {this.state.accounts}
          </p>
        </div>
 
