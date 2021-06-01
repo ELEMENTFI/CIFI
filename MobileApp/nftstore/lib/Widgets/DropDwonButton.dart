@@ -20,7 +20,7 @@ class _DropButonState extends State<DropButon> {
       underline: VxBox().color(theme.primaryColor).make(),
       style: theme.textTheme.headline2,
       iconEnabledColor: theme.accentColor,
-      items: <String>['', 'ETH', 'BNB', 'ALGOREN']
+      items: <String>['', 'ETH', 'BNB', 'MATIC']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
