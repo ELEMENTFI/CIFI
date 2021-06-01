@@ -281,7 +281,6 @@ const waitForConfirmation = async function (algodclient, txId) {
     }
 };
 
-
 // Function used to print created asset for account and assetid
 const printCreatedAsset = async function (algodclient, account, assetid) {
     // note: if you have an indexer instance available it is easier to just use this
@@ -633,14 +632,10 @@ setIsOpen(true);
 
   }
 
-
-  
-
   let btn;
   var accounts;
 
-
-  const connectmm = async () => {
+const connectmm = async () => {
 
 
     //var getaddress=localStorage.getItem('myaddress')
