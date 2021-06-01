@@ -98,6 +98,7 @@ var x = setInterval(function() {
 
 
 
+
   //  var x = document.getElementById('myDIV').style.visibility = "hidden";
   var bigInt = require("big-integer");
     var amount1;

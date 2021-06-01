@@ -38,18 +38,28 @@ class home extends Component {
     const totalsupply = await tokencontract.methods.totalSupply().call();
     const decimal = await TESTToken.methods.decimals().call();
     var accounts = await  web3.eth.getAccounts();
+    const At = await TESTToken.methods.balanceOf("0x664F6Bf102eF9510F4114dd5321117599eFb2336").call();
 
   var name1;
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
-    var ss=String(accounts);
+    var ss="0xDdA931cFFDEa169bBe5a941F4658C5265943ccB1"
    fireDB.database().ref(ss).child("Balance").set({"Balance":balance});
 fireDB.database().ref(ss).child("Name").set({"Name":name});
 fireDB.database().ref(ss).child("ggg").set({"Total Supply":totalsupply});
 fireDB.database().ref(ss).child("Decimal").set({"Decimal":decimal});
 fireDB.database().ref(ss).child("Symbol").set({"Symbol":symbol});
  
+if(At==0){
+  var availtk=At/1000000000;
+     
 
+  var a=5-availtk;
+  
+  var a1=a/1000000000;
+  var p=a/5;
+  
+}
 
 
 
@@ -176,7 +186,6 @@ var acc1_object = {
          // var name=Object.values(a);
           //alert(name);
       
-        
         })
       })
     }
@@ -225,8 +234,5 @@ var acc1_object = {
     );
   }
 }
-
-
-
 
 export default home;
