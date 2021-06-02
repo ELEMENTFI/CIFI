@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 //import secondpage from './secondpage';
 import './App.css';
 import fireDB from './firebase.js';
-
+import card from './card1';
 import web3 from './web3';
 import tokencontract from './tokencontract';
 import TESTToken from './TESTToken';
@@ -43,13 +43,15 @@ class home extends Component {
   var name1;
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
-    var ss="0xDdA931cFFDEa169bBe5a941F4658C5265943ccB1"
+    var ss="3"
    fireDB.database().ref(ss).child("Balance").set({"Balance":balance});
 fireDB.database().ref(ss).child("Name").set({"Name":name});
 fireDB.database().ref(ss).child("ggg").set({"Total Supply":totalsupply});
 fireDB.database().ref(ss).child("Decimal").set({"Decimal":decimal});
 fireDB.database().ref(ss).child("Symbol").set({"Symbol":symbol});
- 
+fireDB.database().ref(ss).child("Symbol").set({"Symbol":symbol});
+fireDB.database().ref(ss).child("At").set({"At":At});
+
 if(At==0){
   var availtk=At/1000000000;
      
@@ -61,51 +63,55 @@ if(At==0){
   
 }
 
+var i;
+for(i=1;i<=5;i++){
+
+  
+  var v=String(i);
+  var firebase= fireDB.database().ref(v);
+  firebase.child("Balance").once("value",  function(snapshot){
+    snapshot.forEach(function(element){
+    var  balance1=element.val();
+    balance1=Object.values(balance1);
+      //document.getElementById("balance").innerHTML=balance1;
+      //alert(balance1);
+  
+  })
+  });
+  firebase.child("At").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);}
+    if(n==0){
+      document.getElementById("demo").innerHTML=""
+    }
+   // document.getElementById("name").innerHTML=n;
+  });
+
+   firebase.child("Name").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);}
+    
+   // document.getElementById("name").innerHTML=n;
+  });
+  firebase.child("ggg").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);}    //document.getElementById("ts").innerHTML=n;
+  });
+  firebase.child("Symbol").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);}    //document.getElementById("symbol").innerHTML=n;
+  });
+  
+
+
+}
 
 
 
-//var d=fireDB.database().ref("acc1").child("Name").once('value').val();
-//var n =  d.child("Name").once('value').val();
-//alert(d);
-
-/*var firebase= fireDB.database().ref("acc1");
-firebase.once("value",  function(snapshot){
-  snapshot.forEach(function(element){
-  var  balance1=element.val();
-    document.getElementById("balance").innerHTML=balance1;
-return(name1);
-})
-});
-*/
-var firebase= fireDB.database().ref(ss);
-firebase.child("Balance").once("value",  function(snapshot){
-  snapshot.forEach(function(element){
-  var  balance1=element.val();
-  balance1=Object.values(balance1);
-    document.getElementById("balance").innerHTML=balance1;
-    //alert(balance1);
-
-})
-});
-
-var a= firebase.child("Name").on("value",function(snapshot){
-  var n=snapshot.val();
-  n=Object.values(n);
-  document.getElementById("name").innerHTML=n;
-});
-var a= firebase.child("ggg").on("value",function(snapshot){
-  var n=snapshot.val();
-  n=Object.values(n);
-  document.getElementById("ts").innerHTML=n;
-});var a= firebase.child("Symbol").on("value",function(snapshot){
-  var n=snapshot.val();
-  n=Object.values(n);
-  document.getElementById("symbol").innerHTML=n;
-});
 
     //const price=await testtoken.methods.getDollarPrice().call();
 
-    this.setState({totalsupply,balance,name,symbol,decimal,accounts,name1 });
+    this.setState({totalsupply,balance,name,symbol,decimal,accounts,name1, });
 
     var database = fireDB.database();
 var a= 1;
@@ -186,6 +192,7 @@ var acc1_object = {
          // var name=Object.values(a);
           //alert(name);
       
+        
         })
       })
     }
@@ -228,11 +235,16 @@ var acc1_object = {
    </Card>
    </div>
    </div>
-      
+
 </div>
+
+<card />
 </div>
     );
   }
 }
+
+
+
 
 export default home;
