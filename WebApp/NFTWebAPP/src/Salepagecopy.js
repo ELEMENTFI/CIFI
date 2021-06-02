@@ -596,20 +596,13 @@ return (
   <br></br>
   
   <h5 style={{color:'white'}}>Name : {a.addName}
-
   <h5 style={{color:'white'}}>Token : {a.addIds}
-    
     <h5 style={{color:'white'}}>Symbol : {a.addSymbol}
-    
     <h3 style={{color:'white'}}>price : {a.addPrices}</h3>
-
     <h5 style={{color:'white'}}>address: {a.addAddress}</h5>
     </h5>
-
     </h5>
     </h5>
-    
-
     {/* <button onClick={()=>setprice(a)} style={{width:'80px',height:'43px'}} >SetPrice</button>   */}
   {/* <h4>Added to sale </h4> */}
   {a.addPrices ===''?

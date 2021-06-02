@@ -27,31 +27,20 @@ import Compress from "react-image-file-resizer";
 import Popup from './Popup';
 import nextId from "react-id-generator";
 
-
 function Nft() {
 
   const [isWork, setisWork] = useState(false)
-
   window.name = "1";
-
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const [isLoading, setLoading] = useState(false)
-
   const [symbolget,setsymbolget] = useState()
-
   const [currentSymbol, setCurrentSymbol] = useState('ETH')
-  
   const changeFruit = (newFruit) => {
     setCurrentSymbol(newFruit)
   }
-  
-
   const [isOpen, setIsOpen] = useState(false);
- 
   const togglePopup = () => {
     setIsOpen(false);
 
