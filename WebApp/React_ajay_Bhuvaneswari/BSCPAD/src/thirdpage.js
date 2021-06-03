@@ -66,7 +66,7 @@ if(At==0){
 var i;
 for(i=1;i<=5;i++){
 
-  
+  alert(i)
   var v=String(i);
   var firebase= fireDB.database().ref(v);
   firebase.child("Balance").once("value",  function(snapshot){
@@ -82,9 +82,19 @@ for(i=1;i<=5;i++){
     var n=snapshot.val();
     if(n){n=Object.values(n);}
     if(n==0){
-      document.getElementById("demo").innerHTML=""
+      //document.getElementById("demo").innerHTML=""
+     var h=
+      "<h1>hiiiiii</h1> \
+      <h2> hhhhhhh</h2>\
+     "
+//document.write(i)
+     //document.getElementById("name").innerHTML=h;
+   //  alert("hiii")
     }
-   // document.getElementById("name").innerHTML=n;
+    else{
+      //document.write("<table width=50 border=1><tr>" +i+ "</tr></table>");
+    }
+    
   });
 
    firebase.child("Name").once("value",function(snapshot){
@@ -201,7 +211,7 @@ var acc1_object = {
        <div class="container"><br/>
        <h3 style={{color:"black"}}>Current sale</h3>
 
-       <div class="row justify-content-center">
+     <div class="row justify-content-center">
          <div class="col-4  align-self-center">
          <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:"gray",color:"black"}}  >
 
