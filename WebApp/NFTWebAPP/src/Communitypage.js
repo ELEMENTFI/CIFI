@@ -31,56 +31,30 @@ function Communitypage() {
   var accounts;
 
   const connectmm = async () => {
-
-
     //var getaddress=localStorage.getItem('myaddress')
-
     //if(getaddress !== ""){
-
-
       //var btn = document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
         //btn.innerHTML = "CONNECTED"
-
-
-
     //}
     //else{
-
-
       //window.alert("Do you want to connect with metamask");
-
-
       //event.preventDefault();
      //bring in user's metamask account address
-
-     
-
      //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
-
-      
       //alert("acc"+accounts[0])
-
       accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
-
       if(accounts[0] !== ""){
-
-      
-
         //accounts[0
         //document.getElementById("bu").
         //document.getElementById("bu").append("CONNECTED")
-
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
         btn.innerHTML = "CONNECTED"
-
-
-        localStorage.setItem('myaddress', accounts[0]);
-      
-      }
+        localStorage.setItem('myaddress', accounts[0]);    
+  }
       else{
         //document.getElementById("bu").remove("");
         //document.getElementById("bu").replaceWith("NOT CONNECTED")
@@ -89,68 +63,40 @@ function Communitypage() {
         btns.innerHTML = "NOT CONNECTED";
         localStorage.setItem('myaddress', "");
       }
-
-    
   };    
   useEffect(()=>{connectmm()},[])
 
-
-  
-  
 
   return (
     <div>
 
       <div class="display-4 mb-1"></div>
-
       <div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
-
-      
-
-
-
       <div style={{backgroundColor:'white',height:'43px',width:'1050px',marginLeft:'150px',marginBlock:'15px'}}>
       <Link
               to="/">
-
-              
               <button
-              
               style={{outline: 'none'}}
                 class="btn btn-info btn-block"
                 type="button"
-                
               >
                 Home
               </button>
-</Link>
-
-              {" "}
-
-
-            <Link
-              to="/explore">
-
-              
+      </Link>
+      {" "}
+      <Link
+              to="/explore">        
               <button
-              
               style={{outline: 'none'}}
                 class="btn btn-info btn-block"
                 type="button"
-                
               >
                 Explore
               </button>
-
-
-              </Link>
-
-              {" "}
-
-              <Link
+      </Link>
+      {" "}
+      <Link
               to="/salepagecopy">
-
-              
               <button
                 class="btn btn-info btn-block"
                 type="button"
@@ -161,12 +107,9 @@ function Communitypage() {
                 Myitem     
               </button>
               </Link>
-
               {" "}
-
               <Link
               to="/followingpage">
-
               <button
                 class="btn btn-info btn-block"
                 type="button"
