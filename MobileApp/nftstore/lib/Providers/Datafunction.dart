@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+//blueprint for store NFT'S
 class Nftdatas {
   final nftname;
   final price;
@@ -35,7 +36,7 @@ class Nftdatas {
     @required this.setprice,
   });
 }
-
+//blue print for store Authentication details
 class Auth {
   final username;
   final password;
@@ -43,6 +44,7 @@ class Auth {
   Auth({@required this.username, @required this.password});
 }
 
+//blue print for store userlogin details to update in database
 class Logindata {
   final email;
   final phone;
@@ -56,6 +58,7 @@ class Logindata {
       @required this.password});
 }
 
+//list and variable for statemanagement in app
 class Mystore extends VxStore {
   List<Nftdatas> nftdatas = [];
   List<Nftdatas> mydata = [];
@@ -76,6 +79,7 @@ class Images extends VxMutation<Mystore> {
   }
 }
 
+//fetch and store a public & own nfts in a list which is call first
 class Initial extends VxMutation<Mystore> {
   final ref = FirebaseDatabase.instance.reference();
   final user = FirebaseAuth.instance.currentUser.email;
@@ -218,7 +222,7 @@ class Initial extends VxMutation<Mystore> {
     }
   }
 }
-
+//fetch and store a user byed nfts in a list which is call second
 class BuyedNft extends VxMutation<Mystore> {
   final ref = FirebaseDatabase.instance.reference();
   @override
@@ -251,7 +255,7 @@ class BuyedNft extends VxMutation<Mystore> {
     }
   }
 }
-
+// check if user login or not in a app
 class Authstate extends VxMutation<Mystore> {
   @override
   perform() {
@@ -259,6 +263,7 @@ class Authstate extends VxMutation<Mystore> {
   }
 }
 
+//control searchbar function in app
 class Search extends VxMutation<Mystore> {
   final bool change;
   Search(this.change);
