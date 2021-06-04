@@ -544,35 +544,22 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
   }
 
   const testingdata =()=>{
-
     //alert("testing data");
-
   //  const crypto = require("crypto");
-
 //const id = crypto.randomBytes(1).toString("hex");
-
 //alert("idnumber     "+id); // => f9b327e70bbcf42494ccb28b2d98e00e
-
-
 //const id1 = nextId(); // id: id-1
 //const id2 = nextId("test-id-"); // id: test-id-2
 // const id3 = nextId(); // id: id-3
-
 // alert(id3)
-
   }
-
   return (
     <>
-
       <div class="display-4 mb-1"></div>
       <div style={{backgroundColor:'white',height:'100px',width:'1500px',marginBlock:'5px',display:'flex'}}>
 <div style={{marginLeft:'0px',height:'40px',width:'100px',color:'white'}}>
-
       <img src={Logo} alt="Logo" />
-
       <div style={{marginLeft:'10px',marginTop:'',height:'100px',width:'100px'}}>
-    
       {/* onClick={event=>{setSearchTerm(event.target.value)}} */}
       {/* onChange={event => {setSearchTerm(event.target.value)}} */}
       {/* value={searchTerm} */}
@@ -592,12 +579,9 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 }
 </div>
 </div>
-
       {/* <img style={{width:"100px",height:"100px"}} src="/logo.svg" alt=""/> */}
-
       <div style={{backgroundColor:'white',height:'43px',width:'1154px',marginLeft:'150px',marginBlock:'15px'}}>
-
-      <Link
+              <Link
               to="/">              
               <button
               style={{outline: 'none'}}
@@ -606,7 +590,7 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
               >
                 Home
               </button>
-</Link>
+              </Link>
               {' '}
             <Link
               to="/explore">             
@@ -666,19 +650,17 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
               >
                How it works
               </button>
-</Link>
+            </Link>
               {" "}
               <Link
               to="/communitypage">
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                
               >
                Community
               </button>
               </Link>
-
               {" "}
               <Link
               to="/nft">
@@ -702,30 +684,19 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 {/* <h2>Welcome</h2> */}
 <button onClick={handleLogout}>Logout</button>
 {/* </nav> */}
-
-
-
-
 </div>
 </div>
-              <br></br>     
+<br></br>     
 <br></br>
 <br></br>
 <br></br>
 <div>
 <div>
     <Online>
-    
-
 </Online>
-
     </div>
-
     <div>
-
     <Offline>
-
-
     {/* {<Popup content={<>
         <b>Notification</b>
         <p>Your are offline please check your internet connection......</p>
@@ -735,46 +706,30 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
       {/* </>} */}
     {/* //  handleClose={togglePopup} */}
     {/* />} */}
-
-
     </Offline>
-
     </div>
-
 </div>
 <center>
-
 {/* {isLoading ? <div>
               <img style={{width:"300px",height:"300px"}} src="/4V0b.gif" alt=""/></div>:' '} */}
-
 </center>
 <div  style={{backgroundColor:'white',marginBlock:'5px',display:'flex'}}>
 <h6 style={{color:'skyblue'}}>Top &nbsp;
-
       <select onChange={changeSelectOptionHandler}>
             <option value='Sellers'>Sellers</option>
             <option value='Buyers'>Buyers</option>
           </select>
-
       &nbsp;in&nbsp;
-      
 {/* style={{color:'white'}} */}
-
       <select onChange={changeSelectOptionHandlers}>
             <option value='1'>1 day</option>
             <option value='8'>7 days</option>
             <option value='32'>30 days</option>
           </select>
-
 &nbsp;
-
       {/* onClick={()=>{feedbackset()}} */}
-
       {/* <button type="button" onClick={()=>{filterSet()}}  style={{height:'5px',backgroundColor:'white',border:'none',color:'skyblue',fontSize:'15px'}}>Filter</button> */}
-
-
       </h6>
-
 {getImsellers.length === 0 ? null :( 
   <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
 {filterdata().map((a)=>{  
@@ -819,9 +774,7 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
   </div>
 )}
   </div>
-
 <div>
-
 {/* {Loader?
 <h1>Loading.....</h1>
 : */}
@@ -839,9 +792,7 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 //  {
     return (
       <div style={{backgroundColor:'black',height:'500px',width:'300px'}}>
-
 <div style={{border: '2px solid white',borderRadius:'5px'}}>
-
 <center>
     <Link                  
                   to={{   
@@ -852,41 +803,27 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
     <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}} alt=""    />
     </Link>
     {/* <h5>hello{a[b].imageUrl}</h5> */}
-  
     {/* <h6 style={{color:'white'}}>Name : {a.addUname}</h6>
-    
     <h6 style={{color:'white'}}>Symbol : {a.addUsymbol}</h6>
-    
     <h6 style={{color:'white'}}>price : {a.addPrices}</h6> */}
     <h5 style={{color:'white'}}>Name : {a.addUname}
-
 <h5 style={{color:'white'}}>Token : {a.addIds}
-  
   <h5 style={{color:'white'}}>Symbol : {a.addUsymbol}
-  
   <h3 style={{color:'white'}}>price : {a.addPrices}</h3>
-
   <h4 style={{color:'white'}}>address: {a.addOwnerAddress}</h4>
   </h5>
-
   </h5>
   </h5>
-
     {a.addsold === '' ? (
 <>
-{ <button onClick={()=>buynow(a)} >BuyNow</button> }
-  
+{ <button onClick={()=>buynow(a)} >BuyNow</button> }  
     {' '}
 </>
     ):(
-
       <h6 style={{color:'white'}}>Already solded</h6>
     )}
-    
     </center>
-
 </div>
-
     {isOpen && <Popup content={<>
         <b>Notification</b>
         <p>Your token has been buyed successfully......</p>
@@ -896,9 +833,7 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
       </>}
        handleClose={togglePopup}
     />}
-
     {/* </div> */}
-
     </div>
     )
   })}
@@ -906,7 +841,6 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 )}
 </>
 </div>                    
-  
   <div style={{backgroundColor:'white',height:'200px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
   <Footer/>
   <div>
@@ -918,81 +852,54 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
   name="Feedbackc"
   required
   onChange={event => setFeedbackc( event.target.value)}
-  
 />
-
 {' '}
     <button type="button" onClick={()=>{feedbackset()}} style={{height:'40px'}}>Submit</button>
-
 </div>
-
 <div style={{marginLeft:'100px'}}>  
-
 <h4 style={{color:'black'}}>Rarible</h4>
 <h4 style={{color:'black'}}>Explore</h4>
 <h4 style={{color:'black'}}>How it works</h4>
 <h4 style={{color:'black'}}>Create</h4>
 <h4 style={{color:'black'}}>Support</h4>
-
 </div>  
-
 <div style={{marginLeft:'200px'}}>  
-
 <h4 style={{color:'black'}}>Community</h4>
 <h4 style={{color:'black'}}>RARI Token</h4>
 <h4 style={{color:'black'}}>Discussion</h4>
 <h4 style={{color:'black'}}>Voting</h4>
 <h4 style={{color:'black'}}>Suggest feature</h4>
-
 </div>
-
-
 <div style={{marginLeft:'250px'}}>  
-
 <div>
-
 {/* <Link to=" https://publish.twitter.com/"> */}
-
 {/* <h4 style={{color:'black'}}>twitter</h4> */}
-
 {/* <a style={{color:'black'}} class="btn-floating btn btn-tw" type="button" role="button" title="Share on twitter"
    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fparse.com"
    rel="noopener">
   <i class="fab fa-2x fa-twitter"></i>
   twitter
-</a> */}
-
+</a> */
 {/* <a href="https://twitter.com/intent/tweet?url=link_to_be_shared">Share To Twitter</a> */}
-
-
 <TwitterShareButton
               title="Hello everyone "
              url="https://stackoverflow.com/"
-            >
-             
+            >             
               <TwitterIcon size={35} round />
             </TwitterShareButton>    
-
 {/* </Link> */}
-
 <br></br>
-
 {/* <TelegramLoginButton
     botName="test"
     dataOnauth={(user: TelegramUser) => console.log(user)}
   /> */}
-
 {/* <h4 style={{color:'black'}} onClick={testingdata}>Testing</h4> */}
-
 </div>
-
 {/* <DarkMode /> */}
-
 {/* <h4 style={{color:'black'}}>Language</h4> */}
 </div>
     &nbsp;
   </div>
-
   {isOpenFeed && <Popup content={<>
         <b>Notification</b>
         <p>Your Email has been sent successfully......</p>
@@ -1000,10 +907,7 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
       </>}
       // handleClose={togglePopup}
     />}
-
-
     </>
-
   );
 }
 export default Explore;
