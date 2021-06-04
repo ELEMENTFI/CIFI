@@ -1,8 +1,6 @@
 import React,{useState,useEffect} from "react";
 //import history from "./utils/history";
-
 import { Router, Route, Switch,Link } from "react-router-dom";
-
 // import Myitem from "./Myitem";
 // import Nft from "./Nft";
 // //import firebase from "./firebase";
@@ -11,25 +9,18 @@ import { Router, Route, Switch,Link } from "react-router-dom";
 // import Activitypage from "./Activitypage";
 // import Howitworkpage from "./Howitworkpage";
 //import Communitypage from "./Communitypage";
-
 // import Mypurchasepage from './Mypurchasepage'
 // import Explore from './Explore'
 // import Createandpurchasepage from './Createandpurchasepage'
-
 import web3 from './web3';
 //import Receivedpage from './Receivedpage';
 import { Offline, Online } from "react-detect-offline";
-
 import Popup from './Popup';
 import Footer from './footer'
 
-
 function Communitypage() {
-
-
   let btn;
   var accounts;
-
   const connectmm = async () => {
     //var getaddress=localStorage.getItem('myaddress')
     //if(getaddress !== ""){
@@ -64,9 +55,7 @@ function Communitypage() {
         localStorage.setItem('myaddress', "");
       }
   };    
-  useEffect(()=>{connectmm()},[])
-
-
+  useEffect(()=>{connectmm()},[]);
   return (
     <div>
 
@@ -120,7 +109,6 @@ function Communitypage() {
                Following
               </button>
               </Link>
-
               {" "}
               <Link
               to="/activitypage">
@@ -134,33 +122,26 @@ function Communitypage() {
                Activity
               </button>
               </Link>
-
               {" "}
-
               <Link
               to="/howitworkpage">
-
               <button
                 class="btn btn-info btn-block"
-                type="button"
-                
+                type="button"                
               >
                How it works
               </button>
-
 </Link>
               {" "}
               <Link
               to="/communitypage">
               <button
                 class="btn btn-info btn-block"
-                type="button"
-                
+                type="button"                
               >
                Community
               </button>
               </Link>
-
               {" "}
               <Link
               to="/nft">
@@ -174,11 +155,7 @@ function Communitypage() {
                Create
               </button>
               </Link>
-
               {" "}
-
-
-
               <button
               id="bu"
                 class="btn btn-info btn-block"
@@ -186,37 +163,20 @@ function Communitypage() {
                 onClick= {connectmm}>
                Connect wallet
               </button>
-
               {" "}
-
-
-
 </div>
-
 </div>
-
               <br></br>
 <br></br>
-
-
 <br></br>
 <br></br>
-
 <div>
-
 <div>
     <Online>
-    
-
 </Online>
-
     </div>
-
     <div>
-
     {/* <Offline>
-
-
     {<Popup content={<>
         <b>Notification</b>
         <p>Your are offline please check your internet connection......</p>
@@ -226,31 +186,17 @@ function Communitypage() {
       {/* </>} */}
     {/* //  handleClose={togglePopup} */}
     {/* />} */}
-
-
-    {/* </Offline> */} */}
-
+    {/* </Offline> */}
     </div>
-
-</div>
-
-
-
-
-                    
-                    
-
+</div>              
             {/* <Router history={history}>
           <Switch>
             <Route path="/" exact>
-              <div class="display-4 mb-1">Choose a route to go to</div>
-              
+              <div class="display-4 mb-1">Choose a route to go to</div>              
             </Route>
-            
             <Route path="/Myitem">
               <Myitem />
             </Route>
-            
             <Route path="/Activitypage">
               <Activitypage />
             </Route>
@@ -266,37 +212,21 @@ function Communitypage() {
             <Route path="/Mypurchasepage">
               <Mypurchasepage />
             </Route>
-            
             <Route path="/Explore">
               <Explore />
             </Route>
-
             <Route path="/Createandpurchasepage">
               <Createandpurchasepage />
             </Route>
-
             <Route path="/Receivedpage">
               <Receivedpage />
             </Route>
-
-            
           </Switch>
         </Router>
-
  */}
-
-
-
 <div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px',position:'relative'}} >
-
   <Footer/>
-  
   </div> 
-
-
-
-
-
     </div>
 
   );
