@@ -14,6 +14,96 @@ import Background from '../src/images/aa.gif'
 import Background2 from '../src/images/logo1.png'
 import { data } from 'jquery';
 
+function fb(n1){
+  var v=String(n1);
+  var v2=v+"name";
+  var v3=v+"ts";
+  var v4=v+"symbol"
+  var v5=v+"balance"
+
+  
+  var firebase= fireDB.database().ref(v);
+  firebase.child("At").once("value",function(snapshot){
+    if(n){n=Object.values(n);
+
+    var n=snapshot.val();
+   } });
+  firebase.child("Name").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);
+  
+    document.getElementById(v2).innerHTML=n;
+    }
+  });
+  firebase.child("ggg").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);   
+    document.getElementById(v3).innerHTML=n;}
+  });
+  firebase.child("Symbol").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);
+  //  document.getElementById(v4).innerHTML=n;
+}
+  });
+  firebase.child("Balance").once("value",  function(snapshot){
+    snapshot.forEach(function(element){
+    var  balance1=element.val();
+    balance1=Object.values(balance1);
+  //  document.getElementById(v5).innerHTML=balance1;
+      //alert(balance1);
+  
+  })
+  });
+} 
+function fb1(n1){
+  var v=String(n1);
+  var v2=v+"name";
+  var v3=v+"ts";
+  var v4=v+"symbol"
+  var v5=v+"at"
+
+  
+  var firebase= fireDB.database().ref(v);
+  firebase.child("At").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);
+
+   
+    document.getElementById(v5).innerHTML=n;
+   } });
+  firebase.child("Name").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);
+  
+    document.getElementById(v2).innerHTML=n;
+    }
+  });
+  firebase.child("ggg").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);   
+    document.getElementById(v3).innerHTML=n;}
+  });
+  firebase.child("Symbol").once("value",function(snapshot){
+    var n=snapshot.val();
+    if(n){n=Object.values(n);
+  //  document.getElementById(v4).innerHTML=n;
+}
+  });
+  firebase.child("Balance").once("value",  function(snapshot){
+    snapshot.forEach(function(element){
+    var  balance1=element.val();
+    balance1=Object.values(balance1);
+  //  document.getElementById(v5).innerHTML=balance1;
+      //alert(balance1);
+  
+  })
+  });
+  
+} 
+
+
+
 class home extends Component {
   state = {
     balance: '',
@@ -27,13 +117,11 @@ class home extends Component {
 
   };
   
-    
+   
+
+
   async componentDidMount() {
  
-
-    
-
-   
     const balance = await web3.eth.getBalance(tokencontract.options.address);
     const totalsupply = await tokencontract.methods.totalSupply().call();
     const decimal = await TESTToken.methods.decimals().call();
@@ -50,7 +138,9 @@ fireDB.database().ref(ss).child("ggg").set({"Total Supply":totalsupply});
 fireDB.database().ref(ss).child("Decimal").set({"Decimal":decimal});
 fireDB.database().ref(ss).child("Symbol").set({"Symbol":symbol});
 fireDB.database().ref(ss).child("Symbol").set({"Symbol":symbol});
-fireDB.database().ref(ss).child("At").set({"At":At});
+fireDB.database().ref(ss).child("At").set({"At":0});
+fireDB.database().ref(ss).child("No").set({"No":3});
+
 
 if(At==0){
   var availtk=At/1000000000;
@@ -63,58 +153,40 @@ if(At==0){
   
 }
 
-var i;
-for(i=1;i<=5;i++){
 
-  alert(i)
+
+//var i;
+for(var i=1;i<5;i++){
+  var count=0
   var v=String(i);
   var firebase= fireDB.database().ref(v);
-  firebase.child("Balance").once("value",  function(snapshot){
-    snapshot.forEach(function(element){
-    var  balance1=element.val();
-    balance1=Object.values(balance1);
-      //document.getElementById("balance").innerHTML=balance1;
-      //alert(balance1);
+  firebase.child("No").once("value",function(snapshot){
+    var n=snapshot.val(); 
+    if(n){
+      
+      n=Object.values(n);
   
-  })
-  });
-  firebase.child("At").once("value",function(snapshot){
-    var n=snapshot.val();
-    if(n){n=Object.values(n);}
-    if(n==0){
-      //document.getElementById("demo").innerHTML=""
-     var h=
-      "<h1>hiiiiii</h1> \
-      <h2> hhhhhhh</h2>\
-     "
-//document.write(i)
-     //document.getElementById("name").innerHTML=h;
-   //  alert("hiii")
-    }
-    else{
-      //document.write("<table width=50 border=1><tr>" +i+ "</tr></table>");
-    }
-    
-  });
+count=count+1
+      var n1=String(n);
+switch(n1) {
+        case "1":
+         
+fb(n1);
+         
+          break;
+        case "2":
+fb1(n1);
 
-   firebase.child("Name").once("value",function(snapshot){
-    var n=snapshot.val();
-    if(n){n=Object.values(n);}
-    
-   // document.getElementById("name").innerHTML=n;
-  });
-  firebase.child("ggg").once("value",function(snapshot){
-    var n=snapshot.val();
-    if(n){n=Object.values(n);}    //document.getElementById("ts").innerHTML=n;
-  });
-  firebase.child("Symbol").once("value",function(snapshot){
-    var n=snapshot.val();
-    if(n){n=Object.values(n);}    //document.getElementById("symbol").innerHTML=n;
-  });
+          break;
+          case "3":
+          fb1(n1);
+          break;
+        default:
+          // code block
+      }
+    }
   
-
-
-}
+ } );
 
 
 
@@ -129,6 +201,7 @@ var a= 1;
 //fireDB.database().ref().child(accounts).push(name);
 
   }
+}
     
   
   
@@ -137,118 +210,135 @@ var a= 1;
    {
     console.log(web3.version);
     web3.givenProvider.enable().then(console.log);
-    function save(){
-      var db1=document.getElementById("save1").value;
-
-      var db=document.getElementById("save").value;
-      
-      var database = fireDB.database();
-
-     // fireDB.database().ref().child(db).push(db);
-      //fireDB.database().ref().child(db).push(db1);
-      db="";
-      db1="";
-     
-
-//fireDB.database().ref().child("acc1").push(this.balance);
-//fireDB.database().ref().child("acc1").push(this.name);
-
-
-    }
-    function ret(){
-    var database=fireDB.database();
-    var ref= database.ref("acc1");
-    ref.on('value',gotdata,errdata); 
-
-
-
-      var ref = fireDB.database().ref();
-
-ref.on("value", function(snapshot) {
-  var d =(snapshot.child("acc1").val());
-  
-}, function (error) {
-   console.log("Error: " + error.code);
-});
-    }
-
-
-    function gotdata(data){
-//console.log(data);
-var name = data.val();
-//console.log(name);
-var acc1_object = {
-  prop_1: 'val_11',
-  prop_2: 'val_12', 
-  
-};
-
-//alert( JSON.stringify(name));
-
-    }
-    function errdata(err){
-      console.log("error");
-      console.log(err);
-    }
-
-    function get(){
-      var firebase= fireDB.database().ref("acc1/name");
-      firebase.once("value",  function(snapshot){
-        snapshot.forEach(function(element){
-          var key=element.key;
-          var name=element.val();
-      alert(name);
-         //var bal=Object.values(a[i]);
-         // var name=Object.values(a);
-          //alert(name);
-      
-        
-        })
-      })
-    }
+   
     return (
-     <div class=" text App" style={{backgroundColor:"white"}}>
+     <div class="" style={{backgroundColor:"white"}}>
        <div class="container"><br/>
-       <h3 style={{color:"black"}}>Current sale</h3>
+       <h3 style={{color:"black"}}>Upcoming Pools</h3>
+<br></br>
+     <div class="row">
+         <div class="col-4" id="1">
+         <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:" #f2f2f2",color:"black"}}  >
+         <p id="demo1" style={{textAlign:"right" ,color:"orange"}}>Starts in</p>
+      <p id="demo" style={{textAlign:"right" ,color:"orange"}}></p>
+  <h4 id ="1name">
 
-     <div class="row justify-content-center">
-         <div class="col-4  align-self-center">
-         <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:"gray",color:"black"}}  >
+  </h4>
+  <p>
+    Total Supply:
+  </p>
+  <h4 id ="1ts"></h4>
+  <div class="row">
+    <div class="col">
+      <h6>Min.Allocation<br/>1</h6>
+    </div>
+    <div class="col">
+      <h6>Max.Allocation<br/>5</h6>
+    </div>
+    <div class="col">
+      <h6>Access<br/><h4>Slate</h4></h6>
+    </div>
+  </div>
 
-       <div class="">
-         <h4>
-           Name:
-         </h4>
-         <p id ="name">
-
-         </p>
-         <h4>
-           Symbol:
-         </h4>
-         <p id ="symbol">
-
-         </p>
-         <h4>
-           Total Supply:
-         </h4>
-         <p id ="ts">
-
-         </p>
-         <h4>
-           Balance
-         </h4>
-         <p id ="balance">
-
-         </p>
-       </div>
-
-   </Card>
+</Card>
    </div>
+  
+   <div class="col" id="2">
+         
+   </div>
+  </div><br/><br/>
+  <h3 style={{color:"black"}}>Featured Pools</h3>
+<br/>
+  <div class="row">
+   <div class="col-4" id="3">
+         <Card class="mt-2  shadow" style={{ width: '22rem' , padding: "30px",backgroundColor:"#f2f2f2",color:"black"}}  >
+<p  style={{textAlign:"right", color:"red"}}>Filled</p>
+
+  <h4>
+    Name:
+  </h4>
+  <p id ="3name">
+
+  </p>
+  
+
+  <h4>
+    Total Supply:
+  </h4>
+  <p id ="3ts">
+
+  </p>
+  <h4>
+    Available Tokens
+  </h4>
+  <p id ="3at">
+
+  </p>
+  <progress id="main7" value="5" max="5" class="progress11"></progress>
+  <div class="row">
+  <div class="col-4">
+    100%
+  </div>
+  <div class="col-8">
+    No.of Participants:<br/>5
+  </div>
+</div>
+
+</Card>
+   </div>
+   <div class="col-4" id="3">
+         <Card class="mt-2  shadow" style={{ width: '22rem' , padding: "30px",backgroundColor:"#f2f2f2",color:"black"}}  >
+
+<p  style={{textAlign:"right", color:"red"}}>Filled</p>
+
+  <h4>
+    Name:
+  </h4>
+  <p id ="2name">
+
+  </p>
+  
+  <h4>
+    Total Supply:
+  </h4>
+  <p id ="2ts">
+
+  </p>
+  <h4>
+    Available Tokens
+  </h4>
+  <p id ="2at">
+
+  </p>
+
+  <progress id="main7" value="5" max="5" class="progress11"></progress>
+<div class="row">
+  <div class="col-4">
+    100%
+  </div>
+  <div class="col-8">
+    No.of Participants:<br/>5
+  </div>
+</div>
+</Card>
+   </div>
+   <div class="col-2" id="3">
+         
+   </div>
+  
+         
+  
+
    </div>
 
 </div>
 
-<card />
+<p id="dem" class="tiny">
+
+</p>
+<p class="tiny"id="ap"></p>
+<p class="tiny"id="ap1"></p>
+
 </div>
     );
   }
