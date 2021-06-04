@@ -10,9 +10,10 @@ import 'Screens/LoginScreen.dart';
 import 'Screens/MainScreen.dart';
 import 'Screens/NFT.dart';
 
+//app starts form this function
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(); //initialize the app with firebase
   runApp(VxState(store: Mystore(), child: MyApp()));
 }
 
