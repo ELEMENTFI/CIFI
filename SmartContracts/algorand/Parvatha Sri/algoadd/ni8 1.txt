@@ -1,0 +1,1 @@
+goal asset config --asset PNZRT --creator "ZNDZYJLH5VIOF3CTRQOERDQQGI4TYX3X3GN2BACP7AYW5ETYR2GRUQV2VU" --manager "ZNDZYJLH5VIOF3CTRQOERDQQGI4TYX3X3GN2BACP7AYW5ETYR2GRUQV2VU" --new-clawback "" --new-freezer "" --note "Panzerotto is mine as long as i want,and nobody can stop me from giving it you!" --datadir C:\AlgorandNode --wallet rafisri   

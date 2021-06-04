@@ -1,0 +1,1 @@
+goal asset create --asseturl "Panzerotti wikipedia" --creator "ZNDZYJLH5VIOF3CTRQOERDQQGI4TYX3X3GN2BACP7AYW5ETYR2GRUQV2VU" --decimals 0 --name "Panzerotto" --note "I have completed my tutorial on ASA creation using goal!" --total 1 --unitname PNZRT --datadir "C:\AlgorandNode\data" --wallet "rafisri"
