@@ -16,56 +16,38 @@ function Salepagecopy() {
   const [a, setSelectImage] = useState({});
   const [tsAddress,settsAddress] = useState("");
   
-  console.log(`agets`, a);
- 
+  console.log(`agets`, a); 
   const togglePopupset = () => {
     setIsOpenset(false);    
   }
-
-  const [isOpensetsend, setIsOpensetsend] = useState(false);
- 
+  const [isOpensetsend, setIsOpensetsend] = useState(false); 
   const togglePopupsetsend = () => {
     setIsOpensetsend(false);
-
-    //window.location.reload(false)
-    
+    //window.location.reload(false)    
   }
-
   const [isLoading, setLoading] = useState(false)
-
-  const [isOpen, setIsOpen] = useState(false);//update prize
- 
+  const [isOpen, setIsOpen] = useState(false);//update prize 
   const togglePopup = () => {
     setIsOpen(false);
-
-    //window.location.reload(false)
-    
+    //window.location.reload(false)    
   }
   const [isOpen2, setIsOpen2] = useState(false);
- 
   const togglePopup2 = () => {
     setIsOpen2(false);
-    window.location.reload(false)
-    
+    window.location.reload(false)    
   }
 const[getImgreff,setgetImgreff]=useState([]);
 const[getIm,setgetIm]=useState([]);
-
 let btn;
 var accounts;
-
   const connectmm = async () => {
-
       accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
-
       if(accounts[0] !== ""){
-
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
         btn.innerHTML = "CONNECTED"
-        localStorage.setItem('myaddress', accounts[0]);
-      
+        localStorage.setItem('myaddress', accounts[0]);      
       }
       else{
         //document.getElementById("bu").remove("");
@@ -77,13 +59,8 @@ var accounts;
       }    
   };    
   useEffect(()=>{connectmm()},[])
-
-
-
   //new function start
-
   const getImgpa = async() =>{
-
     setLoading(true);
     const accounts = await web3.eth.getAccounts();
     let req = [];
@@ -94,22 +71,15 @@ var accounts;
         data.forEach((d) => {
           console.log("keycheck",d.key)
           req.push(d.val())
-          //req.push(d.key)
-          
-        });
-        
+          //req.push(d.key)          
+        });        
       }
-
     });
-
     setgetImgreff(req);
-
     //change here
-
     getImgreff.map((a)=>{
       
     req2.push({
-
           addAddress:a.ownerAddress,
           addPrices:a.priceSet,
           addcAdd:a.cAddress,
@@ -126,38 +96,26 @@ var accounts;
     addwhois:a.whois    
   })
     })
-
     setgetIm(req2)
     setLoading(false);
   }
-
-
   useEffect(()=>{getImgpa()},[getIm])
   //end here
-
-
-
 //  const newget = async()=>{
 //   const accounts = await web3.eth.getAccounts();
 //   let n =[]
 //   getAddressDb.forEach(async(add)=>{
 //     let poda = add
-//         let getaaaa=new web3.eth.Contract(abi,poda);
-        
-        
+//         let getaaaa=new web3.eth.Contract(abi,poda);              
 //         let printgeta=await getaaaa.methods.tokensOfOwner(accounts[0]).call();
-
 //         printgeta.forEach((p=>{
 //         n.push(p)
 // }))
-//       setnames(n);    
-      
+//       setnames(n);          
 //     })
 //  }
-
 //   const s =  async ()=>{
 //   const accounts = await web3.eth.getAccounts();
-
 //   let after = []
 //    getAddressDb.forEach(async(a)=>{
 //        let poda = a
@@ -171,35 +129,26 @@ var accounts;
 //             addImgSrc:await getaaaa.methods.tokenURI(n).call()})
 //    })
 //   })
-
 //    console.log(`after`, after)
 // setAfternames(after)
 //  }
-
-
    
 const setprice =async ()=>{
 
   setIsOpensetFirst(false)
-
   let mynetworks =  localStorage.getItem('mynetwork');
-
              var isd = a.addIds;//a
              console.log("targetid",isd)
-
             console.log(`a`, a)
             let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
             alert("con address"+a.addcAdd);
             alert("token id"+isd);
             const accounts = await  web3.eth.getAccounts();
-            console.log("checking")
-            
-
+            console.log("checking")          
             let price=tprice;
 
             if(accounts[0] === a.addAddress)
             {
-
               //change mactimum
               await getaaaa.methods.setTokenState([isd],"true").send({
                 from:accounts[0],
@@ -211,7 +160,6 @@ const setprice =async ()=>{
               from:accounts[0],
               gas: 51753,
               gasPrice:'10000000000'
-
             })
             //const priceamount = await getaaaa.methods.items(isd).call();
             //console.log(priceamount.price)
@@ -221,18 +169,12 @@ const setprice =async ()=>{
               gas: 51753,
               gasPrice:'10000000000'
             })
-
             let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
-            const keysellers = refsellers.push().key;
-          
-          
+            const keysellers = refsellers.push().key;          
             refsellers.child(keysellers).set({
               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
-            })
-          
-          
-            
+            })            
 fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
@@ -245,8 +187,6 @@ fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
   //setIsOpensetFirst(false);
   setIsOpen(true);
  });  
-
-
 }
 else{
 alert("Your are not owner so you does not update or set prizes......")
@@ -256,20 +196,12 @@ alert("Your are not owner so you does not update or set prizes......")
 const send=async()=>{
 
   setIsOpensetsend(false)
-
   let mynetworks =  localStorage.getItem('mynetwork');
-
   let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
-
   const accounts = await  web3.eth.getAccounts();
-
   let toaddressget=tsAddress;
-  
-
   if(toaddressget === null){
-
     alert("please enter address")
-
   }
   else if(toaddressget === accounts[0])
   {
@@ -283,10 +215,7 @@ const send=async()=>{
       //eth
     await getaaaa.methods.safeTransferFrom(accounts[0],toaddressget,a.addIds).send({
       from:accounts[0]
-
     });
-
-
     }
     else if(mynetworks === "BNB"){
 
@@ -295,19 +224,14 @@ const send=async()=>{
       from:accounts[0]
 
     });
-
-
     }
     else if(mynetworks === "Maticmum"){
 
       await getaaaa.methods.transferFrom(accounts[0],toaddressget,a.addIds).send({
         from:accounts[0]
       });  
-      
-
     }
     else{
-
     }
 
     //mactimum
@@ -317,43 +241,26 @@ const send=async()=>{
     //      gasPrice:'5000000000'
     // });
 //also mactimum
-
-  
-
     console.log("checkinga",a.addOwnerAddress)
-
     let refsellers=fireDb.database().ref(`buyerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
-    const keysellers = refsellers.push().key;
-  
-    //alert("get"+a.addPrices);
-  
+    const keysellers = refsellers.push().key;  
+    //alert("get"+a.addPrices);  
     refsellers.child(keysellers).set({
       id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,
       soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Buyers'
-    })
-
-    
-
+    });
       fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).update({
         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
         userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed",addPoAddress:accounts[0],
         datesets:new Date().toDateString(),whois:'Buyers'
       });
-
       //alert("a.addkeyI"+a.addKeyI);
-
       fireDb.database().ref('imagerefexplore').child(accounts[0]).child(a.addKeyI).remove();
-
       fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove().then(()=> {
         settsAddress("")
-        setIsOpen2(true);
-        
-       });
-
-
-      
+        setIsOpen2(true);        
+       });      
   }
-
 }
 
 //update prize
@@ -361,8 +268,6 @@ const send=async()=>{
 const setprices =async ()=>{
 
   //let mynetworks =  localStorage.getItem('mynetwork');
-
-
 var isd = a.addIds;//a
 console.log("targetid",isd)
 console.log(`a`, a)
@@ -375,15 +280,10 @@ if(price !== '')
   let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
   const keysellers = refsellers.push().key;
 
-
   refsellers.child(keysellers).set({
     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
     soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
   })
-
-
-  
-    
 
     // refsellers.child(a.addKeyI).set({
     //         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,

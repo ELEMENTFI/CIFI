@@ -1,11 +1,8 @@
 import React, { useState,useEffect } from "react";
 import history from "./utils/history";
-
 //import {useState} from 'react';
 import web3 from './web3';
-
 import { Router, Route, Switch } from "react-router-dom";
-
 import Nft from "./Nft";
 import Sendpage from "./Sendpage";
 import Newpage from "./Newpage";
@@ -14,11 +11,8 @@ import Printallimage from "./Printallimage";
 import getaaa from "./abinft";
 import Myitem from "./Myitem";
 
-
 function Saleimagepage() {
- 
 
-  
   useEffect(()=>{onSubmitNFT()},[])
       const onSubmitNFT = async () => {
       console.log("waiting for pic url");
@@ -26,14 +20,10 @@ function Saleimagepage() {
         var names =[];
         var ima =[];
         var p =[];
-    console.log("geta"+getaaa);
-   
-    //event.preventDefault();
-    
+    console.log("geta"+getaaa); 
+    //event.preventDefault();    
     const accounts = await web3.eth.getAccounts();
-
-    console.log(accounts[0])
-    
+    console.log(accounts[0])    
     var items = await getaaa.methods.totalSupply().call();
       console.log(items)
       for(var i=0;i<items;i++){
@@ -45,35 +35,24 @@ function Saleimagepage() {
           names.push(v)
           console.log("For Sale" + v)
           p.push(s.price)
-        }
-        
-      }
-   
-    for( i=0;i<names.length;i++){
-      
-
+        }        
+      }   
+    for( i=0;i<names.length;i++){      
       ima.push(await getaaa.methods.tokenURI(names[i]).call());
       console.log(names[i])
       var a=document.createElement("img");
       var  b=document.createElement("button")
       var t = document.createElement("textbox")
-
       var  c=document.createElement("li")
-
       //var  d=document.createElement("li")
-
       var  ebr=document.createElement("br")
-
       b.innerHTML= "    " + " Buy Token";
-    
-
       a.src=ima[i]
       a.id=ima[i]
       a.tid = names[i]
       a.width=400
       a.height=400
-      t.innerText= "Price" + "     " +p[i]
-      
+      t.innerText= "Price" + "     " +p[i]      
       b.src=ima[i]
       b.id=ima[i]
       b.tid = names[i]
