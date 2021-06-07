@@ -215,7 +215,7 @@ var a= 1;
      <div class="" style={{backgroundColor:"white"}}>
        <div class="container"><br/>
        <h3 style={{color:"black"}}>Upcoming Pools</h3>
-<br></br>
+<br></br>   {{#each fireDB}}
      <div class="row">
          <div class="col-4" id="1">
          <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:" #f2f2f2",color:"black"}}  >
@@ -241,14 +241,14 @@ var a= 1;
   </div>
 
 </Card>
-   </div>
+{{/each}} </div>
   
    <div class="col" id="2">
          
    </div>
   </div><br/><br/>
   <h3 style={{color:"black"}}>Featured Pools</h3>
-<br/>
+<br/>  
   <div class="row">
    <div class="col-4" id="3">
          <Card class="mt-2  shadow" style={{ width: '22rem' , padding: "30px",backgroundColor:"#f2f2f2",color:"black"}}  >
@@ -283,7 +283,6 @@ var a= 1;
     No.of Participants:<br/>5
   </div>
 </div>
-
 </Card>
    </div>
    <div class="col-4" id="3">
