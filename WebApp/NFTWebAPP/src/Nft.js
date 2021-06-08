@@ -108,14 +108,10 @@ const printAssetHolding = async function (algodclient, account, assetid) {
           break;
       }
   }
-};
+};  
 
-
-    
-
-    alert("Transfer Asset");
-
-    const algosdk = require('algosdk');
+  alert("Transfer Asset");
+  const algosdk = require('algosdk');
   var account1_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
   var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
   //var account3_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
@@ -123,25 +119,15 @@ const printAssetHolding = async function (algodclient, account, assetid) {
   var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
   var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
   var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
-  
   console.log(recoveredAccount3.addr);
   const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
-  
-      
   const port = "";
-  
   //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
-  
   const token = {
-  
       'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
   }
-  
   let algodclient = new algosdk.Algodv2(token, baseServer, port);
-
-  
     alert("transferAlgo"+tTransferAlgo)  
-
     // Opting in to an Asset:
     // Opting in to transact with the new asset
     // Allow accounts that want recieve the new asset
@@ -149,7 +135,6 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     // of the new asset to themseleves 
     // In this example we are setting up the 3rd recovered account to 
     // receive the new asset
-
     // First update changing transaction parameters
     // We will account for changing transaction parameters
     // before every transaction in this example
@@ -157,7 +142,6 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     //comment out the next two lines to use suggested fee
     params.fee = 1000;
     params.flatFee = true;
-
     let sender = recoveredAccount3.addr;
     let recipient = sender;
     // We set revocationTarget to undefined as 
@@ -170,23 +154,18 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     let amount = 0;
 let note=undefined;
 let assetID='15940921';
-
     // signing and sending "txn" allows sender to begin accepting asset specified by creator and index
     let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
          amount, note, assetID, params);
-
     // Must be signed by the account wishing to opt in to the asset    
     let rawSignedTxn = opttxn.signTxn(recoveredAccount3.sk);
     let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
     console.log("Transaction : " + opttx.txId);
     // wait for transaction to be confirmed
     await waitForConfirmation(algodclient, opttx.txId);
-
     //You should now see the new asset listed in the account information
     console.log("Account 3 = " + recoveredAccount3.addr);
     await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
-
-    
     // Transfer New Asset:
     // Now that account3 can recieve the new tokens 
     // we can tranfer tokens in from the creator
@@ -194,19 +173,16 @@ let assetID='15940921';
     // First update changing transaction parameters
     // We will account for changing transaction parameters
     // before every transaction in this example
-
     params = await algodclient.getTransactionParams().do();
     //comment out the next two lines to use suggested fee
     params.fee = 1000;
     params.flatFee = true;
-
     sender = recoveredAccount1.addr;
     recipient = recoveredAccount3.addr;
     revocationTarget = undefined;
     closeRemainderTo = undefined;
     //Amount of the asset to transfer
     amount = 1000;
-
     // signing and sending "txn" will send "amount" assets from "sender" to "recipient"
     let xtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
          amount,  note, assetID, params);
@@ -216,20 +192,12 @@ let assetID='15940921';
     console.log("Transaction : " + xtx.txId);
     // wait for transaction to be confirmed
     await waitForConfirmation(algodclient, xtx.txId);
-
     // You should now see the 10 assets listed in the account information
     console.log("Account 3 = " + recoveredAccount3.addr);
     await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
-
-
-
-
   }
-
-
   const CreateAsset=()=>{
-
-    const algosdk = require('algosdk');
+  const algosdk = require('algosdk');
   var account1_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
   var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
   //var account3_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
@@ -237,23 +205,15 @@ let assetID='15940921';
   var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
   var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
   var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
-  
   console.log(recoveredAccount3.addr);
   const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
-  
-      
   const port = "";
-  
   //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
-  
   const token = {
   
       'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
   }
-  
-  let algodclient = new algosdk.Algodv2(token, baseServer, port);
-  
-  
+  let algodclient = new algosdk.Algodv2(token, baseServer, port);  
 // Function used to wait for a tx confirmation
 const waitForConfirmation = async function (algodclient, txId) {
     let response = await algodclient.status().do();
