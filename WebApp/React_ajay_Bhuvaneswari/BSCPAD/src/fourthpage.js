@@ -113,8 +113,6 @@ class home extends Component {
     symbol:'',
     decimal:'' ,
     name1:''
-
-
   };
   
    
@@ -202,10 +200,6 @@ var a= 1;
 
   }
 }
-    
-  
-  
-  
   render()
    {
     console.log(web3.version);
@@ -215,7 +209,7 @@ var a= 1;
      <div class="" style={{backgroundColor:"white"}}>
        <div class="container"><br/>
        <h3 style={{color:"black"}}>Upcoming Pools</h3>
-<br></br>
+     <br></br>
      <div class="row">
          <div class="col-4" id="1">
          <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:" #f2f2f2",color:"black"}}  >
