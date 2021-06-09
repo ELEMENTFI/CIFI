@@ -3,6 +3,8 @@ import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+
+//in this page we create an account for user
 // ignore: must_be_immutable
 class AccountCreation extends StatelessWidget {
   static TextEditingController controller1 = TextEditingController();
