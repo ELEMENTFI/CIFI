@@ -1,0 +1,2 @@
+C:\AlgorandNode>goal asset create --asseturl "Coxinha wikipedia" --creator "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ" --decimals 0 --name "Coxinha" --note "I have completed my tutorial on ASA creation using goal!" --total 1 --unitname CXNHA --datadir "C:\AlgorandNode\data" --wallet "madhu"
+Please enter the password for wallet 'madhu':
