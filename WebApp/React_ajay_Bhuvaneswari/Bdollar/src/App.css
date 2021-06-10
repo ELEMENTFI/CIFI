@@ -32,7 +32,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #47afcc;
 }
 .navlink{
   align-items: center;
@@ -57,7 +57,7 @@
 .btn1{
   background-color: #fa3455;
   color: #ffffff;
-  border-style: solid;
+  border-style: double;
   border-width: 2px;
   border-radius: 20%;
   
@@ -65,7 +65,7 @@
 .homehead{
   text-align:center;
   font-size: 80px;
-  background: -webkit-radial-gradient(rgb(255, 255, 255), rgb(131, 131, 131));
+  background: -webkit-radial-gradient(rgb(255, 255, 255), rgb(158, 158, 158));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-left: 20px;
@@ -105,7 +105,7 @@
   text-align: justify;
 }
 .epoch{
-  padding: 8px;
+  padding: 10px;
   text-align: right;
   background-color:#fa3455;
   color:white;

@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import secondpage from './secondpage';
 import './App.css';
+import thirdpage from './thirdpage';
+
 import web3 from './web3';
 import tokencontract from './tokencontract';
 import TESTToken from './TESTToken';
@@ -38,6 +40,10 @@ class App extends Component {
 
     const name = await TESTToken.methods.name().call();
     const symbol = await TESTToken.methods.symbol().call();
+    if(accounts!=null){
+      document.getElementById("cc").style.visibility="hidden";   
+
+    }
 
     //const price=await testtoken.methods.getDollarPrice().call();
   
@@ -49,11 +55,17 @@ class App extends Component {
   
   render()
    {
-    console.log(web3.version);
-    
-    web3.givenProvider.enable().then(console.log);
+    const connect = async()=>{
+     
+     
 
-    
+      console.log(web3.version);
+      
+      web3.givenProvider.enable().then(console.log);
+window.ethereum.enable();
+      
+      //window.location.reload();
+       }
     return (
       <div class="bg-dark">
         
@@ -75,11 +87,16 @@ class App extends Component {
       <Link class="navlink"  exact to="/s">
 Join Pool{' '}
             </Link>
+            <Link class="navlink"  exact to="/t">
+History{' '}
+            </Link>
       
     </Navbar.Brand>
     <Navbar.Collapse className="justify-content-end">
+    <Button  onClick={connect} id="cc" variant="flat" style={{ backgroundColor: "#fa3455", color: "white"}}> Connect Wallet</Button>
+
 <Link exact to="/h">
-<Button variant="flat" style={{ backgroundColor: "#fa3455", color: "white"}}> {this.state.accounts}.</Button>
+<Button variant="flat" style={{ backgroundColor: "#fa3455", color: "white"}}> {this.state.accounts}</Button>
 <label class="mr-3 mt-2" style={{color:"white"}}>
 
 </label>
@@ -91,6 +108,7 @@ Join Pool{' '}
       </Navbar>
           <Switch>
     <Route exact path='/h' component={home}/>
+    <Route exact path='/t' component={thirdpage}/>
       <Route  exact path='/s' component={secondpage}/>
     </Switch>
     

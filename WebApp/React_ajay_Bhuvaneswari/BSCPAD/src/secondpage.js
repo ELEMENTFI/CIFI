@@ -98,6 +98,7 @@ var x = setInterval(function() {
 
 
 
+
   //  var x = document.getElementById('myDIV').style.visibility = "hidden";
   var bigInt = require("big-integer");
     var amount1;
@@ -306,14 +307,14 @@ Symbol</span> <br/> </p>
             <table>
               <div class="row">
                 <div class="col-6 mt-3">
-                <button class="btn btn-outline-primary" onClick={approve} id="ap">Approve name</button>
+                <button class="btn btn-primary" onClick={approve} id="ap">Approve name</button>
 
                 </div>
                
 
   
   <div class="col-2 mt-3" >
-          <Button variant="outline-primary" id="ap1" onClick={this.openModal}>
+          <Button variant="primary" id="ap1" onClick={this.openModal}>
 BuyTest          </Button>
         
         <Modal class="pop4" show={this.state.isOpen} onHide={this.closeModal} centered>
@@ -347,7 +348,7 @@ BuyTest          </Button>
           <Modal.Footer className="myModal">
            
            
-             <Button variant="outline-primary" onClick={buyTest}>
+             <Button variant="primary" onClick={buyTest}>
               Buy
             </Button>
            
@@ -372,4 +373,4 @@ BuyTest          </Button>
 }
 
 
-export default secondpage; 
+export default secondpage;
