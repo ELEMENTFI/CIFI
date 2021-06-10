@@ -1,7 +1,7 @@
 /* global AlgoSigner */
 import './App.css';
 //import {useState} from 'react';
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useCallback } from "react";
 import web3 from './web3';
 import lottery from './nftcontract';//this line import lottery folder
 import lottery2 from './helloworldcontract';//this line import lottery folder
@@ -26,6 +26,7 @@ import Compress from "react-image-file-resizer";
 // import Receivedpage from './Receivedpage';
 import Popup from './Popup';
 import nextId from "react-id-generator";
+import {Button, Container, Header, Message} from "semantic-ui-react";
 
 function Nft() {
 
@@ -196,8 +197,56 @@ let assetID='15940921';
     console.log("Account 3 = " + recoveredAccount3.addr);
     await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
   }
-  const CreateAsset=()=>{
+
+  // const ExampleAlgoSigner = ({title, buttonText, buttonAction}) => {
+  //   const [result, setResult] = useState("");
   
+  //   const onClick = useCallback(async () => {
+  //     const r = await buttonAction();
+  //     setResult(r);
+  //   }, [buttonAction]);
+  
+  //   return (
+  //     <>
+  //       <Header as="h2" dividing>{title}</Header>
+  //       <Button primary={true} onClick={onClick}>{buttonText}</Button>
+  //       <Message>
+  //         <code>
+  //           {result}
+  //         </code>
+  //       </Message>
+  //     </>
+  //   );
+  // };
+
+  // const CheckAlgoSigner = () => {
+  //   const action = useCallback(() => {
+  //     if (typeof AlgoSigner !== 'undefined') {
+  //       return "AlgoSigner is installed.";
+  //     } else {
+  //       return "AlgoSigner is NOT installed.";
+  //     }
+  //   }, []);
+  
+  //   return <ExampleAlgoSigner title="CheckAlgoSigner" buttonText="Check" buttonAction={action}/>
+  // };
+  
+  
+  const CreateAsset=async()=>{
+
+    // alert("hello");
+    // // const GetAccounts = () => {
+    //   const action = useCallback(async () => {
+    //     await AlgoSigner.connect({
+    //       ledger: 'TestNet'
+    //     });
+    //     const accts = await AlgoSigner.accounts({
+    //       ledger: 'TestNet'
+    //     });
+    //     return JSON.stringify(accts, null, 2);
+    //   }, []);    
+    //   console.log("act",action)
+    //   return <ExampleAlgoSigner title="Get Accounts" buttonText="Get Accounts" buttonAction={action}/>      
   }
 
   let btn;
@@ -2576,19 +2625,19 @@ id="idid"
 </form>
 
 
-{/* <button type="submit" onClick={CreateAsset}> Create NFT Algorand </button>
+{/* <button type="submit" onClick={CheckAlgoSigner}> Check NFT Algorand </button> */}
 
 <br></br>
 <br></br>
 
 
-<input
+{/* <input
   type='text'
   name="tTransferAlgo"
   required
   onChange={event => setTransferAlgo( event.target.value)}
   
-/> */}
+/> */} 
 
 <br></br>
 <br></br>
@@ -2754,7 +2803,7 @@ id="idid"
 
         
 
-<h4 style={{color:'white'}} onClick={testingdata}>Testing</h4>
+{/* <h4 style={{color:'white'}} onClick={testingdata}>Testing</h4> */}
 
       </div>      
     
