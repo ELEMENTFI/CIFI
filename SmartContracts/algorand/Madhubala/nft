@@ -1,0 +1,2 @@
+C:\AlgorandNode>goal asset create --asseturl "https://en.wikipedia.org/wiki/Coxinha" --creator "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ" --decimals 0 --name "Coxinha" --note "I have completed my tutorial on ASA creation using goal!" --total 1 --unitname CXNHA --datadir "C:\AlgorandNode\data" --wallet "madhu"
+Cannot construct transaction: asset url https://en.wikipedia.org/wiki/Coxinha is too long (max 32 byteS)
