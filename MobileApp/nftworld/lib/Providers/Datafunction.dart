@@ -13,7 +13,6 @@ class Nftdatas {
   final contract;
   final url;
   final tokenid;
-  final popular;
   final user;
   final symbol;
   final buyer;
@@ -24,7 +23,6 @@ class Nftdatas {
     @required this.nftname,
     @required this.price,
     @required this.url,
-    @required this.popular,
     @required this.symbol,
     @required this.wallet,
     @required this.contract,
@@ -99,7 +97,6 @@ class Initial extends VxMutation<Mystore> {
               wallet: result.value['WalletAddress'],
               contract: result.value['ContractAddress'],
               url: result.value['Image_url'],
-              popular: result.value['Popular'],
               symbol: result.value['Nft_Symbol'],
               tokenid: result.value['Token'],
               user: result.value['user'],
@@ -139,7 +136,6 @@ class Initial extends VxMutation<Mystore> {
                     wallet: result.value['WalletAddress'],
                     contract: result.value['ContractAddress'],
                     url: result.value['Image_url'],
-                    popular: result.value['Popular'],
                     symbol: result.value['Nft_Symbol'],
                     tokenid: result.value['Token'],
                     user: result.value['user'],
@@ -197,7 +193,6 @@ class Mydatas extends VxMutation<Mystore> {
               wallet: result.value['WalletAddress'],
               contract: result.value['ContractAddress'],
               url: result.value['Image_url'],
-              popular: result.value['Popular'],
               symbol: result.value['Nft_Symbol'],
               tokenid: result.value['Token'],
               user: result.value['user'],
@@ -231,7 +226,6 @@ class BuyedNft extends VxMutation<Mystore> {
               wallet: result.value['WalletAddress'],
               contract: result.value['ContractAddress'],
               url: result.value['Image_url'],
-              popular: result.value['Popular'],
               symbol: result.value['Nft_Symbol'],
               tokenid: result.value['Token'],
               user: result.value['user'],

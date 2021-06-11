@@ -111,7 +111,6 @@ class TextWidgetState extends State<TextWidget> {
     ref.child('NFT').child(name).set({
       'Image_url': url.text,
       'Price': '',
-      'Popular': '',
       'Nft_Symbol': nftsymbol.text,
       'WalletAddress': '',
       'ContractAddress': '',
