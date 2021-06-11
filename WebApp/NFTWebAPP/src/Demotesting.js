@@ -1,6 +1,7 @@
 import './App.css';
 import web3 from './web3';
 //import {abi} from './abicontract'
+import React , { Component}  from 'react';
 const Demotesting=()=> {
 
     

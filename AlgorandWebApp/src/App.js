@@ -16,6 +16,7 @@ const appId = 13793863;
 const ExampleAlgoSigner = ({title, buttonText, buttonAction}) => {
   const [res, setRes] = useState("");
   
+  
   const [result, setResult] = useState("");
   const onClick = useCallback(async () => {
     const r = await buttonAction();
@@ -43,41 +44,48 @@ const ExampleAlgoSigner = ({title, buttonText, buttonAction}) => {
 
 // The following components are all demonstrating some features of AlgoSigner
 
-const CheckAlgoSigner = () => {
-  const action = useCallback(() => {
-    if (typeof AlgoSigner !== 'undefined') {
-      return "AlgoSigner is installed.";
-    } else {
-      return "AlgoSigner is NOT installed.";
-    }
-  }, []);
+// const CheckAlgoSigner = () => {
+//   const action = useCallback(() => {
+//     if (typeof AlgoSigner !== 'undefined') {
+//       return "AlgoSigner is installed.";
+//     } else {
+//       return "AlgoSigner is NOT installed.";
+//     }
+//   }, []);
 
-  return <
-    ExampleAlgoSigner title="CheckAlgoSigner" buttonText="Check" buttonAction={action}
-    />
-};
+//   return <
+//     ExampleAlgoSigner title="CheckAlgoSigner" buttonText="Check" buttonAction={action}
+//     />
+// };
 
-let arr=[];
-
+const arr=[];
+let accts="";
 
 const GetAccounts = () => {
   const action = useCallback(async () => {    
     await AlgoSigner.connect({
       ledger: 'TestNet'
     });
-    const accts = await AlgoSigner.accounts({
+    accts = await AlgoSigner.accounts({
       ledger: 'TestNet'
     });
     //const accts = await AlgoSigner.accounts({})
     //alert("acc"+accts);
-    arr.push(JSON.stringify(accts, null, 2))
+    arr.push(JSON.stringify(accts[0], null, 2))
 
+    console.log("led",accts[0]);
+
+    console.log("arr",JSON.stringify(accts[0], null, 2));
+    //setadds(arr);
     return JSON.stringify(accts[0], null, 2);
 
+    
     
   }, []);
 
 
+  
+  //console.log("ledd",adds);
   //
 
   return <ExampleAlgoSigner title="Get Accounts" buttonText="Get Accounts" buttonAction={action}/>
@@ -85,7 +93,7 @@ const GetAccounts = () => {
 
 
 
-console.log("logg",arr);
+
 
 
 
@@ -190,6 +198,7 @@ const App = () => {
 
 const CreateAsset=async()=>{
 
+  console.log("logg",accts[0]);
   const algosdk = require('algosdk');
   var account1_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
   var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
@@ -198,8 +207,16 @@ const CreateAsset=async()=>{
   var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
   var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
   var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
+
+  console.log("hello",recoveredAccount3.address);
+  //alert(accts[0]);
+  console.log("def",accts[0]);
+  // var recoveredAccount1 = accts[0];
+  // var recoveredAccount2 = accts[0];
+  // var recoveredAccount3 = accts[0];
   
-  console.log(recoveredAccount3.addr);
+  
+  //console.log(recoveredAccount3.addr);
   const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
   
       
@@ -378,72 +395,74 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     // First update changing transaction parameters
     // We will account for changing transaction parameters
     // before every transaction in this example
-    params = await algodclient.getTransactionParams().do();
-    //comment out the next two lines to use suggested fee
-    params.fee = 1000;
-    params.flatFee = true;
 
-    let sender = recoveredAccount3.addr;
-    let recipient = sender;
-    // We set revocationTarget to undefined as 
-    // This is not a clawback operation
-    let revocationTarget = undefined;
-    // CloseReaminerTo is set to undefined as
-    // we are not closing out an asset
-    let closeRemainderTo = undefined;
-    // We are sending 0 assets
-    let amount = 0;
+    //cmd
+    // params = await algodclient.getTransactionParams().do();
+    // //comment out the next two lines to use suggested fee
+    // params.fee = 1000;
+    // params.flatFee = true;
+
+    // let sender = recoveredAccount3.addr;
+    // let recipient = sender;
+    // // We set revocationTarget to undefined as 
+    // // This is not a clawback operation
+    // let revocationTarget = undefined;
+    // // CloseReaminerTo is set to undefined as
+    // // we are not closing out an asset
+    // let closeRemainderTo = undefined;
+    // // We are sending 0 assets
+    // let amount = 0;
 
 
-    // signing and sending "txn" allows sender to begin accepting asset specified by creator and index
-    let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
-         amount, note, assetID, params);
+    // // signing and sending "txn" allows sender to begin accepting asset specified by creator and index
+    // let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
+    //      amount, note, assetID, params);
 
-    // Must be signed by the account wishing to opt in to the asset    
-    rawSignedTxn = opttxn.signTxn(recoveredAccount3.sk);
-    let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-    console.log("Transaction : " + opttx.txId);
-    // wait for transaction to be confirmed
-    await waitForConfirmation(algodclient, opttx.txId);
+    // // Must be signed by the account wishing to opt in to the asset    
+    // rawSignedTxn = opttxn.signTxn(recoveredAccount3.sk);
+    // let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+    // console.log("Transaction : " + opttx.txId);
+    // // wait for transaction to be confirmed
+    // await waitForConfirmation(algodclient, opttx.txId);
 
-    //You should now see the new asset listed in the account information
-    console.log("Account 3 = " + recoveredAccount3.addr);
-    await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
+    // //You should now see the new asset listed in the account information
+    // console.log("Account 3 = " + recoveredAccount3.addr);
+    // await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
 
     
-    // Transfer New Asset:
-    // Now that account3 can recieve the new tokens 
-    // we can tranfer tokens in from the creator
-    // to account3
-    // First update changing transaction parameters
-    // We will account for changing transaction parameters
-    // before every transaction in this example
+    // // Transfer New Asset:
+    // // Now that account3 can recieve the new tokens 
+    // // we can tranfer tokens in from the creator
+    // // to account3
+    // // First update changing transaction parameters
+    // // We will account for changing transaction parameters
+    // // before every transaction in this example
 
-    params = await algodclient.getTransactionParams().do();
-    //comment out the next two lines to use suggested fee
-    params.fee = 1000;
-    params.flatFee = true;
+    // params = await algodclient.getTransactionParams().do();
+    // //comment out the next two lines to use suggested fee
+    // params.fee = 1000;
+    // params.flatFee = true;
 
-    sender = recoveredAccount1.addr;
-    recipient = recoveredAccount3.addr;
-    revocationTarget = undefined;
-    closeRemainderTo = undefined;
-    //Amount of the asset to transfer
-    amount = 1000;
+    // sender = recoveredAccount1.addr;
+    // recipient = recoveredAccount3.addr;
+    // revocationTarget = undefined;
+    // closeRemainderTo = undefined;
+    // //Amount of the asset to transfer
+    // amount = 1000;
 
-    // signing and sending "txn" will send "amount" assets from "sender" to "recipient"
-    let xtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
-         amount,  note, assetID, params);
-    // Must be signed by the account sending the asset  
-    rawSignedTxn = xtxn.signTxn(recoveredAccount1.sk)
-    let xtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-    console.log("Transaction : " + xtx.txId);
-    // wait for transaction to be confirmed
-    await waitForConfirmation(algodclient, xtx.txId);
+    // // signing and sending "txn" will send "amount" assets from "sender" to "recipient"
+    // let xtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
+    //      amount,  note, assetID, params);
+    // // Must be signed by the account sending the asset  
+    // rawSignedTxn = xtxn.signTxn(recoveredAccount1.sk)
+    // let xtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+    // console.log("Transaction : " + xtx.txId);
+    // // wait for transaction to be confirmed
+    // await waitForConfirmation(algodclient, xtx.txId);
 
-    // You should now see the 10 assets listed in the account information
-    console.log("Account 3 = " + recoveredAccount3.addr);
-    await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
+    // // You should now see the 10 assets listed in the account information
+    // console.log("Account 3 = " + recoveredAccount3.addr);
+    // await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
 
 
     // freeze asset
@@ -1104,7 +1123,7 @@ window.location.reload(false)
     <>
     <Container className="App">
       
-      <Header as="h1" dividing>Simple React App Using AlgoSigner</Header>
+      {/* <Header as="h1" dividing>Simple React App Using AlgoSigner</Header> */}
       {/* <p>
         The Pure Stake Team provide many examples using AlgoSigner.
         See <a
@@ -1114,7 +1133,7 @@ window.location.reload(false)
 
 
 
-      <CheckAlgoSigner/>
+      {/* <CheckAlgoSigner/> */}
 
       <GetAccounts/>
 

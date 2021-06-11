@@ -30,6 +30,27 @@ import {Button, Container, Header, Message} from "semantic-ui-react";
 
 function Nft() {
 
+  const [adds,setadds]=useState([]);
+
+  const arr=[];
+  const GetAccountss =  async() => {
+    //alert("hello")
+      await AlgoSigner.connect({
+        ledger: 'TestNet'
+      });
+      const accts = await AlgoSigner.accounts({
+        ledger: 'TestNet'
+      });
+      //const accts = await AlgoSigner.accounts({})
+      //alert("acc"+accts);
+      arr.push(JSON.stringify(accts[0], null, 2))
+      alert(JSON.stringify(accts[0], null, 2));
+      return JSON.stringify(accts, null, 2);  
+      setadds.push(arr);            
+    }
+    
+
+
   const [isWork, setisWork] = useState(false)
   window.name = "1";
   const [show, setShow] = useState(false);
@@ -554,7 +575,10 @@ const onSubmitImage = async (event) => {
 
     }
     else if(tb === "Algos"){
-      //alert("you select algo");
+      alert("you select algo");
+      //alert(adds);
+      //alert(adds.length)
+      alert(arr.length);
 
       //start
 
@@ -563,10 +587,14 @@ const onSubmitImage = async (event) => {
   var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
   //var account3_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
   var account3_mnemonic = "runway genuine lazy assist ticket junior pilot flush rocket swallow ripple risk alien mobile chat recall run quiz cause weekend range april vicious about spoon";
-  var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
-  var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
-  var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
-  console.log(recoveredAccount3.addr);
+  // var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
+  // var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
+  // var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
+  alert(arr[0]);
+  var recoveredAccount1 = arr[0];
+  var recoveredAccount2 = arr[0];
+  var recoveredAccount3 = arr[0];
+  console.log(recoveredAccount3.address);
   const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
   const port = "";
   //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
@@ -2609,6 +2637,8 @@ id="idid"
   
   <br></br><br></br>
 
+
+  <button onClick={GetAccountss}>GETACC</button>
    
 
 

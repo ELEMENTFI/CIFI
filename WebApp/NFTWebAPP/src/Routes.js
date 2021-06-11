@@ -21,6 +21,7 @@ import AdminRoute from "./AdminRoute";
 import StartPage from "./StartPage";
 
 import Demotesting from "./Demotesting";
+import NewfileMar from "./NewfileMar";
 //import historys from "./History";
 
 
@@ -46,7 +47,7 @@ const Routes=()=>{
               <Route path="/receivedpage" component={Receivedpage} />
               <Route path="/nft" component={Nft} />
               <Route path="/testing" component={Demotesting}/>
-              
+              <Route path="/test" component={NewfileMar}/>
               
         </Switch>
 

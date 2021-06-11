@@ -1,5 +1,6 @@
+/* global AlgoSigner */
 import moment from 'moment';
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useCallback } from "react";
 //import history from "./utils/history";
 import web3 from './web3';
 // Router, Route, Switch,
@@ -34,11 +35,61 @@ import {
   TwitterIcon,
 } from "react-share";
 
-
+import {Button, Container, Header, Message} from "semantic-ui-react";
 
 // import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 
 const Explore=({handleLogout})=> {
+
+  // let arr=[];
+    
+  // const GetAccounts = () => {
+  //   const action = useCallback(async () => {    
+  //     await AlgoSigner.connect({
+  //       ledger: 'TestNet'
+  //     });
+  //     const accts = await AlgoSigner.accounts({
+  //       ledger: 'TestNet'
+  //     });
+  //     //const accts = await AlgoSigner.accounts({})
+  //     //alert("acc"+accts);
+  //     arr.push(JSON.stringify(accts[0], null, 2))
+  
+  //     alert(JSON.stringify(accts[0], null, 2));
+  //     return JSON.stringify(accts[0], null, 2);
+  
+      
+  //   }, []);
+  
+  
+    //
+  
+    // return <ExampleAlgoSigner title="Get Accounts" buttonText="Get Accounts" buttonAction={action}/>
+//  };
+  
+
+  // const ExampleAlgoSigner = ({title, buttonText, buttonAction}) => {
+  //   const [res, setRes] = useState("");
+    
+  //   const [result, setResult] = useState("");
+  //   const onClick = useCallback(async () => {
+  //     const r = await buttonAction();
+  //     setResult(r);
+  //   }, [buttonAction]);
+  
+  //   return (
+  //     <>
+        
+  //       <Header as="h2" dividing>{title}</Header>
+  //       <Button primary={true} onClick={onClick}>{buttonText}</Button>
+  //       <Message>
+  //         <code>
+  //           {result}
+  //         </code>
+  //       </Message>
+  //     </>
+  //   );
+  // };
 
 
   window.name = "John";
@@ -704,6 +755,19 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 {/* </nav> */}
 
 
+
+
+{/* <Link
+              to="/test">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                
+              >
+               Check
+              </button>
+              </Link>
+ */}
 
 
 </div>
