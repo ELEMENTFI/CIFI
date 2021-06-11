@@ -47,7 +47,7 @@ class secondpage extends Component{
 
 
 //time function
-var countDownDate = new Date("apr 20, 2021 20:15:00").getTime();
+var countDownDate = new Date("jun 04, 2021 20:15:00").getTime();
 // Update the count down every 1 second
 var x = setInterval(function() {
 
@@ -84,7 +84,7 @@ var x = setInterval(function() {
  
  else {
     
-     document.getElementById("dem").innerHTML = "closed";
+   //  document.getElementById("dem").innerHTML = "closed";
      document.getElementById("ap").disabled = true;
      document.getElementById("ap1").disabled=true;
      
@@ -243,7 +243,7 @@ const popup1 = async()=>{
 
 <span class="tt">Name</span> <br/> 
 </p><p id="main">{this.state.name}</p>
-<p id="dem" class="pp">
+<p id="dem" class="tiny">
 
 </p>
 
