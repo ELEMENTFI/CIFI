@@ -82,7 +82,8 @@ class _ListScreenState extends State<ListScreen> {
                 store.mydata.clear();
                 store.username = '';
                 store.count = 0;
-                print('loged out');
+                store.called = false;
+                print(store.mydata.length);
               }),
         ),
         body: RefreshIndicator(

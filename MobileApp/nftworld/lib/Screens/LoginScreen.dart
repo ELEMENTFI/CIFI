@@ -40,6 +40,7 @@ class Login extends StatefulWidget {
   static Future<String> user() async {
     final cloudstore = FirebaseFirestore.instance;
     String user;
+    print(controller6.text);
     if (controller6.text.contains('@'))
       user = controller6.text;
     else
@@ -53,16 +54,24 @@ class Login extends StatefulWidget {
     return user;
   }
 
-  static authentication(BuildContext stylecontext) async {
+  static authentication(
+    BuildContext stylecontext,
+    scaf,
+  ) async {
     try {
       SharedPreferences sp = await SharedPreferences.getInstance();
       String uid = await user();
 
-      auth.signInWithEmailAndPassword(email: uid, password: controller7.text);
+      auth
+          .signInWithEmailAndPassword(email: uid, password: controller7.text)
+          .then((value) {
+        Login.controller6.clear();
+        Login.controller7.clear();
+      });
       sp.setBool('login', true);
     } catch (e) {
       Alert(
-        context: scaffold.currentContext,
+        context: scaf.currentContext,
         type: AlertType.error,
         title: "ERROR",
         desc: e.toString(),

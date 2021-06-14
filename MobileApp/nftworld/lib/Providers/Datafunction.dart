@@ -149,15 +149,8 @@ class Initial extends VxMutation<Mystore> {
             });
           }
         }
-        if (store.count == counts) {
-          ref.child('NFTNAME').once().then((nftname) {
-            if (store.nftname[counts - 1] != nftname.value[counts]) {
-              store.nftname.add(nftname.value[counts]);
-              adddata(counts - 1, counts - 1);
-            }
-          });
-        }
-        if (store.count == 0) {
+        if (store.nftname.length == 0) {
+          print('i' + store.count.toString());
           ref.child('NFTNAME').once().then((nftname) {
             for (int i = 0; i < counts; i++) {
               if (store.called == false) store.nftname.add(nftname.value[i]);

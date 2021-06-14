@@ -5,7 +5,6 @@ import '../Providers/Datafunction.dart';
 import '../Widgets/Button.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'ListScreen.dart';
-import 'LoginScreen.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -29,8 +28,8 @@ class _MainPageState extends State<MainPage> {
     Initial();
     Mydatas();
     delay();
-    Login.controller6.clear();
-    Login.controller7.clear();
+    // Login.controller6.clear();
+    // Login.controller7.clear();
   }
 
   delay() async {
