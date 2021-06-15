@@ -6,6 +6,7 @@ import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+//IN THIS PAGE WE CRAETE NFT 
 // ignore: must_be_immutable
 class NFTCreation extends StatelessWidget {
   static TextEditingController controller8 = TextEditingController();
