@@ -40,13 +40,31 @@ const [bookss, setBookss] = useState(null);
        */ 
 
 
-const response = await fetch("https://api-testnet.bscscan.com/api?module=account&action=tokentx&address=0xDE949e5CC31062c71aD5180f050eE3b7C9f79037&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken");
+//const response = await fetch("https://api-testnet.bscscan.com/api?module=account&action=tokentx&address=0xdfa17787b21a674df054faa9a62d1f4a1b411902&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken");
+
+const response = await fetch("https://api-testnet.bscscan.com/api?module=account&action=tokentx&contractaddress=0x85986F018314E42A2a0881f54868AB00f7b6f386&address="+"0xdfa17787b21a674df054faa9a62d1f4a1b411902"+"&page=1&offset=100&sort=asc&apikey=YourApiKeyToken");
 const data = await response.json();
 setId7(data.result);
 //console.log("data",data);
 
 //console.log("req2",req2);
 
+
+var coun  = 0;
+console.log("length",data);
+let myadd = "0xdfa17787b21a674df054faa9a62d1f4a1b411902";
+
+for(var i = 0;i < data.length;i++){ 
+let ad = datas[i].from;
+console.log("myadd",myadd);
+console.log("fromad",ad);
+ if(myadd === ad){
+  coun = coun + 1 ;
+  console.log("equal",coun);
+ }
+ 
+}
+ setId5(coun);
 
 }
 useEffect(()=>{bal()},[])

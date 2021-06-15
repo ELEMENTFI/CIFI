@@ -757,7 +757,7 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 
 
 
-{/* <Link
+<Link
               to="/test">
               <button
                 class="btn btn-info btn-block"
@@ -767,7 +767,7 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
                Check
               </button>
               </Link>
- */}
+
 
 
 </div>
