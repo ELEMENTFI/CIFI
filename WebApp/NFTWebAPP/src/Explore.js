@@ -41,6 +41,11 @@ import {Button, Container, Header, Message} from "semantic-ui-react";
 
 const Explore=({handleLogout})=> {
 
+
+  //start transfer
+
+  //end transfer
+
   // let arr=[];
     
   // const GetAccounts = () => {
@@ -168,6 +173,16 @@ console.log("firb1",getImgbuyers)
 console.log("firb2",getImbuyers)
 
 
+//algo
+
+const[getAlgos,setgetAlgos]=useState([]);
+const[getAlgoss,setgetAlgoss]=useState([]);//
+console.log("firs1",getAlgos)
+console.log("firs2",getAlgoss)
+
+//algo
+
+
 
 const[getImgsellers,setgetImgsellers]=useState([]);
 const[getImsellers,setgetImsellers]=useState([]);//
@@ -182,6 +197,14 @@ console.log("fir2",getIm)
 const[Loader,setLoader]=useState(false);
 let btn;
 var accounts;
+
+
+//start buyers print in algo
+
+
+
+
+//end buyers print in algo
 
 //buyers start
 
@@ -230,6 +253,7 @@ const getbuyers = async() =>{
 useEffect(()=>{getbuyers()},[getImbuyers])
 
 
+//
 
 
 
@@ -281,6 +305,7 @@ const getSellers = async() =>{
 }
 useEffect(()=>{getSellers()},[getImsellers])
 
+//
 
 
 //sellers stop
@@ -373,6 +398,7 @@ const connectmm = async () => {
   }
   useEffect(()=>{getImgpa()},[getIm])
 
+  // 
   
 const buynow= async(a) =>{
 
@@ -396,6 +422,10 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 
     //mactimum 0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83
     gettrans=new web3.eth.Contract(tra,'0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83');
+
+  }
+  else if(mynetworks === "")
+  {
 
   }
   
@@ -770,10 +800,15 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 
 
 
+
 </div>
 </div>
               <br></br>     
 <br></br>
+
+{/* <button onClick={TransferAsset}>TransferAsset</button> */}
+<Link to="/testingalgo" ><button type="button">Testing</button></Link>
+
 <br></br>
 <br></br>
 <div>

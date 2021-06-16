@@ -22,6 +22,7 @@ import StartPage from "./StartPage";
 
 import Demotesting from "./Demotesting";
 import NewfileMar from "./NewfileMar";
+import AlgoTest from "./AlgoTest";
 //import historys from "./History";
 
 
@@ -48,6 +49,7 @@ const Routes=()=>{
               <Route path="/nft" component={Nft} />
               <Route path="/testing" component={Demotesting}/>
               <Route path="/test" component={NewfileMar}/>
+              <Route path="/testingalgo" component={AlgoTest}/>
               
         </Switch>
 
