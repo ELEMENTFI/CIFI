@@ -58,38 +58,38 @@ const ExampleAlgoSigner = ({title, buttonText, buttonAction}) => {
 //     />
 // };
 
-const arr=[];
-let accts="";
+// const arr=[];
+// let accts="";
 
-const GetAccounts = () => {
-  const action = useCallback(async () => {    
-    await AlgoSigner.connect({
-      ledger: 'TestNet'
-    });
-    accts = await AlgoSigner.accounts({
-      ledger: 'TestNet'
-    });
-    //const accts = await AlgoSigner.accounts({})
-    //alert("acc"+accts);
-    arr.push(JSON.stringify(accts[0], null, 2))
+// const GetAccounts = () => {
+//   const action = useCallback(async () => {    
+//     await AlgoSigner.connect({
+//       ledger: 'TestNet'
+//     });
+//     accts = await AlgoSigner.accounts({
+//       ledger: 'TestNet'
+//     });
+//     //const accts = await AlgoSigner.accounts({})
+//     //alert("acc"+accts);
+//     arr.push(JSON.stringify(accts[0], null, 2))
 
-    console.log("led",accts[0]);
+//     console.log("led",accts[0]);
 
-    console.log("arr",JSON.stringify(accts[0], null, 2));
-    //setadds(arr);
-    return JSON.stringify(accts[0], null, 2);
+//     console.log("arr",JSON.stringify(accts[0], null, 2));
+//     //setadds(arr);
+//     return JSON.stringify(accts[0], null, 2);
 
     
     
-  }, []);
+//   }, []);
 
 
   
   //console.log("ledd",adds);
   //
 
-  return <ExampleAlgoSigner title="Get Accounts" buttonText="Get Accounts" buttonAction={action}/>
-};
+//   return <ExampleAlgoSigner title="Get Accounts" buttonText="Get Accounts" buttonAction={action}/>
+// };
 
 
 

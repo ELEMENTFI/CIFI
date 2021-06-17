@@ -333,7 +333,7 @@ const connectmm = async () => {
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
+        btn.innerHTML = accounts[0];
         localStorage.setItem('myaddress', accounts[0]);
       }
       else{
@@ -345,7 +345,7 @@ const connectmm = async () => {
         localStorage.setItem('myaddress', "");
       }    
   };    
-  useEffect(()=>{connectmm()},[])
+  //useEffect(()=>{connectmm()},[])
 
   const getImgpa = async() =>{
     setLoader(true)
