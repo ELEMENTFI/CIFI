@@ -258,9 +258,10 @@ const checass=()=>{
     })
     .then((d) => {
       txParams = d;
+      let getchange=accounts[0].address;
       AlgoSigner.sign({
-        from: 'BAZXPXEGPFQ7JVOZ7BZUYK36EXLRAWC7MAG3O2SPDWMVCYDMRLCHC6JC2U',
-        assetName: 'demoass2',
+        from: getchange,
+        assetName: 'ChangeA3',
         assetUnitName: "Algos",
         assetTotal: +1000,
         assetDecimals: +1,
@@ -282,109 +283,23 @@ const checass=()=>{
         .then((d) => {
           tx = d;
 
-          // AlgoSigner.algod({
-          //   ledger: 'TestNet',
-          //   path: '/v2/transactions/pending/' + tx.txId
-          // })
-          // .then((d) => {
-          //   console.log(d);
-          // })
-          // .catch((e) => {
-          //   console.error(e);
-          // });
-
-          AlgoSigner.connect()
-.then((d) => {
- 
-  AlgoSigner.accounts({
-    ledger: 'TestNet'
-  })
-  .then((d) => {
-    accounts = d;
-
-    AlgoSigner.algod({
-      ledger: 'TestNet',
-      path: '/v2/transactions/params'
-    })
-    .then((d) => {
-      txParams = d;
-
-const name = 'demoass2';
-const limit = '1';
-
-AlgoSigner.indexer({
-  ledger: 'TestNet',
-  path: `/v2/assets?name=${name}&limit=${limit}`,
-})
-.then((d) => {
-  let dis=JSON.stringify(d);
-  console.log("dis",dis);
-
-
-  AlgoSigner.sign({
-    from: 'BAZXPXEGPFQ7JVOZ7BZUYK36EXLRAWC7MAG3O2SPDWMVCYDMRLCHC6JC2U',
-    to: 'ZSQ6JQFOR3VTJSEM45RYOTN32NH2RAGZB4RVWP2LB375F3FK7GNDAT27QA',
-    assetIndex: +0,
-    note: undefined,
-    amount: 10,
-    type: 'axfer',
-    fee: txParams['min-fee'],
-    firstRound: txParams['last-round'],
-    lastRound: txParams['last-round'] + 1000,
-    genesisID: txParams['genesis-id'],
-    genesisHash: txParams['genesis-hash'],
-    flatFee: true
-  })
-  .then((d) => {
-    signedTx = d;
-
-    AlgoSigner.send({
-      ledger: 'TestNet',
-      tx: signedTx.blob
-    })
-    .then((d) => {
-      tx = d;
-      AlgoSigner.algod({
-        ledger: 'TestNet',
-        path: '/v2/transactions/pending/' + tx.txId
-      })
-      .then((d) => {
-        console.log(d);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-    })
-    .catch((e) => {
-      console.error(e);
-    });
-
-  })
-  .catch((e) => {
-    console.error(e);
-  });
-
-})
-.catch((e) => {
-  console.error(e);
-  document.getElementById('assets-code').innerHTML = JSON.stringify(e);
-});
-
-
-    })
-    .catch((e) => {
-      console.error(e);
-    });
-  })
-  .catch((e) => {
-    console.error(e);
-  });
+          
   
-})
-.catch((e) => {
-  console.error(e);
-});
 
+          AlgoSigner.algod({
+            ledger: 'TestNet',
+            path: '/v2/transactions/pending/' + tx.txId
+          })
+          .then((d) => {
+            console.log(d);
+            
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+
+          
+        
         })
         .catch((e) => {
           console.error(e);
@@ -411,14 +326,15 @@ AlgoSigner.indexer({
 }
 
 
-const priceset=async()=>{
+
+const priceset=()=>{
 
   setIsOpensetFirst(false)
   console.log(a.addalgocreator)
   console.log(a.addkeyId)
   let price=tprice;
 
-  fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).update({
+  fireDb.database().ref(`algorandDataprice/${a.addalgocreator}`).child(a.addkeyId).set({
     createmnemonic:a.addmnemonic,
     algocreator:a.addalgocreator,
     algotrasnfer:"",
@@ -432,7 +348,25 @@ const priceset=async()=>{
     price:price,
     keyId:a.addkeyId,
     imageurl:a.addImgs
-}).then(()=> {
+});
+
+fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).update({
+  createmnemonic:a.addmnemonic,
+  algocreator:a.addalgocreator,
+  algotrasnfer:"",
+  algoid:a.addassetid,
+  algoname:a.addalgoname,
+  algosymbol:a.addalgosymbol,
+  txnId:a.addtxid,
+  AssetIdset:a.addassetid,
+  transfer:"",
+  status:"",
+  price:price,
+  keyId:a.addkeyId,
+  imageurl:a.addImgs
+})
+
+.then(()=> {
   setTprice("");
   //setIsOpensetFirst(false);
   setIsOpen(true);
@@ -444,7 +378,12 @@ const priceupdate=async(a)=>{
   console.log(a.addmnemonic)
   console.log(a.addkeyId)
 
-  fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).update({
+  setIsOpensetFirst(false)
+  console.log(a.addalgocreator)
+  console.log(a.addkeyId)
+  let price=tprice;
+
+  fireDb.database().ref(`algorandDataprice/${a.addalgocreator}`).child(a.addkeyId).set({
     createmnemonic:a.addmnemonic,
     algocreator:a.addalgocreator,
     algotrasnfer:"",
@@ -455,12 +394,143 @@ const priceupdate=async(a)=>{
     AssetIdset:a.addassetid,
     transfer:"",
     status:"",
-    price:"1000",
+    price:price,
     keyId:a.addkeyId,
     imageurl:a.addImgs
 });
 
+fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).update({
+  createmnemonic:a.addmnemonic,
+  algocreator:a.addalgocreator,
+  algotrasnfer:"",
+  algoid:a.addassetid,
+  algoname:a.addalgoname,
+  algosymbol:a.addalgosymbol,
+  txnId:a.addtxid,
+  AssetIdset:a.addassetid,
+  transfer:"",
+  status:"",
+  price:price,
+  keyId:a.addkeyId,
+  imageurl:a.addImgs
+})
+
+.then(()=> {
+  setTprice("");
+  //setIsOpensetFirst(false);
+  setIsOpen(true);
+ });
 }
+
+
+const opt=async()=>{
+
+  
+  let accounts;
+  let txParams;
+  let signedTx;
+  let tx;
+
+
+  //cut there opt
+
+  AlgoSigner.connect()
+.then((d) => {
+
+  AlgoSigner.accounts({
+    ledger: 'TestNet'
+  })
+  .then((d) => {
+    accounts = d;
+
+    AlgoSigner.algod({
+      ledger: 'TestNet',
+      path: '/v2/transactions/params'
+    })
+    .then((d) => {
+      txParams = d;
+      const name = 'ChangeA3';
+      const limit = '1';
+    
+      AlgoSigner.indexer({
+        ledger: 'TestNet',
+        path: `/v2/assets?name=${name}&limit=${limit}`,
+      })
+      .then((d) => {
+        let chec1=JSON.stringify(d);
+        console.log("chec1",chec1);
+
+        AlgoSigner.sign({
+          from: accounts[0].address,
+          to: 'BAZXPXEGPFQ7JVOZ7BZUYK36EXLRAWC7MAG3O2SPDWMVCYDMRLCHC6JC2U',
+          assetIndex: +4,
+          note: undefined,
+          amount: 0,
+          type: 'axfer',
+          fee: txParams['min-fee'],
+          firstRound: txParams['last-round'],
+          lastRound: txParams['last-round'] + 1000,
+          genesisID: txParams['genesis-id'],
+          genesisHash: txParams['genesis-hash'],
+          flatFee: true
+        })
+        .then((d) => {
+          signedTx = d;
+
+          AlgoSigner.send({
+            ledger: 'TestNet',
+            tx: signedTx.blob
+          })
+          .then((d) => {
+            tx = d;
+
+            AlgoSigner.algod({
+              ledger: 'TestNet',
+              path: '/v2/transactions/pending/' + tx.txId
+            })
+            .then((d) => {
+              console.log(d);
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+            
+
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+
+
+      })
+      .catch((e) => {
+        console.error(e);
+        let checklast=JSON.stringify(e);
+        console.log("checklast",checklast);
+      });
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+
+  })
+  .catch((e) => {
+    console.error(e);
+  });
+  
+})
+.catch((e) => {
+  console.error(e);
+});
+
+  
+}
+
 
 
   return (
@@ -471,6 +541,8 @@ const priceupdate=async(a)=>{
 <button onClick={getalgo}>GetAsset</button>
 
 <br></br><br></br>
+
+<button onClick={opt}>GetOpt</button>
 
 {/* <button onClick={chec}>alert</button>
 

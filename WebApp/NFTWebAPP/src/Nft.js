@@ -3710,12 +3710,14 @@ const onSubmitImage = async (event) => {
       'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
   }
   let algodclient = new algosdk.Algodv2(token, baseServer, port);  
+  let response;
+  let lastround;
 // Function used to wait for a tx confirmation
 const waitForConfirmation = async function (algodclient, txId) {
   console.log("working return 133",txId)
         console.log("workingalgo"+algodclient);
-    let response = await algodclient.status().do();
-    let lastround = response["last-round"];
+    response = await algodclient.status().do();
+    lastround = response["last-round"];
     while (true) {
         const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
         if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
@@ -3728,6 +3730,7 @@ const waitForConfirmation = async function (algodclient, txId) {
     }
 };
 
+let accountInfo;
 // Function used to print created asset for account and assetid
 const printCreatedAsset = async function (algodclient, account, assetid) {
     // note: if you have an indexer instance available it is easier to just use this
@@ -3735,7 +3738,7 @@ const printCreatedAsset = async function (algodclient, account, assetid) {
     //    .assetID(assetIndex).do();
     // and in the loop below use this to extract the asset for a particular account
     // accountInfo['accounts'][idx][account]);
-    let accountInfo = await algodclient.accountInformation(account).do();
+    accountInfo = await algodclient.accountInformation(account).do();
     for (let idx = 0; idx < accountInfo['created-assets'].length; idx++) {
         let scrutinizedAsset = accountInfo['created-assets'][idx];
         if (scrutinizedAsset['index'] === assetid) {
@@ -3868,7 +3871,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     console.log("dateget",dateset)
     const db = refalgo.push().key;
     console.log("dbcheck",db)
-    refalgo.child(db).set({imageurl:Img,createmnemonic:account1_mnemonic,algocreator:recoveredAccount1.addr,algotrasnfer:"",algoid:assetID,algoname:tname,algosymbol:currentSymbol,txnId:tx.txId,AssetIdset:assetID,transfer:"",status:"",price:"",keyId:db});
+    refalgo.child(db).set({imageurl:Img,createmnemonic:account1_mnemonic,algocreator:recoveredAccount1.addr,algotrasnfer:"",algoid:assetID,algoname:tname,algosymbol:currentSymbol,txnId:tx.txId,AssetIdset:assetID,transfer:"",status:"",price:"",keyId:db,algodclients:algodclient,responses:response,lastrounds:lastround,accountInfos:accountInfo});
 setLoading(false);
 setIsOpen(true);
 })().then(d=>{

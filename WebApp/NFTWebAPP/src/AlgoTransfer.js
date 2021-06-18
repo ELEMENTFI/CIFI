@@ -15,7 +15,7 @@ const getalgo = async() =>{
     //window.location.reload(false)
     let req = [];
     let req2 = [];//imagerefexplore
-    firebase.database().ref("algorandData").on("value", (data) => {
+    firebase.database().ref("algorandDataprice").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("print",d.val());
@@ -141,23 +141,28 @@ const getalgo = async() =>{
       // Function used to wait for a tx confirmation
       const waitForConfirmation = async function (algodclien, txId) {
         
-          console.log("working return 133",txId)
-        console.log("workingalgo"+algodclien);
+          //console.log("working return 133",txId)
+        //console.log("workingalgo"+algodclien);
           let response = await algodclien.status().do();
-          console.log("response",response);
+          //console.log("response",response);
           let lastround = response["last-round"];
-          console.log("lastround",lastround);
-          while (true) {
-              const pendingInfo = await algodclien.pendingTransactionInformation(txId).do();
-              console.log("insidewhileloop",pendingInfo);
-              if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
-                  //Got the completed Transaction
-                  console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
-                  break;
-              }
-              lastround++;
-              await algodclien.statusAfterBlock(lastround).do();
-          }
+          //console.log("lastround",lastround);
+          //while (true) {
+
+            //console.log("inside while loop");
+              //const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
+              //console.log("insidewhileloop",pendingInfo);
+              // if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
+              //     //Got the completed Transaction
+              //     console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+              //     break;
+              // }
+              //lastround++;
+              // await algodclien.statusAfterBlock(lastround).do();
+              //console.log("finish while loop");
+          //}
+
+          //console.log("outside while loop");
       };
       
       // Function used to print created asset for account and assetid
@@ -215,9 +220,10 @@ const getalgo = async() =>{
           await waitForConfirmation(algodclient,a.addtxid);
           console.log("working return 209")
           // Get the new asset's information from the creator account
-          let ptx = await algodclient.pendingTransactionInformation(a.addtxid).do();
-          console.log("working return 212",ptx["asset-index"]);
-          assetID = ptx["asset-index"];
+          //let ptx = await algodclient.pendingTransactionInformation(a.addtxid).do();
+          //console.log("working return 212",ptx["asset-index"]);
+          //assetID = ptx["asset-index"];
+          assetID=a.addassetid;
         
         await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
         await printAssetHolding(algodclient, recoveredAccount1.addr, assetID);
@@ -314,7 +320,7 @@ const getalgo = async() =>{
       
         })().then(d=>{
 
-          fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).update({
+          fireDb.database().ref(`algorandData/${recoveredAccount3.addr}`).child(a.addkeyId).set({
             createmnemonic:a.addmnemonic,
             algocreator:a.addalgocreator,
             algotrasnfer:"",
@@ -323,12 +329,34 @@ const getalgo = async() =>{
             algosymbol:a.addalgosymbol,
             txnId:a.addtxid,
             AssetIdset:a.addassetid,
-            transfer:"",
+            transfer:recoveredAccount3.addr,
             status:"sold",
-            price:"10",
+            price:a.addprice,
             keyId:a.addkeyId,
             imageurl:a.addImgs
         });
+
+        fireDb.database().ref(`algorandDataprice/${a.addalgocreator}`).child(a.addkeyId).remove();
+        fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).remove();
+
+      //   fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).update({
+      //     createmnemonic:a.addmnemonic,
+      //     algocreator:a.addalgocreator,
+      //     algotrasnfer:"",
+      //     algoid:a.addassetid,
+      //     algoname:a.addalgoname,
+      //     algosymbol:a.addalgosymbol,
+      //     txnId:a.addtxid,
+      //     AssetIdset:a.addassetid,
+      //     transfer:recoveredAccount3.addr,
+      //     status:"sold",
+      //     price:a.addprice,
+      //     keyId:a.addkeyId,
+      //     imageurl:a.addImgs
+      // })
+        
+
+
         }).catch(e => {
           console.log(e);
           console.trace();
