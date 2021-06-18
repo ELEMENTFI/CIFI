@@ -3,16 +3,9 @@ import firebase from "firebase";
 import fireDb from "./firebase";
 import React, { useState,useEffect,useCallback } from "react";
 const AlgoTransfer=()=>{
-
 const[getAlgos,setgetAlgos]=useState([]);
 const[getAlgoss,setgetAlgoss]=useState([]);
-
-
 const getalgo = async() =>{
-
-    // setLoader(true)
-    // setLoading(true)
-    //window.location.reload(false)
     let req = [];
     let req2 = [];//imagerefexplore
     firebase.database().ref("algorandDataprice").on("value", (data) => {
@@ -24,14 +17,9 @@ const getalgo = async() =>{
       }
     });
     setgetAlgos(req)
-  
     getAlgos.map((a)=>{
-      //console.log(`absalgos`, a)
-    
       Object.keys(a).map((b)=>{
-      //console.log(`bbb`, a[b].txnId)
         req2.push({
-          //addAcc:
     addtxid:a[b].txnId,
     addassetid:a[b].algoid,
     addalgoname:a[b].algoname,
@@ -46,27 +34,18 @@ const getalgo = async() =>{
       })
     })    
     setgetAlgoss(req2)    
-    //console.log("cfbsalgo",req) 
-    // setLoader(false)
-    // setLoading(false)
   }
-
-  //start transfer
-
   const TransferAsset=async(a)=>{
-    alert("transferasset");
-    console.log("buytx",a.addtxid);
-    console.log("buytx",a.addalgocreator);
-    console.log("buytx",a.addprice);
+    //alert("transferasset");
+    // console.log("buytx",a.addtxid);
+    // console.log("buytx",a.addalgocreator);
+    // console.log("buytx",a.addprice);
     let merge=a.addprice+'000000'
       const algosdk = require('algosdk');
-      var account1_mnemonic=a.addmnemonic;
-
-      //const checb1=()=>{
+      //var account1_mnemonic=a.addmnemonic;
         let signedTx;
         let tx;
         let txParams;
-      
         AlgoSigner.connect()
       .then((d) => {
         console.log("conn",d);
@@ -85,9 +64,8 @@ const getalgo = async() =>{
             txParams = d;
             console.log("txparms",d);
             let getac=accounts[0].address;
-            
-            console.log("stringcon",getac);
-            console.log("check",a.addalgocreator);
+            //console.log("stringcon",getac);
+            //console.log("check",a.addalgocreator);
             AlgoSigner.sign({
               from:getac,
               to: a.addalgocreator,
@@ -111,10 +89,7 @@ const getalgo = async() =>{
               .then((d) => {
                 tx = d;
                 console.log("tx",d);
-
-
                 //cut start
-
         var account1_mnemonic=a.addmnemonic;
         //var account1_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
         //var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
@@ -139,8 +114,7 @@ const getalgo = async() =>{
         let algodclient = new algosdk.Algodv2(token, baseServer, port);  
         console.log("algodclient",algodclient)
       // Function used to wait for a tx confirmation
-      const waitForConfirmation = async function (algodclien, txId) {
-        
+      const waitForConfirmation = async function (algodclien, txId) {        
           //console.log("working return 133",txId)
         //console.log("workingalgo"+algodclien);
           let response = await algodclien.status().do();
@@ -148,7 +122,6 @@ const getalgo = async() =>{
           let lastround = response["last-round"];
           //console.log("lastround",lastround);
           //while (true) {
-
             //console.log("inside while loop");
               //const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
               //console.log("insidewhileloop",pendingInfo);
@@ -201,45 +174,35 @@ const getalgo = async() =>{
           }
       };
       
-      (async () => {
-      
-      
+      (async () => {      
         let params = await algodclient.getTransactionParams().do();
           //comment out the next two lines to use suggested fee
           params.fee = 1000;
           params.flatFee = true;
-          console.log(params);
-          
-      
-          let note = undefined;
-          
+          //console.log(params);              
+          let note = undefined;          
           let assetID = null;
-          console.log("working198");
-          console.log("beforealgoclient",algodclient);
-          console.log(a.addtxid);
+          //console.log("working198");
+          //console.log("beforealgoclient",algodclient);
+          //console.log(a.addtxid);
           await waitForConfirmation(algodclient,a.addtxid);
-          console.log("working return 209")
+          //console.log("working return 209")
           // Get the new asset's information from the creator account
           //let ptx = await algodclient.pendingTransactionInformation(a.addtxid).do();
           //console.log("working return 212",ptx["asset-index"]);
           //assetID = ptx["asset-index"];
-          assetID=a.addassetid;
-        
+          assetID=a.addassetid;        
         await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
-        await printAssetHolding(algodclient, recoveredAccount1.addr, assetID);
-      
-        console.log("working178")
-        
-        //this below is transfer usefull function
-      
+        await printAssetHolding(algodclient, recoveredAccount1.addr, assetID);      
+        //console.log("working178")        
+        //this below is transfer usefull function      
         // Opting in to an Asset:
         // Opting in to transact with the new asset
         // Allow accounts that want recieve the new asset
         // Have to opt in. To do this they send an asset transfer
         // of the new asset to themseleves 
         // In this example we are setting up the 3rd recovered account to 
-        // receive the new asset
-      
+        // receive the new asset      
         // First update changing transaction parameters
         // We will account for changing transaction parameters
         // before every transaction in this example
@@ -248,8 +211,7 @@ const getalgo = async() =>{
           params = await algodclient.getTransactionParams().do();
           //comment out the next two lines to use suggested fee
           params.fee = 1000;
-          params.flatFee = true;
-      
+          params.flatFee = true;      
           let sender = recoveredAccount3.addr;
           let recipient = sender;
           // We set revocationTarget to undefined as 
@@ -261,10 +223,8 @@ const getalgo = async() =>{
           // We are sending 0 assets
           let amount = 0;
       //let note=undefined;
-      //assetID='15940921';
-      
-      console.log("working211")
-      
+      //assetID='15940921';      
+      //console.log("working211")      
           // signing and sending "txn" allows sender to begin accepting asset specified by creator and index
           let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
                amount, note, assetID, params);
@@ -280,8 +240,7 @@ const getalgo = async() =>{
           console.log("Account3" + recoveredAccount3.addr);
           await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
       
-          console.log("working 227")
-        
+      //console.log("working 227")        
       //     // Transfer New Asset:
       //     // Now that account3 can recieve the new tokens 
       //     // we can tranfer tokens in from the creator
@@ -355,8 +314,6 @@ const getalgo = async() =>{
       //     imageurl:a.addImgs
       // })
         
-
-
         }).catch(e => {
           console.log(e);
           console.trace();
@@ -390,110 +347,28 @@ const getalgo = async() =>{
   
     //end transfer
 //end buyers print in algo
-
-const chec=async()=>{
-
-  const algosdk = require('algosdk');
-  const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
-        const port = "";
-        //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
-        const token = {
-        
-            'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
-        }
-        //let algodclient = new algosdk.Algodv2(token, baseServer, port);  
-
-  await AlgoSigner.connect();
-
-  // Create an Algod client to get suggested transaction params
-  let client = new algosdk.Algodv2(token, baseServer, port);
-  let suggestedParams = await client.getTransactionParams().do();
-  console.log("try1",suggestedParams);
-  
-  // Use the JS SDK to build a Transaction
-  let sdkTx = new algosdk.Transaction({
-    to: 'ZSQ6JQFOR3VTJSEM45RYOTN32NH2RAGZB4RVWP2LB375F3FK7GNDAT27QA',
-    from: 'BAZXPXEGPFQ7JVOZ7BZUYK36EXLRAWC7MAG3O2SPDWMVCYDMRLCHC6JC2U',
-    amount: 10000,
-    suggestedParams,
-  });
-  
- console.log("try2",sdkTx);
-  // Get the binary and base64 encode it
-  let binaryTx = sdkTx.toByte();
-  let base64Tx = AlgoSigner.encoding.msgpackToBase64(binaryTx);
-  console.log("try3",base64Tx);
-  console.log("try4",binaryTx);
-  
-
-  //open algo signer below
-  let txn;
-
-  let signedTxs = await AlgoSigner.signTxn([
-    {
-      txn: base64Tx
-    },
-  ]); 
-
-  console.log("txn",txn);
-
-  // The AlgoSigner.signTxn() response would look like '[{ txID, blob }, null]'
-// Convert first transaction to binary from the response
-//let signedTx1Binary = AlgoSigner.encoding.base64ToMsgpack(signedTxs[0].blob);
-// Sign leftover transaction with the SDK
-//let externalAccount = algosdk.mnemonicToSecretKey('EXTERNAL_ACCOUNT_MNEMONIC');
-//let signedTx2Binary = txn.signTxn(externalAccount.sk);
-
-//await client.sendRawTransaction([signedTx1Binary, signedTx2Binary]).do();
-
-// Merge transaction binaries into a single Uint8Array
-// let combinedBinaryTxns = new Uint8Array(signedTx1Binary.byteLength + signedTx2Binary.byteLength);
-// combinedBinaryTxns.set(signedTx1Binary, 0);
-// combinedBinaryTxns.set(signedTx2Binary, signedTx1Binary.byteLength);
-
-// // Convert the combined array values back to base64
-// let combinedBase64Txns = AlgoSigner.encoding.msgpackToBase64(combinedBinaryTxns);
-
-// await AlgoSigner.send({
-//   ledger: 'TestNet',
-//   tx: combinedBase64Txns,
-// });
-
-}
-
 return(
 
     <div>
 
 <button onClick={getalgo}>GetAsset</button>
-
 <br></br><br></br>
-
-
-
 <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
 {getAlgoss.map((a)=>{  
     return (
       <div style={{backgroundColor:'black',height:'300px',width:'300px'}}>
-
 <div style={{border: '2px solid white',borderRadius:'5px'}}>
-
 <center>
     {/* <Link to={{pathname: `/explore/${a.addKeyI}/${a.addOwnerAddress}`,
 //pathname: `/explore/${combine}`,
                   }}
-                >
-    
+                >    
     </Link> */}
     {/* <h5>hello{a[b].imageUrl}</h5> */}
-    <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}} alt=""    />
-  
-    <h6 style={{color:'white'}}>Name : {a.addalgoname}</h6>
-    
-    <h6 style={{color:'white'}}>Symbol : {a.addalgosymbol}</h6>
-    
+    <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}} alt=""    />  
+    <h6 style={{color:'white'}}>Name : {a.addalgoname}</h6>    
+    <h6 style={{color:'white'}}>Symbol : {a.addalgosymbol}</h6>    
     <h6 style={{color:'white'}}>price : {a.addprice}</h6>
-
     { a.addsold === '' ? (
 <> 
  <button onClick={()=>TransferAsset(a)} >BuyNow</button>     
@@ -502,21 +377,13 @@ return(
       <>
       <button >Already Sold</button> 
       </>
-
     )}
 </center>
 </div>
-
 </div>
  )})}
   </div>
-
-
-  
-
   </div>
-
 );
-
 }
 export default AlgoTransfer;

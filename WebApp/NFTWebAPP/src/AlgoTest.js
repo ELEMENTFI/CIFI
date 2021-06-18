@@ -17,26 +17,19 @@ const [isOpen, setIsOpen] = useState(false);//update prize
   }
 
 const [a, setSelectImage] = useState({});
-
-console.log(`agets`, a); 
-
-  // to: 'ZSQ6JQFOR3VTJSEM45RYOTN32NH2RAGZB4RVWP2LB375F3FK7GNDAT27QA',
+//console.log(`agets`, a); 
+// to: 'ZSQ6JQFOR3VTJSEM45RYOTN32NH2RAGZB4RVWP2LB375F3FK7GNDAT27QA',
 //       from: 'BAZXPXEGPFQ7JVOZ7BZUYK36EXLRAWC7MAG3O2SPDWMVCYDMRLCHC6JC2U',
-
   // const tes=()=>{
   //   alert("hello world");
   // }
-
     //algo
-
 const[getAlgos,setgetAlgos]=useState([]);
 const[getAlgoss,setgetAlgoss]=useState([]);//
 //console.log("firs1",getAlgos)
 //console.log("firs2",getAlgoss)
-
 //algo
 //start buyers print in algo
-
 const getalgo = async() =>{
     // setLoader(true)
     // setLoading(true)
@@ -51,11 +44,9 @@ const getalgo = async() =>{
         });        
       }
     });
-    setgetAlgos(req)
-  
+    setgetAlgos(req)  
     getAlgos.map((a)=>{
-      //console.log(`absalgos`, a)
-    
+      //console.log(`absalgos`, a)    
       Object.keys(a).map((b)=>{
       //console.log(`bbb`, a[b].txnId)
         req2.push({
@@ -78,10 +69,7 @@ const getalgo = async() =>{
     // setLoading(false)
   }
   //useEffect(()=>{getalgo()},[])
-
 //getAlgoss
-
-
     
 const checs=async()=>{  
   let txParams = {};
@@ -325,15 +313,11 @@ const checass=()=>{
 
 }
 
-
-
 const priceset=()=>{
-
   setIsOpensetFirst(false)
   console.log(a.addalgocreator)
   console.log(a.addkeyId)
   let price=tprice;
-
   fireDb.database().ref(`algorandDataprice/${a.addalgocreator}`).child(a.addkeyId).set({
     createmnemonic:a.addmnemonic,
     algocreator:a.addalgocreator,
@@ -349,7 +333,6 @@ const priceset=()=>{
     keyId:a.addkeyId,
     imageurl:a.addImgs
 });
-
 fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).update({
   createmnemonic:a.addmnemonic,
   algocreator:a.addalgocreator,
@@ -365,24 +348,20 @@ fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).upda
   keyId:a.addkeyId,
   imageurl:a.addImgs
 })
-
 .then(()=> {
   setTprice("");
   //setIsOpensetFirst(false);
   setIsOpen(true);
  });
-
 }
 const priceupdate=async(a)=>{
 
-  console.log(a.addmnemonic)
-  console.log(a.addkeyId)
-
+  //console.log(a.addmnemonic)
+  //console.log(a.addkeyId)
   setIsOpensetFirst(false)
   console.log(a.addalgocreator)
   console.log(a.addkeyId)
   let price=tprice;
-
   fireDb.database().ref(`algorandDataprice/${a.addalgocreator}`).child(a.addkeyId).set({
     createmnemonic:a.addmnemonic,
     algocreator:a.addalgocreator,
@@ -414,7 +393,6 @@ fireDb.database().ref(`algorandData/${a.addalgocreator}`).child(a.addkeyId).upda
   keyId:a.addkeyId,
   imageurl:a.addImgs
 })
-
 .then(()=> {
   setTprice("");
   //setIsOpensetFirst(false);
@@ -531,83 +509,55 @@ const opt=async()=>{
   
 }
 
-
-
   return (
-
     <div >
       {/* style={{backgroundColor:"white"}} */}
-
 <button onClick={getalgo}>GetAsset</button>
-
 <br></br><br></br>
-
 <button onClick={opt}>GetOpt</button>
-
 {/* <button onClick={chec}>alert</button>
-
 <br></br><br></br>
-
 <button onClick={checs}>alert2</button>
 <br></br><br></br>
-
 <button onClick={checss}>alert2</button> */}
-
 <br></br><br></br>
-
 {/* <button onClick={checb1}>button1</button>
 <br></br><br></br>
-
 <button onClick={checb2}>button2</button>
 <br></br><br></br>
-
 <button onClick={checb3}>button3</button>
 <br></br><br></br> */}
-
 {/* <button onClick={checb1}>button</button> */}
 <br></br><br></br>
-
 <button onClick={checass}>buttonass</button>
 <br></br><br></br>
-
 {/* <button onClick={checb5}>button5</button> */}
-
 {/* {getAlgoss.length === 0 ? null :(  */}
   <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
 {getAlgoss.map((a)=>{  
     return (
       <div style={{backgroundColor:'black',height:'300px',width:'300px'}}>
-
 <div style={{border: '2px solid white',borderRadius:'5px'}}>
-
 <center>
     {/* <Link to={{pathname: `/explore/${a.addKeyI}/${a.addOwnerAddress}`,
 //pathname: `/explore/${combine}`,
                   }}
                 >
-    
     </Link> */}
     {/* <h5>hello{a[b].imageUrl}</h5> */}
-
     <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}} alt="" />
-  
     <h6 style={{color:'white'}}>Name : {a.addalgoname}</h6>
-    
     <h6 style={{color:'white'}}>Symbol : {a.addalgosymbol}</h6>
-    
     <h6 style={{color:'white'}}>price : {a.addprice}</h6>
-
     { a.addprice === '' ? (
 <> 
 {/* onClick={()=>buynow(a)} */}
 {/* TransferAsset(a) */}
  {/* <button onClick={()=>priceset(a)} >Setprice</button>  */}
-
  <button onClick={()=>{
     setSelectImage(a)
     setIsOpensetFirst(true)
-  }} style={{width:'80px',height:'43px'}} >SetPrice</button>  
-  
+  }} style={{width:'80px',height:'43px'}} >SetPrice</button>    
     {' '}
 </>
     ):(
@@ -617,16 +567,13 @@ const opt=async()=>{
     setIsOpensetFirst(true)
   }} style={{width:'80px',height:'43px'}} >UpdatePrice</button>  
       </>
-
     )}
 </center>
 </div>
-
 </div>
  )})}
   </div>
-  <div>
-    
+  <div>    
     {isOpensetFirst && <Popup content={<>
         <b>Notification</b>
         <p>Enter prize </p>
@@ -641,18 +588,12 @@ const opt=async()=>{
       />
       <br></br>
       <br></br>
-
         <button type="button" onClick={()=>{priceset()}}>submit</button>
         </center>
       </>}
        handleClose={togglePopupset}
     />}
-
-
-
-
 </div>
-
 {isOpen && <Popup content={<>
         <b>Notification</b>
         <p>Your token prize has been updated successfully......</p>
@@ -662,11 +603,7 @@ const opt=async()=>{
       </>}
        handleClose={togglePopup}
     />}
-
-
   </div>
-
   );
 }
-
 export default AlgoTest;
