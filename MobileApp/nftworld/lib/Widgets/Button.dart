@@ -45,12 +45,16 @@ class Button extends StatelessWidget {
             onPressed: () async => (id == 2 || id == 5 || id == 4)
                 ? context.vxNav.push(Uri(path: navname))
                 : (id == 3)
-                    ? Login.authentication(context)
+                    ? Login.authentication(context, Login.scaffold)
                     : (id == 6)
                         ? submit2(form)
                         : (id == 7)
-                            ? (buy == true)? BuyerScreenState.nftbuy():BuyerScreenState.newupdate(store)
-                            :(id == 8)?BuyerScreenState.nftsend(): submit(context, navname, form),
+                            ? (buy == true)
+                                ? BuyerScreenState.nftbuy()
+                                : BuyerScreenState.newupdate(store)
+                            : (id == 8)
+                                ? BuyerScreenState.nftsend()
+                                : submit(context, navname, form),
             child: label.richText
                 .textStyle(theme.textTheme.headline2.copyWith(fontSize: 13))
                 .make()),
@@ -58,4 +62,3 @@ class Button extends StatelessWidget {
     );
   }
 }
-

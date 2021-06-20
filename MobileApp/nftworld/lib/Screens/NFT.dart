@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../Providers/Datafunction.dart';
-import '../Widgets/Card.dart';
 import '../Widgets/DropDwonButton.dart';
 import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+//IN THIS PAGE WE CRAETE NFT 
 // ignore: must_be_immutable
 class NFTCreation extends StatelessWidget {
   static TextEditingController controller8 = TextEditingController();
@@ -20,8 +20,6 @@ class NFTCreation extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     VxState.watch(context, on: [Images]);
-    Mystore store = VxState.store;
-    var img = store.image;
     return Scaffold(
       backgroundColor: theme.primaryColor,
       appBar: AppBar(
@@ -81,16 +79,7 @@ class NFTCreation extends StatelessWidget {
               focusfun: (_) => f10.unfocus(),
               action: TextInputAction.done,
             ),
-            (context.percentHeight * 3).heightBox,
-            if (img == true)
-              CardWidget(
-                list: false,
-                nftname: controller8.text,
-                nftsymbol: controller9.text,
-                url: controller10.text,
-                price: '',
-              ).px(context.percentWidth * 15),
-            (context.percentHeight * 1).heightBox,
+            (context.percentHeight * 2).heightBox,
             Button(
               id: 6,
               label: 'CREATE',
