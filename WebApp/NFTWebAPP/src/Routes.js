@@ -24,6 +24,7 @@ import Demotesting from "./Demotesting";
 import NewfileMar from "./NewfileMar";
 import AlgoTest from "./AlgoTest";
 import AlgoTransfer from "./AlgoTransfer";
+import GitC1 from "./GitC1";
 //import historys from "./History";
 
 
@@ -52,6 +53,7 @@ const Routes=()=>{
               <Route path="/test" component={NewfileMar}/>
               <Route path="/testingalgo" component={AlgoTest}/>
               <Route path="/transferalgo" component={AlgoTransfer}/>
+              <Route path="/gitalgo" component={GitC1}/>
         </Switch>
 
         </Router>

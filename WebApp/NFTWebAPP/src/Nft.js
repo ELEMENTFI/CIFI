@@ -3834,7 +3834,8 @@ const printAssetHolding = async function (algodclient, account, assetid) {
         
     let ptx = await algodclient.pendingTransactionInformation(tx.txId).do();
     assetID = ptx["asset-index"];
-   // console.log("AssetID = " + assetID);
+    console.log("ptx" + ptx);
+    console.log("AssetID = " + assetID);
     
     await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
     await printAssetHolding(algodclient, recoveredAccount1.addr, assetID);
