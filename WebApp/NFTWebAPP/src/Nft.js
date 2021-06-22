@@ -234,22 +234,17 @@ const connectmm = async () => {
 
       
       //alert("acc"+accounts[0])
-
       accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
 
       if(accounts[0] !== ""){
         //accounts[0
         //document.getElementById("bu").
         //document.getElementById("bu").append("CONNECTED")
-
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
         btn.innerHTML = "CONNECTED"
-
-
         localStorage.setItem('myaddress', accounts[0]);
-      
       }
       else{
         //document.getElementById("bu").remove("");
