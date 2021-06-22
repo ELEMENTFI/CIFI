@@ -663,6 +663,8 @@ return(
 
 <button onClick={TransferAsset2}>T2</button>
 
+<br></br><br></br>
+
 <button onClick={getalgo}>GetAsset</button>
 <br></br><br></br>
 <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
