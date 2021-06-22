@@ -259,17 +259,10 @@ const connectmm = async () => {
   };    
   useEffect(()=>{connectmm()},[])
 
-
-
   //firebase 
-
   var studentlist = [];
-
   var stuset=[];
-
-
   const [currentid, setCurrentid] = useState("");
-
   const [toaddress,setToaddress] = useState("");
   const [tid,setId] = useState("");
   //const [turi,setUri] = useState("");
@@ -285,22 +278,15 @@ const connectmm = async () => {
   //const [transactionHash,setTransaction] = useState("");
   //const [gasUsed,setGasUsed] = useState("");
   //const [txReceipt,se] = useState("");
-
   let tf;
-
   let [Img,setImg] = useState("");
-
   let address="";
-
   //start
-
-
   const captureFile =(event) => {
     event.stopPropagation()
     event.preventDefault()
     const file = event.target.files[0]
     let reader = new window.FileReader()
-
     Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
     uri => {
       console.log("iuri",uri)
