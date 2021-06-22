@@ -238,9 +238,6 @@ const connectmm = async () => {
       accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
 
       if(accounts[0] !== ""){
-
-      
-
         //accounts[0
         //document.getElementById("bu").
         //document.getElementById("bu").append("CONNECTED")

@@ -666,9 +666,6 @@ return (
        handleClose={togglePopup2}
     />}
 
-
-
-
 </div>
 
 <div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
