@@ -5,8 +5,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Activitypage from "./Activitypage";
 import Howitworkpage from "./Howitworkpage";
 import Communitypage from "./Communitypage";
-import Mypurchasepage from './Mypurchasepage'
-import Createandpurchasepage from './Createandpurchasepage'
+//import Mypurchasepage from './Mypurchasepage'
+//import Createandpurchasepage from './Createandpurchasepage'
 import Receivedpage from './Receivedpage';
 import Explore from './Explore';
 //import Popup from './src/Popup';
@@ -16,11 +16,15 @@ import App from "./App";
 import DisplayData from "./DisplayData";
 import Followingpage from "./Followingpage";
 import Register from "./Login/Register";
-import History from "./History";
-import AdminRoute from "./AdminRoute";
-import StartPage from "./StartPage";
+//import History from "./History";
+//import AdminRoute from "./AdminRoute";
+//import StartPage from "./StartPage";
 
 import Demotesting from "./Demotesting";
+// import NewfileMar from "./NewfileMar";
+import AlgoTest from "./AlgoTest";
+import AlgoTransfer from "./AlgoTransfer";
+//import GitC1 from "./GitC1";
 //import historys from "./History";
 
 
@@ -46,8 +50,10 @@ const Routes=()=>{
               <Route path="/receivedpage" component={Receivedpage} />
               <Route path="/nft" component={Nft} />
               <Route path="/testing" component={Demotesting}/>
-              
-              
+              {/* <Route path="/test" component={NewfileMar}/> */}
+              <Route path="/testingalgo" component={AlgoTest}/>
+              <Route path="/transferalgo" component={AlgoTransfer}/>
+              {/* <Route path="/gitalgo" component={GitC1}/> */}
         </Switch>
 
         </Router>

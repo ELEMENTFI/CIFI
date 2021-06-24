@@ -1,5 +1,6 @@
+/* global AlgoSigner */
 import moment from 'moment';
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useCallback } from "react";
 //import history from "./utils/history";
 import web3 from './web3';
 // Router, Route, Switch,
@@ -34,11 +35,66 @@ import {
   TwitterIcon,
 } from "react-share";
 
-
+import {Button, Container, Header, Message} from "semantic-ui-react";
 
 // import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 
 const Explore=({handleLogout})=> {
+
+
+  //start transfer
+
+  //end transfer
+
+  // let arr=[];
+    
+  // const GetAccounts = () => {
+  //   const action = useCallback(async () => {    
+  //     await AlgoSigner.connect({
+  //       ledger: 'TestNet'
+  //     });
+  //     const accts = await AlgoSigner.accounts({
+  //       ledger: 'TestNet'
+  //     });
+  //     //const accts = await AlgoSigner.accounts({})
+  //     //alert("acc"+accts);
+  //     arr.push(JSON.stringify(accts[0], null, 2))
+  
+  //     alert(JSON.stringify(accts[0], null, 2));
+  //     return JSON.stringify(accts[0], null, 2);
+  
+      
+  //   }, []);
+  
+  
+    //
+  
+    // return <ExampleAlgoSigner title="Get Accounts" buttonText="Get Accounts" buttonAction={action}/>
+//  };
+  
+
+  // const ExampleAlgoSigner = ({title, buttonText, buttonAction}) => {
+  //   const [res, setRes] = useState("");
+    
+  //   const [result, setResult] = useState("");
+  //   const onClick = useCallback(async () => {
+  //     const r = await buttonAction();
+  //     setResult(r);
+  //   }, [buttonAction]);
+  
+  //   return (
+  //     <>
+        
+  //       <Header as="h2" dividing>{title}</Header>
+  //       <Button primary={true} onClick={onClick}>{buttonText}</Button>
+  //       <Message>
+  //         <code>
+  //           {result}
+  //         </code>
+  //       </Message>
+  //     </>
+  //   );
+  // };
 
 
   window.name = "John";
@@ -117,6 +173,16 @@ console.log("firb1",getImgbuyers)
 console.log("firb2",getImbuyers)
 
 
+//algo
+
+const[getAlgos,setgetAlgos]=useState([]);
+const[getAlgoss,setgetAlgoss]=useState([]);//
+console.log("firs1",getAlgos)
+console.log("firs2",getAlgoss)
+
+//algo
+
+
 
 const[getImgsellers,setgetImgsellers]=useState([]);
 const[getImsellers,setgetImsellers]=useState([]);//
@@ -131,6 +197,14 @@ console.log("fir2",getIm)
 const[Loader,setLoader]=useState(false);
 let btn;
 var accounts;
+
+
+//start buyers print in algo
+
+
+
+
+//end buyers print in algo
 
 //buyers start
 
@@ -179,6 +253,7 @@ const getbuyers = async() =>{
 useEffect(()=>{getbuyers()},[getImbuyers])
 
 
+//
 
 
 
@@ -230,6 +305,7 @@ const getSellers = async() =>{
 }
 useEffect(()=>{getSellers()},[getImsellers])
 
+//
 
 
 //sellers stop
@@ -257,7 +333,7 @@ const connectmm = async () => {
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
+        btn.innerHTML = accounts[0];
         localStorage.setItem('myaddress', accounts[0]);
       }
       else{
@@ -269,7 +345,7 @@ const connectmm = async () => {
         localStorage.setItem('myaddress', "");
       }    
   };    
-  useEffect(()=>{connectmm()},[])
+  //useEffect(()=>{connectmm()},[])
 
   const getImgpa = async() =>{
     setLoader(true)
@@ -322,6 +398,7 @@ const connectmm = async () => {
   }
   useEffect(()=>{getImgpa()},[getIm])
 
+  // 
   
 const buynow= async(a) =>{
 
@@ -345,6 +422,10 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 
     //mactimum 0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83
     gettrans=new web3.eth.Contract(tra,'0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83');
+
+  }
+  else if(mynetworks === "")
+  {
 
   }
   
@@ -706,10 +787,28 @@ gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18')
 
 
 
+<Link
+              to="/test">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                
+              >
+               Check
+              </button>
+              </Link>
+
+
+
+
 </div>
 </div>
               <br></br>     
 <br></br>
+
+{/* <button onClick={TransferAsset}>TransferAsset</button> */}
+<Link to="/testingalgo" ><button type="button">Testing</button></Link>
+
 <br></br>
 <br></br>
 <div>
