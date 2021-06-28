@@ -5,6 +5,7 @@ import Popup from './Popup';
 import axios from 'axios';
 import React, { useState,useEffect,useCallback } from "react";
 const AlgoTest=()=>{
+
 const [tprice,setTprice] = useState("");
 const [isOpenset, setIsOpenset] = useState(false);
 const [isOpensetFirst, setIsOpensetFirst] = useState(false);
@@ -16,6 +17,27 @@ const [isOpen, setIsOpen] = useState(false);//update prize
     setIsOpen(false);
     //window.location.reload(false)    
   }
+
+  
+
+const testAuthentication = () => {
+    const url = `https://api.pinata.cloud/data/testAuthentication`;
+    return axios
+        .get(url, {
+            headers: {
+                pinata_api_key: '16c67ab08c2dc2f36e8c',
+                pinata_secret_api_key: 'demo'
+            }
+        })
+        .then(function (response) {
+          console.log(response)
+            //handle your response here
+        })
+        .catch(function (error) {
+            //handle error here
+        });
+};
+  
 
 const [a, setSelectImage] = useState({});
 //console.log(`agets`, a); 
@@ -933,7 +955,9 @@ const getalgoold=()=>{
 
       <button onClick={getalgoold}>GetAssetOld</button>
 {/* <br></br><br></br><br></br> */}
+&nbsp&nbsp&nbsp&nbsp&nbsp
 <button onClick={getalgo}>GetAsset</button>
+&nbsp&nbsp&nbsp&nbsp&nbsp
 {/* <br></br><br></br> */}
 <button onClick={opt}>GetOpt</button>
 {/* <button onClick={chec}>alert</button>
@@ -942,6 +966,7 @@ const getalgoold=()=>{
 <br></br><br></br>
 <button onClick={checss}>alert2</button> */}
 {/* <br></br><br></br> */}
+&nbsp&nbsp&nbsp&nbsp&nbsp
 {/* <button onClick={checb1}>button1</button>
 <br></br><br></br>
 <button onClick={checb2}>button2</button>
@@ -950,9 +975,11 @@ const getalgoold=()=>{
 <br></br><br></br> */}
 <button onClick={trans}>trans</button>
 {/* <br></br><br></br> */}
+&nbsp&nbsp&nbsp&nbsp&nbsp
 <button onClick={checasss}>buttonass</button>
 {/* <br></br><br></br> */}
-{/* <button onClick={checb5}>button5</button> */}
+&nbsp&nbsp&nbsp&nbsp&nbsp
+<button onClick={testAuthentication}>button5</button>
 {/* {getAlgoss.length === 0 ? null :(  */}
   <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
 {getAlgoss.map((a)=>{  

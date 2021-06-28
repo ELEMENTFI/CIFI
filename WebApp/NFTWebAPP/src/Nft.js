@@ -11,8 +11,718 @@ import Compress from "react-image-file-resizer";
 import Popup from './Popup';
 import nextId from "react-id-generator";
 import {Button, Container, Header, Message} from "semantic-ui-react";
+//import { NFTStorage, File } from 'nft.storage'
+
+//import { NFTStorage, File } from 'nft.storage'
+import fill from './he.txt';
 
 function Nft() {
+
+//const uploadIpfs=()=>{
+  //alert("uploadipfs")
+    const axios = require('axios');
+
+
+    let pinataApiKey='88348e7ce84879e143e1';
+    let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+
+
+//     //const axios = require('axios');
+// const fs = require('fs');
+// const FormData = require('form-data');
+
+// const pinFileToIPFS2 = (pinataApiKey, pinataSecretApiKey) {
+//     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+
+//     //we gather a local file for this example, but any valid readStream source will work here.
+//     let data = new FormData();
+
+//     const util = require('util'),
+//     request = util.promisify(require('request')),
+//     fs = require('fs'),
+//     fsp = fs.promises;
+//     //data.append('file', fs.createReadStream('./logo192.png'));
+
+//     //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
+//     //metadata is optional
+//     const metadata = JSON.stringify({
+//         name: 'testname',
+//         keyvalues: {
+//             exampleKey: 'exampleValue'
+//         }
+//     });
+//     data.append('pinataMetadata', metadata);
+
+//     //pinataOptions are optional
+//     const pinataOptions = JSON.stringify({
+//         cidVersion: 0,
+//         customPinPolicy: {
+//             regions: [
+//                 {
+//                     id: 'FRA1',
+//                     desiredReplicationCount: 1
+//                 },
+//                 {
+//                     id: 'NYC1',
+//                     desiredReplicationCount: 2
+//                 }
+//             ]
+//         }
+//     });
+//     data.append('pinataOptions', pinataOptions);
+
+//     return axios
+//         .post(url, data, {
+//             maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
+//             headers: {
+//                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+//                 pinata_api_key: pinataApiKey,
+//                 pinata_secret_api_key: pinataSecretApiKey
+//             }
+//         })
+//         .then(function (response) {
+//             //handle response here
+
+//             console.log("succ75",response)
+//         })
+//         .catch(function (error) {
+//             //handle error here
+//         });
+// };
+
+
+    
+//const fs = require('fs').promises;;
+//const FormData = require('form-data');
+    // let pinataApiKey='88348e7ce84879e143e1';
+    // let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+
+    //const axios = require('axios');
+
+
+    const userPinList = (pinataApiKey, pinataSecretApiKey, queryParams) =>{
+
+
+      const url = `https://api.pinata.cloud/data/testAuthentication`;
+        return axios
+            .get(url, {
+                headers: {
+                    pinata_api_key: pinataApiKey,
+                    pinata_secret_api_key: pinataSecretApiKey
+                }
+            })
+            .then(function (response) {
+                console.log("tes",response)
+
+                console.log("43line")
+
+
+      console.log("34")
+      let queryString = '?';
+      if (queryParams.hashContains) {
+          queryString = queryString + `hashContains=${queryParams.hashContains}&`;
+      }
+      if (queryParams.pinStartDate) {
+          queryString = queryString + `pinStart=${queryParams.pinStartDate}&`;
+      }
+      if (queryParams.pinEndDate) {
+          queryString = queryString + `pinEnd=${queryParams.pinEndDate}&`;
+      }
+      if (queryParams.unpinStartDate) {
+          queryString = queryString + `unpinStart=${queryParams.unpinStartDate}&`;
+      }
+      if (queryParams.unpinEndDate) {
+          queryString = queryString + `unpinEnd=${queryParams.unpinEndDate}&`;
+      }
+      if (queryParams.selectedPinStatus) {
+          queryString = queryString + `pinFilter=${queryParams.selectedPinStatus}&`;
+      }
+      if (queryParams.unpinEndDate) {
+          queryString = queryString + `unpinEnd=${queryParams.unpinEndDate}&`;
+      }
+      if (queryParams.unpinEndDate) {
+          queryString = queryString + `unpinEnd=${queryParams.unpinEndDate}&`;
+      }
+      if (queryParams.pageLimit) {
+          queryString = queryString + `pageLimit=${queryParams.pageLimit}&`;
+      }
+      if (queryParams.pageOffset) {
+          queryString = queryString + `pageOffset=${queryParams.pageOffset}&`;
+      }
+      if (queryParams.nameContains) {
+          queryString = queryString + `metadata[name]=${queryParams.nameContains}&`;
+      }
+      //Make sure keyvalues are properly formatted as described earlier in the docs.
+      if (queryParams.keyvalues) {
+          const stringKeyValues = JSON.stringify(queryParams.keyvalues);
+          queryString = queryString + `metadata[keyvalues]=${stringKeyValues}`;
+      }
+      const url = `https://api.pinata.cloud/data/pinList${queryString}`;
+      return axios
+          .get(url, {
+              headers: {
+                  pinata_api_key: pinataApiKey,
+                  pinata_secret_api_key: pinataSecretApiKey
+              }
+          })
+          .then(function (response) {
+              //handle response here
+          })
+          .catch(function (error) {
+              //handle error here
+          });
+
+
+        })
+        .catch(function (error) {
+            //handle error here
+        });
+
+
+
+        }
+    
+
+        //useEffect(()=>{userPinList()},[])
+        
+     const pinFileToIPFS = () => {
+        const url = `https://api.pinata.cloud/data/testAuthentication`;
+        return axios
+            .get(url, {
+                headers: {
+                    pinata_api_key: pinataApiKey,
+                    pinata_secret_api_key: pinataSecretApiKey
+                }
+            })
+            .then(function (response) {
+                console.log("tes",response)
+
+                console.log("43line")
+
+                //start
+
+
+
+                pinFileToIPFS2();
+                
+                
+
+                //end
+
+                //start
+                const userPinList = (pinataApiKey, pinataSecretApiKey) ;
+                 
+                  const url = `https://api.pinata.cloud/data/userPinnedDataTotal`;
+                  axios
+                      .get(url, {
+                          headers: {
+                              pinata_api_key: pinataApiKey,
+                              pinata_secret_api_key: pinataSecretApiKey
+                          }
+                      })
+                      .then(function (response) {
+                        console.log("re",response)
+                          //handle response here
+
+
+                      })
+                      .catch(function (error) {
+                          //handle error here
+                      });
+              
+                      //stop
+
+    //             //start
+    // const hash=response.hash;
+    // const url = `https://api.pinata.cloud/pinning/hashMetadata`;
+    
+    // const body = {
+    //     ipfsPinHash: hash,
+    //     name: 'myNewName',
+    //     keyvalues: {
+    //         newKey: 'newValue',
+    //         existingKey: 'newValue',
+    //         existingKeyToRemove: null
+    //     }
+    // };
+    // return axios
+    //     .put(url, body, {
+    //         headers: {
+    //             pinata_api_key: pinataApiKey,
+    //             pinata_secret_api_key: pinataSecretApiKey
+    //         }
+    //     })
+    //     .then(function (response) {
+    //         //handle response here
+    //         console.log("hash",response)
+    //     })
+    //     .catch(function (error) {
+    //         //handle error here
+    //     });
+
+
+    //             //end
+
+                //start
+
+// const axios = require('axios');
+// const fs = require('fs');
+// //const FormData = require('form-data');
+
+// var express = require('express')
+// // var path = require('path');
+// // var Request = require("request");
+// // var app = express();
+
+// const pinFileToIPFS = (pinataApiKey, pinataSecretApiKey) ;
+
+// console.log("work",pinFileToIPFS)
+
+// const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+
+//     console.log("work")
+
+//     //we gather a local file for this example, but any valid readStream source will work here.
+//     //let data = new FormData();
+
+//     //console.log("data",data);
+
+// // var data = new FormData();
+// // console.log("work")
+// // data.append('my_field', 'my value');
+// // console.log("work")
+// // data.append('my_buffer', new Buffer(10));
+// // console.log("work103")
+// // data.append('my_file', fs.createReadStream('./logo192.png'));
+
+//     //data.append('file', fs.createReadStream('./logo192.png'));
+
+// // var FormData = require('form-data');
+// // var http = require('http');
+
+// // var data = new FormData();
+
+// // console.log("work113")
+// // http.request('http://nodejs.org/images/logo.png', function(response) {
+// //   data.append('my_field', 'my value');
+// //   data.append('my_buffer', new Buffer(10));
+// //   data.append('my_logo', response);
+// // });
+
+// var FormData = require('form-data');
+// var request = require('request');
+
+// var data = new FormData();
+
+// //data.append('my_field', 'my value');
+// //data.append('my_buffer', new Buffer(10));
+// data.append('file', request('http://nodejs.org/images/logo.png'));
+
+
+
+//     console.log("work121",data)
+
+    
+
+//     //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
+//     //metadata is optional
+//     const metadata = JSON.stringify({
+//         name: 'testname',
+//         keyvalues: {
+//             exampleKey: 'exampleValue'
+//         }
+//     });
+//     data.append('pinataMetadata', metadata);
+
+//     console.log("work")
+
+//     //pinataOptions are optional
+//     const pinataOptions = JSON.stringify({
+//         cidVersion: 0,
+//         customPinPolicy: {
+//             regions: [
+//                 {
+//                     id: 'FRA1',
+//                     desiredReplicationCount: 1
+//                 },
+//                 {
+//                     id: 'NYC1',
+//                     desiredReplicationCount: 2
+//                 }
+//             ]
+//         }
+//     });
+//     data.append('pinataOptions', pinataOptions);
+
+//     console.log("workla",data)
+
+//     axios
+//         .post(url, data, {
+//             maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
+//             headers: {
+//                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+//                 pinata_api_key: pinataApiKey,
+//                 pinata_secret_api_key: pinataSecretApiKey                
+
+//             }
+//         })
+//         .then(function (response) {
+//             //handle response here
+//             console.log("work")
+//             console.log("te",response)
+//         })
+//         .catch(function (error) {
+//             //handle error here
+//             console.log("workerror",error)
+//         });
+          
+
+                
+                
+                //end
+
+
+
+                //end
+
+                //start
+
+                // const generateApiKey = (pinataApiKey, pinataSecretApiKey);
+                
+                // console.log("gen",generateApiKey);
+                //   const url = `https://api.pinata.cloud/users/generateApiKey`;
+                //   const body = {
+                //       keyName: 'ExampleKey2',
+                //       permissions: {
+                //           endpoints: {
+                //               data: {
+                //                   userPinnedDataTotal: true
+                //               },
+                //               pinning: {
+                //                   pinJobs: true,
+                //                   unpin: true,
+                //                   userPinPolicy: true
+                //               }
+                //           }
+                //       }
+                //   };
+                //   return axios
+                //       .post(url, body, {
+                //           headers: {
+                //               pinata_api_key: pinataApiKey,
+                //               pinata_secret_api_key: pinataSecretApiKey
+                //           }
+                //       })
+                //       .then(function (response) {
+                //           //handle response here
+                //           console.log("tes2",response)
+
+
+
+
+
+                //       })
+                //       .catch(function (error) {
+                //           //handle error here
+                //       });
+              
+              
+
+
+                //end
+
+
+                //start
+
+
+            })
+            .catch(function (error) {
+                //handle error here
+            });
+
+            
+};
+
+
+//const axios = require('axios');
+const fs = require('fs');
+const FormData = require('form-data');
+console.log("447work")
+
+
+
+const pinFileToIPFS2 = (pinataApiKey, pinataSecretApiKey) => {
+  console.log("452work")
+  const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+//we gather a local file from the API for this example, but you can gather the file from anywhere
+console.log("work")
+    let data = new FormData();
+    console.log("work459")
+    //data.append('file',ipf);
+    data.append('file', fs.createReadStream('./dhon.png'));
+    //data.append('image', ); 
+
+    //fs.createReadStream('./he.txt')
+
+    console.log("work 463",data)
+
+    console.log("work 465",ipf)
+
+    const metadata = JSON.stringify({
+      name: 'testname',
+      keyvalues: {
+          exampleKey: 'exampleValue'
+      }
+  });
+  data.append('pinataMetadata', metadata);
+
+  //pinataOptions are optional
+  const pinataOptions = JSON.stringify({
+      cidVersion: 0,
+      customPinPolicy: {
+          regions: [
+              {
+                  id: 'FRA1',
+                  desiredReplicationCount: 1
+              },
+              {
+                  id: 'NYC1',
+                  desiredReplicationCount: 2
+              }
+          ]
+      }
+  });
+  data.append('pinataOptions', pinataOptions);
+
+  axios
+      .post(url, data, {
+          maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
+          headers: {
+              'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+              pinata_api_key: pinataApiKey,
+              pinata_secret_api_key: pinataSecretApiKey
+          }
+      })
+      .then(function (response) {
+          //handle response here
+      })
+      .catch(function (error) {
+          //handle error here
+      });
+
+// axios(url,
+//         data,
+//         {
+//             headers: {
+//                 'Content-Type': `multipart/form-data; boundary= ${data._boundary}`,
+//                 'pinata_api_key': pinataApiKey,
+//                 'pinata_secret_api_key': pinataSecretApiKey
+//             }
+//         }
+//     ).then(function (response) {
+//         //handle response here
+//         console.log("221 line")
+//     }).catch(function (error) {
+//         //handle error here
+//         console.log("478  error")
+//     });
+};
+
+
+
+//     let pinataApiKey='88348e7ce84879e143e1';
+//     let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+// const generateApiKey = (pinataApiKey, pinataSecretApiKey) => {
+//     const url = `https://api.pinata.cloud/users/generateApiKey`;
+//     const body = {
+//         keyName: 'Example Key',
+//         permissions: {
+//             endpoints: {
+//                 data: {
+//                     userPinnedDataTotal: true
+//                 },
+//                 pinning: {
+//                     pinJobs: true,
+//                     unpin: true,
+//                     userPinPolicy: true
+//                 }
+//             }
+//         }
+//     };
+//     return axios
+//         .post(url, body, {
+//             headers: {
+//                 pinata_api_key: pinataApiKey,
+//                 pinata_secret_api_key: pinataSecretApiKey
+//             }
+//         })
+//         .then(function (response) {
+
+//           console.log("resipfs",response)
+//             //handle response here
+//         })
+//         .catch(function (error) {
+//             //handle error here
+//         });
+// };
+  //}
+
+
+  const captureFile2=async(event)=> {
+//     // event.preventDefault()
+//     // //const file = event.target.files[0]
+//     // const reader = new window.FileReader()
+//     // reader.readAsArrayBuffer(file)
+//     // reader.onloadend = () => {
+//     //   //this.setState({ buffer: Buffer(reader.result) })
+//     //   console.log('buffer', buffer)
+//     // }
+
+     
+//     // const pr=new CID('QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR').toV1().toString()
+//     // console.log(pr)
+
+//     // const CID = require('cids')
+//     // var cid = new CID('QmUi22ZoR1o1TVQfubwLT7kr42uNAJNqV5STPXA6ibBQmq')
+//     // console.log( cid.toV1().toBaseEncodedString('base32'));
+
+//     // const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDI5RThhQkI4NzI4ODZhNjBkRWQ0MTI1RDYxNzA5NTMwOTgwNTUwNDIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYyNDU1OTU2OTYwNiwibmFtZSI6ImRlbW9rZXkifQ.25DslAudtH8PWQJMeIqBYAeRPV3uT3i8avwTGLKY8ls'
+// // const client = new NFTStorage({ token: apiKey })
+
+// const metadata = await client.store({
+//   name: 'Pinpie',
+//   description: 'Pin is not delicious beef!',
+//   image: new File([/* data */], 'pinpie.jpg', { type: 'image/jpg' })
+// })
+// console.log(metadata.url)
+
+const pinataSDK = require('@pinata/sdk');
+const pinata = pinataSDK('88348e7ce84879e143e1', 'e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f');
+
+pinata.testAuthentication().then((result) => {
+  //handle successful authentication here
+  console.log("result",result);
+}).catch((err) => {
+  //handle error here
+  console.log(err);
+});
+
+const metadata = {
+  name: 'demo',
+  keyvalues: {
+      newKey: 'demo',
+      existingKey: 'demo',
+      existingKeyToRemove: null
+  }
+};
+pinata.hashMetadata('yourHashHere', metadata).then((result) => {
+  //handle results here
+  console.log(result);
+}).catch((err) => {
+  //handle error here
+  console.log(err);
+});
+// const filters = {
+//   status : 'pinned',
+//   pageLimit: 10,
+//   pageOffset: 0,
+//   metadata: metadataFilter
+// };
+// pinata.pinList(filters).then((result) => {
+//   //handle results here
+//   console.log(result);
+// }).catch((err) => {
+//   //handle error here
+//   console.log(err);
+// });
+
+//start
+
+//imports needed for this function
+const axios = require('axios');
+const fs = require('fs');
+const FormData = require('form-data');
+let piniKey='88348e7ce84879e143e1';
+let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+const pinFileToIPFS = (piniKey, pinataSecretApiKey) => {
+    const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+//we gather a local file from the API for this example, but you can gather the file from anywhere
+    let data = new FormData();
+    data.append('file', fs.createReadStream('./yourfile.png'));
+return axios.post(url,
+        data,
+        {
+            headers: {
+                'Content-Type': `multipart/form-data; boundary= ${data._boundary}`,
+                'pinata_api_key': piniKey,
+                'pinata_secret_api_key': pinataSecretApiKey
+            }
+        }
+    ).then(function (response) {
+
+      console.log("demoal",response)
+        //handle response here
+    }).catch(function (error) {
+        //handle error here
+    });
+};
+
+
+//end
+
+
+    const url = 'https://api.pinata.cloud/data/testAuthentication';
+    return axios
+        .get(url, {
+            headers: {
+                pinata_api_key: '88348e7ce84879e143e1',
+                pinata_secret_api_key: 'e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f'
+            }
+        })
+        .then(function (response) {
+            //handle your response here
+            console.log("response",response)
+        })
+        .catch(function (error) {
+            //handle error here
+        });
+
+   }
+
+  // const onSubmit2=(event)=> {
+  //   event.preventDefault()
+  //   ipfs.files.add(buffer, (error, result) => {
+  //     if(error) {
+  //       console.error(error)
+  //       return
+  //     }
+  //     //this.simpleStorageInstance.set(result[0].hash, { from: this.state.account }).then((r) => {
+  //       //return this.setState({ ipfsHash: result[0].hash })
+  //       console.log('ifpsHash', ipfsHash)
+  //     })
+  //   }
+
+
+
+  const finals=async()=>{
+
+
+    
+
+// const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDI5RThhQkI4NzI4ODZhNjBkRWQ0MTI1RDYxNzA5NTMwOTgwNTUwNDIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYyNDU1OTU2OTYwNiwibmFtZSI6ImRlbW9rZXkifQ.25DslAudtH8PWQJMeIqBYAeRPV3uT3i8avwTGLKY8ls'
+// const client = new NFTStorage({ token: apiKey })
+
+// const metadata = await client.store({
+//   name: 'Pinpie',
+//   description: 'Pin is not delicious beef!',
+//   image: new File([/* data */], 'pinpie.jpg', { type: 'image/jpg' })
+// })
+// console.log(metadata.url)
+
+  }
+    
+
+  //const axios = require('axios');
 
   const [adds,setadds]=useState([]);
   const [isWork, setisWork] = useState(false)
@@ -37,44 +747,85 @@ function Nft() {
 
   let btn;
   var accounts;
+  
+
+  const connectalgo = async () => {
+
+    let getchange='';
+    AlgoSigner.connect()
+    .then((d) => {
+
+      AlgoSigner.accounts({
+        ledger: 'TestNet'
+      })
+      .then((d) => {
+        
+      accounts = d;
+      getchange=accounts[0].address;
+
+      localStorage.setItem("algoaddress",getchange);
+      console.log("algo address",getchange)
+
+      if(getchange!=''){
+        btn= document.getElementById("bualgo");
+      //btn.value = accounts[0]; // will just add a hidden value
+      //btn.innerHTML = accounts[0];
+      btn.innerHTML = getchange;
+      localStorage.setItem('myaddressalgo', getchange);
+      }
+      else{
+
+        var btns = document.getElementById("bualgo");
+      //btns.value = accounts[0]; // will just add a hidden value
+      btns.innerHTML = "NOT CONNECTED";
+      localStorage.setItem('myaddressalgo', "");
+
+      }
+
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+
+      
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+  
+    
+    
+    // let localalgo=localStorage.getItem("algoaddress");
+
+    // if(localalgo !== ""){
+
+    //   //accounts[0
+    //   //document.getElementById("bu").
+    //   //document.getElementById("bu").append("CONNECTED")
+
+    //   btn= document.getElementById("bualgo");
+    //   //btn.value = accounts[0]; // will just add a hidden value
+    //   //btn.innerHTML = accounts[0];
+    //   btn.innerHTML = localalgo;
+    //   localStorage.setItem('myaddressalgo', localalgo);
+    // }
+    // else{
+    //   //document.getElementById("bu").remove("");
+    //   //document.getElementById("bu").replaceWith("NOT CONNECTED")
+    //   var btns = document.getElementById("bualgo");
+    //   //btns.value = accounts[0]; // will just add a hidden value
+    //   btns.innerHTML = "NOT CONNECTED";
+    //   localStorage.setItem('myaddressalgo', "");
+    // }
+
+};    
+//useEffect(()=>{connectalgo()},[])
+
 
 const connectmm = async () => {
-
-
-    //var getaddress=localStorage.getItem('myaddress')
-
-    //if(getaddress !== ""){
-
-
-      //var btn = document.getElementById("bu");
-        //btn.value = accounts[0]; // will just add a hidden value
-        //btn.innerHTML = accounts[0];
-        //btn.innerHTML = "CONNECTED"
-
-
-
-    //}
-    //else{
-
-
-      //window.alert("Do you want to connect with metamask");
-
-
-      //event.preventDefault();
-     //bring in user's metamask account address
-
-     
-
-     //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
-
-      
-      //alert("acc"+accounts[0])
-
+    
       accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
-
       if(accounts[0] !== ""){
-
-      
 
         //accounts[0
         //document.getElementById("bu").
@@ -106,6 +857,9 @@ const connectmm = async () => {
   const [tname,setName] = useState("");
   const [tsymbol,settSymbol] = useState("");
   const [ipfsHash,setIpfsHash] = useState(null);
+  const [ipf,setIpf] = useState(null);
+  const [tdes,setDes] = useState("");
+  
   var [buffer,setBuffer] = useState("");
   let tf;
   let [Img,setImg] = useState("")
@@ -113,43 +867,76 @@ const connectmm = async () => {
   //start
 
 
+  
   const captureFile =(event) => {
     event.stopPropagation()
     event.preventDefault()
     const file = event.target.files[0]
     let reader = new window.FileReader()
-
     Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
     uri => {
       console.log("iuri",uri)
-setImg(uri)
+      setImg(uri)
     },
     'base64'
     );
     reader.readAsArrayBuffer(file)
     reader.onloadend = () => convertToBuffer(reader);    
+    console.log(reader)
+    
   };
+  //cons
+  // const reader=new window.FileReader();
+  // reader.readAsArrayBuffer(file)
 const convertToBuffer = async(reader) => {
   //file is converted to a buffer for upload to IPFS
     const buffer = await Buffer.from(reader.result);
   //set this buffer -using es6 syntax
     setBuffer(buffer);
+
+    onSubmitImage();
 };
 const onSubmitImage = async (event) => {
-  event.preventDefault();
+
+  console.log("onsubmitimage called")
+ // const buffer = Buffer.from(reader.result);
+  //set this buffer -using es6 syntax
+    //setBuffer(buffer);
+  //alert("capture")
+  //event.preventDefault();
  //bring in user's metamask account address
-  const accounts = await web3.eth.getAccounts();
- 
-  console.log('Sending from Metamask account: ' + accounts[0]);
-
-  await ipfs.add(buffer, (err, ipfsHash) => {
-    console.log(err,ipfsHash);
-
-    console.log("buff",buffer);
+  //const accounts = await web3.eth.getAccounts();
+  //console.log('Sending from Metamask account: ' + accounts[0]);
+  // await ipfs.add(buffer, (err, ipfsHash) => {
+  //   console.log(err,ipfsHash);
+  //   console.log("buff",buffer);
+  //   setIpfsHash(ipfsHash[0].hash);
+  //   console.log(ipfsHash[0].hash)
+  //   const CID = require('cids')
+  //   var cid = new CID(ipfsHash)
+  //   console.log( cid.toV1().toBaseEncodedString('base32'));
+  // }) 
 
   
-    setIpfsHash(ipfsHash[0].hash);
-  }) 
+    await ipfs.add(buffer, (err, ipfsHash) => {
+      console.log(err,ipfsHash);
+      console.log("buff",buffer);
+      setIpfsHash(ipfsHash[0].hash);
+      console.log(ipfsHash[0].hash)
+      const CID = require('cids')
+      var cid = new CID(ipfsHash[0].hash)
+      //let ccp=cid.toV1().toBaseEncodedString('base32');
+      console.log( cid.toV1().toBaseEncodedString('base32'));
+      setIpf(cid.toV1().toBaseEncodedString('base32'));
+    });
+  //   }).then((d)=> {
+  //     alert("console")
+  //     //onSubmitNFT();
+  // })
+  // .catch(function (error) {
+  //     //handle error here
+  // });
+
 }; 
 //end
 
@@ -157,6 +944,13 @@ const onSubmitImage = async (event) => {
 
    const onSubmitNFT = async (event) => {
 
+    //captureFile();
+
+    //convertToBuffer();
+
+    //onSubmitImage();
+
+    
     setLoading(true);
   
     event.preventDefault();
@@ -172,6 +966,11 @@ const onSubmitImage = async (event) => {
       var td=toaddress;
       //var te=tid;
       tf='https://ipfs.io/ipfs/'+ipfsHash;
+      let tdescription=tdes;
+
+    
+      //console.log('https://ipfs.io/ipfs/'+ccp)
+
       
       let ref23=fireDb.database().ref(`tokenkey`);      
       let getfire="";
@@ -3792,7 +4591,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     // integer number of decimals for asset unit calculation
     let decimals = 0;
     // total number of this asset available for circulation   
-    let totalIssuance = 1000;
+    let totalIssuance = 1;
     // Used to display asset units to user    
     let unitName = currentSymbol;
     // Friendly name of the asset    
@@ -3886,6 +4685,28 @@ setIsOpen(true);
     }  
 }    
 }
+
+
+const testax=()=>{
+
+    
+
+  const url = `https://api.pinata.cloud/data/testAuthentication`;
+  return axios
+      .get(url, {
+          headers: {
+              pinata_api_key: '16c67ab08c2dc2f36e8c',
+              pinata_secret_api_key: 'QmfWzpNPhwVA6o7Hqh5i2XiJHskpSExQounXmmaRqm9VNB'
+          }
+      })
+      .then(function (response) {
+          //handle your response here
+      })
+      .catch(function (error) {
+          //handle error here
+      });
+
+  }
 
 
   // const handleLogout=()=>{    
@@ -4032,13 +4853,34 @@ setIsOpen(true);
 
               {' '}
               
+              <button
+              id="bualgo"
+                class="btn btn-info btn-block"
+                type="button"
+                onClick= {connectalgo}>
+               Connect wallet
+              </button>
 
-              {/* <button onClick={handleLogout}>Logout</button> */}
+              {' '}
+
+              {/* <button onClick={testax}>LTest</button> */}
 
 
 
 
               <br></br>
+              {/* <Link
+to="/demoex">
+              <button
+                class="btn btn-info btn-block"
+                type="button"
+                // onClick={() => {
+                //   history.push("/Nft");
+                // }}
+              >
+               test
+              </button>
+              </Link> */}
 <br></br>
       
 
@@ -4105,6 +4947,19 @@ id="nameid"
 <br></br>
 <br></br>
 
+<label for="name">NFT  Description    </label>
+	  &nbsp;&nbsp;
+<input
+id="descriid"
+  type='text'
+  name="tdescri"
+  required
+  onChange={event => setDes(event.target.value)}
+  
+/>
+<br></br>
+      <br></br>
+
 
 
 {/* <label for="id">NFT Token-Id   {' '}   </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -4122,55 +4977,57 @@ id="idid"
 <br></br> */}
 
 
-<form onSubmit={onSubmitImage}>
+{/* <form onSubmit={onSubmitImage}> */}
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="images">Choose Your Image     </label>
             
             <input style={{backgroundColor:'white',height:'22px',width:'230px'}}
              name="tfile" id="fileid" type = "file" onChange = {captureFile} required />
-			
-             {/* <button 
+
+
+{/* <button 
+             onClick={onSubmitImage}
              type="submit"> 
              Upload Image NFT
              </button> */}
+
+			
+             
 			 <br></br>
 			 <br></br>
 			 <br></br>
-	</form>
 
-
-
-  {/* {isLoading ? "":
-              (<button  */}
-              <button
-                type="submit"> 
-                Create NFT
-                </button>
-   {/* )} */}
+              
   
   <br></br><br></br>
-
-
-  {/* <button onClick={GetAccountss}>GETACC</button> */}
-
      
   <br></br><br></br>
 
-  
+  <button
+                type="submit"> 
+                Create NFT
+                </button>
 
-{/* <button 
-
-
-
-
-             type="submit"> 
-             Upload and Create NFT
-
-             </button> */}
 
 </form>
 
+
+
+
+{/* <button 
+             onClick={convertToBuffer}
+             type="submit"> 
+             Buffer NFTs
+             </button> */}
+
+
+
+{/* <button 
+             onClick={captureFile2}
+             type="submit"> 
+             Capture 2
+             </button> */}
 
 {/* <button type="submit" onClick={CheckAlgoSigner}> Check NFT Algorand </button> */}
 
@@ -4191,7 +5048,12 @@ id="idid"
 <br></br>
 <br></br>
 
-{/* <button type="submit" onClick={HelloAsset}> Transfer Algorand </button> */}
+<button type="submit" onClick={captureFile2}> Transfer Algorand </button>
+
+<br></br>
+<br></br>
+
+<button type="submit" onClick={pinFileToIPFS}> Test Ipfs Algorand </button>
 
 {/* <div style={{backgroundColor:'red',height:'100px',width:'500px'}}> */}
 

@@ -663,10 +663,12 @@ return(
 
 <button onClick={TransferAsset2}>T2</button>
 
-<br></br><br></br>
+{/* <br></br><br></br> */}
+&nbsp&nbsp&nbsp&nbsp&nbsp
 
 <button onClick={getalgo}>GetAsset</button>
 <br></br><br></br>
+{/* &nbsp&nbsp&nbsp&nbsp&nbsp */}
 <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
 {getAlgoss.map((a)=>{  
     return (
@@ -694,10 +696,18 @@ return(
     )}
 </center>
 </div>
+
+
+
 </div>
+
+
  )})}
   </div>
+  
   </div>
+  
 );
+
 }
 export default AlgoTransfer;
