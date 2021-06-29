@@ -12,8 +12,6 @@ import Popup from './Popup';
 import nextId from "react-id-generator";
 import {Button, Container, Header, Message} from "semantic-ui-react";
 //import { NFTStorage, File } from 'nft.storage'
-
-//import { NFTStorage, File } from 'nft.storage'
 import fill from './he.txt';
 
 function Nft() {
@@ -894,7 +892,7 @@ const convertToBuffer = async(reader) => {
   //set this buffer -using es6 syntax
     setBuffer(buffer);
 
-    onSubmitImage();
+    //onSubmitImage();
 };
 const onSubmitImage = async (event) => {
 
@@ -4869,18 +4867,16 @@ const testax=()=>{
 
 
               <br></br>
-              {/* <Link
+              <Link
 to="/demoex">
               <button
                 class="btn btn-info btn-block"
                 type="button"
-                // onClick={() => {
-                //   history.push("/Nft");
-                // }}
+            
               >
                test
               </button>
-              </Link> */}
+              </Link>
 <br></br>
       
 
@@ -4986,11 +4982,11 @@ id="idid"
              name="tfile" id="fileid" type = "file" onChange = {captureFile} required />
 
 
-{/* <button 
+<button 
              onClick={onSubmitImage}
              type="submit"> 
              Upload Image NFT
-             </button> */}
+             </button>
 
 			
              

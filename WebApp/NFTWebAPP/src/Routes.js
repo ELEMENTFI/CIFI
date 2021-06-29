@@ -25,6 +25,7 @@ import Demotesting from "./Demotesting";
 import AlgoTest from "./AlgoTest";
 import AlgoTransfer from "./AlgoTransfer";
 import IpfsExam from "./IpfsExam";
+import NewIpfs from "./NewIpfs";
 //import GitC1 from "./GitC1";
 //import historys from "./History";
 
@@ -54,7 +55,7 @@ const Routes=()=>{
               {/* <Route path="/test" component={NewfileMar}/> */}
               <Route path="/testingalgo" component={AlgoTest}/>
               <Route path="/transferalgo" component={AlgoTransfer}/>
-              <Route path="/demoex" component={IpfsExam}/>
+              <Route path="/demoex" component={NewIpfs}/>
         </Switch>
 
         </Router>

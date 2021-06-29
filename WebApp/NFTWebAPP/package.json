@@ -19,6 +19,7 @@
     "bootstrap": "^4.6.0",
     "darkmode-js": "^1.5.7",
     "express": "^4.17.1",
+    "fetch-readablestream": "^0.2.0",
     "firebase": "^8.3.2",
     "form-data": "^2.3.3",
     "ipfs-api": "^26.1.2",
