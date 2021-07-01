@@ -6,6 +6,13 @@ import axios from 'axios';
 import React, { useState,useEffect,useCallback } from "react";
 const AlgoTest=()=>{
 
+  const [tpinata,setTpinata] = useState("");
+  const [pina,setPina] = useState([]);  
+  const [pinas,setPinas] = useState([]);  
+  console.log("pinaa",pina)
+  console.log("pinaas",pinas)
+  console.log("pinaass",tpinata)
+
 const [tprice,setTprice] = useState("");
 const [isOpenset, setIsOpenset] = useState(false);
 const [isOpensetFirst, setIsOpensetFirst] = useState(false);
@@ -18,25 +25,86 @@ const [isOpen, setIsOpen] = useState(false);//update prize
     //window.location.reload(false)    
   }
 
-  
+  let pinataApiKey='88348e7ce84879e143e1';
+  let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
 
-const testAuthentication = () => {
-    const url = `https://api.pinata.cloud/data/testAuthentication`;
-    return axios
-        .get(url, {
-            headers: {
-                pinata_api_key: '16c67ab08c2dc2f36e8c',
-                pinata_secret_api_key: 'demo'
-            }
-        })
-        .then(function (response) {
-          console.log(response)
-            //handle your response here
-        })
-        .catch(function (error) {
-            //handle error here
-        });
-};
+const pinataSDK = require('@pinata/sdk');
+const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+
+
+
+  const getpinata=()=>{
+    const filters = {
+      status : 'pinned',
+      pageLimit: 10,
+      pageOffset: 0
+      //metadata: metadataFilter
+  };
+  pinata.pinList(filters).then((result) => {
+      //handle results here
+      console.log(result.rows[0].metadata.name);
+      console.log(result.rows[0].ipfs_pin_hash);
+      setPina(result.rows)
+
+      // result.forEach((d)=>{
+      //   console.log("keycheck",d.key)
+      //   //req.push(d.val())
+      // })
+
+      let req=[];
+      pina.map((a)=>{
+        console.log(a.ipfs_pin_hash)
+        let persons;
+        let persons2;
+  axios.get(`https://gateway.pinata.cloud/ipfs/`+a.ipfs_pin_hash)
+  .then(res => {
+     persons = res.config.url;
+    //setTpinata({ persons });
+    axios.get(persons)
+  .then(res => {
+     persons2 ='https://ipfs.io/ipfs/'+res.data.message;
+     console.log("p2",persons2)
+    setTpinata( {persons2});
+    req.push({
+      addhash:a.ipfs_pin_hash,
+      addname:a.metadata.name,
+      addfetch:persons2
+  })
+  setPinas(req)
+})
+  })
+      })
+      
+      
+      
+      console.log("gitresult",result)
+
+      pinata.userPinnedDataTotal().then((result) => {
+        //handle results here
+        console.log("result");
+        console.log(result);
+
+      }).catch((err) => {
+        //handle error here
+        console.log(err);
+    });
+
+
+  }).catch((err) => {
+      //handle error here
+      console.log(err);
+  });
+}
+
+useEffect(()=>{getpinata()},[])
+
+
+// useEffect(() => {
+//   // POST request using fetch inside useEffect React hook
+ 
+// // empty dependency array means this effect will only run once (like componentDidMount in classes)
+// }, []);
+
   
 
 const [a, setSelectImage] = useState({});
@@ -389,94 +457,96 @@ const checasss=async()=>{
 
 }
 
-const checass=()=>{
-  let accounts;
-  let txParams;
-  let signedTx;
-  let tx;
 
-  let assname=prompt("Please enter your asset name");
-let asssymbol=prompt("Please enter your asset symbol");
+//asset create
+// const checass=()=>{
+//   let accounts;
+//   let txParams;
+//   let signedTx;
+//   let tx;
 
-  AlgoSigner.connect()
-.then((d) => {
-  AlgoSigner.accounts({
-    ledger: 'TestNet'
-  })
-  .then((d) => {
-    accounts = d;
-    AlgoSigner.algod({
-      ledger: 'TestNet',
-      path: '/v2/transactions/params'
-    })
-    .then((d) => {
-      txParams = d;
-      let getchange=accounts[0].address;
-      AlgoSigner.sign({
-        from: getchange,
-        assetName: assname,
-        assetUnitName: asssymbol,
-        assetTotal: +1000,
-        assetDecimals: +1,
-        note: undefined,
-        type: 'acfg',
-        fee: txParams['min-fee'],
-        firstRound: txParams['last-round'],
-        lastRound: txParams['last-round'] + 1000,
-        genesisID: txParams['genesis-id'],
-        genesisHash: txParams['genesis-hash'],
-        flatFee: true
-      })
-      .then((d) => {
-        signedTx = d;
-        AlgoSigner.send({
-          ledger: 'TestNet',
-          tx: signedTx.blob
-        })
-        .then((d) => {
-          tx = d;
+//   let assname=prompt("Please enter your asset name");
+// let asssymbol=prompt("Please enter your asset symbol");
+
+//   AlgoSigner.connect()
+// .then((d) => {
+//   AlgoSigner.accounts({
+//     ledger: 'TestNet'
+//   })
+//   .then((d) => {
+//     accounts = d;
+//     AlgoSigner.algod({
+//       ledger: 'TestNet',
+//       path: '/v2/transactions/params'
+//     })
+//     .then((d) => {
+//       txParams = d;
+//       let getchange=accounts[0].address;
+//       AlgoSigner.sign({
+//         from: getchange,
+//         assetName: assname,
+//         assetUnitName: asssymbol,
+//         assetTotal: +1000,
+//         assetDecimals: +1,
+//         note: undefined,
+//         type: 'acfg',
+//         fee: txParams['min-fee'],
+//         firstRound: txParams['last-round'],
+//         lastRound: txParams['last-round'] + 1000,
+//         genesisID: txParams['genesis-id'],
+//         genesisHash: txParams['genesis-hash'],
+//         flatFee: true
+//       })
+//       .then((d) => {
+//         signedTx = d;
+//         AlgoSigner.send({
+//           ledger: 'TestNet',
+//           tx: signedTx.blob
+//         })
+//         .then((d) => {
+//           tx = d;
 
           
   
 
-          AlgoSigner.algod({
-            ledger: 'TestNet',
-            path: '/v2/transactions/pending/' + tx.txId
-          })
-          .then((d) => {
-            console.log(d);
+//           AlgoSigner.algod({
+//             ledger: 'TestNet',
+//             path: '/v2/transactions/pending/' + tx.txId
+//           })
+//           .then((d) => {
+//             console.log(d);
             
-          })
-          .catch((e) => {
-            console.error(e);
-          });
+//           })
+//           .catch((e) => {
+//             console.error(e);
+//           });
 
           
         
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+//         })
+//         .catch((e) => {
+//           console.error(e);
+//         });
 
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-    })
-    .catch((e) => {
-      console.error(e);
-    });
-  })
-  .catch((e) => {
-    console.error(e);
-  });
+//       })
+//       .catch((e) => {
+//         console.error(e);
+//       });
+//     })
+//     .catch((e) => {
+//       console.error(e);
+//     });
+//   })
+//   .catch((e) => {
+//     console.error(e);
+//   });
   
-})
-.catch((e) => {
-  console.error(e);
-});
+// })
+// .catch((e) => {
+//   console.error(e);
+// });
 
-}
+// }
 
 const priceset=()=>{
   setIsOpensetFirst(false)
@@ -941,11 +1011,29 @@ const trans=async()=>{
                 //cut stop
 }
 
-const getalgoold=()=>{
+const getRes=()=>{
 
 
+  axios.get(`https://gateway.pinata.cloud/ipfs/QmRN6acixDMyB6ZT9EWDeUiWVZ5xg8eFKhU5wRFy5jDot3`)
+  .then(res => {
+    const persons = res.config.url;
+    setTpinata({ persons });
+  })
+
+
+
+//   const requestOptions = {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({ title: 'React Hooks POST Request Example' })
+// };
+// fetch('https://gateway.pinata.cloud/ipfs/QmRN6acixDMyB6ZT9EWDeUiWVZ5xg8eFKhU5wRFy5jDot3', requestOptions)
+//     .then(response => response.json())
+//     .then(data => setTpinata(data));
 
 }
+
+
 
 //prompt("Please enter your name", "Harry Potter");
 
@@ -953,7 +1041,7 @@ const getalgoold=()=>{
     <div >
       {/* style={{backgroundColor:"white"}} */}
 
-      <button onClick={getalgoold}>GetAssetOld</button>
+      {/* <button onClick={getalgoold}>GetAssetOld</button> */}
 {/* <br></br><br></br><br></br> */}
 &nbsp&nbsp&nbsp&nbsp&nbsp
 <button onClick={getalgo}>GetAsset</button>
@@ -979,7 +1067,10 @@ const getalgoold=()=>{
 <button onClick={checasss}>buttonass</button>
 {/* <br></br><br></br> */}
 &nbsp&nbsp&nbsp&nbsp&nbsp
-<button onClick={testAuthentication}>button5</button>
+<button onClick={getpinata}>Get Pinata</button>
+&nbsp&nbsp&nbsp&nbsp&nbsp
+<button onClick={getRes}>Get Response</button>
+
 {/* {getAlgoss.length === 0 ? null :(  */}
   <div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
 {getAlgoss.map((a)=>{  
@@ -1021,6 +1112,12 @@ const getalgoold=()=>{
 </div>
  )})}
   </div>
+
+
+
+
+
+
   <div>    
     {isOpensetFirst && <Popup content={<>
         <b>Notification</b>
@@ -1051,6 +1148,30 @@ const getalgoold=()=>{
       </>}
        handleClose={togglePopup}
     />}
+
+
+<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap'}}>
+{pinas.map((a)=>{  
+    return (
+      <div style={{backgroundColor:'black',height:'300px',width:'300px'}}>
+<div style={{border: '2px solid white',borderRadius:'5px'}}>
+<center>
+    
+    <img   src={a.addfetch}  style={{height:120,width:120,marginTop:'10px'}} alt="" />
+    <h6 style={{color:'white'}}>Name : {a.addname}</h6>
+    <h6 style={{color:'white'}}>Fetch : {a.addfetch}</h6>
+    
+    
+</center>
+</div>
+</div>
+ )})}
+  </div>
+
+
+
+
+
   </div>
   );
 }

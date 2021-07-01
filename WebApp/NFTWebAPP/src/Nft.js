@@ -16,6 +16,10 @@ import fill from './he.txt';
 
 function Nft() {
 
+  // const [pina,setPina] = useState([]);  
+  // const [pinas,setPinas] = useState([]);  
+  // console.log("pinaa",pina)
+  // console.log("pinaas",pinas)
 //const uploadIpfs=()=>{
   //alert("uploadipfs")
     const axios = require('axios');
@@ -24,700 +28,76 @@ function Nft() {
     let pinataApiKey='88348e7ce84879e143e1';
     let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
 
+  const pinataSDK = require('@pinata/sdk');
+  const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
 
-//     //const axios = require('axios');
-// const fs = require('fs');
-// const FormData = require('form-data');
+    const pinFileToIPFS=()=>{
 
-// const pinFileToIPFS2 = (pinataApiKey, pinataSecretApiKey) {
-//     const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 
-//     //we gather a local file for this example, but any valid readStream source will work here.
-//     let data = new FormData();
+      //alert("new");
 
-//     const util = require('util'),
-//     request = util.promisify(require('request')),
-//     fs = require('fs'),
-//     fsp = fs.promises;
-//     //data.append('file', fs.createReadStream('./logo192.png'));
+      pinata.testAuthentication().then((result) => {
+        //handle successful authentication here
+        console.log(result);
 
-//     //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
-//     //metadata is optional
-//     const metadata = JSON.stringify({
-//         name: 'testname',
-//         keyvalues: {
-//             exampleKey: 'exampleValue'
-//         }
-//     });
-//     data.append('pinataMetadata', metadata);
+        let ge=ipfsHash;
+        console.log("ipfsHash",ipfsHash);
+                const body = {
+                    message: ge
+                };
+                const options = {
+                    pinataMetadata: {
+                        name: tname,
+                        keyvalues: {
+                            customKey: 'customValue',
+                            customKey2: 'customValue2'
+                        }
+                    },
+                    pinataOptions: {
+                        cidVersion: 0
+                    }
+                };
+                pinata.pinJSONToIPFS(body, options).then((result) => {
+                    //handle results here
+                    console.log(result);
+                    console.log("jsonresult")
 
-//     //pinataOptions are optional
-//     const pinataOptions = JSON.stringify({
-//         cidVersion: 0,
-//         customPinPolicy: {
-//             regions: [
-//                 {
-//                     id: 'FRA1',
-//                     desiredReplicationCount: 1
-//                 },
-//                 {
-//                     id: 'NYC1',
-//                     desiredReplicationCount: 2
-//                 }
-//             ]
-//         }
-//     });
-//     data.append('pinataOptions', pinataOptions);
+                    
+                  }).catch((err) => {
+                      //handle error here
+                      console.log(err);
+                  });
 
-//     return axios
-//         .post(url, data, {
-//             maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
-//             headers: {
-//                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-//                 pinata_api_key: pinataApiKey,
-//                 pinata_secret_api_key: pinataSecretApiKey
-//             }
-//         })
-//         .then(function (response) {
-//             //handle response here
 
-//             console.log("succ75",response)
-//         })
-//         .catch(function (error) {
-//             //handle error here
-//         });
-// };
+                }).catch((err) => {
+                    //handle error here
+                    console.log(err);
+                });
+                                          
+    }
 
 
     
-//const fs = require('fs').promises;;
-//const FormData = require('form-data');
-    // let pinataApiKey='88348e7ce84879e143e1';
-    // let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
 
-    //const axios = require('axios');
+// const pin=()=>{
 
+//   let req=[];
 
-    const userPinList = (pinataApiKey, pinataSecretApiKey, queryParams) =>{
+//   pina.map((a)=>{
 
+//     //console.log(a.ipfs_pin_hash)
 
-      const url = `https://api.pinata.cloud/data/testAuthentication`;
-        return axios
-            .get(url, {
-                headers: {
-                    pinata_api_key: pinataApiKey,
-                    pinata_secret_api_key: pinataSecretApiKey
-                }
-            })
-            .then(function (response) {
-                console.log("tes",response)
+//     req.push({
+//           addhash:a.ipfs_pin_hash,
+//           addname:a.metadata.name
+//     })
+//     setPinas(req)
+//   })
+  
+// }
 
-                console.log("43line")
-
-
-      console.log("34")
-      let queryString = '?';
-      if (queryParams.hashContains) {
-          queryString = queryString + `hashContains=${queryParams.hashContains}&`;
-      }
-      if (queryParams.pinStartDate) {
-          queryString = queryString + `pinStart=${queryParams.pinStartDate}&`;
-      }
-      if (queryParams.pinEndDate) {
-          queryString = queryString + `pinEnd=${queryParams.pinEndDate}&`;
-      }
-      if (queryParams.unpinStartDate) {
-          queryString = queryString + `unpinStart=${queryParams.unpinStartDate}&`;
-      }
-      if (queryParams.unpinEndDate) {
-          queryString = queryString + `unpinEnd=${queryParams.unpinEndDate}&`;
-      }
-      if (queryParams.selectedPinStatus) {
-          queryString = queryString + `pinFilter=${queryParams.selectedPinStatus}&`;
-      }
-      if (queryParams.unpinEndDate) {
-          queryString = queryString + `unpinEnd=${queryParams.unpinEndDate}&`;
-      }
-      if (queryParams.unpinEndDate) {
-          queryString = queryString + `unpinEnd=${queryParams.unpinEndDate}&`;
-      }
-      if (queryParams.pageLimit) {
-          queryString = queryString + `pageLimit=${queryParams.pageLimit}&`;
-      }
-      if (queryParams.pageOffset) {
-          queryString = queryString + `pageOffset=${queryParams.pageOffset}&`;
-      }
-      if (queryParams.nameContains) {
-          queryString = queryString + `metadata[name]=${queryParams.nameContains}&`;
-      }
-      //Make sure keyvalues are properly formatted as described earlier in the docs.
-      if (queryParams.keyvalues) {
-          const stringKeyValues = JSON.stringify(queryParams.keyvalues);
-          queryString = queryString + `metadata[keyvalues]=${stringKeyValues}`;
-      }
-      const url = `https://api.pinata.cloud/data/pinList${queryString}`;
-      return axios
-          .get(url, {
-              headers: {
-                  pinata_api_key: pinataApiKey,
-                  pinata_secret_api_key: pinataSecretApiKey
-              }
-          })
-          .then(function (response) {
-              //handle response here
-          })
-          .catch(function (error) {
-              //handle error here
-          });
-
-
-        })
-        .catch(function (error) {
-            //handle error here
-        });
-
-
-
-        }
-    
-
-        //useEffect(()=>{userPinList()},[])
-        
-     const pinFileToIPFS = () => {
-        const url = `https://api.pinata.cloud/data/testAuthentication`;
-        return axios
-            .get(url, {
-                headers: {
-                    pinata_api_key: pinataApiKey,
-                    pinata_secret_api_key: pinataSecretApiKey
-                }
-            })
-            .then(function (response) {
-                console.log("tes",response)
-
-                console.log("43line")
-
-                //start
-
-
-
-                pinFileToIPFS2();
-                
-                
-
-                //end
-
-                //start
-                const userPinList = (pinataApiKey, pinataSecretApiKey) ;
-                 
-                  const url = `https://api.pinata.cloud/data/userPinnedDataTotal`;
-                  axios
-                      .get(url, {
-                          headers: {
-                              pinata_api_key: pinataApiKey,
-                              pinata_secret_api_key: pinataSecretApiKey
-                          }
-                      })
-                      .then(function (response) {
-                        console.log("re",response)
-                          //handle response here
-
-
-                      })
-                      .catch(function (error) {
-                          //handle error here
-                      });
-              
-                      //stop
-
-    //             //start
-    // const hash=response.hash;
-    // const url = `https://api.pinata.cloud/pinning/hashMetadata`;
-    
-    // const body = {
-    //     ipfsPinHash: hash,
-    //     name: 'myNewName',
-    //     keyvalues: {
-    //         newKey: 'newValue',
-    //         existingKey: 'newValue',
-    //         existingKeyToRemove: null
-    //     }
-    // };
-    // return axios
-    //     .put(url, body, {
-    //         headers: {
-    //             pinata_api_key: pinataApiKey,
-    //             pinata_secret_api_key: pinataSecretApiKey
-    //         }
-    //     })
-    //     .then(function (response) {
-    //         //handle response here
-    //         console.log("hash",response)
-    //     })
-    //     .catch(function (error) {
-    //         //handle error here
-    //     });
-
-
-    //             //end
-
-                //start
-
-// const axios = require('axios');
-// const fs = require('fs');
-// //const FormData = require('form-data');
-
-// var express = require('express')
-// // var path = require('path');
-// // var Request = require("request");
-// // var app = express();
-
-// const pinFileToIPFS = (pinataApiKey, pinataSecretApiKey) ;
-
-// console.log("work",pinFileToIPFS)
-
-// const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
-
-//     console.log("work")
-
-//     //we gather a local file for this example, but any valid readStream source will work here.
-//     //let data = new FormData();
-
-//     //console.log("data",data);
-
-// // var data = new FormData();
-// // console.log("work")
-// // data.append('my_field', 'my value');
-// // console.log("work")
-// // data.append('my_buffer', new Buffer(10));
-// // console.log("work103")
-// // data.append('my_file', fs.createReadStream('./logo192.png'));
-
-//     //data.append('file', fs.createReadStream('./logo192.png'));
-
-// // var FormData = require('form-data');
-// // var http = require('http');
-
-// // var data = new FormData();
-
-// // console.log("work113")
-// // http.request('http://nodejs.org/images/logo.png', function(response) {
-// //   data.append('my_field', 'my value');
-// //   data.append('my_buffer', new Buffer(10));
-// //   data.append('my_logo', response);
-// // });
-
-// var FormData = require('form-data');
-// var request = require('request');
-
-// var data = new FormData();
-
-// //data.append('my_field', 'my value');
-// //data.append('my_buffer', new Buffer(10));
-// data.append('file', request('http://nodejs.org/images/logo.png'));
-
-
-
-//     console.log("work121",data)
-
-    
-
-//     //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
-//     //metadata is optional
-//     const metadata = JSON.stringify({
-//         name: 'testname',
-//         keyvalues: {
-//             exampleKey: 'exampleValue'
-//         }
-//     });
-//     data.append('pinataMetadata', metadata);
-
-//     console.log("work")
-
-//     //pinataOptions are optional
-//     const pinataOptions = JSON.stringify({
-//         cidVersion: 0,
-//         customPinPolicy: {
-//             regions: [
-//                 {
-//                     id: 'FRA1',
-//                     desiredReplicationCount: 1
-//                 },
-//                 {
-//                     id: 'NYC1',
-//                     desiredReplicationCount: 2
-//                 }
-//             ]
-//         }
-//     });
-//     data.append('pinataOptions', pinataOptions);
-
-//     console.log("workla",data)
-
-//     axios
-//         .post(url, data, {
-//             maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
-//             headers: {
-//                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-//                 pinata_api_key: pinataApiKey,
-//                 pinata_secret_api_key: pinataSecretApiKey                
-
-//             }
-//         })
-//         .then(function (response) {
-//             //handle response here
-//             console.log("work")
-//             console.log("te",response)
-//         })
-//         .catch(function (error) {
-//             //handle error here
-//             console.log("workerror",error)
-//         });
-          
-
-                
-                
-                //end
-
-
-
-                //end
-
-                //start
-
-                // const generateApiKey = (pinataApiKey, pinataSecretApiKey);
-                
-                // console.log("gen",generateApiKey);
-                //   const url = `https://api.pinata.cloud/users/generateApiKey`;
-                //   const body = {
-                //       keyName: 'ExampleKey2',
-                //       permissions: {
-                //           endpoints: {
-                //               data: {
-                //                   userPinnedDataTotal: true
-                //               },
-                //               pinning: {
-                //                   pinJobs: true,
-                //                   unpin: true,
-                //                   userPinPolicy: true
-                //               }
-                //           }
-                //       }
-                //   };
-                //   return axios
-                //       .post(url, body, {
-                //           headers: {
-                //               pinata_api_key: pinataApiKey,
-                //               pinata_secret_api_key: pinataSecretApiKey
-                //           }
-                //       })
-                //       .then(function (response) {
-                //           //handle response here
-                //           console.log("tes2",response)
-
-
-
-
-
-                //       })
-                //       .catch(function (error) {
-                //           //handle error here
-                //       });
-              
-              
-
-
-                //end
-
-
-                //start
-
-
-            })
-            .catch(function (error) {
-                //handle error here
-            });
-
-            
-};
-
-
-//const axios = require('axios');
-const fs = require('fs');
-const FormData = require('form-data');
-console.log("447work")
-
-
-
-const pinFileToIPFS2 = (pinataApiKey, pinataSecretApiKey) => {
-  console.log("452work")
-  const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
-//we gather a local file from the API for this example, but you can gather the file from anywhere
-console.log("work")
-    let data = new FormData();
-    console.log("work459")
-    //data.append('file',ipf);
-    data.append('file', fs.createReadStream('./dhon.png'));
-    //data.append('image', ); 
-
-    //fs.createReadStream('./he.txt')
-
-    console.log("work 463",data)
-
-    console.log("work 465",ipf)
-
-    const metadata = JSON.stringify({
-      name: 'testname',
-      keyvalues: {
-          exampleKey: 'exampleValue'
-      }
-  });
-  data.append('pinataMetadata', metadata);
-
-  //pinataOptions are optional
-  const pinataOptions = JSON.stringify({
-      cidVersion: 0,
-      customPinPolicy: {
-          regions: [
-              {
-                  id: 'FRA1',
-                  desiredReplicationCount: 1
-              },
-              {
-                  id: 'NYC1',
-                  desiredReplicationCount: 2
-              }
-          ]
-      }
-  });
-  data.append('pinataOptions', pinataOptions);
-
-  axios
-      .post(url, data, {
-          maxBodyLength: 'Infinity', //this is needed to prevent axios from erroring out with large files
-          headers: {
-              'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-              pinata_api_key: pinataApiKey,
-              pinata_secret_api_key: pinataSecretApiKey
-          }
-      })
-      .then(function (response) {
-          //handle response here
-      })
-      .catch(function (error) {
-          //handle error here
-      });
-
-// axios(url,
-//         data,
-//         {
-//             headers: {
-//                 'Content-Type': `multipart/form-data; boundary= ${data._boundary}`,
-//                 'pinata_api_key': pinataApiKey,
-//                 'pinata_secret_api_key': pinataSecretApiKey
-//             }
-//         }
-//     ).then(function (response) {
-//         //handle response here
-//         console.log("221 line")
-//     }).catch(function (error) {
-//         //handle error here
-//         console.log("478  error")
-//     });
-};
-
-
-
-//     let pinataApiKey='88348e7ce84879e143e1';
-//     let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
-// const generateApiKey = (pinataApiKey, pinataSecretApiKey) => {
-//     const url = `https://api.pinata.cloud/users/generateApiKey`;
-//     const body = {
-//         keyName: 'Example Key',
-//         permissions: {
-//             endpoints: {
-//                 data: {
-//                     userPinnedDataTotal: true
-//                 },
-//                 pinning: {
-//                     pinJobs: true,
-//                     unpin: true,
-//                     userPinPolicy: true
-//                 }
-//             }
-//         }
-//     };
-//     return axios
-//         .post(url, body, {
-//             headers: {
-//                 pinata_api_key: pinataApiKey,
-//                 pinata_secret_api_key: pinataSecretApiKey
-//             }
-//         })
-//         .then(function (response) {
-
-//           console.log("resipfs",response)
-//             //handle response here
-//         })
-//         .catch(function (error) {
-//             //handle error here
-//         });
-// };
-  //}
-
-
-  const captureFile2=async(event)=> {
-//     // event.preventDefault()
-//     // //const file = event.target.files[0]
-//     // const reader = new window.FileReader()
-//     // reader.readAsArrayBuffer(file)
-//     // reader.onloadend = () => {
-//     //   //this.setState({ buffer: Buffer(reader.result) })
-//     //   console.log('buffer', buffer)
-//     // }
-
-     
-//     // const pr=new CID('QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR').toV1().toString()
-//     // console.log(pr)
-
-//     // const CID = require('cids')
-//     // var cid = new CID('QmUi22ZoR1o1TVQfubwLT7kr42uNAJNqV5STPXA6ibBQmq')
-//     // console.log( cid.toV1().toBaseEncodedString('base32'));
-
-//     // const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDI5RThhQkI4NzI4ODZhNjBkRWQ0MTI1RDYxNzA5NTMwOTgwNTUwNDIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYyNDU1OTU2OTYwNiwibmFtZSI6ImRlbW9rZXkifQ.25DslAudtH8PWQJMeIqBYAeRPV3uT3i8avwTGLKY8ls'
-// // const client = new NFTStorage({ token: apiKey })
-
-// const metadata = await client.store({
-//   name: 'Pinpie',
-//   description: 'Pin is not delicious beef!',
-//   image: new File([/* data */], 'pinpie.jpg', { type: 'image/jpg' })
-// })
-// console.log(metadata.url)
-
-const pinataSDK = require('@pinata/sdk');
-const pinata = pinataSDK('88348e7ce84879e143e1', 'e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f');
-
-pinata.testAuthentication().then((result) => {
-  //handle successful authentication here
-  console.log("result",result);
-}).catch((err) => {
-  //handle error here
-  console.log(err);
-});
-
-const metadata = {
-  name: 'demo',
-  keyvalues: {
-      newKey: 'demo',
-      existingKey: 'demo',
-      existingKeyToRemove: null
-  }
-};
-pinata.hashMetadata('yourHashHere', metadata).then((result) => {
-  //handle results here
-  console.log(result);
-}).catch((err) => {
-  //handle error here
-  console.log(err);
-});
-// const filters = {
-//   status : 'pinned',
-//   pageLimit: 10,
-//   pageOffset: 0,
-//   metadata: metadataFilter
-// };
-// pinata.pinList(filters).then((result) => {
-//   //handle results here
-//   console.log(result);
-// }).catch((err) => {
-//   //handle error here
-//   console.log(err);
-// });
-
-//start
-
-//imports needed for this function
-const axios = require('axios');
-const fs = require('fs');
-const FormData = require('form-data');
-let piniKey='88348e7ce84879e143e1';
-let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
-const pinFileToIPFS = (piniKey, pinataSecretApiKey) => {
-    const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
-//we gather a local file from the API for this example, but you can gather the file from anywhere
-    let data = new FormData();
-    data.append('file', fs.createReadStream('./yourfile.png'));
-return axios.post(url,
-        data,
-        {
-            headers: {
-                'Content-Type': `multipart/form-data; boundary= ${data._boundary}`,
-                'pinata_api_key': piniKey,
-                'pinata_secret_api_key': pinataSecretApiKey
-            }
-        }
-    ).then(function (response) {
-
-      console.log("demoal",response)
-        //handle response here
-    }).catch(function (error) {
-        //handle error here
-    });
-};
-
-
-//end
-
-
-    const url = 'https://api.pinata.cloud/data/testAuthentication';
-    return axios
-        .get(url, {
-            headers: {
-                pinata_api_key: '88348e7ce84879e143e1',
-                pinata_secret_api_key: 'e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f'
-            }
-        })
-        .then(function (response) {
-            //handle your response here
-            console.log("response",response)
-        })
-        .catch(function (error) {
-            //handle error here
-        });
-
-   }
-
-  // const onSubmit2=(event)=> {
-  //   event.preventDefault()
-  //   ipfs.files.add(buffer, (error, result) => {
-  //     if(error) {
-  //       console.error(error)
-  //       return
-  //     }
-  //     //this.simpleStorageInstance.set(result[0].hash, { from: this.state.account }).then((r) => {
-  //       //return this.setState({ ipfsHash: result[0].hash })
-  //       console.log('ifpsHash', ipfsHash)
-  //     })
-  //   }
-
-
-
-  const finals=async()=>{
-
-
-    
-
-// const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDI5RThhQkI4NzI4ODZhNjBkRWQ0MTI1RDYxNzA5NTMwOTgwNTUwNDIiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYyNDU1OTU2OTYwNiwibmFtZSI6ImRlbW9rZXkifQ.25DslAudtH8PWQJMeIqBYAeRPV3uT3i8avwTGLKY8ls'
-// const client = new NFTStorage({ token: apiKey })
-
-// const metadata = await client.store({
-//   name: 'Pinpie',
-//   description: 'Pin is not delicious beef!',
-//   image: new File([/* data */], 'pinpie.jpg', { type: 'image/jpg' })
-// })
-// console.log(metadata.url)
-
-  }
+// useEffect(()=>{pin()},[])
+  
     
 
   //const axios = require('axios');
@@ -925,15 +305,10 @@ const onSubmitImage = async (event) => {
       var cid = new CID(ipfsHash[0].hash)
       //let ccp=cid.toV1().toBaseEncodedString('base32');
       console.log( cid.toV1().toBaseEncodedString('base32'));
-      setIpf(cid.toV1().toBaseEncodedString('base32'));
+      setIpf(cid.toV1().toBaseEncodedString('base32'));      
     });
-  //   }).then((d)=> {
-  //     alert("console")
-  //     //onSubmitNFT();
-  // })
-  // .catch(function (error) {
-  //     //handle error here
-  // });
+
+
 
 }; 
 //end
@@ -4484,232 +3859,475 @@ const onSubmitImage = async (event) => {
 
     }
     else if(tb === "Algos"){
-      //start
+      let accounts;
+      let txParams;
+      let signedTx;
+      let tx;
+    
+    //let assname=prompt("Please enter your asset name");
+    //let asssymbol=prompt("Please enter your asset symbol");
 
-  const algosdk = require('algosdk');
-  var account1_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
-  var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
-  //var account3_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
-  // var account3_mnemonic = "runway genuine lazy assist ticket junior pilot flush rocket swallow ripple risk alien mobile chat recall run quiz cause weekend range april vicious about spoon";
-  var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
-  var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
-  //var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
-  //alert(arr[0]);
-  // var recoveredAccount1 = arr[0];
-  // var recoveredAccount2 = arr[0];
-  // var recoveredAccount3 = arr[0];
-  //console.log(recoveredAccount3.addr);
-  const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
-  const port = "";
-  //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
-  const token = {
-  
-      'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
-  }
-  let algodclient = new algosdk.Algodv2(token, baseServer, port);  
-  let response;
-  let lastround;
-// Function used to wait for a tx confirmation
-const waitForConfirmation = async function (algodclient, txId) {
-  console.log("working return 133",txId)
-        console.log("workingalgo"+algodclient);
-    response = await algodclient.status().do();
-    lastround = response["last-round"];
-    while (true) {
-        const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
-        if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
-            //Got the completed Transaction
-            console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
-            break;
-        }
-        lastround++;
-        await algodclient.statusAfterBlock(lastround).do();
+    let assname=tname;
+    let asssymbol=currentSymbol;
+
+    if(assname === '' && asssymbol === '' ){
+
+      alert("please enter name and symbol")
     }
-};
+    else{
 
-let accountInfo;
-// Function used to print created asset for account and assetid
-const printCreatedAsset = async function (algodclient, account, assetid) {
-    // note: if you have an indexer instance available it is easier to just use this
-    //     let accountInfo = await indexerClient.searchAccounts()
-    //    .assetID(assetIndex).do();
-    // and in the loop below use this to extract the asset for a particular account
-    // accountInfo['accounts'][idx][account]);
-    accountInfo = await algodclient.accountInformation(account).do();
-    for (let idx = 0; idx < accountInfo['created-assets'].length; idx++) {
-        let scrutinizedAsset = accountInfo['created-assets'][idx];
-        if (scrutinizedAsset['index'] === assetid) {
-            console.log("AssetID = " + scrutinizedAsset['index']);
-            let myparms = JSON.stringify(scrutinizedAsset['params'], undefined, 2);
-            console.log("parms = " + myparms);
-            break;
-        }
-    }
-};
-// Function used to print asset holding for account and assetid
-const printAssetHolding = async function (algodclient, account, assetid) {
-    // note: if you have an indexer instance available it is easier to just use this
-    //     let accountInfo = await indexerClient.searchAccounts()
-    //    .assetID(assetIndex).do();
-    // and in the loop below use this to extract the asset for a particular account
-    // accountInfo['accounts'][idx][account]);
-    let accountInfo = await algodclient.accountInformation(account).do();
-    for (let idx = 0; idx < accountInfo['assets'].length; idx++) {
-        let scrutinizedAsset = accountInfo['assets'][idx];
-        if (scrutinizedAsset['asset-id'] === assetid) {
-            let myassetholding = JSON.stringify(scrutinizedAsset, undefined, 2);
-            console.log("assetholdinginfo = " + myassetholding);
-            break;
-        }
-    }
-};
+      console.log("name",assname)
+      console.log("symbol",asssymbol)
 
-(async () => {
-    // Asset Creation:
-    // The first transaciton is to create a new asset
-    // Get last round and suggested tx fee
-    // We use these to get the latest round and tx fees
-    // These parameters will be required before every 
-    // Transaction
-    // We will account for changing transaction parameters
-    // before every transaction in this example
-    let params = await algodclient.getTransactionParams().do();
-    //comment out the next two lines to use suggested fee
-    params.fee = 1000;
-    params.flatFee = true;
-    console.log(params);
-    let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
-    // Asset creation specific parameters
-    // The following parameters are asset specific
-    // Throughout the example these will be re-used. 
-    // We will also change the manager later in the example
-    let addr = recoveredAccount1.addr;
-    // Whether user accounts will need to be unfrozen before transacting    
-    let defaultFrozen = false;
-    // integer number of decimals for asset unit calculation
-    let decimals = 0;
-    // total number of this asset available for circulation   
-    let totalIssuance = 1;
-    // Used to display asset units to user    
-    let unitName = currentSymbol;
-    // Friendly name of the asset    
-    let assetName = tname;
-    // Optional string pointing to a URL relating to the asset
-    let assetURL = "http://someurl";
-    // Optional hash commitment of some sort relating to the asset. 32 character length.
-    let assetMetadataHash = "16efaa3924a6fd9d3a4824799a4ac65d";
-    // The following parameters are the only ones
-    // that can be changed, and they have to be changed
-    // by the current manager
-    // Specified address can change reserve, freeze, clawback, and manager
-    let manager = recoveredAccount2.addr;
-    // Specified address is considered the asset reserve
-    // (it has no special privileges, this is only informational)
-    let reserve = recoveredAccount2.addr;
-    // Specified address can freeze or unfreeze user asset holdings 
-    let freeze = recoveredAccount2.addr;
-    // Specified address can revoke user asset holdings and send 
-    // them to other addresses    
-    let clawback = recoveredAccount2.addr;
+      AlgoSigner.connect()
+.then((d) => {
 
-    // signing and sending "txn" allows "addr" to create an asset
-    let txn = algosdk.makeAssetCreateTxnWithSuggestedParams(addr, note,
-         totalIssuance, decimals, defaultFrozen, manager, reserve, freeze,
-        clawback, unitName, assetName, assetURL, assetMetadataHash, params);
+  AlgoSigner.accounts({
+    ledger: 'TestNet'
+  })
+  .then((d) => {
+    accounts = d;
+    console.log("acc",accounts[0].address)
 
-        console.log("txnget",txn);
+    AlgoSigner.algod({
+      ledger: 'TestNet',
+      path: '/v2/transactions/params'
+    })
+    .then((d) => {
+      txParams = d;
+      console.log("txp",txParams)
 
-    let rawSignedTxn = txn.signTxn(recoveredAccount1.sk)
-    console.log("rawget",rawSignedTxn);
-    let tx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-    console.log("Transactionset" + tx.txId);
-    let assetID = null;
-    // wait for transaction to be confirmed
-    await waitForConfirmation(algodclient, tx.txId);
-    // Get the new asset's information from the creator account
-    
-        
-    let ptx = await algodclient.pendingTransactionInformation(tx.txId).do();
-    assetID = ptx["asset-index"];
-    console.log("ptx" + ptx);
-    console.log("AssetID = " + assetID);
-    
-    await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
-    await printAssetHolding(algodclient, recoveredAccount1.addr, assetID);
-    
-    
-    params = await algodclient.getTransactionParams().do();
-    //comment out the next two lines to use suggested fee
-    params.fee = 1000;
-    params.flatFee = true;
-    // Asset configuration specific parameters
-    // all other values are the same so we leave 
-    // Them set.
-    // specified address can change reserve, freeze, clawback, and manager
-    manager = recoveredAccount1.addr;
+      AlgoSigner.sign({
+        from: accounts[0].address,
+        assetName: assname,
+        assetUnitName: asssymbol,
+        assetTotal: +100,
+        assetDecimals: +1,
+        note: undefined,
+        type: 'acfg',
+        fee: txParams['min-fee'],
+        firstRound: txParams['last-round'],
+        lastRound: txParams['last-round'] + 1000,
+        genesisID: txParams['genesis-id'],
+        genesisHash: txParams['genesis-hash'],
+        flatFee: true
+      })
+      .then((d) => {
+        signedTx = d;
+        console.log("singTx",signedTx)
 
-    // Note that the change has to come from the existing manager
-    let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(recoveredAccount2.addr, note, 
-        assetID, manager, reserve, freeze, clawback, params);
+        AlgoSigner.send({
+          ledger: 'TestNet',
+          tx: signedTx.blob
+        })
+        .then((d) => {
+          tx = d;
 
-    // This transaction must be signed by the current manager
-    rawSignedTxn = ctxn.signTxn(recoveredAccount2.sk)
-    let ctx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-    console.log("Transaction : " + ctx.txId);
-    // wait for transaction to be confirmed
-    await waitForConfirmation(algodclient, ctx.txId);
+          console.log("last",tx)
+          localStorage.setItem("txdid",tx.txId);
+          //callingss();
 
-    // Get the asset information for the newly changed asset
-    // use indexer or utiltiy function for Account info
-    // The manager should now be the same as the creator
-    await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
-  
-    let refalgo=fireDb.database().ref(`algorandData/${recoveredAccount1.addr}`);
-    let dateset=new Date().toDateString();
-    console.log("dateget",dateset)
-    const db = refalgo.push().key;
-    console.log("dbcheck",db)
-    refalgo.child(db).set({imageurl:Img,createmnemonic:account1_mnemonic,algocreator:recoveredAccount1.addr,algotrasnfer:"",algoid:assetID,algoname:tname,algosymbol:currentSymbol,txnId:tx.txId,AssetIdset:assetID,transfer:"",status:"",price:"",keyId:db,algodclients:algodclient,responses:response,lastrounds:lastround,accountInfos:accountInfo});
-setLoading(false);
-setIsOpen(true);
-})().then(d=>{
-  setLoading(false);
-  setIsOpen(true);
-}).catch(e => {
-    console.log(e);
-    console.trace();
+          //opt();
+
+          // AlgoSigner.algod({
+          //   ledger: 'TestNet',
+          //   path: '/v2/transactions/pending/' + tx.txId
+          // })
+          // .then((d) => {
+          //   console.log(d);
+          //   console.log("lastlast",d)
+          // })
+          // .catch((e) => {
+          //   console.error(e);
+          // });
+
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+  })
+  .catch((e) => {
+    console.error(e);
+  });  
+})
+.catch((e) => {
+  console.error(e);
 });
+    
+}   
+}
+}
+}
 
-    }  
-}    
+const callingss=()=>{
+
+console.log("callingss called")
+
+opt();
+
 }
 
 
-const testax=()=>{
+const opt=async()=>{
 
-    
+  // let ptx = await algodclient.pendingTransactionInformation(tx.txId).do();
+  // let assetID = ptx["asset-index"];
 
-  const url = `https://api.pinata.cloud/data/testAuthentication`;
-  return axios
-      .get(url, {
-          headers: {
-              pinata_api_key: '16c67ab08c2dc2f36e8c',
-              pinata_secret_api_key: 'QmfWzpNPhwVA6o7Hqh5i2XiJHskpSExQounXmmaRqm9VNB'
-          }
+  
+  let accounts;
+  let txParams;
+  let signedTx;
+  let tx;
+  let allNotess;
+  let allNotes;
+
+  let txidget=localStorage.getItem("txdid");
+
+  let res="https://testnet.algoexplorerapi.io/v2/transactions/pending/"+txidget+"?format=json";
+          console.log("ress",res);
+          axios.get(`${res}`)
+         .then((res)=>{
+           const allnote=res;
+           allNotes=res.data["asset-index"];
+           allNotess=res.data.txn.txn.apar.an;
+
+           console.log("all",allNotes)
+           console.log("allnote",allnote)
+           console.log("name",allNotess)
+           localStorage.setItem("assid",allNotes);
+           
+         }).catch(error => console.error(`Error: ${error}`));       
+
+
+
+
+  //cut there opt
+
+  //opt start
+
+  AlgoSigner.connect()
+  .then((d) => {
+  
+    AlgoSigner.accounts({
+      ledger: 'TestNet'
+    })
+    .then((d) => {
+      accounts = d;
+  
+      AlgoSigner.algod({
+        ledger: 'TestNet',
+        path: '/v2/transactions/params'
       })
-      .then(function (response) {
-          //handle your response here
+      .then((d) => {
+        txParams = d;
+  
+  const name = allNotess;
+  const limit = '1';
+  
+  AlgoSigner.indexer({
+    ledger: 'TestNet',
+    path: `/v2/assets?name=${name}&limit=${limit}`,
+  })
+  .then((d) => {
+    let pe = JSON.stringify(d);
+    console.log("pe",pe)
+  
+    AlgoSigner.sign({
+      from: accounts[6].address,
+      to: accounts[6].address,
+      assetIndex: +allNotes,
+      note: undefined,
+      amount: 0,
+      type: 'axfer',
+      fee: txParams['min-fee'],
+      firstRound: txParams['last-round'],
+      lastRound: txParams['last-round'] + 1000,
+      genesisID: txParams['genesis-id'],
+      genesisHash: txParams['genesis-hash'],
+      flatFee: true
+    })
+    .then((d) => {
+      signedTx = d;
+      AlgoSigner.send({
+        ledger: 'TestNet',
+        tx: signedTx.blob
       })
-      .catch(function (error) {
-          //handle error here
+      .then((d) => {
+        tx = d;
+
+        console.log("txlast",tx)
+
+    // let refalgo=fireDb.database().ref(`algorandData/${accounts[0].address}`);
+    // let dateset=new Date().toDateString();
+    // console.log("dateget",dateset)
+    // const db = refalgo.push().key;
+    // console.log("dbcheck",db)
+    // refalgo.child(db).set({imageurl:"",createmnemonic:accounts[0].address,algocreator:accounts[0].address,algotrasnfer:"",algoid:"",algoname:allNotess,algosymbol:"Algos",txnId:d.txId,AssetIdset:allNotes,transfer:"",status:"",price:"",keyId:db,algodclients:"",responses:"",lastrounds:"",accountInfos:""});
+
+    //onSubmitImage();
+  
+  setLoading(false);
+  setIsOpen(true);
+
+  
+      })
+      .catch((e) => {
+        console.error(e);
       });
+  
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+  
+  
+  })
+  .catch((e) => { 
+    console.error(e);
+    let pe2 = JSON.stringify(e);
+    console.log("pe2",pe2)
+  });
+  
+  
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+    
+  })
+  .catch((e) => {
+    console.error(e);
+  });
+  
+  
+            //end opt
+  
+  
+}
 
-  }
 
 
-  // const handleLogout=()=>{    
-  //   fireDb.auth().signOut();    
-  //     }
+
+      //start
+
+  
+//method1 cmd start  
+//const algosdk = require('algosdk');
+//   var account1_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
+//   var account2_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
+//   //var account3_mnemonic = "tackle dove endorse style mind boring hidden fiction power wrap diesel more cruel ecology few field they chase oil deliver useless paddle nation abandon domain";
+//   // var account3_mnemonic = "runway genuine lazy assist ticket junior pilot flush rocket swallow ripple risk alien mobile chat recall run quiz cause weekend range april vicious about spoon";
+//   var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
+//   var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
+//   //var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
+//   //alert(arr[0]);
+//   // var recoveredAccount1 = arr[0];
+//   // var recoveredAccount2 = arr[0];
+//   // var recoveredAccount3 = arr[0];
+//   //console.log(recoveredAccount3.addr);
+//   const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+//   const port = "";
+//   //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
+//   const token = {
+  
+//       'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+//   }
+//   let algodclient = new algosdk.Algodv2(token, baseServer, port);  
+//   let response;
+//   let lastround;
+// // Function used to wait for a tx confirmation
+// const waitForConfirmation = async function (algodclient, txId) {
+//   console.log("working return 133",txId)
+//         console.log("workingalgo"+algodclient);
+//     response = await algodclient.status().do();
+//     lastround = response["last-round"];
+//     while (true) {
+//         const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
+//         if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
+//             //Got the completed Transaction
+//             console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+//             break;
+//         }
+//         lastround++;
+//         await algodclient.statusAfterBlock(lastround).do();
+//     }
+// };
+
+// let accountInfo;
+// // Function used to print created asset for account and assetid
+// const printCreatedAsset = async function (algodclient, account, assetid) {
+//     // note: if you have an indexer instance available it is easier to just use this
+//     //     let accountInfo = await indexerClient.searchAccounts()
+//     //    .assetID(assetIndex).do();
+//     // and in the loop below use this to extract the asset for a particular account
+//     // accountInfo['accounts'][idx][account]);
+//     accountInfo = await algodclient.accountInformation(account).do();
+//     for (let idx = 0; idx < accountInfo['created-assets'].length; idx++) {
+//         let scrutinizedAsset = accountInfo['created-assets'][idx];
+//         if (scrutinizedAsset['index'] === assetid) {
+//             console.log("AssetID = " + scrutinizedAsset['index']);
+//             let myparms = JSON.stringify(scrutinizedAsset['params'], undefined, 2);
+//             console.log("parms = " + myparms);
+//             break;
+//         }
+//     }
+// };
+// // Function used to print asset holding for account and assetid
+// const printAssetHolding = async function (algodclient, account, assetid) {
+//     // note: if you have an indexer instance available it is easier to just use this
+//     //     let accountInfo = await indexerClient.searchAccounts()
+//     //    .assetID(assetIndex).do();
+//     // and in the loop below use this to extract the asset for a particular account
+//     // accountInfo['accounts'][idx][account]);
+//     let accountInfo = await algodclient.accountInformation(account).do();
+//     for (let idx = 0; idx < accountInfo['assets'].length; idx++) {
+//         let scrutinizedAsset = accountInfo['assets'][idx];
+//         if (scrutinizedAsset['asset-id'] === assetid) {
+//             let myassetholding = JSON.stringify(scrutinizedAsset, undefined, 2);
+//             console.log("assetholdinginfo = " + myassetholding);
+//             break;
+//         }
+//     }
+// };
+
+// (async () => {
+//     // Asset Creation:
+//     // The first transaciton is to create a new asset
+//     // Get last round and suggested tx fee
+//     // We use these to get the latest round and tx fees
+//     // These parameters will be required before every 
+//     // Transaction
+//     // We will account for changing transaction parameters
+//     // before every transaction in this example
+//     let params = await algodclient.getTransactionParams().do();
+//     //comment out the next two lines to use suggested fee
+//     params.fee = 1000;
+//     params.flatFee = true;
+//     console.log(params);
+//     let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
+//     // Asset creation specific parameters
+//     // The following parameters are asset specific
+//     // Throughout the example these will be re-used. 
+//     // We will also change the manager later in the example
+//     let addr = recoveredAccount1.addr;
+//     // Whether user accounts will need to be unfrozen before transacting    
+//     let defaultFrozen = false;
+//     // integer number of decimals for asset unit calculation
+//     let decimals = 0;
+//     // total number of this asset available for circulation   
+//     let totalIssuance = 1;
+//     // Used to display asset units to user    
+//     let unitName = currentSymbol;
+//     // Friendly name of the asset    
+//     let assetName = tname;
+//     // Optional string pointing to a URL relating to the asset
+//     let assetURL = "http://someurl";
+//     // Optional hash commitment of some sort relating to the asset. 32 character length.
+//     let assetMetadataHash = "16efaa3924a6fd9d3a4824799a4ac65d";
+//     // The following parameters are the only ones
+//     // that can be changed, and they have to be changed
+//     // by the current manager
+//     // Specified address can change reserve, freeze, clawback, and manager
+//     let manager = recoveredAccount2.addr;
+//     // Specified address is considered the asset reserve
+//     // (it has no special privileges, this is only informational)
+//     let reserve = recoveredAccount2.addr;
+//     // Specified address can freeze or unfreeze user asset holdings 
+//     let freeze = recoveredAccount2.addr;
+//     // Specified address can revoke user asset holdings and send 
+//     // them to other addresses    
+//     let clawback = recoveredAccount2.addr;
+
+//     // signing and sending "txn" allows "addr" to create an asset
+//     let txn = algosdk.makeAssetCreateTxnWithSuggestedParams(addr, note,
+//          totalIssuance, decimals, defaultFrozen, manager, reserve, freeze,
+//         clawback, unitName, assetName, assetURL, assetMetadataHash, params);
+
+//         console.log("txnget",txn);
+
+//     let rawSignedTxn = txn.signTxn(recoveredAccount1.sk)
+//     console.log("rawget",rawSignedTxn);
+//     let tx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+//     console.log("Transactionset" + tx.txId);
+//     let assetID = null;
+//     // wait for transaction to be confirmed
+//     await waitForConfirmation(algodclient, tx.txId);
+//     // Get the new asset's information from the creator account
+    
+        
+//     let ptx = await algodclient.pendingTransactionInformation(tx.txId).do();
+//     assetID = ptx["asset-index"];
+//     console.log("ptx" + ptx);
+//     console.log("AssetID = " + assetID);
+    
+//     await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
+//     await printAssetHolding(algodclient, recoveredAccount1.addr, assetID);
+    
+    
+//     params = await algodclient.getTransactionParams().do();
+//     //comment out the next two lines to use suggested fee
+//     params.fee = 1000;
+//     params.flatFee = true;
+//     // Asset configuration specific parameters
+//     // all other values are the same so we leave 
+//     // Them set.
+//     // specified address can change reserve, freeze, clawback, and manager
+//     manager = recoveredAccount1.addr;
+
+//     // Note that the change has to come from the existing manager
+//     let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(recoveredAccount2.addr, note, 
+//         assetID, manager, reserve, freeze, clawback, params);
+
+//     // This transaction must be signed by the current manager
+//     rawSignedTxn = ctxn.signTxn(recoveredAccount2.sk)
+//     let ctx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+//     console.log("Transaction : " + ctx.txId);
+//     // wait for transaction to be confirmed
+//     await waitForConfirmation(algodclient, ctx.txId);
+
+//     // Get the asset information for the newly changed asset
+//     // use indexer or utiltiy function for Account info
+//     // The manager should now be the same as the creator
+//     await printCreatedAsset(algodclient, recoveredAccount1.addr, assetID);
+  
+//     let refalgo=fireDb.database().ref(`algorandData/${recoveredAccount1.addr}`);
+//     let dateset=new Date().toDateString();
+//     console.log("dateget",dateset)
+//     const db = refalgo.push().key;
+//     console.log("dbcheck",db)
+//     refalgo.child(db).set({imageurl:Img,createmnemonic:account1_mnemonic,algocreator:recoveredAccount1.addr,algotrasnfer:"",algoid:assetID,algoname:tname,algosymbol:currentSymbol,txnId:tx.txId,AssetIdset:assetID,transfer:"",status:"",price:"",keyId:db,algodclients:algodclient,responses:response,lastrounds:lastround,accountInfos:accountInfo});
+// setLoading(false);
+// setIsOpen(true);
+// })().then(d=>{
+//   setLoading(false);
+//   setIsOpen(true);
+// }).catch(e => {
+//     console.log(e);
+//     console.trace();
+// });
+
+//     }
+
+//method1 cmd end
+
+
+//}    
+//}
+
+
     
   return (
     <div className="App"  >
@@ -4866,7 +4484,7 @@ const testax=()=>{
 
 
 
-              <br></br>
+              {/* <br></br>
               <Link
 to="/demoex">
               <button
@@ -4880,7 +4498,7 @@ to="/demoex">
 <br></br>
       
 
-<br></br>
+<br></br> */}
 
 
 
@@ -4982,33 +4600,43 @@ id="idid"
              name="tfile" id="fileid" type = "file" onChange = {captureFile} required />
 
 
-<button 
-             onClick={onSubmitImage}
-             type="submit"> 
-             Upload Image NFT
-             </button>
-
 			
              
-			 <br></br>
+			 {/* <br></br>
 			 <br></br>
 			 <br></br>
 
               
   
-  <br></br><br></br>
+  <br></br><br></br> */}
      
-  <br></br><br></br>
+     <br></br><br></br>
+  
 
   <button
                 type="submit"> 
                 Create NFT
                 </button>
 
+                <br></br><br></br>
+                <br></br><br></br>
+
 
 </form>
 
+<button 
+             onClick={onSubmitImage}
+             type="submit"> 
+             Upload Image NFT
+             </button>
 
+<br></br><br></br>
+
+             <button 
+             onClick={opt}
+             type="submit"> 
+             OPt ALGO
+             </button>
 
 
 {/* <button 
@@ -5044,12 +4672,16 @@ id="idid"
 <br></br>
 <br></br>
 
-<button type="submit" onClick={captureFile2}> Transfer Algorand </button>
-
 <br></br>
 <br></br>
 
 <button type="submit" onClick={pinFileToIPFS}> Test Ipfs Algorand </button>
+
+<br></br>
+<br></br>
+
+{/* <button type="submit" onClick={getpinata}> Get Ipfs Algorand </button> */}
+
 
 {/* <div style={{backgroundColor:'red',height:'100px',width:'500px'}}> */}
 

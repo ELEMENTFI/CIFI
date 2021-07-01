@@ -8,18 +8,6 @@ import React, { useState,useEffect,useCallback } from "react";
 const NewIpfs=()=>{
 
 
-    // const getSHA=(fileName)=> {
-    //     return new Promise((resolve, reject) => {
-    //       //let hash = crypto.createHash("sha1");
-          
-    //       let stream = fs.createReadStream(fileName);
-    //       stream.on("error", err => reject(err));
-    //       //stream.on("data", chunk => hash.update(chunk));
-    //       //stream.on("end", () => resolve(hash.digest("hex")));
-    //       console.log(stream)
-    //     });
-    //   }
-
     let pinataApiKey='88348e7ce84879e143e1';
     let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
 
