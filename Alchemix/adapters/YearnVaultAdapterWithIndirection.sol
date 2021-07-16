@@ -4,8 +4,8 @@ pragma experimental ABIEncoderV2;
 
 import "hardhat/console.sol";
 
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
-import {SafeMath} from "@openzeppelin/contracts/math/SafeMath.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/solc-0.6/contracts/token/ERC20/SafeERC20.sol";
+import  "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/solc-0.6/contracts/math/SafeMath.sol";
 
 import {FixedPointMath} from "../libraries/FixedPointMath.sol";
 import {IDetailedERC20} from "../interfaces/IDetailedERC20.sol";
@@ -32,6 +32,6 @@ contract YearnVaultAdapterWithIndirection is YearnVaultAdapter {
     /// @param _recipient the account to send the tokens to.
     /// @param _amount    the amount of tokens to send.
     function indirectWithdraw(address _recipient, uint256 _amount) external onlyAdmin {
-        vault.safeTransfer(_recipient, _tokensToShares(_amount));
+        vault.transfer(_recipient, _tokensToShares(_amount));
     }
 }
