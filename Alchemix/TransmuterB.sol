@@ -1,13 +1,17 @@
 pragma solidity 0.6.12;
 
-import "@openzeppelin/contracts/GSN/Context.sol";
-import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@openzeppelin/contracts/utils/Address.sol";
-import "./interfaces/IERC20Burnable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/solc-0.6/contracts/GSN/Context.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/solc-0.6/contracts/token/ERC20/SafeERC20.sol";
+import  "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/solc-0.6/contracts/math/SafeMath.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/solc-0.6/contracts/utils/Address.sol";
+
 import {YearnVaultAdapterWithIndirection} from "./adapters/YearnVaultAdapterWithIndirection.sol";
 import {VaultWithIndirection} from "./libraries/alchemist/VaultWithIndirection.sol";
 import {ITransmuter} from "./interfaces/ITransmuter.sol";
+interface IERC20Burnable is IERC20 {
+  function burn(uint256 amount) external;
+  function burnFrom(address account, uint256 amount) external;
+}
 
 // import "hardhat/console.sol";
 
