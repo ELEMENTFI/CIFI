@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import secondpage from './secondpage';
 import './App.css';
 import thirdpage from './thirdpage';
-import fourthpage from './fourthpage';
+
 import web3 from './web3';
 import tokencontract from './tokencontract';
 import TESTToken from './TESTToken';
@@ -13,6 +13,7 @@ import home from './home';
 import { Navbar } from 'react-bootstrap';
 import { Button,ButtonGroup } from 'react-bootstrap';
 import Background1 from '../src/images/logo.png'
+import fourthpage from './fourthpage';
 
 
 
@@ -90,9 +91,8 @@ Join Pool{' '}
             <Link class="navlink"  exact to="/t">
 History{' '}
             </Link>
-      
             <Link class="navlink"  exact to="/t1">
-History1{' '}
+      History1{' '}
             </Link>
     </Navbar.Brand>
     <Navbar.Collapse className="justify-content-end">
@@ -111,7 +111,7 @@ History1{' '}
       </Navbar>
           <Switch>
     <Route exact path='/h' component={home}/>
-    <Route exact path='/t' component={thirdpage}/>
+    <Route exact path='/t' component={thirdpage}/> 
     <Route exact path='/t1' component={fourthpage}/>
       <Route  exact path='/s' component={secondpage}/>
     </Switch>
