@@ -4,25 +4,36 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fireDB from'./firebase';
 import { data } from 'jquery';
+import { Card } from 'react-bootstrap';
 class fourthpage extends React.Component {
   constructor(props) {
       
       super(props);
      
-      this.state = {Con : []}
-   }
+      this.state = {Con : []};
+      //this.state = {Con1: []};
+      }
       componentDidMount() {
    
    
       
-      fireDB.database().ref("Con").orderByChild("No").equalTo(2).once("value", snap => {
+      fireDB.database().ref("Con").orderByChild("No").equalTo(1).on("value", snapshot => {
        let Con = [];
-        snap.forEach(snap => {
+       snapshot.forEach(snap => {
             // snap.val() is the dictionary with all your keys/values from the 'students-list' path
             Con.push(snap.val());
         });
       this.setState({ Con: Con });
      });  
+      
+     /*fireDB.database().ref("Con").orderByChild("No").equalTo(2).on("value", snapshot => {
+       let Con1 = [];
+       snapshot.forEach(snap => {
+            // snap.val() is the dictionary with all your keys/values from the 'students-list' path
+            Con1.push(snap.val());
+        });
+      this.setState({ Con: Con1 });
+     }); */ 
       
  }
  
@@ -30,12 +41,12 @@ class fourthpage extends React.Component {
     
  render(){
   return (
-    <div className="MainDiv"> 
+    <div className="" style={{backgroundColor:"white"}}> 
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
  
       <div class="jumbotron text-center ">
-          <h3>Printing data from Firebase</h3>
+      <h3 style={{color:"black"}}>Featured Pools</h3>
       </div>
       <div className="container">   
       
@@ -43,15 +54,24 @@ class fourthpage extends React.Component {
       <div className='col-xl-12'>
 
      {this.state.Con.map(data => 
-          <div className="card float-left bg-sky text-dark" style={{width: '18rem', marginRight: '1rem', marginBlockStart: '1rem' }}>
+          <div className="card float-left bg-sky mt-2  shadow" style={{width: '25rem', marginRight: '1rem', marginBlockStart: '1rem', padding: "30px",backgroundColor:" #f2f2f2",color:"black"}} >
             <div className="card-body">
-              <h5 className="card-title">At : { data.At }</h5>
-              <h5 className="card-text">Balance : { data.Balance }</h5>
-              <h5 className="card-text">Decimal : { data.Decimal }</h5>
-              <h5 className="card-text">Name : { data.Name }</h5>
-              <h5 className="card-text">No : { data.No }</h5>
-              <h5 className="card-text">Symbol : { data.Symbol }</h5>
-              <h5 className="card-text">Total Supply : { data.TotalSupply }</h5>
+            <p  style={{textAlign:"right", color:"red"}}>Filled</p>
+              <h4>Name</h4>
+              <p>{ data.Name }</p>
+              <h4>Total Supply</h4>
+              <p>  { data.TotalSupply }</p>
+              <h4>Available Tokens</h4>
+              <p>  { data.At }</p>
+              <progress id="main7" value="5" max="5" class="progress11"></progress>
+  <div class="row">
+  <div class="col-4">
+    100%
+  </div>
+  <div class="col-8">
+    No.of Participants:<br/>5
+  </div>
+</div>
               </div> 
           </div> 
           )
@@ -67,4 +87,9 @@ class fourthpage extends React.Component {
 export default fourthpage;
   
   
+  
+  
 
+
+
+ 
