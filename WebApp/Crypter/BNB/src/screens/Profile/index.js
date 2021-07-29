@@ -223,10 +223,10 @@ console.log("getImgalgobuy",getImgreffalgobuy)
 
 const dbcallalgolikes=async()=>{
   console.log("inside dbcallsalealgo function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
   let req = [];
     
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("walletalgo") === null){
 
   }
   else{
@@ -277,10 +277,10 @@ useEffect(()=>{dbcallalgolikes()},[])
 
 const dbcallsalealgo=async()=>{
   console.log("inside dbcallsalealgo function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("walletalgo") === null){
 
   }else{
     
@@ -326,10 +326,10 @@ useEffect(()=>{dbcallsalealgo()},[])
 
 const dbcallalgo=async()=>{
   console.log("inside dbcallalgo function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("walletalgo") === null){
 
   }
   else{
@@ -337,7 +337,7 @@ const dbcallalgo=async()=>{
   
     
     //let kreq =[];
-    firebase.database().ref("imageref").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefAlgos").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -385,10 +385,10 @@ useEffect(()=>{dbcallalgo()},[])
 
 const dbcallalgobuy=async()=>{
   console.log("inside dbcallalgobuy function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("walletalgo") === null){
 
   }
   else{
@@ -466,9 +466,9 @@ const captureFile=(event)=>{
 
 const getbg=()=>{
 
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
+    if(localStorage.getItem("walletalgo") === null && Img === "" ){
   
     }else{
 
@@ -493,9 +493,9 @@ useEffect(()=>{getbg()},[])
 const setprofilephoto=()=>{
 
   console.log("inside setprofilephoto function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
+    if(localStorage.getItem("walletalgo") === null && Img === "" ){
   
     }else{
 

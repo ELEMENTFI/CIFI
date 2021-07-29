@@ -79,8 +79,8 @@ const Connect = () => {
     })
     .then((d) => {
       let accounts = d;
-      console.log("acc Algo",accounts[1].address)
-      localStorage.setItem("walletalgo",accounts[1].address)
+      console.log("acc Algo",accounts[0].address)
+      localStorage.setItem("walletalgo",accounts[0].address)
       setIsOpen(true)
   
     })

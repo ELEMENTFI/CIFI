@@ -55,9 +55,9 @@ const User = ({ className,onProfile}) => {
   let getac="undefined";
   let getalgo="undefined";
   //let getname="undefined";
-  getac=localStorage.getItem("wallet");
+  getac=localStorage.getItem("walletalgo");
   console.log("getmetamask",getac)
-  getalgo=localStorage.getItem("wallet");
+  getalgo=localStorage.getItem("walletalgo");
   //getname=localStorage.getItem("walletname");
   //const[getImgHeader,setgetImgHeader]=useState([]);
   //console.log("getImHeader",getImgHeader)
@@ -69,7 +69,7 @@ const User = ({ className,onProfile}) => {
     //let getalgo=;
     let req = [];
       
-    if(localStorage.getItem("wallet") === null){
+    if(localStorage.getItem("walletalgo") === null){
   
       console.log("notalgoget",getalgo)
 
@@ -128,11 +128,11 @@ const User = ({ className,onProfile}) => {
   const disconn=()=>{
     console.log("disconnect function call")
 
-    let getal=localStorage.getItem("wallet");
+    let getal=localStorage.getItem("walletalgo");
     let getalname=localStorage.getItem("walletname");
     console.log("get",getal)
     console.log("getname",getalname)
-    localStorage.setItem("wallet","")
+    localStorage.setItem("walletalgo","")
     localStorage.setItem("walletname","")
     let getalafter=localStorage.getItem("walletalgo");
     let getalnameafter=localStorage.getItem("walletname");
@@ -146,67 +146,67 @@ const User = ({ className,onProfile}) => {
 
   const balancecall=async()=>{
     console.log("inside balance function")
-//     const algosdk = require('algosdk');
-//     const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
-//           const port = "";
-//           //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
-//           const token = {
+    const algosdk = require('algosdk');
+    const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+          const port = "";
+          //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
+          const token = {
           
-//               'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
-//           }
-//           let client = new algosdk.Algodv2(token, baseServer, port);  
+              'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+          }
+          let client = new algosdk.Algodv2(token, baseServer, port);  
 
-//           console.log("log1",client);
+          console.log("log1",client);
 
-//   ( async() => {
-//     let account1_info = (await client.accountInformation(getalgo).do());
-//     console.log("accinfo",account1_info)
-//     console.log("accinfoamount",account1_info.amount)
-//     let calc=JSON.stringify(account1_info.amount)/1000000;
-//     console.log("calc",calc)
-//     setalgobalance(JSON.stringify(account1_info.amount)/1000000);
-//     console.log("Balance of account 1: " + JSON.stringify(account1_info.amount));
-//     localStorage.setItem("balget",account1_info);
-//     // let account2_info = (await client.accountInformation().do());
-//     // console.log("Balance of account 2: " + JSON.stringify(account2_info.amount));
-// })().catch(e => {
-// 	console.log(e);
-// })
+  ( async() => {
+    let account1_info = (await client.accountInformation(getalgo).do());
+    console.log("accinfo",account1_info)
+    console.log("accinfoamount",account1_info.amount)
+    let calc=JSON.stringify(account1_info.amount)/1000000;
+    console.log("calc",calc)
+    setalgobalance(JSON.stringify(account1_info.amount)/1000000);
+    console.log("Balance of account 1: " + JSON.stringify(account1_info.amount));
+    localStorage.setItem("balget",account1_info);
+    // let account2_info = (await client.accountInformation().do());
+    // console.log("Balance of account 2: " + JSON.stringify(account2_info.amount));
+})().catch(e => {
+	console.log(e);
+})
 
 // var accounts = await web3.eth.getAccounts();
 // web3.eth.getBalance(getalgo)
 // .then(console.log);
 
-if(localStorage.getItem("wallet") === null){
+// if(localStorage.getItem("wallet") === null){
 
-  console.log("bnbalgo",getalgo)
+//   console.log("bnbalgo",getalgo)
 
-}
-else{
+// }
+// else{
 
 
 
   //let url="https://api.bscscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken"
 
 
-let url="https://api-testnet.bscscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
-//+"&tag=latest&apikey=26NPBCN1ZIZ33YJKKJ24MSY9GB6I6I4NVQ";
+// let url="https://api-testnet.bscscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
+// //+"&tag=latest&apikey=26NPBCN1ZIZ33YJKKJ24MSY9GB6I6I4NVQ";
 
-axios.get(`${url}`)
-         .then((url)=>{
-           const allnote=url.data.result/1000000000000000000;
+// axios.get(`${url}`)
+//          .then((url)=>{
+//            const allnote=url.data.result/1000000000000000000;
            
-           setalgobalance(allnote);
-           console.log("bnbbal",allnote)
-         }).catch(error => console.error(`Error: ${error}`));       
-        }
+//            setalgobalance(allnote);
+//            console.log("bnbbal",allnote)
+//          }).catch(error => console.error(`Error: ${error}`));       
+//         }
 
   }
 
   useEffect(()=>{balancecall()},[])
 
   const dbcall=async()=>{
-    let getalgo=localStorage.getItem("wallet");
+    let getalgo=localStorage.getItem("walletalgo");
     console.log("inside dbcall function")
     //db call start
 
@@ -214,7 +214,7 @@ axios.get(`${url}`)
     let req = [];
     
     //let kreq =[];
-    if(localStorage.getItem("wallet") === null){
+    if(localStorage.getItem("walletalgo") === null){
 
       setgetusername("")
 

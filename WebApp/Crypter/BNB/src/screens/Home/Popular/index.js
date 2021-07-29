@@ -239,15 +239,13 @@ const directionOptions = ["Sellers", "Buyers"];
         data.forEach((d) => {
           req2.push(d.val())          
         });        
-      }
-      
+      }      
     });  
     setgetIm(req2)
     let req=[];
     getIm.map((a)=>{
       //console.log(`abb`, a)    
       Object.keys(a).map((b)=>{
-
         //console.log(a[b].id);
                 req.push({
                 price: a[b].id,
@@ -492,8 +490,7 @@ const directionOptions = ["Sellers", "Buyers"];
             </Slider>
         </div>
             
-          )
-  
+          )  
   }
           
       </div>
