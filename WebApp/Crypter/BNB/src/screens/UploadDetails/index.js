@@ -14,7 +14,7 @@ import Loader from "../../components/Loader";
 //import Cards from "./Cards";
 //import FolowSteps from "./FolowSteps";
 import Compress from "react-image-file-resizer";
-//import ipfs from "./ipfs";
+import ipfs from "./ipfs";
 import lottery from './nftcontract';//this line import lottery folder
 import web3 from './web3';
 import fireDb from './firebase';
@@ -22,6 +22,9 @@ import FolowStepsd from "./FolowStepsD";
 import Modald from "../../components/ModalD";
 import FolowStepsdr from "./FolowStepsdr";
 //import Modald from "../../components/ModalD";
+
+//import Modald from "../../components/ModalD";
+import FolowStep from "../../screens/Profile/FolowStep";
 
 
 //const royaltiesOptions = ["10%", "20%", "30%"];
@@ -64,9 +67,11 @@ const Upload = () => {
   //
   let history=useHistory();
   const [isOpen, setIsOpen] = useState(false);
-  //const [ipfsHash,setIpfsHash] = useState(null);
+  const [isOpens, setIsOpens] = useState(false);
+  const [ipfsHash,setIpfsHash] = useState(null);
   //const [ipf,setIpf] = useState(null);
-  //const [buffer,setBuffer] = useState("");
+  const [buffer,setBuffer] = useState("");
+  console.log("Buffered",buffer)
   const [Img,setImg] = useState("")
   const [tname,setName] = useState("");
   const [tdescription,setDescription] = useState("");
@@ -101,7 +106,7 @@ const Upload = () => {
     event.stopPropagation()
     event.preventDefault()
     const file = event.target.files[0]
-    let reader = new window.FileReader()
+    const reader = new window.FileReader()
     Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
     uri => {
       console.log("iuri",uri)
@@ -110,21 +115,88 @@ const Upload = () => {
     'base64'
     );
     reader.readAsArrayBuffer(file)
-    reader.onloadend = () => convertToBuffer(reader);    
-    console.log(reader)
-    
+    reader.onloadend = async() =>{
+      const buffer = await Buffer.from(reader.result);
+      setBuffer(buffer)
+      ipfs.files.add(buffer,(error,result)=>{
+
+        if(error){
+          console.log("Err",error)
+        }
+        console.log("LLon",result[0].hash);
+        setIpfsHash(result[0].hash);
+        
+      })
+      //convertToBuffer(reader);    
+    } 
+    console.log("Reader",reader)    
   };
+
+  //pinata
+
+  const axios = require('axios');
+
+
+    let pinataApiKey='88348e7ce84879e143e1';
+    let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+
+  const pinataSDK = require('@pinata/sdk');
+  const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+
+  const pinFileToIPFS=()=>{
+
+    //alert("new");
+    pinata.testAuthentication().then((result) => {
+      //handle successful authentication here
+      console.log(result);
+      let ge=ipfsHash;
+      console.log("ipfsHash",ipfsHash);
+              const body = {
+                  message: ge
+              };
+              const options = {
+                  pinataMetadata: {
+                      name: tname,
+                      keyvalues: {
+                          customKey: 'customValue',
+                          customKey2: 'customValue2'
+                      }
+                  },
+                  pinataOptions: {
+                      cidVersion: 0
+                  }
+              };
+              pinata.pinJSONToIPFS(body, options).then((result) => {
+                  //handle results here
+                  console.log(result);
+                  console.log("jsonresult")
+
+                  
+                }).catch((err) => {
+                    //handle error here
+                    console.log(err);
+                });
+
+
+              }).catch((err) => {
+                  //handle error here
+                  console.log(err);
+              });
+                                        
+  }
+
   
-const convertToBuffer = async(reader) => {
-  //file is converted to a buffer for upload to IPFS
-    //const buffer = await Buffer.from(reader.result);
-  //set this buffer -using es6 syntax
-    //setBuffer(buffer);
-};
+// const convertToBuffer = async(reader) => {
+//   //file is converted to a buffer for upload to IPFS
+//     const buffer = await Buffer.from(reader.result);
+//   //set this buffer -using es6 syntax
+//     setBuffer(buffer);
+//     onSubmitImage();
+// };
 // const onSubmitImage = async (event) => {
 
 //   console.log("onsubmitimage called")
-//     await ipfs.add(buffer, (err, ipfsHash) => {
+//      ipfs.add(buffer, (err, ipfsHash) => {
 //       console.log(err,ipfsHash);
 //       console.log("buff",buffer);
 //       setIpfsHash(ipfsHash[0].hash);
@@ -133,14 +205,16 @@ const convertToBuffer = async(reader) => {
 //       var cid = new CID(ipfsHash[0].hash)
 //       //let ccp=cid.toV1().toBaseEncodedString('base32');
 //       console.log( cid.toV1().toBaseEncodedString('base32'));
-//       //setIpf(cid.toV1().toBaseEncodedString('base32'));      
+//       setIpf(cid.toV1().toBaseEncodedString('base32'));      
       
-//     }).then(()=>{
+//     });
+//     //.then(()=>{
 
 //       //setVisiblePreview(true)
-//     });
+//     //});
 // }; 
 //end
+
 
 // const onSubmitAlgo = async()=>{
 
@@ -566,6 +640,7 @@ const onSubmitNFT = async (event) => {
 
     setVisibleModal(false)
                           
+  
       
 
       let ref23=fireDb.database().ref(`tokenkey`);      
@@ -579,12 +654,13 @@ const onSubmitNFT = async (event) => {
         }
       });
 
-      setfire= (parseInt(getfire)+parseInt(1));
+      setfire= getfire+1;
       console.log("setfire",setfire)
       //alert("your token"+setfire+"getfire"+getfire);
-      ref23.update({id:setfire.toString()});
-      //te= parseInt(getfire);
-      te=1005;
+      ref23.update({id:setfire});
+      te= getfire;
+      //.toString()
+      //te=1005;
 
       console.log("te",te)
 
@@ -602,6 +678,8 @@ const onSubmitNFT = async (event) => {
     //if(tb==="BNB")
     //{
 
+    
+      setIsOpens(true)
     console.log("603")
       await lottery.deploy({
     
@@ -627,6 +705,8 @@ const onSubmitNFT = async (event) => {
 }
 
 const callmint=async(event)=>{
+
+  setIsOpens(true)
 
   const abi = [
     {
@@ -1726,6 +1806,7 @@ const callmint=async(event)=>{
                       // let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);                
                       // ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:"",ownerAddress:accounts[0],soldd:"",extra1:"",datesets:dateset,whois:''}).then(()=>{
 
+                      setIsOpens(false)
                         setIsOpen(true);
 
                       })    
@@ -1936,6 +2017,12 @@ const onSub=()=>{
       <Modald visible={isOpen} onClose={() => setIsOpen(false)}>
         <FolowStepsdr className={styles.steps} onSub={()=>onSub}/>
       </Modald>
+
+      <Modald visible={isOpens} >
+        <FolowStep className={styles.steps} />
+      </Modald>
+
+      {/* onClose={() => setIsOpens(false)} */}
 
 
 

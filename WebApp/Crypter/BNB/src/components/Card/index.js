@@ -1,5 +1,6 @@
 // /* global AlgoSigner */
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import styles from "./Card.module.sass";
@@ -11,11 +12,18 @@ import Modald from "../../components/ModalD";
 import web3 from '../../screens/./UploadDetails/web3';
 import {abi} from './data'
 
+//import Modald from "../../components/ModalD";
+import FolowStep from "../../screens/Profile/FolowStep";
+import FolowSteps from "../../screens/Profile/FolowSteps";
 //web3
 
 
 
 const Card = ({ className, item }) => {
+  let history=useHistory();
+  const [isOpens, setIsOpens] = useState(false);
+  const [isOpenss, setIsOpenss] = useState(false);
+
   const [visible, setVisible] = useState(false);
   const [historydb, sethistorydb] = useState([]);
   console.log("hist",historydb)
@@ -68,7 +76,7 @@ const Card = ({ className, item }) => {
     
       const accounts = await  web3.eth.getAccounts();
 
-        console.log("1",item.bid)
+      console.log("1",item.bid)
       console.log("2",item.highestBid)
       console.log("3",item.category)
       console.log("4",item.image2x)
@@ -78,6 +86,7 @@ const Card = ({ className, item }) => {
       console.log("8",item.image2x)
     
 
+      setIsOpens(true)
       fireDb.database().ref(`imagerefexploreone/${accounts[0]}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
       userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,
@@ -88,6 +97,7 @@ const Card = ({ className, item }) => {
 
         fireDb.database().ref(`imageref/${accounts[0]}`).child(item.highestBid).remove();
           console.log("remove db");
+          setIsOpens(false)
           window.location.reload(false)   
 
 
@@ -191,11 +201,16 @@ else{
             if(accounts[0] === item.bid)
             {
               //change mactimum
+
+
+
+              setIsOpens(true);
               await getaaaa.methods.setTokenState([isd],"true").send({
                 from:accounts[0],
                 //gas: 51753,
                 //gasPrice:'10000000000'
               });
+              
            // salepage.settokenstate();
             await getaaaa.methods.setTokenPrice([isd],price).send({
               from:accounts[0],
@@ -210,6 +225,8 @@ else{
               //gas: 51753,
               //gasPrice:'10000000000'
             })
+
+            
             // let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
             // const keysellers = refsellers.push().key;          
             // refsellers.child(keysellers).set({
@@ -224,8 +241,9 @@ fireDb.database().ref(`imageref/${accounts[0]}`).child(item.highestBid).update({
   //setTprice("");
   //setIsOpensetFirst(false);
   //setIsOpen(true);
-
-    window.location.reload(false)   
+  setIsOpens(false);
+  setIsOpenss(true)
+    //window.location.reload(false)   
 
 })
 // fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
@@ -251,6 +269,7 @@ alert("Your are not owner so you does not update or set prizes......")
 else{
     console.log("setitem",item)
     console.log("settitem",item.price)
+
     let checkdb=fireDb.database().ref(`imageref/${item.ownerAddress}`).child(item.highestBid);
     console.log("cdb",checkdb)
     console.log("odb",item.bid)
@@ -283,6 +302,7 @@ else{
             if(accounts[0] === item.bid)
             {
               //change mactimum
+              setIsOpens(true)
               await getaaaa.methods.setTokenState([isd],"true").send({
                 from:accounts[0],
                 //gas: 51753,
@@ -317,7 +337,11 @@ fireDb.database().ref(`imageref/${accounts[0]}`).child(item.highestBid).update({
   //setIsOpensetFirst(false);
   //setIsOpen(true);
 
-    window.location.reload(false)   
+  setIsOpens(false)
+
+  setIsOpenss(true)
+
+    //window.location.reload(false)   
 
 })
 // fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
@@ -367,6 +391,13 @@ alert("Your are not owner so you does not update or set prizes......")
     
 
   // }
+
+
+  const onSub=()=>{
+    console.log("hello close")
+    //setIsOpen(false);
+    history.push("/")
+  }
 
   return (
     <>
@@ -459,6 +490,15 @@ alert("Your are not owner so you does not update or set prizes......")
     <Modald visible={isOpen} onClose={() => setIsOpen(false)}>
     <FolowStepsd className={styles.steps} viewhistory={historydb}/>
   </Modald>
+  <Modald visible={isOpens} >
+<FolowStep className={styles.steps} />
+</Modald>
+
+<Modald visible={isOpenss} >
+<FolowSteps className={styles.steps} onSub={()=>onSub}/>
+</Modald>
+
+{/* onClose={() => setIsOpens(false)} */}
 </>
   );
 };

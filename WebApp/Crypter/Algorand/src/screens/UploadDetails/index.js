@@ -64,9 +64,10 @@ const Upload = () => {
   //
   let history=useHistory();
   const [isOpen, setIsOpen] = useState(false);
-  //const [ipfsHash,setIpfsHash] = useState(null);
-  //const [ipf,setIpf] = useState(null);
-  //const [buffer,setBuffer] = useState("");
+  const [ipfsHash,setIpfsHash] = useState(null);
+  const [ipf,setIpf] = useState(null);
+  const [buffer,setBuffer] = useState("");
+  console.log("Buffered",buffer)
   const [Img,setImg] = useState("")
   const [tname,setName] = useState("");
   const [tdescription,setDescription] = useState("");
@@ -97,49 +98,114 @@ const Upload = () => {
 
   // }
 
+
+  //pinata
+
+  const axios = require('axios');
+
+
+    let pinataApiKey='88348e7ce84879e143e1';
+    let pinataSecretApiKey='e4e8071ff66386726f9fe1aebf2d3235a9f88ceb4468d4be069591eb78d4bf6f';
+
+  const pinataSDK = require('@pinata/sdk');
+  const pinata = pinataSDK(pinataApiKey, pinataSecretApiKey);
+
+
+  const pinFileToIPFS=()=>{
+
+    //alert("new");
+    pinata.testAuthentication().then((result) => {
+      //handle successful authentication here
+      console.log(result);
+      let ge=ipfsHash;
+      console.log("ipfsHash",ipfsHash);
+              const body = {
+                  message: ge
+              };
+              const options = {
+                  pinataMetadata: {
+                      name: tname,
+                      keyvalues: {
+                          customKey: 'customValue',
+                          customKey2: 'customValue2'
+                      }
+                  },
+                  pinataOptions: {
+                      cidVersion: 0
+                  }
+              };
+              pinata.pinJSONToIPFS(body, options).then((result) => {
+                  //handle results here
+                  console.log(result);
+                  console.log("jsonresult")
+
+                  
+                }).catch((err) => {
+                    //handle error here
+                    console.log(err);
+                });
+
+
+              }).catch((err) => {
+                  //handle error here
+                  console.log(err);
+              });
+                                        
+  }
+
+
+
   const captureFile =(event) => {
     event.stopPropagation()
     event.preventDefault()
     const file = event.target.files[0]
     let reader = new window.FileReader()
-    Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
-    uri => {
-      console.log("iuri",uri)
-      setImg(uri)
-    },
-    'base64'
-    );
     reader.readAsArrayBuffer(file)
+    console.log("171")
     reader.onloadend = () => convertToBuffer(reader);    
-    console.log(reader)
+    console.log("Reader",reader)
+    // Compress.imageFileResizer(file, 300, 300, 'JPEG', 10, 0,
+    // uri => {
+    //   console.log("iuri",uri)
+    //   setImg(uri)
+
+    // },
+    // 'base64'
+    // ).then(()=>{
+
+      
+
+    // })
+    
     
   };
   
 const convertToBuffer = async(reader) => {
+  console.log("onconverted called")
   //file is converted to a buffer for upload to IPFS
-    //const buffer = await Buffer.from(reader.result);
+    const buffer = await Buffer.from(reader.result);
   //set this buffer -using es6 syntax
-    //setBuffer(buffer);
+    setBuffer(buffer);
 };
-// const onSubmitImage = async (event) => {
+ const onSubmitImage = async (event) => {
 
-//   console.log("onsubmitimage called")
-//     await ipfs.add(buffer, (err, ipfsHash) => {
-//       console.log(err,ipfsHash);
-//       console.log("buff",buffer);
-//       setIpfsHash(ipfsHash[0].hash);
-//       console.log(ipfsHash[0].hash)
-//       const CID = require('cids')
-//       var cid = new CID(ipfsHash[0].hash)
-//       //let ccp=cid.toV1().toBaseEncodedString('base32');
-//       console.log( cid.toV1().toBaseEncodedString('base32'));
-//       //setIpf(cid.toV1().toBaseEncodedString('base32'));      
+  //  console.log("onsubmitimage called")
+  //    await ipfs.add(buffer, (err, ipfsHash) => {
+  //     console.log(err,ipfsHash);
+  //     console.log("buff",buffer);
+  //     setIpfsHash(ipfsHash[0].hash);
+  //     console.log(ipfsHash[0].hash)
+  //     const CID = require('cids')
+  //     var cid = new CID(ipfsHash[0].hash)
+  //     //let ccp=cid.toV1().toBaseEncodedString('base32');
+  //     console.log( cid.toV1().toBaseEncodedString('base32'));
+  //     setIpf(cid.toV1().toBaseEncodedString('base32'));      
       
-//     }).then(()=>{
+  //   }).then(()=>{
 
-//       //setVisiblePreview(true)
-//     });
-// }; 
+  //     //setVisiblePreview(true)
+  //   });
+}; 
 //end
 
 // const onSubmitAlgo = async()=>{

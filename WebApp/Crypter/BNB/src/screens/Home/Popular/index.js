@@ -152,7 +152,7 @@ const Popular = () => {
     ],
   };
 
-const dateOptions = ["1", "8", "30"];
+const dateOptions = ["1", "7", "30"];
 const directionOptions = ["Sellers", "Buyers"];
   const [date, setDate] = useState(dateOptions[0]);
   const [direction, setDirection] = useState(directionOptions[0]);
@@ -282,49 +282,77 @@ const directionOptions = ["Sellers", "Buyers"];
     console.log("inside filter function")
     if(direction === 'Sellers') {
 
-      // if(date === '1')
-      // {
-      //     let data = getIb.filter((val)=>{
-      //     let date=moment()
-      //     let createddate=moment(val.url)
-      //     return date===createddate 
-      //   })
-      //   return data;
-      // }    
-      //   let data = getIb.filter((val)=>{
+      if(date === '1')
+      {
+        console.log("one")
+        let re1=[];
+          let data = getI.filter((val)=>{
+            //console.log("getI1",val.url)
+          let currentdate=moment().toString()//get current date 29
+          //console.log("curr1",currentdate)
+          let createddate=moment(val.url).toString()//db date 26
+          //console.log("cre1",createddate)      
+          //re1.push(moment(currentdate).isSame(createddate,'day'));
+          //return (currentdate.isSame(currentdate,createddate))
+          //return (currentdate === createddate)
+          return (moment(currentdate).isSame(createddate,'day'))
+        })
+        //console.log("Rdate1",re1)
+        
+        //console.log("Rdate1",re1)
+        console.log("R1",data)
+        return data;
+      }
+      
+      let re7=[];
+        let data = getI.filter((val)=>{
+          console.log("sellers7get",val)
+        console.log("sellers7",val.url)
+          console.log("sellers two")
+          let currentdate=moment().subtract(1,"days")
+          console.log("curr7",currentdate)
+          let weekdate=moment().subtract(parseInt(date),"days")
+          console.log("cre7",weekdate)
+          let createddate=moment(val.url)
+          return (moment(createddate).isBetween(weekdate,currentdate))
+          //return (moment(currentdate).isBetween(currentdate,weekdate))
+        })
 
-      //     let date=moment().subtract(1,"days")
-      //     let weekdate=moment().subtract(parseInt(date),"days")
-      //     let createddate=moment(val.adddate)
-
-      //     return moment(createddate).isBetween(weekdate,date)
-      //   })
-
-        return getI;    
+        re7.push(data)
+        console.log("re7",re7)
+        console.log("R7",data)
+        return data;          
     }
 
 
-    // if(date === '1')
-    // {
-    //   let data = getI.filter((val)=>{
-    //     let date=moment()
-    //     let createddate=moment(val.url)
-    //     return date===createddate 
-    //   })
-    //   return data;
-    // }    
-    //   let data = getI.filter((val)=>{
+    if(date === '1')
+    {
+        let data = getIb.filter((val)=>{
+          console.log("Buydate1",val.url)
+        let currentdate=moment();
+        let createddate=moment(val.url)
+        //return (currentdate===createddate) 
+        //return (currentdate.isSame(currentdate,createddate))
+        return (moment(currentdate).isSame(createddate,'day'))
+      })
 
-    //     let date=moment().subtract(1,"days")
-    //     let weekdate=moment().subtract(parseInt(date),"days")
-    //     let createddate=moment(val.adddate)
+      console.log("B1",data)
+      return data;
+    }    
+      let data = getIb.filter((val)=>{
 
-    //     return moment(createddate).isBetween(weekdate,date)
-    //   })
+        console.log("Buyers7get",val)
+        console.log("Buyers7",val.url)
+        let currentdate=moment().subtract(1,"days")
+        let weekdate=moment().subtract(parseInt(date),"days")
+        //let createddate=moment(val.adddate)
+        return (moment(val.url).isBetween(weekdate,currentdate)) 
+      })
 
-      //return data;    
-
-    return getIb;
+      console.log("B7",data)
+      return data;    
+    
+    //return getI;
 
   }
 
