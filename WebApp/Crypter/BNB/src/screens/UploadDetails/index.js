@@ -23,6 +23,9 @@ import Modald from "../../components/ModalD";
 import FolowStepsdr from "./FolowStepsdr";
 //import Modald from "../../components/ModalD";
 
+//import Modald from "../../components/ModalD";
+import FolowStep from "../../screens/Profile/FolowStep";
+
 
 //const royaltiesOptions = ["10%", "20%", "30%"];
 
@@ -64,6 +67,7 @@ const Upload = () => {
   //
   let history=useHistory();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpens, setIsOpens] = useState(false);
   //const [ipfsHash,setIpfsHash] = useState(null);
   //const [ipf,setIpf] = useState(null);
   //const [buffer,setBuffer] = useState("");
@@ -566,6 +570,7 @@ const onSubmitNFT = async (event) => {
 
     setVisibleModal(false)
                           
+  
       
 
       let ref23=fireDb.database().ref(`tokenkey`);      
@@ -579,12 +584,13 @@ const onSubmitNFT = async (event) => {
         }
       });
 
-      setfire= (parseInt(getfire)+parseInt(1));
+      setfire= parseInt(getfire)+1;
       console.log("setfire",setfire)
       //alert("your token"+setfire+"getfire"+getfire);
-      ref23.update({id:setfire.toString()});
-      //te= parseInt(getfire);
-      te=1005;
+      ref23.update({id:setfire});
+      te= parseInt(getfire);
+      //.toString()
+      //te=1005;
 
       console.log("te",te)
 
@@ -602,6 +608,8 @@ const onSubmitNFT = async (event) => {
     //if(tb==="BNB")
     //{
 
+    
+      setIsOpens(true)
     console.log("603")
       await lottery.deploy({
     
@@ -627,6 +635,8 @@ const onSubmitNFT = async (event) => {
 }
 
 const callmint=async(event)=>{
+
+  setIsOpens(true)
 
   const abi = [
     {
@@ -1726,6 +1736,7 @@ const callmint=async(event)=>{
                       // let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);                
                       // ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:"",ownerAddress:accounts[0],soldd:"",extra1:"",datesets:dateset,whois:''}).then(()=>{
 
+                      setIsOpens(false)
                         setIsOpen(true);
 
                       })    
@@ -1936,6 +1947,12 @@ const onSub=()=>{
       <Modald visible={isOpen} onClose={() => setIsOpen(false)}>
         <FolowStepsdr className={styles.steps} onSub={()=>onSub}/>
       </Modald>
+
+      <Modald visible={isOpens} >
+        <FolowStep className={styles.steps} />
+      </Modald>
+
+      {/* onClose={() => setIsOpens(false)} */}
 
 
 

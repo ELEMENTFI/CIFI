@@ -5,11 +5,12 @@ import Icon from "../../../components/Icon";
 //import Loader from "../../../components/Loader";
 //import LoaderCircle from "../../../components/LoaderCircle";
 
-const FolowStepsd = ({ className,onClo}) => {
+const FolowSteps = ({ className,onSub}) => {
+
   return (
     <div className={cn(className, styles.steps)}>
       {/* <h1>{test}</h1> */}
-      <div className={cn("h4", styles.title)}></div>
+      <div className={cn("h4", styles.title)}>Notification</div>
       <div className={styles.list}>
 
       <div className={cn(styles.item, styles.done)}>
@@ -18,14 +19,16 @@ const FolowStepsd = ({ className,onClo}) => {
               <Icon name="upload-file" size="24" />
             </div>
             <div className={styles.details}>
-              <div className={styles.info}>Metamask Connect</div>
+              <div className={styles.info}>Price Updated</div>
               
             </div>
           </div>
-          <button type="submit" className={cn("button-small", styles.button)} onClick={onClo()}>Done</button>
+          <button type="submit" className={cn("button done", styles.button)} onClick={onSub()}>Done</button>
           {/* <button type="submit" onClick={()=>dones()}>Start nowss</button> */}
+          {/* onClick={onClo()} */}
         </div>
 
+        
         
             
           
@@ -34,4 +37,4 @@ const FolowStepsd = ({ className,onClo}) => {
   );
 };
 
-export default FolowStepsd;
+export default FolowSteps;

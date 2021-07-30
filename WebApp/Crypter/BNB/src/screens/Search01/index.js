@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import cn from "classnames";
 import styles from "./Search01.module.sass";
 import { Range, getTrackBackground } from "react-range";
@@ -6,6 +7,8 @@ import Icon from "../../components/Icon";
 //import Card from "../../components/CardBuy";
 import Dropdown from "../../components/Dropdown";
 import firebase from "../UploadDetails/firebase";
+import Modald from "../../components/ModalD";
+import FolowStepsdr from "./FolowSteps";
 //UploadDetails/firebase
 
 // data
@@ -22,6 +25,10 @@ const colorOptions = ["All colors", "Black", "Green", "Pink", "Purple"];
 const creatorOptions = ["Verified only", "All", "Most liked"];
 
 const Search = () => {
+
+  let history=useHistory();
+  const [isOpen, setIsOpen] = useState(false);
+
   const [searchTerm,setSearchTerm]=useState('');
   console.log('returnsearch',searchTerm)
 
@@ -171,6 +178,12 @@ const Search = () => {
   const STEP = 0.1;
   const MIN = 0.01;
   const MAX = 10;
+
+  const onSub=()=>{
+    console.log("hello close")
+    //setIsOpen(false);
+    history.push("/")
+  }
 
   return (
     <div className={cn("section-pt80", styles.section)}>
@@ -375,6 +388,11 @@ const Search = () => {
                 <span>Load more</span>
               </button>
             </div>
+
+            <Modald visible={isOpen} onClose={() => setIsOpen(false)}>
+<FolowStepsdr className={styles.steps} onSub={()=>onSub}/>
+</Modald>
+
           </div>
         </div>
       </div>

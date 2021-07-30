@@ -12,7 +12,6 @@ import firebase from "../UploadDetails/firebase";
 //import web3 from '../UploadDetails/web3';
 import Compress from "react-image-file-resizer";
 //import axios from 'axios';
-
 // data
 //import { bids } from "../../mocks/bids";
 //import { isStepDivisible } from "react-range/lib/utils";
@@ -223,10 +222,10 @@ console.log("getImgalgobuy",getImgreffalgobuy)
 
 const dbcallalgolikes=async()=>{
   console.log("inside dbcallsalealgo function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
   let req = [];
     
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("walletalgo") === null){
 
   }
   else{
@@ -277,10 +276,10 @@ useEffect(()=>{dbcallalgolikes()},[])
 
 const dbcallsalealgo=async()=>{
   console.log("inside dbcallsalealgo function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("walletalgo") === null){
 
   }else{
     
@@ -326,10 +325,10 @@ useEffect(()=>{dbcallsalealgo()},[])
 
 const dbcallalgo=async()=>{
   console.log("inside dbcallalgo function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("walletalgo") === null){
 
   }
   else{
@@ -382,14 +381,11 @@ const dbcallalgo=async()=>{
 
 useEffect(()=>{dbcallalgo()},[])
 
-
 const dbcallalgobuy=async()=>{
   console.log("inside dbcallalgobuy function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
   let req = [];
-
-  if(localStorage.getItem("wallet") === null){
-
+  if(localStorage.getItem("walletalgo") === null){
   }
   else{
 
@@ -466,9 +462,9 @@ const captureFile=(event)=>{
 
 const getbg=()=>{
 
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
+    if(localStorage.getItem("walletalgo") === null && Img === "" ){
   
     }else{
 
@@ -493,9 +489,9 @@ useEffect(()=>{getbg()},[])
 const setprofilephoto=()=>{
 
   console.log("inside setprofilephoto function")
-  let getalgo=localStorage.getItem("wallet");
+  let getalgo=localStorage.getItem("walletalgo");
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
+    if(localStorage.getItem("walletalgo") === null && Img === "" ){
   
     }else{
 
@@ -589,12 +585,12 @@ const checkasset=async()=>{
           <div className={styles.wrapper}>
             <div className={styles.nav}>                          
 
-            <button
+            {/* <button
               className={cn("button-small", styles.button)}
               onClick={() => checkasset()}
             >
               check
-            </button>
+            </button> */}
               
               {navLinks.map((x, index) => (
                 <button

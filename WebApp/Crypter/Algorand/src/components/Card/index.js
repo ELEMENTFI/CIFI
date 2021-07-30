@@ -78,7 +78,7 @@ const Card = ({ className, item }) => {
       console.log("8",item.image2x)
     
 
-      fireDb.database().ref(`imagerefexploreone/${accounts[0]}`).child(item.highestBid).set({
+      fireDb.database().ref(`imagerefexploreoneAlgo/${accounts[0]}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
       userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,
       ownerAddress:accounts[0],soldd:"",extra1:"ready to sold",
@@ -86,7 +86,7 @@ const Card = ({ className, item }) => {
       description:"",whois:'Sellers'      
       }).then(()=>{
 
-        fireDb.database().ref(`imageref/${accounts[0]}`).child(item.highestBid).remove();
+        fireDb.database().ref(`imagerefAlgos/${accounts[0]}`).child(item.highestBid).remove();
           console.log("remove db");
           window.location.reload(false)   
 
@@ -159,7 +159,7 @@ const Card = ({ className, item }) => {
 else{
     console.log("setitem",item)
     console.log("settitem",item.price)
-    let checkdb=fireDb.database().ref(`imageref/${item.ownerAddress}`).child(item.highestBid);
+    let checkdb=fireDb.database().ref(`imagerefAlgos/${item.ownerAddress}`).child(item.highestBid);
     console.log("cdb",checkdb)
     console.log("odb",item.bid)
     console.log("hdb",item.highestBid)

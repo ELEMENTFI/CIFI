@@ -1,7 +1,8 @@
 /* global AlgoSigner */
 import React, { useState,useEffect} from "react";
+//import { useHistory } from "react-router-dom";
 import cn from "classnames";
-import { Link } from "react-router-dom";
+import { Link,useHistory } from "react-router-dom";
 import styles from "./Card.module.sass";
 import Icon from "../Icon";
 import fireDb from "../../screens/UploadDetails/firebase";
@@ -11,8 +12,26 @@ import Modald from "../../components/ModalD";
 import web3 from '../../screens/./UploadDetails/web3';
 import {abi} from '../Card/data'
 import {tra} from './tra'
+import FolowStepsdr from "../../screens/Search01/FolowSteps";
+
+import FolowStepss from "../../screens/Search01/FolowStepss";
+
 
 const CardBuy = ({ className, item }) => {
+
+  let history=useHistory();
+  const [isOpens, setIsOpens] = useState(false);
+  const [isOpenss, setIsOpenss] = useState(false);
+
+  const onSub=()=>{
+    console.log("hello close")
+    //setIsOpen(false);
+    setIsOpens(false)
+    history.push("/")
+    window.location.reload(false)   
+    
+  }
+
   const[getprodata,setgetprodata]=useState([]);
   console.log("getprodata",getprodata)
   const [visible, setVisible] = useState(false);
@@ -71,7 +90,9 @@ useEffect(()=>{usernameget()},[])
     console.log("inside buy function")
     let getalgo=localStorage.getItem("wallet");
   
+    
 
+    setIsOpenss(true)
   //bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
   let gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
 
@@ -120,7 +141,9 @@ useEffect(()=>{usernameget()},[])
             userSymbol:"BNB",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
             datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
-              window.location.reload(false)   
+              setIsOpenss(false)
+              setIsOpens(true)
+              
             }) 
   
         }else{
@@ -141,7 +164,10 @@ useEffect(()=>{usernameget()},[])
             userSymbol:"BNB",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
             datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
-              window.location.reload(false)   
+              setIsOpenss(false)
+              setIsOpens(true)
+              
+              //window.location.reload(false)   
             }) 
   
         }
@@ -263,6 +289,13 @@ useEffect(()=>{usernameget()},[])
     <FolowStepsd className={styles.steps} viewhistory={historydb}/>
   </Modald>
 
+  <Modald visible={isOpens} onClose={() => setIsOpens(false)}>
+<FolowStepsdr className={styles.steps} onSub={()=>onSub}/>
+</Modald>
+
+<Modald visible={isOpenss} >
+<FolowStepss className={styles.steps} onSub={()=>onSub}/>
+</Modald>
 
     </>
   );

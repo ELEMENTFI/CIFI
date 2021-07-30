@@ -589,12 +589,12 @@ const checkasset=async()=>{
           <div className={styles.wrapper}>
             <div className={styles.nav}>                          
 
-            <button
+            {/* <button
               className={cn("button-small", styles.button)}
               onClick={() => checkasset()}
             >
               check
-            </button>
+            </button> */}
               
               {navLinks.map((x, index) => (
                 <button
