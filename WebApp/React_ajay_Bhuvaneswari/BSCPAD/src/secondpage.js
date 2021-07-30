@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import web3 from './web3';
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import BEP20Token from "./BEP20Token";
 import {Card} from "react-bootstrap"
 import tokencontract from './tokencontract';
 import TESTToken from './TESTToken';
 import TEST from './TEST';
-import $, { error, event, get } from 'jquery';
-import Web3 from 'web3';
-import Background from '../src/images/aa.gif'
-import Popup from 'reactjs-popup';
+//import $, { error, event, get } from 'jquery';
+//import Web3 from 'web3';
+//import Background from '../src/images/aa.gif'
+//import Popup from 'reactjs-popup';
 
 import { Modal, Button,InputGroup,FormControl } from "react-bootstrap";
 
@@ -43,7 +43,7 @@ class secondpage extends Component{
 
     
   async componentDidMount() {
-    const ooc = await TEST.methods.isSLATEOpen().call();
+    //const ooc = await TEST.methods.isSLATEOpen().call();
 
 
 //time function
@@ -126,7 +126,7 @@ var baltest=balance_TEST/1000000000;
 var availtk=At/1000000000;
      
 
-     var a=5-availtk;
+     var a = 5-availtk;
      
      var a1=a/1000000000;
      var p=a/5;
@@ -134,7 +134,7 @@ var availtk=At/1000000000;
      p=p*100;
     var p1=p.toFixed(6);
 
-    if(a==5){
+    if(a === 5){
       document.getElementById("dem").innerHTML="Closed";
       document.getElementById("demo").style.visibility="hidden";
       document.getElementById("demo1").style.visibility="hidden";

@@ -7,12 +7,12 @@ import thirdpage from './thirdpage';
 import web3 from './web3';
 import tokencontract from './tokencontract';
 import TESTToken from './TESTToken';
-import TEST from './TEST';
-import {BrowserRouter as Router , Route , Link , Switch , NavLink} from "react-router-dom";
+//import TEST from './TEST';
+import {BrowserRouter as Router , Route , Link , Switch} from "react-router-dom";
 import home from './home';
 import { Navbar } from 'react-bootstrap';
-import { Button,ButtonGroup } from 'react-bootstrap';
-import Background1 from '../src/images/logo.png'
+import { Button } from 'react-bootstrap';
+//import Background1 from '../src/images/logo.png'
 import fourthpage from './fourthpage';
 
 
@@ -79,26 +79,26 @@ window.ethereum.enable();
           <Navbar.Brand href="#home">
       
         
-        <Link class="navlink"  exact to="/h">
+        <Link class="navlink"  exact to="/pages/h">
 
   Home
 
 </Link>
       
-      <Link class="navlink"  exact to="/s">
+      <Link class="navlink"  exact to="/pages/s">
 Join Pool{' '}
             </Link>
-            <Link class="navlink"  exact to="/t">
+            {/*<Link class="navlink"  exact to="/t">
 History{' '}
-            </Link>
-            <Link class="navlink"  exact to="/t1">
-      History1{' '}
+            </Link>*/}
+            <Link class="navlink"  exact to="/pages/t1">
+      History{' '}
             </Link>
     </Navbar.Brand>
     <Navbar.Collapse className="justify-content-end">
     <Button  onClick={connect} id="cc" variant="flat" style={{ backgroundColor: "#fa3455", color: "white"}}> Connect Wallet</Button>
 
-<Link exact to="/h">
+<Link exact to="/pages/h">
 <Button variant="flat" style={{ backgroundColor: "#fa3455", color: "white"}}> {this.state.accounts}</Button>
 <label class="mr-3 mt-2" style={{color:"white"}}>
 
@@ -110,10 +110,10 @@ History{' '}
       </Navbar.Collapse>
       </Navbar>
           <Switch>
-    <Route exact path='/h' component={home}/>
-    <Route exact path='/t' component={thirdpage}/> 
-    <Route exact path='/t1' component={fourthpage}/>
-      <Route  exact path='/s' component={secondpage}/>
+    <Route exact path='/pages/h' component={home}/>
+    <Route exact path='/pages/t' component={thirdpage}/> 
+    <Route exact path='/pages/t1' component={fourthpage}/>
+      <Route  exact path='/pages/s' component={secondpage}/>
     </Switch>
     
   </Router>

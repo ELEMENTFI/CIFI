@@ -1,0 +1,101 @@
+ {/* <div class="card bg-info text-white">
+    <div class="card-body">
+    {this.state.Student.map(data => {
+                  
+                  return ( <div>
+                    <h2>FirstName: {data.Fname} </h2>
+                    <h2>LastName: {data.Lname} </h2>
+                      </div>
+                  );
+                 
+                  })}
+    </div>
+      </div> <br/>
+                
+    
+    irebase.on("value", snapshot => {
+          let Con = [];
+          snapshot.forEach(snap => {
+              // snap.val() is the dictionary with all your keys/values from the 'students-list' path
+              Con.push(snap.val());
+          });
+          this.setState({ Con: Con });
+        });
+      
+      
+   }
+    
+    render(){
+    return (
+      <div className="MainDiv"> 
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
+   
+        <div class="jumbotron text-center ">
+            <h3>Printing data from Firebase</h3>
+        </div>
+        <div className="container">   
+        
+        <div className='row'> 
+        <div className='col-xl-12'>
+
+       {this.state.Con.map(data => 
+            <div className="card float-left bg-sky text-dark" style={{width: '18rem', marginRight: '1rem', marginBlockStart: '1rem' }}>
+              <div className="card-body">
+                <h5 className="card-title">At : { data.At }</h5>
+                <h5 className="card-text">Balance : { data.Balance }</h5>
+                <h5 className="card-text">Decimal : { data.Decimal }</h5>
+                <h5 className="card-text">Name : { data.Name }</h5>
+                <h5 className="card-text">No : { data.No }</h5>
+                <h5 className="card-text">Symbol : { data.Symbol }</h5>
+                <h5 className="card-text">Total Supply : { data.TotalSupply }</h5>
+                </div> 
+            </div> 
+            )
+        }
+        
+        </div>
+      </div> 
+       </div>
+      </div>
+    );
+  }
+  }
+  export default fourthpage;
+    
+    
+    
+    
+    */} 
+
+
+
+
+ </* <div className='col-xl-12'>
+       <h3 style={{color:"black"}}>Upcoming pools</h3>
+       
+     {this.state.Con.map(data => 
+          <div className="card float-left bg-sky mt-2  shadow" style={{width: '25rem', marginRight: '1rem', marginBlockStart: '1rem', padding: "30px",backgroundColor:" #f2f2f2",color:"black"}} >
+            <div className="card-body">
+            <p  style={{textAlign:"right", color:"red"}}>Filled</p>
+              <h4>Name</h4>
+              <p>{ data.Name }</p>
+              <h4>Total Supply</h4>
+              <p>  { data.TotalSupply }</p>
+              <h4>Available Tokens</h4>
+              <p>  { data.At }</p>
+              <progress id="main7" value="5" max="5" class="progress11"></progress>
+  <div class="row">
+  <div class="col-4">
+    100%
+  </div>
+  <div class="col-8">
+    No.of Participants:<br/>5
+  </div>
+</div>
+              </div> 
+          </div> 
+          )
+      }
+      
+      </div> */>

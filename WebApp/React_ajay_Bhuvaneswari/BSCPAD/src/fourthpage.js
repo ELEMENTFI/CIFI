@@ -3,7 +3,7 @@ import './App.css';
 //Calling Bootstrap 4.5 css
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fireDB from'./firebase';
-import { data } from 'jquery';
+//import { data } from 'jquery';
 import { Card } from 'react-bootstrap';
 class fourthpage extends React.Component {
   constructor(props) {
@@ -44,17 +44,48 @@ class fourthpage extends React.Component {
     <div className="" style={{backgroundColor:"white"}}> 
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
- 
-      <div class="jumbotron text-center ">
-      <h3 style={{color:"black"}}>Featured Pools</h3>
+
+    
+      <div class="text-center">
+      <h2 class="head1"><b>History</b></h2>
       </div>
       <div className="container">   
       
       <div className='row'> 
+      
       <div className='col-xl-12'>
+       <h3 style={{color:"black"}}>  Upcoming pools</h3><br></br> 
+      <Card class="mt-2  shadow" style={{ width: '25rem' , padding: "30px",backgroundColor:" #f2f2f2",color:"black"}}  >
+         <p id="demo1" style={{textAlign:"right" ,color:"orange"}}>Starts in</p>
+      <p id="demo" style={{textAlign:"right" ,color:"orange"}}></p>
+  <h4 id ="1name">
 
+  </h4>
+  <p>
+    Total Supply:
+  </p>
+  <h4 id ="1ts"> </h4>
+  <div class="row">
+    <div class="col">
+      <h6>Min.Allocation<br/>1</h6>
+    </div>
+    <div class="col">
+      <h6>Max.Allocation<br/>5</h6>
+    </div>
+    <div class="col">
+      <h6>Access<br/><h4>Slate</h4></h6>
+    </div>
+  </div>
+
+</Card>
+<br></br> 
+      </div>
+
+<div className='col-xl-12'>
+       <h3 style={{color:"black"}}>Featured Pools</h3><br></br> 
+       
      {this.state.Con.map(data => 
-          <div className="card float-left bg-sky mt-2  shadow" style={{width: '25rem', marginRight: '1rem', marginBlockStart: '1rem', padding: "30px",backgroundColor:" #f2f2f2",color:"black"}} >
+          <div className="card float-left bg-sky mt-2  shadow" style={{width: '25rem', marginRight: '2rem', marginBlockStart: '1rem', padding: "30px",backgroundColor:" #f2f2f2",color:"black"}} >
             <div className="card-body">
             <p  style={{textAlign:"right", color:"red"}}>Filled</p>
               <h4>Name</h4>
@@ -77,7 +108,9 @@ class fourthpage extends React.Component {
           )
       }
       
-      </div>
+      </div> 
+
+
     </div> 
      </div>
     </div>
@@ -93,3 +126,5 @@ export default fourthpage;
 
 
  
+
+
