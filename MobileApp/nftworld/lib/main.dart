@@ -39,6 +39,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     ),
+    //page navigation
     routes: {
       '/': (uri, params) => MaterialPage(child: Authcheck()),
       '/signin': (uri, params) => MaterialPage(child: AccountCreation()),
