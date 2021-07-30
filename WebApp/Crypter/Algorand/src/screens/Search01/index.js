@@ -56,7 +56,7 @@ const Search = () => {
 
       //let req = [];
     let req2 = [];//imagerefexplore//
-    firebase.database().ref("imagerefexploreone").on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgo").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           req2.push(d.val())          
@@ -106,7 +106,7 @@ const Search = () => {
 
   const dbcallsalealgo=async()=>{
     console.log("inside dbcallsalealgo function")
-    let getalgo=localStorage.getItem("wallet");
+    let getalgo=localStorage.getItem("walletalgo");
     let req = [];
   
     if(getalgo === ""){
@@ -116,7 +116,7 @@ const Search = () => {
     
       
       //let kreq =[];
-      firebase.database().ref("imagerefexploreone").child(getalgo).on("value", (data) => {
+      firebase.database().ref("imagerefexploreoneAlgo").child(getalgo).on("value", (data) => {
         if (data) {
           data.forEach((d) => {
             //console.log("keycheck",d.key)

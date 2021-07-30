@@ -289,7 +289,7 @@ useEffect(()=>{usernameget()},[])
     <FolowStepsd className={styles.steps} viewhistory={historydb}/>
   </Modald>
 
-  <Modald visible={isOpens} >
+  <Modald visible={isOpens} onClose={() => setIsOpens(false)}>
 <FolowStepsdr className={styles.steps} onSub={()=>onSub}/>
 </Modald>
 

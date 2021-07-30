@@ -25,7 +25,7 @@ const FolowStepss = ({ className,onSub}) => {
           {/* <button type="submit" onClick={()=>dones()}>Start nowss</button> */}
         </div>
         <div className={styles.saving}>
-                  {/* <span>Auto saving</span> */}
+                  <span>Auto saving</span>
                   <Loader className={styles.loader} />
                 </div>
         

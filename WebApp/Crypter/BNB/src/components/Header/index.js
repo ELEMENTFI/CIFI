@@ -53,7 +53,7 @@ const Headers = () => {
     console.log("walletcheck",get)
     console.log("walletcheckalgo",getalgo)
 
-    if(getalgo)
+    if(get)
     setConnected(true)
     // else if(getalgo)
     // setConnected(true)

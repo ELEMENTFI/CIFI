@@ -21,7 +21,7 @@ const User = ({ className, item }) => {
   let getac="undefined";
   let getalgo="undefined";
   let getname="undefined";
-  getalgo=localStorage.getItem("wallet");
+  getalgo=localStorage.getItem("walletalgo");
   console.log("getmetamask",getalgo)
   //getalgo=localStorage.getItem("walletalgo");
   getname=localStorage.getItem("walletname");
@@ -34,10 +34,10 @@ const User = ({ className, item }) => {
 
 
     console.log("inside setgetdbcall function")
-    let getalgo=localStorage.getItem("wallet");
+    let getalgo=localStorage.getItem("walletalgo");
     let req = [];
       
-    if(localStorage.getItem("wallet") === null){
+    if(localStorage.getItem("walletalgo") === null){
 
       req.push(              
         {              
@@ -140,7 +140,7 @@ const User = ({ className, item }) => {
           <div className={styles.name}>{getusername}</div>
         )}
         
-        {localStorage.getItem("wallet") === null ? (
+        {localStorage.getItem("walletalgo") === null ? (
 
 <div className={styles.code}>
 <div className={styles.number}>{"0Xasdhaudhu"}....</div>
@@ -251,5 +251,4 @@ const User = ({ className, item }) => {
     </>
   );
 };
-
 export default User;

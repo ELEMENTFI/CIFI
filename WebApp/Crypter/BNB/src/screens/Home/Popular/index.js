@@ -94,6 +94,90 @@ const items = [
   },
 ];
 
+
+const itemss = [
+  {
+    name: "Edd Harris",
+    sign: "1",
+    number: "1",
+    url: "/profile",
+    color: "#3772FF",
+    avatar: "/images/content/dhoni image.jpg",
+    reward: "/images/content/reward-1.svg",
+    price: "<span>2.456</span> BNB",
+  },
+  {
+    name: "Odell Hane",
+    sign: "1",
+    number: "2",
+    url: "/profile",
+    color: "#9757D7",
+    avatar: "/images/content/babar.jpeg",
+    reward: "/images/content/reward-1.svg",
+    price: "<span>2.456</span> BNB",
+  },
+  {
+    name: "Marlee Kuphal",
+    sign: "1",
+    number: "3",
+    url: "/profile",
+    color: "#45B26B",
+    avatar: "/images/content/bens.jpeg",
+    reward: "/images/content/reward-1.svg",
+    price: "<span>2.456</span> BNB",
+  },
+  {
+    name: "Payton Kunde",
+    sign: "1",
+    number: "4",
+    url: "/profile",
+    color: "#23262F",
+    avatar: "/images/content/kevin.jpg",
+    reward: "/images/content/reward-1.svg",
+    price: "<span>2.456</span> BNB",
+  },
+  {
+    name: "Payton Buckridge",
+    sign: "1",
+    number: "5",
+    url: "/profile",
+    color: "#777E90",
+    avatar: "/images/content/dhoni image.jpg",
+    reward: "/images/content/reward-1.svg",
+    price: "<span>2.456</span> BNB",
+  },
+  {
+    name: "Edd Harris",
+    sign: "1",
+    number: "1",
+    url: "/profile",
+    color: "#3772FF",
+    avatar: "/images/content/kohli image.jpg",
+    reward: "/images/content/reward-1.svg",
+    price: "<span>2.456</span> BNB",
+  },
+  {
+    name: "Odell Hane",
+    sign: "1",
+    number: "2",
+    url: "/profile",
+    color: "#9757D7",
+    avatar: "/images/content/JontyRhodes.jpg",
+    reward: "/images/content/reward-1.svg",
+    price: "<span>2.456</span> BNB",
+  },
+  {
+    name: "Marlee Kuphal",
+    sign: "1",
+    number: "3",
+    url: "/profile",
+    color: "#45B26B",
+    avatar: "/images/content/bens2.jpeg",
+    reward: "/images/content/reward-1.svg",
+    price: "<span>2.456</span> BNB",
+  },
+];
+
 const SlickArrow = ({ currentSlide, slideCount, children, ...props }) => (
   <button {...props}>{children}</button>
 );
@@ -227,7 +311,7 @@ const directionOptions = ["Sellers", "Buyers"];
   
   }
   
-  useEffect(()=>{dbcallalgobuy()},[])
+  useEffect(()=>{dbcallalgobuy()},[getImb])
 
 
   //seller
@@ -237,15 +321,17 @@ const directionOptions = ["Sellers", "Buyers"];
     firebase.database().ref("imagerefexploreone").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
-          req2.push(d.val())          
+          req2.push(d.val())                    
         });        
-      }      
-    });  
-    setgetIm(req2)
+      }
+      setgetIm(req2)  
+    })  
+    
     let req=[];
     getIm.map((a)=>{
       //console.log(`abb`, a)    
       Object.keys(a).map((b)=>{
+
         //console.log(a[b].id);
                 req.push({
                 price: a[b].id,
@@ -274,83 +360,85 @@ const directionOptions = ["Sellers", "Buyers"];
     //console.log("cfbbba",req) 
   
   }
-  useEffect(()=>{dbcallsalealgo()},[])
+  useEffect(()=>{dbcallsalealgo()},[getIm])
 
   const filterdata=()=>{
     console.log("inside filter function")
-    if(direction === 'Sellers') {
+
+    if(direction === 'Sellers'){
 
       if(date === '1')
       {
         console.log("one")
-        let re1=[];
-          let data = getI.filter((val)=>{
-            //console.log("getI1",val.url)
-          let currentdate=moment().toString()//get current date 29
-          //console.log("curr1",currentdate)
-          let createddate=moment(val.url).toString()//db date 26
-          //console.log("cre1",createddate)      
-          //re1.push(moment(currentdate).isSame(createddate,'day'));
-          //return (currentdate.isSame(currentdate,createddate))
-          //return (currentdate === createddate)
-          return (moment(currentdate).isSame(createddate,'day'))
-        })
-        //console.log("Rdate1",re1)
+        return items;
+      }    
         
-        //console.log("Rdate1",re1)
-        console.log("R1",data)
-        return data;
-      }
-      
-      let re7=[];
-        let data = getI.filter((val)=>{
-          console.log("sellers7get",val)
-        console.log("sellers7",val.url)
-          console.log("sellers two")
-          let currentdate=moment().subtract(1,"days")
-          console.log("curr7",currentdate)
-          let weekdate=moment().subtract(parseInt(date),"days")
-          console.log("cre7",weekdate)
-          let createddate=moment(val.url)
-          return (moment(createddate).isBetween(weekdate,currentdate))
-          //return (moment(currentdate).isBetween(currentdate,weekdate))
-        })
-
-        re7.push(data)
-        console.log("re7",re7)
-        console.log("R7",data)
-        return data;          
+        return items;    
     }
 
 
     if(date === '1')
     {
-        let data = getIb.filter((val)=>{
-          console.log("Buydate1",val.url)
-        let currentdate=moment();
-        let createddate=moment(val.url)
-        //return (currentdate===createddate) 
-        //return (currentdate.isSame(currentdate,createddate))
-        return (moment(currentdate).isSame(createddate,'day'))
-      })
-
-      console.log("B1",data)
-      return data;
+        
+      return itemss;
     }    
-      let data = getIb.filter((val)=>{
+      
+      return itemss;    
 
-        console.log("Buyers7get",val)
-        console.log("Buyers7",val.url)
-        let currentdate=moment().subtract(1,"days")
-        let weekdate=moment().subtract(parseInt(date),"days")
-        //let createddate=moment(val.adddate)
-        return (moment(val.url).isBetween(weekdate,currentdate)) 
-      })
 
-      console.log("B7",data)
-      return data;    
-    
-    //return getI;
+
+    // if(direction === 'Sellers') {
+
+    //   if(date === '1')
+    //   {
+    //     console.log("one")
+    //       let data = getI.filter((val)=>{
+    //       let currentdate=moment()
+    //       let createddate=moment(val.url)
+    //       return currentdate===createddate 
+    //     })
+    //     console.log("R1",data)
+    //     return data;
+    //   }    
+    //     let data = getI.filter((val)=>{
+    //       console.log("sellers7get",val)
+    //     console.log("sellers7",val.url)
+    //       console.log("sellers two")
+    //       let currentdate=moment().subtract(1,"days")
+    //       let weekdate=moment().subtract(parseInt(date),"days")
+    //       //let createddate=moment(val.url)
+    //       return moment(val.url).isBetween(weekdate,currentdate)
+    //     })
+
+    //     console.log("R7",data)
+    //     return data;    
+    // }
+
+
+    // if(date === '1')
+    // {
+    //     let data = getIb.filter((val)=>{
+    //     let currentdate=moment()
+    //     let createddate=moment(val.url)
+    //     return currentdate===createddate 
+    //   })
+    //   console.log("B1",data)
+    //   return data;
+    // }    
+    //   let data = getIb.filter((val)=>{
+
+    //     console.log("Buyers7get",val)
+    //     console.log("Buyers7",val.url)
+    //     let currentdate=moment().subtract(1,"days")
+    //     let weekdate=moment().subtract(parseInt(date),"days")
+    //     //let createddate=moment(val.adddate)
+    //     return moment(val.url).isBetween(weekdate,currentdate)        
+    //   })
+
+    //   console.log("B7",data)
+    //   return data;    
+
+    //return getIb;
 
   }
 
@@ -371,7 +459,7 @@ const directionOptions = ["Sellers", "Buyers"];
               //onChange={changeSelectOptionHandler}
             />
           </div>
-          <div className={styles.field}>
+          {/* <div className={styles.field}>
             <div className={styles.label}>timeframe</div>
             <Dropdown
               className={styles.dropdown}
@@ -379,11 +467,11 @@ const directionOptions = ["Sellers", "Buyers"];
               setValue={setDate}
               options={dateOptions}
             />
-          </div>
+          </div> */}
         </div>
 
         
-        {direction==="Sellers"  ? (
+        {/* {direction==="Sellers"  ? (
         <div className={styles.field}>              
   <button className={cn("button-small")} onClick={dbcallsalealgo}>More Sellers</button>        
   </div>
@@ -392,14 +480,17 @@ const directionOptions = ["Sellers", "Buyers"];
           <div className={styles.field}>            
           <button className={cn("button-small")} onClick={dbcallalgobuy}>More Buyers</button>        
           </div>
-        )}
+        )} */}
           
           
-          {getIb.length === 0 && getI.length === 0 ? (
+          {/* {getIb.length === 0 && getI.length === 0 ? ( */}
+
+            {direction==="Sellers"  ? (
             
 <div className={styles.wrapper}>
           <Slider className="popular-slider" {...settings}>
-{items.map((x, index) => (
+            
+{getI.map((x, index) => (
               <div className={styles.slide} key={index} onClick={() => onClo()}>
                 <div className={styles.item}>
                   <div className={styles.head} >
@@ -447,7 +538,7 @@ const directionOptions = ["Sellers", "Buyers"];
           (
             <div className={styles.wrapper}>
           <Slider className="popular-slider" {...settings}>
-            {filterdata().map((x, index) => (
+            {getIb.map((x, index) => (
               <div className={styles.slide} key={index} onClick={() =>onClo()}>
                 <div className={styles.item}>
                   <div className={styles.head}>
@@ -490,7 +581,8 @@ const directionOptions = ["Sellers", "Buyers"];
             </Slider>
         </div>
             
-          )  
+          )
+  
   }
           
       </div>
