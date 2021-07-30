@@ -1,0 +1,2 @@
+ goal asset send --assetid 36095d58a3f0737c84c3aa6af11696bd -a 0 -f 
+ 
