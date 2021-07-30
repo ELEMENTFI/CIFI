@@ -11,6 +11,7 @@ import FolowStepsd from "./FolowStepsd";
 import Modald from "../../components/ModalD";
 import web3 from '../../screens/./UploadDetails/web3';
 import {abi} from './data'
+import TextInput from "../../components/TextInput";
 
 //import Modald from "../../components/ModalD";
 import FolowStep from "../../screens/Profile/FolowStep";
@@ -20,6 +21,7 @@ import FolowSteps from "../../screens/Profile/FolowSteps";
 
 
 const Card = ({ className, item }) => {
+  const [urlprize,setUrlprize] = useState(null);
   let history=useHistory();
   const [isOpens, setIsOpens] = useState(false);
   const [isOpenss, setIsOpenss] = useState(false);
@@ -162,9 +164,13 @@ const Card = ({ className, item }) => {
 
   const setpricedb=async()=>{
 
-    let getprize = prompt("Please enter Price");
-    if(getprize === ""){
-      getprize = prompt("Please enter Price");
+
+    //add textbox
+
+
+    //let getprize = //prompt("Please enter Price");
+    if(urlprize === null){
+      alert("Please enter Price")
     }
 else{
     console.log("setitem",item)
@@ -197,7 +203,7 @@ else{
             //alert("token id"+isd);
             const accounts = await  web3.eth.getAccounts();
             console.log("checking")          
-            let price=getprize;
+            let price=urlprize;
             if(accounts[0] === item.bid)
             {
               //change mactimum
@@ -262,9 +268,9 @@ alert("Your are not owner so you does not update or set prizes......")
 }
 
   const updatepricedb=async()=>{
-    let getprize = prompt("Please enter Price");
-    if(getprize === ""){
-      getprize = prompt("Please enter Price");
+    //let getprize = prompt("Please enter Price");
+    if(urlprize === null){
+      alert("Please enter Price");
     }
 else{
     console.log("setitem",item)
@@ -298,7 +304,7 @@ else{
             //alert("token id"+isd);
             const accounts = await  web3.eth.getAccounts();
             console.log("checking")          
-            let price=getprize;
+            let price=urlprize;
             if(accounts[0] === item.bid)
             {
               //change mactimum
@@ -421,10 +427,21 @@ alert("Your are not owner so you does not update or set prizes......")
           >
             <Icon name="heart" size="20" />
           </button>
-          <button className={cn("button-small", styles.button)} onClick={saledbset}>
+
+          {item.price === "" ? 
+(
+  <>
+</>):(
+  <>
+
+<button className={cn("button-small", styles.button)} onClick={saledbset}>
             <span>Place a sale</span>
             <Icon name="scatter-up" size="16" />
           </button>
+</>
+)
+}
+  
         </div>
         
       </div>
@@ -432,6 +449,17 @@ alert("Your are not owner so you does not update or set prizes......")
       {item.price === "" ? 
 (
   <>
+  <TextInput
+                      className={styles.field}
+                      label="Custom url"
+                      name="Url"
+                      type="text"
+                      placeholder="create prize"
+                      required
+                      onChange={event => setUrlprize(event.target.value)}
+                    />
+
+                    <br></br>
       <button className={cn("button-small")} onClick={setpricedb}>
       <span>Price set</span>
       {/* <Icon name="scatter-up" size="16" /> */}
@@ -443,6 +471,20 @@ alert("Your are not owner so you does not update or set prizes......")
     
     (        
       <>
+      
+                    
+                    <TextInput
+                      className={styles.field}
+                      label="Custom url"
+                      name="Url"
+                      type="text"
+                      placeholder="update prize"
+                      required
+                      onChange={event => setUrlprize(event.target.value)}
+                    />
+
+                    <br></br>
+      
       <button className={cn("button-small")} onClick={updatepricedb}>
       <span>Update price</span>
       {/* <Icon name="scatter-up" size="16" /> */}
@@ -460,9 +502,10 @@ alert("Your are not owner so you does not update or set prizes......")
           </div>
           <div className={styles.line}>
             <div className={styles.users}>
-              {item.users.map((x, index) => (
+              {item.users.map((x, index) => (                
                 <div className={styles.avatar} key={index}>
-                  <img src={x.avatar} alt="Avatar" onClick={viewhistory}/>                  
+                                            
+                  {/* <img src={x.avatar} alt="Avatar" onClick={viewhistory}/>                   */}
                 </div>
               ))}
             </div>

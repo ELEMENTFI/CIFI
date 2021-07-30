@@ -43,9 +43,9 @@ const Modal = ({
           <OutsideClickHandler onOutsideClick={onClose}>
             <div className={cn(styles.container, containerClassName)}>
               {children}              
-              <button className={styles.close} onClick={onClose}>
+              {/* <button className={styles.close} onClick={onClose}>
                 <Icon name="close" size="14" />
-              </button>
+              </button> */}
             </div>
           </OutsideClickHandler>
         </div>

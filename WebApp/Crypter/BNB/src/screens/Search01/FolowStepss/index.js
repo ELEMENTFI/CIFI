@@ -9,7 +9,7 @@ const FolowStepss = ({ className,onSub}) => {
   return (
     <div className={cn(className, styles.steps)}>
       {/* <h1>{test}</h1> */}
-      <div className={cn("h4", styles.title)}>Notification</div>
+      <div className={cn("h4", styles.title)}></div>
       <div className={styles.list}>
         <div className={cn(styles.item, styles.done)}>
           <div className={styles.head}>

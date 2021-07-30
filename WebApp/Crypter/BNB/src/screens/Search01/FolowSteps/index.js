@@ -9,7 +9,7 @@ const FolowSteps = ({ className,onSub}) => {
   return (
     <div className={cn(className, styles.steps)}>
       {/* <h1>{test}</h1> */}
-      <div className={cn("h4", styles.title)}>Notification</div>
+      <div className={cn("h4", styles.title)}></div>
       <div className={styles.list}>
         <div className={cn(styles.item, styles.done)}>
           <div className={styles.head}>
@@ -17,7 +17,7 @@ const FolowSteps = ({ className,onSub}) => {
               <Icon name="upload-file" size="24" />
             </div>
             <div className={styles.details}>
-              <div className={styles.info}>Token has been Buyed successfully</div>              
+              <div className={styles.info}>Token Purchase successful !</div>              
             </div>
           </div>
           {/* <button type="submit" className={cn("button done", styles.button)} onClick={onSubmitNFT()}>Done</button> */}
