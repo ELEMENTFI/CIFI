@@ -252,6 +252,13 @@ const dbcallalgolikes=async()=>{
               categoryText: value.cAddress,
               //purchasing !
               url: value.history,
+              date:value.datesets,
+              description:value.description,
+              extra:value.extra1,
+              ipfsurl:value.ipfsUrl,
+              previousaddress:value.previousaddress,
+              soldd:value.soldd,
+              whois:value.whois,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -284,7 +291,7 @@ const dbcallsalealgo=async()=>{
   }else{
     
     //let kreq =[];
-    firebase.database().ref("imagerefexploreone").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -303,6 +310,13 @@ const dbcallsalealgo=async()=>{
               categoryText: value.cAddress,
               //purchasing !
               url: value.history,
+              date:value.datesets,
+              description:value.description,
+              extra:value.extra1,
+              ipfsurl:value.ipfsUrl,
+              previousaddress:value.previousoaddress,
+              soldd:value.soldd,
+              whois:value.whois,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -336,7 +350,7 @@ const dbcallalgo=async()=>{
   
     
     //let kreq =[];
-    firebase.database().ref("imageref").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefAlgos").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -356,6 +370,13 @@ const dbcallalgo=async()=>{
               categoryText: value.cAddress,
               //purchasing !
               url: value.history,
+              date:value.datesets,
+              description:value.description,
+              extra:value.extra1,
+              ipfsurl:value.ipfsUrl,
+              previousaddress:value.previousoaddress,
+              soldd:value.soldd,
+              whois:value.whois,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -392,7 +413,7 @@ const dbcallalgobuy=async()=>{
   
     
     //let kreq =[];
-    firebase.database().ref("imagerefbuy").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefbuyAlgo").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -412,6 +433,13 @@ const dbcallalgobuy=async()=>{
               categoryText: value.cAddress,
               //purchasing !
               url: value.history,
+              date:value.datesets,
+              description:value.description,
+              extra:value.extra1,
+              ipfsurl:value.ipfsurl,
+              previousaddress:value.previousoaddress,
+              soldd:value.soldd,
+              whois:value.whois,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",

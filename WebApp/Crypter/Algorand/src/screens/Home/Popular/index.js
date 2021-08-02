@@ -20,7 +20,7 @@ const items = [
     color: "#3772FF",
     avatar: "/images/content/gayle.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> Algo",
   },
   {
     name: "Odell Hane",
@@ -30,7 +30,7 @@ const items = [
     color: "#9757D7",
     avatar: "/images/content/babar.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> Algo",
   },
   {
     name: "Marlee Kuphal",
@@ -40,7 +40,7 @@ const items = [
     color: "#45B26B",
     avatar: "/images/content/bens.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> Algo",
   },
   {
     name: "Payton Kunde",
@@ -50,7 +50,7 @@ const items = [
     color: "#23262F",
     avatar: "/images/content/kevin.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> Algo",
   },
   {
     name: "Payton Buckridge",
@@ -60,7 +60,7 @@ const items = [
     color: "#777E90",
     avatar: "/images/content/dhoni image.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> Algo",
   },
   {
     name: "Edd Harris",
@@ -70,7 +70,7 @@ const items = [
     color: "#3772FF",
     avatar: "/images/content/kohli image.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> Algo",
   },
   {
     name: "Odell Hane",
@@ -80,7 +80,7 @@ const items = [
     color: "#9757D7",
     avatar: "/images/content/JontyRhodes.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> Algo",
   },
   {
     name: "Marlee Kuphal",
@@ -90,7 +90,7 @@ const items = [
     color: "#45B26B",
     avatar: "/images/content/bens2.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> Algo",
   },
 ];
 
@@ -181,7 +181,7 @@ const directionOptions = ["Sellers", "Buyers"];
   const dbcallalgobuy=async()=>{
     //console.log("inside dbcallalgobuy function")
     let req2 = [];//imagerefexplore//
-    firebase.database().ref("imagerefbuy").on("value", (data) => {
+    firebase.database().ref("imagerefbuyAlgo").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           req2.push(d.val())          
@@ -234,7 +234,7 @@ const directionOptions = ["Sellers", "Buyers"];
   const dbcallsalealgo=async()=>{
     //console.log("inside dbcallsalealgo function")
     let req2 = [];//imagerefexplore//
-    firebase.database().ref("imagerefexploreone").on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgo").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           req2.push(d.val())          
@@ -357,7 +357,7 @@ const directionOptions = ["Sellers", "Buyers"];
         </div>
 
         
-        {direction==="Sellers"  ? (
+        {/* {direction==="Sellers"  ? (
         <div className={styles.field}>              
   <button className={cn("button-small")} onClick={dbcallsalealgo}>More Sellers</button>        
   </div>
@@ -366,7 +366,7 @@ const directionOptions = ["Sellers", "Buyers"];
           <div className={styles.field}>            
           <button className={cn("button-small")} onClick={dbcallalgobuy}>More Buyers</button>        
           </div>
-        )}
+        )} */}
           
           
           {getIb.length === 0 && getI.length === 0 ? (

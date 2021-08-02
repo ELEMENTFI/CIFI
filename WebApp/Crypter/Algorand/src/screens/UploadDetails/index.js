@@ -483,7 +483,7 @@ console.log(recoveredAccount2.addr);
           const db = ref2.push().key;                         
           console.log("dbcheck",db)
           let his=[accounts[0].address]
-          ref2.child(db).set({id:"",imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:"Algos",ipfsUrl:tf,ownerAddress:accounts[0].address,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',description:tdescription,privatekey:tmnemonic,paramsdb:params,history:his}).then(()=>{
+          ref2.child(db).set({id:assetID,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:"Algos",ipfsUrl:tf,ownerAddress:accounts[0].address,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',description:tdescription,privatekey:tmnemonic,paramsdb:params,history:his}).then(()=>{
           // let ref23=fireDb.database().ref(`imagepurcre/${accounts[4].address}`);                
           // ref23.child(db).set({id:"",imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:"",ownerAddress:accounts[0].address,soldd:"",extra1:"",datesets:dateset,whois:'',description:tdescription,privatekey:tmnemonic}).then(()=>{
 
@@ -568,6 +568,22 @@ const onSub=()=>{
 }
 
 
+const checkasset=async()=>{
+
+  // try {
+  //   const MyAlgoConnect = (await import("@randlabs/myalgo-connect")).default
+  //   const AlgoWallet = new MyAlgoConnect()
+  //   const addresses = await AlgoWallet.connect()
+  //   console.log(addresses)
+  // }catch{
+    
+  //     console.error("error");
+  
+    
+  // }
+}
+
+
 
   return (
     <>
@@ -580,6 +596,13 @@ const onSub=()=>{
               <div className={cn("h2", styles.title)}>
                 Create single collectible
               </div>
+
+              <button
+              className={cn("button-small", styles.button)}
+              onClick={() => checkasset()}
+            >
+              check
+            </button>
               <button
                 className={cn("button-stroke button-small", styles.button)}
               >

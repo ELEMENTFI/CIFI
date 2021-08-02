@@ -34,10 +34,9 @@ const CardBuy = ({ className, item }) => {
     const accounts = await  web3.eth.getAccounts();
     fireDb.database().ref(`imagereflikes/${accounts[0]}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-      userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,
-      ownerAddress:accounts[0],soldd:"",extra1:"ready to sold",
-      previousoaddress:"",datesets:new Date().toDateString(),
-      description:"",whois:'likes'      
+      userName:item.counter,userSymbol:"Algos",ownerAddress:item.bid,soldd:"",previousoaddress:item.previousaddress
+      ,datesets:item.date,description:item.description,extra1:item.extra,ipfsurl:item.ipfsurl,whois:item.whois,
+      paramsdb:item.image2x,privatekey:item.category,history:item.url
       }).then(()=>{
         setVisible(!visible)
         window.location.reload(false)   
@@ -49,7 +48,7 @@ const CardBuy = ({ className, item }) => {
     const usernameget=()=>{
 
     console.log("inside usernameget function")
-    let getalgo=localStorage.getItem("wallet");
+    let getalgo=localStorage.getItem("walletalgo");
 
     fireDb.database().ref("profiledata").child(getalgo).on("value", (data) => {
       if (data) {
@@ -69,20 +68,20 @@ useEffect(()=>{usernameget()},[])
   const updatepricedb=async()=>{
 
     console.log("inside buy function")
-    let getalgo=localStorage.getItem("wallet");
+    let getalgo=localStorage.getItem("walletalgo");
   
 
   //bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
-  let gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
+  //let gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
 
-  let gettest=item.categoryText
-  let getaaa=new web3.eth.Contract(abi,gettest);
+  //let gettest=item.categoryText
+  //let getaaa=new web3.eth.Contract(abi,gettest);
 
     console.log("insidebutton",item.categoryText)
     console.log("insidebuttonid",item.price)
     console.log("insidebuttonids",item.bid)
 
-    const accounts = await web3.eth.getAccounts();
+    //const accounts = await web3.eth.getAccounts();
 
 //tra start
 
@@ -91,7 +90,7 @@ useEffect(()=>{usernameget()},[])
   //    value: web3.utils.toWei(a.addPrices, 'ether')
   //  });
 
-  if(item.bid === accounts[0])
+  if(item.bid === getalgo)
   {
 
     alert("you are owner so you does not purchase this token")
@@ -99,52 +98,61 @@ useEffect(()=>{usernameget()},[])
   }
   else{
 
-
-    await gettrans.methods.sendss(item.bid).send({
-      from: accounts[0],
-      //value:web3.utils.toWei(a.addPrices,'BNB')
-      value: web3.utils.toWei(item.price, 'ether')//ether
-     });
-  
-     await getaaa.methods.transferFrom(item.bid,accounts[0],item.title).send({
-       from:accounts[0]
-     });
-
-      fireDb.database().ref(`imagerefexploreone/${item.bid}`).child(item.highestBid).remove().then(()=>{
+      fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).remove().then(()=>{
 
         if(getprodata.username === null){
   
-          fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(item.highestBid).set({
-            id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
-            keyId:item.highestBid,userName:"",
-            userSymbol:"BNB",previousoaddress:item.bid,
-            ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
-            datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
+          fireDb.database().ref(`imagerefbuyAlgos/${getalgo}`).child(item.highestBid).set({
+            id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
+      userName:getprodata.username,userSymbol:"Algos",ownerAddress:item.bid,soldd:"buyed",previousoaddress:item.bid,
+    datesets:item.date,description:item.description,extra1:item.extra,ipfsurl:item.ipfsurl,whois:item.whois,
+      paramsdb:item.image2x,privatekey:item.category,history:item.url.then(()=>{
               window.location.reload(false)   
             }) 
+
+          })
+        }
+        else{
+
+          fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).remove().then(()=>{
+
+            
+      
+              fireDb.database().ref(`imagerefbuyAlgos/${getalgo}`).child(item.highestBid).set({
+                id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
+          userName:getprodata.username,userSymbol:"Algos",ownerAddress:item.bid,soldd:"buyed",previousoaddress:item.bid,
+        datesets:item.date,description:item.description,extra1:item.extra,ipfsurl:item.ipfsurl,whois:item.whois,
+          paramsdb:item.image2x,privatekey:item.category,history:item.url.then(()=>{
+                  window.location.reload(false)   
+                }) 
+              })
+
+            })
+        }
+      })
+    }
+        // }else{
   
-        }else{
-  
-          console.log("itemid",item.title)
-          console.log("itemimage",item.image)
-          console.log("itemprice",item.price)
-          console.log("itemcAddress",item.categoryText)
-          console.log("itemkeyid",item.highestBid)
-          console.log("itemusername",getprodata.username)
-          console.log("itempreaddress",item.bid)
-          console.log("itemacc",accounts[0])
+        //   console.log("itemid",item.title)
+        //   console.log("itemimage",item.image)
+        //   console.log("itemprice",item.price)
+        //   console.log("itemcAddress",item.categoryText)
+        //   console.log("itemkeyid",item.highestBid)
+        //   console.log("itemusername",getprodata.username)
+        //   console.log("itempreaddress",item.bid)
+        //   console.log("itemacc",accounts[0])
           
   
-          fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(item.highestBid).set({
-            id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
-            keyId:item.highestBid,userName:getprodata.username,
-            userSymbol:"BNB",previousoaddress:item.bid,
-            ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
-            datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
-              window.location.reload(false)   
-            }) 
+        //   fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(item.highestBid).set({
+        //     id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
+        //     keyId:item.highestBid,userName:getprodata.username,
+        //     userSymbol:"BNB",previousoaddress:item.bid,
+        //     ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
+        //     datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
+        //       window.location.reload(false)   
+        //     }) 
   
-        }
+        // }
   
        //alert("amount has been sent")
    //end trans 
@@ -152,10 +160,10 @@ useEffect(()=>{usernameget()},[])
        //let s = await getaaa.methods.items(thing).call(); 
        //console.log("sget",s) 
        //let state = a.addPrices;       
-      })    
+     // })    
      
     
-  } 
+  //} 
 
   }
 

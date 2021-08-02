@@ -56,7 +56,7 @@ const Search = () => {
 
       //let req = [];
     let req2 = [];//imagerefexplore//
-    firebase.database().ref("imagerefexploreoneAlgo").on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           req2.push(d.val())          
@@ -116,7 +116,7 @@ const Search = () => {
     
       
       //let kreq =[];
-      firebase.database().ref("imagerefexploreoneAlgo").child(getalgo).on("value", (data) => {
+      firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
         if (data) {
           data.forEach((d) => {
             //console.log("keycheck",d.key)
@@ -124,23 +124,30 @@ const Search = () => {
             req.push(
               
               {
-                title: value.id,
-                price: value.priceSet,
-                highestBid: value.keyId,
-                counter:value.userName ,
-                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                bid:value.ownerAddress,
-                image: value.imageUrl,
-                image2x: value.paramsdb,
-                category: value.privatekey,
-                categoryText: value.cAddress,
-                //purchasing !
-                url: value.history,
-                users: [                
-                  {
-                    avatar: "/images/content/avatar-4.jpg",
-                  },
-                ],
+              title: value.id,
+              price: value.priceSet,
+              highestBid: value.keyId,
+              counter:value.userName ,
+              //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+              bid:value.ownerAddress,
+              image: value.imageUrl,
+              image2x: value.paramsdb,
+              category: value.privatekey,
+              categoryText: value.cAddress,
+              //purchasing !
+              url: value.history,
+              date:value.datesets,
+              description:value.description,
+              extra:value.extra1,
+              ipfsurl:value.ipfsUrl,
+              previousaddress:value.previousoaddress,
+              soldd:value.soldd,
+              whois:value.whois,
+              users: [                
+                {
+                  avatar: "/images/content/avatar-4.jpg",
+                },
+              ],
               },
             
             )
