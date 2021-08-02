@@ -307,7 +307,7 @@ Symbol</span> <br/> </p>
             <table>
               <div class="row">
                 <div class="col-6 mt-3">
-                <button class="btn btn-primary" onClick={approve} id="ap">Approve name</button>
+                <button class="btn btn-primary" onClick={approve} id="ap">Approve</button>
 
                 </div>
                
