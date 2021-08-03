@@ -405,7 +405,7 @@ console.log(recoveredAccount2.addr);
   // integer number of decimals for asset unit calculation
   let decimals = 0;
   // total number of this asset available for circulation   
-  let totalIssuance = 1000;
+  let totalIssuance = 1;
   // Used to display asset units to user    
   let unitName = "Algos";
   // Friendly name of the asset    

@@ -17,6 +17,10 @@ import fireDb from '../UploadDetails/firebase';
 
 const Connect = () => {
   let history=useHistory();
+
+  const [Datas, setDatas] = useState();
+
+  console.log("dat",Datas)
   
   const [age, setAge] = useState(true);
   const [conditions, setConditions] = useState(false);
@@ -79,6 +83,8 @@ const Connect = () => {
     })
     .then((d) => {
       let accounts = d;
+      console.log("dd",d)
+      setDatas(d)
       console.log("acc Algo",accounts[0].address)
       localStorage.setItem("walletalgo",accounts[0].address)
       setIsOpen(true)
@@ -135,7 +141,16 @@ const Connect = () => {
         </div>
         <div className={styles.body}>
           <div className={styles.menu}>
-                
+    
+          <select>{Datas.map((x,y)=>(
+
+            <>
+
+            <h1>{x}</h1>
+
+          </>
+          ))}</select>
+
             {menu.map((x, index) => (
               //connect wallet write below
                             
