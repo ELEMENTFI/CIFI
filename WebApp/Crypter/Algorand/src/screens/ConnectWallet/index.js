@@ -155,7 +155,7 @@ const Connect = () => {
               //connect wallet write below
                             
               <div
-                className={cn({ [styles.active]: index === 0 }, styles.link)}
+                className={cn({ [styles.active]: index === 1 }, styles.link)}
                 key={index}                                
                 onClick={x.onclick}
               >            

@@ -48,12 +48,12 @@ const Headers = () => {
     //check
 
     
-    //let get=localStorage.getItem("wallet");
+    let get=localStorage.getItem("wallet");
     let getalgo=localStorage.getItem("walletalgo");
-    //console.log("walletcheck",get)
+    console.log("walletcheck",get)
     console.log("walletcheckalgo",getalgo)
 
-    if(getalgo)
+    if(get)
     setConnected(true)
     // else if(getalgo)
     // setConnected(true)

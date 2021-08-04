@@ -41,15 +41,18 @@ const Connect = () => {
         await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
           localStorage.setItem("wallet",accounts[0])
-          //let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
-    //let dateset=new Date().toDateString();
-    //console.log("dateget",dateset)
-    //const db = refprofile.push().key;
-    //console.log("dbcheck",db)
-        //   refprofile.set({profileurl:"",displayname:"",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:""}).then(()=>{                      
-        //   })                
+          setIsOpen(true)        
+          let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
+    let dateset=new Date().toDateString();
+    console.log("dateget",dateset)
+    const db = refprofile.push().key;
+    console.log("dbcheck",db)
+          refprofile.set({profileurl:"aaa",displayname:"",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbb"}).then(()=>{                      
+          })                
          }).then(()=>{
-           setIsOpen(true)        
+          
+          
+
          })        
         
         //onClick={() => setVisibleModal(true)}
