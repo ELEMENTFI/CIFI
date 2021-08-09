@@ -48,13 +48,22 @@ const User = ({ className,onProfile}) => {
   const[getprodata,setgetprodata]=useState([]);
   console.log("getprodata",getprodata)
   const[getusername,setgetusername]=useState("");
-
+  console.log("getuser",getusername)
   let history=useHistory();
   const [visible, setVisible] = useState(false);
   const [algobalance, setalgobalance] = useState("");
-  let getac="undefined";
-  let getalgo="undefined";
+  let getac="";
+  let getalgo="";
   //let getname="undefined";
+
+  if(localStorage.getItem("walletalgo") === null ){
+
+  }
+  else if(localStorage.getItem("walletalgo") === "0x"){
+
+  }
+  else{
+
   getac=localStorage.getItem("walletalgo");
   console.log("getmetamask",getac)
   getalgo=localStorage.getItem("walletalgo");
@@ -63,13 +72,16 @@ const User = ({ className,onProfile}) => {
   //console.log("getImHeader",getImgHeader)
 
 
+  }
+  
+
   const dbcallprodata=()=>{
 
     console.log("inside setgetdbcall function")
     //let getalgo=;
     let req = [];
       
-    if(localStorage.getItem("wallet") === null){
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
   
       console.log("notalgoget",getalgo)
 
@@ -78,45 +90,24 @@ const User = ({ className,onProfile}) => {
           Bio: "",
           Twitter: "",
           address: "",
-          displayname:"",
+          displayname:"aaa",
           profileurl:"",
-          username: ""
+          username: "bbb"
         })
         setgetprodata(req);   
-
-
     }
     else{  
       //let kreq =[];
+      let getalgo=localStorage.getItem("walletalgo");
       fire.database().ref("profiledata").child(getalgo).on("value", (data) => {
         if (data) {
 
           console.log("startcon",data.val())
-
-          
-          //   console.log("datacover",data)
-          //   data.forEach((d) => {
-          //     req.push(d.val().profileurl)      
-          //     //console.log("list",d.val().bgurl)
-          //   });        
-          // }      
           let value=data.val();
-          console.log("valuess",value)
-          // req.push(              
-          //   {              
-          //     Bio: value.Bio,
-          //     Twitter: value.Twitter,
-          //     address: value.address,
-          //     displayname:value.displayname,
-          //     profileurl:value.profileurl,
-          //     username: value.username
-          //   })        
-
-            setgetprodata(value);   
-        }     
-        
-        
-     });
+          console.log("valuess",value)        
+          setgetprodata(value);   
+        }      
+     })
       
     }    
     console.log("accpro",getprodata)    
@@ -128,20 +119,28 @@ const User = ({ className,onProfile}) => {
   const disconn=()=>{
     console.log("disconnect function call")
 
-    let getal=localStorage.getItem("wallet");
+    if(localStorage.getItem("walletalgo") === null )
+    {
+
+    }
+    else if(localStorage.getItem("walletalgo") === "0x"){
+
+    }
+    else{
+    let getal=localStorage.getItem("walletalgo");
     let getalname=localStorage.getItem("walletname");
     console.log("get",getal)
     console.log("getname",getalname)
-    localStorage.setItem("wallet","")
-    localStorage.setItem("walletname","")
+    localStorage.setItem("walletalgo","0x")
+    localStorage.setItem("walletname","demo")
     let getalafter=localStorage.getItem("walletalgo");
-    let getalnameafter=localStorage.getItem("walletname");
+    //let getalnameafter=localStorage.getItem("walletname");
     console.log("getafter",getalafter)
-    console.log("getnameafter",getalnameafter)
+    //console.log("getnameafter",getalnameafter)
 
     history.push("/")
     window.location.reload();
-
+    }
   }
 
   const balancecall=async()=>{
@@ -203,7 +202,8 @@ const User = ({ className,onProfile}) => {
   useEffect(()=>{balancecall()},[])
 
   const dbcall=async()=>{
-    let getalgo=localStorage.getItem("walletalgo");
+    
+    
     console.log("inside dbcall function")
     //db call start
 
@@ -211,21 +211,32 @@ const User = ({ className,onProfile}) => {
     let req = [];
     
     //let kreq =[];
-    if(localStorage.getItem("walletalgo") === null){
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
 
-      setgetusername("")
+      req.push(              
+        {              
+          Bio: "",
+          Twitter: "",
+          address: "",
+          displayname:"aaa",
+          profileurl:"",
+          username: "bbb"
+        })
+
+    
+      setgetusername(req)
 
       console.log("dbcallalgo",getalgo)
 
     }else{
 
-      
+      let getalgo=localStorage.getItem("walletalgo");
      fire.database().ref("profiledata").child(getalgo).on("value", (data) => {
       if (data) {
          let value=data.val();
-         setgetusername(value.username)
-         localStorage.getItem("walletname",value.username);
-          console.log("valueuser",value.username);          
+         setgetusername(value.displayname)
+         //localStorage.getItem("walletname",value.username);
+          console.log("valueuser",value.displayname);          
       }
     });
   }
@@ -243,19 +254,30 @@ const User = ({ className,onProfile}) => {
 
         <div className={styles.head} onClick={() => setVisible(!visible)}>
 
-        {getprodata.profileurl === "" ? (
-          <div className={styles.avatar}>
+           {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || getprodata.profileurl === "aaa") ? 
+        (
+        <>
+
+<div className={styles.avatar}>
             
-          {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
-          <img src={getprodata.profileurl} alt="Avatar" />          
-   </div>
-            ):(
-              <div className={styles.avatar}>            
+            {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
+            <img src={"/images/logocifis.png"} alt="hello" />          
+     </div>
+        
+        </>
+        )
+        
+        :(
+        <>
+
+        <div className={styles.avatar}>            
                  {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
-                 <img src={getprodata.profileurl} alt="Avatar" />                       
+                 <img src={getprodata.profileurl} alt="world" />                       
           </div>
-          )}
-          
+        </>
+        )
+        }
+        
           
             {algobalance === "" ? (
               <div className={styles.wallet}>
@@ -272,7 +294,7 @@ const User = ({ className,onProfile}) => {
         </div>
         {visible && (
           <div className={styles.body}>          
-          {getprodata.username === "" ? (
+          {getprodata.displayname === null ? (
 
 <div className={styles.name}>              
 
@@ -283,7 +305,7 @@ const User = ({ className,onProfile}) => {
 
             <div className={styles.name}>              
 
-              {getprodata.username}
+              {getprodata.displayname}
               </div>
 
           )}

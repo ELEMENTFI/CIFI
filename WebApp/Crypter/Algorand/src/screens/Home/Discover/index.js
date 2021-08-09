@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { Link } from "react-router-dom";
 import cn from "classnames";
 import styles from "./Discover.module.sass";
 import { Range, getTrackBackground } from "react-range";
@@ -10,7 +11,8 @@ import firebase from "../../UploadDetails/firebase"
 //import firebase from "../UploadDetails/firebase";
 // data
 //import { bids } from "../../../mocks/bids";
-import CardBuy from "../../../components/CardBuy";
+//import CardBuy from "../../../components/CardBuy";
+import CardDiscover from "../../../components/CardDiscover";
 
 const navLinks = ["All items", "Art", "Game", "Photography", "Music", "Video"];
 
@@ -45,6 +47,14 @@ const Discover = () => {
   const dbcallsaleal=async(index)=>{
     setActiveIndex(index)
     console.log("inside dbcallsalealgo function")
+
+
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
+
+    }
+    else{
+
+    
     let getalgo=localStorage.getItem("walletalgo");
     //let req = [];
   
@@ -54,7 +64,7 @@ const Discover = () => {
 
       //let req = [];
     let req2 = [];//imagerefexplore//
-    firebase.database().ref("imagerefexploreone").on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           req2.push(d.val())          
@@ -98,7 +108,7 @@ const Discover = () => {
     console.log("cfbbba",req) 
     
   }
-  
+}
 }
   useEffect(()=>{dbcallsaleal()},[])
 
@@ -284,22 +294,27 @@ const Discover = () => {
                 )}
               />
               <div className={styles.scale}>
-                <div className={styles.number}>0.01 ETH</div>
-                <div className={styles.number}>10 ETH</div>
+                <div className={styles.number}>0.01 Algos</div>
+                <div className={styles.number}>10 Algos</div>
               </div>
             </div>
           </div>
         </div>
+        <Link className={styles.card} to={"/search01"}>
         <div className={styles.list}>
           <Slider
             className={cn("discover-slider", styles.slider)}
             {...settings}
           >
             {getI.map((x, index) => (
-              <CardBuy className={styles.card} item={x} key={index} />
+              
+              <CardDiscover className={styles.card} item={x} key={index} />
+            
             ))}
           </Slider>
         </div>
+        </Link>
+        
         <div className={styles.btns}>
           <button className={cn("button-stroke button-small", styles.button)}>
             <span>Load more</span>

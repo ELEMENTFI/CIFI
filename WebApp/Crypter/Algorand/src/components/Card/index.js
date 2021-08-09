@@ -11,11 +11,11 @@ import FolowStepsd from "./FolowStepsd";
 import Modald from "../../components/ModalD";
 import web3 from '../../screens/./UploadDetails/web3';
 import {abi} from './data'
-import TextInput from "../../components/TextInput";
 
 //import Modald from "../../components/ModalD";
-//import FolowStep from "../../screens/Profile/FolowStep";
-//import FolowSteps from "../../screens/Profile/FolowSteps";
+import FolowStep from "../../screens/Profile/FolowStep";
+import FolowSteps from "../../screens/Profile/FolowSteps";
+import TextInput from "../../components/TextInput";
 //web3
 
 
@@ -37,24 +37,29 @@ const Card = ({ className, item }) => {
   
   const addlikedb=async()=>{
     //let getalgo=localStorage.getItem("wallet");
-    const accounts = await  web3.eth.getAccounts();
+    //const accounts = await  web3.eth.getAccounts();
+
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
+
+    }else{
+
+    
+    let getalgo=localStorage.getItem("walletalgo");
     console.log("addlikedb function call");
 
     
-              
-    
-    fireDb.database().ref(`imagereflikes/${item.bid}`).child(item.highestBid).set({
+    fireDb.database().ref(`imagereflikes/${getalgo}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-      userName:item.counter,userSymbol:"Algos",ownerAddress:item.bid,soldd:"",previousoaddress:item.previousaddress
-      ,datesets:item.date,description:item.description,extra1:item.extra,ipfsurl:item.ipfsurl,whois:item.whois,
-      paramsdb:item.image2x,privatekey:item.category,history:item.url
-
+      userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+      ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
+      previousoaddress:item.previousaddress,datesets:item.date,
+      description:item.description,whois:'likes',history:item.url,paramsdb:item.image2x,privatekey:item.category
       }).then(()=>{
         setVisible(!visible)
         window.location.reload(false)   
       });    
   }
-
+  }
   const saledbset=async()=>{
 
   // const algosdk = require('algosdk');
@@ -70,25 +75,23 @@ const Card = ({ className, item }) => {
     console.log("iitem",item)
     console.log("ititem",item.price)
       
-    //   let accounts;
-    //   let txParams;
-    //   let signedTx;
-    //   let tx;
-    //   let tokenname;
-    //   let getAssetid;
+      //let accounts;
+      //let txParams;
+      //let signedTx;
+      //let tx;
+      //let tokenname;
+      //let getAssetid;
 
-    //   let res="https://testnet.algoexplorerapi.io/v2/transactions/pending/"+item.categoryText+"?format=json";
-    //   console.log("ress",res);
-    //   axios.get(`${res}`)
-    //  .then((res)=>{
-    //    const allnote=res;
-    //    getAssetid=res.data["asset-index"];
-    //    let getAssetName=res.data.txn.txn.apar.an;
-    //   console.log("all",allnote)
-    //   console.log("allname",getAssetName)
-    //    console.log("assetid",getAssetid)
+      if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
 
-       console.log("1",item.bid)
+      }
+    else{
+
+    
+      //const accounts = await  web3.eth.getAccounts();
+      let getalgo=localStorage.getItem("walletalgo");
+
+      console.log("1",item.bid)
       console.log("2",item.highestBid)
       console.log("3",item.category)
       console.log("4",item.image2x)
@@ -99,14 +102,15 @@ const Card = ({ className, item }) => {
     
 
       setIsOpens(true)
-      fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).set({
+      fireDb.database().ref(`imagerefexploreoneAlgos/${getalgo}`).child(item.highestBid).set({
         id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-        userName:item.counter,userSymbol:"Algos",ownerAddress:item.bid,soldd:"",previousoaddress:item.previousaddress
-        ,datesets:item.date,description:item.description,extra1:"ready to sold",ipfsurl:item.ipfsurl,whois:"Sellers",
-        paramsdb:item.image2x,privatekey:item.category,history:item.url      
+        userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+        ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
+        previousoaddress:item.previousaddress,datesets:item.date,
+        description:item.description,whois:'readytosale',history:item.url,paramsdb:item.image2x,privatekey:item.category
       }).then(()=>{
 
-        fireDb.database().ref(`imagerefAlgos/${item.bid}`).child(item.highestBid).remove();
+        fireDb.database().ref(`imagerefAlgos/${getalgo}`).child(item.highestBid).remove();
           console.log("remove db");
           setIsOpens(false)
           window.location.reload(false)   
@@ -114,17 +118,19 @@ const Card = ({ className, item }) => {
 
       })
     
-      //}).catch(error => console.error(`Error: ${error}`));       
 
 
-
-    
-      //const accounts = await  web3.eth.getAccounts();
-
-      
-
-
-          //  localStorage.setItem("assid",allNotes);
+    //   let res="https://testnet.algoexplorerapi.io/v2/transactions/pending/"+item.categoryText+"?format=json";
+    //       console.log("ress",res);
+    //       axios.get(`${res}`)
+    //      .then((res)=>{
+    //        const allnote=res;
+    //        getAssetid=res.data["asset-index"];
+    //        let getAssetName=res.data.txn.txn.apar.an;
+    //       console.log("all",allnote)
+    //       console.log("allname",getAssetName)
+    //        console.log("assetid",getAssetid)
+    //       //  localStorage.setItem("assid",allNotes);
 
 
     //       //db
@@ -168,185 +174,67 @@ const Card = ({ className, item }) => {
     //      console.log("items",item)
     
   }
+}
 
   const setpricedb=async()=>{
 
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
 
-    //add textbox
-    //let getprize = //prompt("Please enter Price");
-    if(urlprize === null){
-      alert("Please enter Price")
     }
-else{
-    console.log("setitem",item)
-    console.log("settitem",urlprize)
-    //let checkdb=fireDb.database().ref(`imagerefAlgos/${item.ownerAddress}`).child(item.highestBid);
+    else{
 
-    console.log("1",item.title)
-      console.log("2",item.image)
-      console.log("3",item.price)
-      console.log("4",item.categoryText)
-      console.log("5",item.highestBid)
-      console.log("6",item.counter)
-      console.log("7",item.bid)
-      console.log("8",item.previousaddress)
-      console.log("9",item.date)
-      console.log("10",item.description)
-      console.log("11",item.ipfsurl)
-      console.log("12",item.image2x)
-      console.log("13",item.category)
-      console.log("14",item.url)
-      
     
 
-    fireDb.database().ref(`imagerefAlgos/${item.bid}`).child(item.highestBid).update({
-      id:item.title,imageUrl:item.image,priceSet:urlprize,cAddress:item.categoryText,keyId:item.highestBid,
-        userName:item.counter,userSymbol:"Algos",ownerAddress:item.bid,soldd:"",previousoaddress:item.previousaddress
-        ,datesets:item.date,description:item.description,extra1:"ready to sold",ipfsurl:item.ipfsurl,whois:"",
-        paramsdb:item.image2x,privatekey:item.category,history:item.url      
-}).then(()=>{
+    let getalgo=localStorage.getItem("walletalgo");
 
-//setTprice("");
-//setIsOpensetFirst(false);
-//setIsOpen(true);
-setIsOpens(false);
-setIsOpenss(true)
-window.location.reload(false)   
-
-})
-
-
-
-}
-    // console.log("cdb",checkdb)
-    // console.log("odb",item.bid)
-    // console.log("hdb",item.highestBid)
-    // // let getting=[];
-    //   getting=item.url;
-    //   console.log("gett",getting)
-    //   getting.push(item.bid)    
-//     fireDb.database().ref(`imageref/${item.bid}`).child(item.highestBid).update({
-//       id:"",imageUrl:item.image,priceSet:getprize,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,
-//       userSymbol:"BNB",ipfsUrl:"",
-//       ownerAddress:item.bid,soldd:"",extra1:"",
-//       //history:item.url,
-//       previousoaddress:"",datesets:new Date().toDateString(),whois:'',
-//       description:""
-//  }).then(()=>{
-//   window.location.reload(false)   
-//  })
-
-
-            // var isd = item.title;//a
-            // console.log("targetid",isd)
-            // console.log(`a`,item)
-            // let getaaaa=new web3.eth.Contract(abi,item.categoryText);
-            // //alert("con address"+a.addcAdd);
-            // //alert("token id"+isd);
-            // const accounts = await  web3.eth.getAccounts();
-            // console.log("checking")          
-            // let price=urlprize;
-            // if(accounts[0] === item.bid)
-            // {
-            //   //change mactimum
-
-
-
-              //setIsOpens(true);
-          //     await getaaaa.methods.setTokenState([isd],"true").send({
-          //       from:accounts[0],
-          //       //gas: 51753,
-          //       //gasPrice:'10000000000'
-          //     });
-              
-          //  // salepage.settokenstate();
-          //   await getaaaa.methods.setTokenPrice([isd],price).send({
-          //     from:accounts[0],
-          //     //gas: 51753,
-          //     //gasPrice:'10000000000'
-          //   })
-            //const priceamount = await getaaaa.methods.items(isd).call();
-            //console.log(priceamount.price)
-            // await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
-            // await getaaaa.methods.approve(item.categoryText,item.title).send({
-            //   from:accounts[0],
-            //   //gas: 51753,
-            //   //gasPrice:'10000000000'
-            // })
-
-            
-            // let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
-            // const keysellers = refsellers.push().key;          
-            // refsellers.child(keysellers).set({
-            //   id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-            //   soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
-            // })            
-// fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
-//               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-//               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
-// }).then(()=> {
-//   setTprice("");
-//   //setIsOpensetFirst(false);
-//   setIsOpen(true);
-//  });  
-//}
-//else{
-//alert("Your are not owner so you does not update or set prizes......")
-//}
-//}
-}
-
-  const updatepricedb=async()=>{
     //let getprize = prompt("Please enter Price");
-    if(urlprize === null){
-      alert("Please enter Price");
+    if( urlprize === ""){
+      //getprize = prompt("Please enter Price");
+
+      alert("please enter Algos ?")
     }
 else{
+
+  if(getalgo === item.bid)
+  {
+
     console.log("setitem",item)
-    
     console.log("settitem",item.price)
-
-    
-    console.log("iitem",item)
-    console.log("ititem",item.price)
-      
-      // let accounts;
-      // let txParams;
-      // let signedTx;
-      // let tx;
-      // let tokenname;
-      // let getAssetid;
-
-
-      
-      setIsOpens(true)
-
-      fireDb.database().ref(`imagerefAlgos/${item.bid}`).child(item.highestBid).update({
-        id:item.title,imageUrl:item.image,priceSet:urlprize,cAddress:item.categoryText,keyId:item.highestBid,
-          userName:item.counter,userSymbol:"Algos",ownerAddress:item.bid,soldd:"",previousoaddress:item.previousaddress
-          ,datesets:item.date,description:item.description,extra1:"ready to sold",ipfsurl:item.ipfsurl,whois:"",
-          paramsdb:item.image2x,privatekey:item.category,history:item.url      
-  }).then(()=>{
-  
-  //setTprice("");
-  //setIsOpensetFirst(false);
-  //setIsOpen(true);
-  setIsOpens(false)
-  setIsOpenss(true)
-  window.location.reload(false)   
-  })
-    
-      //}).catch(error => console.error(`Error: ${error}`));       
-
-
-
-//    let checkdb=fireDb.database().ref(`imagerefAlgos/${item.ownerAddress}`).child(item.highestBid);
-  //  console.log("cdb",checkdb)
+    let checkdb=fireDb.database().ref(`imagerefAlgos/${item.bid}`).child(item.highestBid);
+    console.log("cdb",checkdb)
     console.log("odb",item.bid)
     console.log("hdb",item.highestBid)
 
+
+    fireDb.database().ref(`imagerefAlgos/${getalgo}`).child(item.highestBid).update({
+
+      id:item.title,imageUrl:item.image,priceSet:urlprize,cAddress:item.categoryText,keyId:item.highestBid,
+        userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+        ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
+        previousoaddress:item.previousaddress,datesets:item.date,
+        description:item.description,whois:'readytosale',history:item.url,paramsdb:item.image2x,privatekey:item.category
+
+
+    }).then(()=>{
+  
+      setIsOpens(false);
+    setIsOpenss(true)
     
+  
+    })
+
+
+  }
+
+  else{
+    alert("Your are not owner so you does not update or set prizes......")
+    }
+  }
 }
+
+
+    
+
     // let getting=[];
     //   getting=item.url;
     //   console.log("gett",getting)
@@ -371,16 +259,20 @@ else{
           //   //alert("token id"+isd);
           //   const accounts = await  web3.eth.getAccounts();
           //   console.log("checking")          
-          //   let price=urlprize;
+          //   let price=getprize;
           //   if(accounts[0] === item.bid)
           //   {
           //     //change mactimum
-          //     setIsOpens(true)
+
+
+
+          //     setIsOpens(true);
           //     await getaaaa.methods.setTokenState([isd],"true").send({
           //       from:accounts[0],
           //       //gas: 51753,
           //       //gasPrice:'10000000000'
           //     });
+              
           //  // salepage.settokenstate();
           //   await getaaaa.methods.setTokenPrice([isd],price).send({
           //     from:accounts[0],
@@ -395,6 +287,8 @@ else{
           //     //gas: 51753,
           //     //gasPrice:'10000000000'
           //   })
+
+            
           //   // let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
           //   // const keysellers = refsellers.push().key;          
           //   // refsellers.child(keysellers).set({
@@ -402,6 +296,19 @@ else{
           //   //   soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
           //   // })            
 
+//               id:item.title,imageUrl:item.image,priceSet:price,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,ownerAddress:accounts[0],
+//               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+// }).then(()=>{
+
+  //setTprice("");
+  //setIsOpensetFirst(false);
+  //setIsOpen(true);
+
+
+  
+    //window.location.reload(false)   
+
+//})
 // fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
 //               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
 //               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
@@ -410,13 +317,106 @@ else{
 //   //setIsOpensetFirst(false);
 //   setIsOpen(true);
 //  });  
-//}
-//else{
-//alert("Your are not owner so you does not update or set prizes......")
-//}
-//}
-
 }
+
+//   const updatepricedb=async()=>{
+//     let getprize = prompt("Please enter Price");
+//     if(getprize === ""){
+//       getprize = prompt("Please enter Price");
+//     }
+// else{
+//     console.log("setitem",item)
+//     console.log("settitem",item.price)
+
+//     let checkdb=fireDb.database().ref(`imageref/${item.ownerAddress}`).child(item.highestBid);
+//     console.log("cdb",checkdb)
+//     console.log("odb",item.bid)
+//     console.log("hdb",item.highestBid)
+//     // let getting=[];
+//     //   getting=item.url;
+//     //   console.log("gett",getting)
+//     //   getting.push(item.bid)    
+// //     fireDb.database().ref(`imageref/${item.bid}`).child(item.highestBid).update({
+// //       id:"",imageUrl:item.image,priceSet:getprize,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,
+// //       userSymbol:"BNB",ipfsUrl:"",
+// //       ownerAddress:item.bid,soldd:"",extra1:"",
+// //       //history:item.url,
+// //       previousoaddress:"",datesets:new Date().toDateString(),whois:'',
+// //       description:""
+// //  }).then(()=>{
+// //   window.location.reload(false)   
+// //  })
+
+
+//             var isd = item.title;//a
+//             console.log("targetid",isd)
+//             console.log(`a`,item)
+//             let getaaaa=new web3.eth.Contract(abi,item.categoryText);
+//             //alert("con address"+a.addcAdd);
+//             //alert("token id"+isd);
+//             const accounts = await  web3.eth.getAccounts();
+//             console.log("checking")          
+//             let price=getprize;
+//             if(accounts[0] === item.bid)
+//             {
+//               //change mactimum
+//               setIsOpens(true)
+//               await getaaaa.methods.setTokenState([isd],"true").send({
+//                 from:accounts[0],
+//                 //gas: 51753,
+//                 //gasPrice:'10000000000'
+//               });
+//            // salepage.settokenstate();
+//             await getaaaa.methods.setTokenPrice([isd],price).send({
+//               from:accounts[0],
+//               //gas: 51753,
+//               //gasPrice:'10000000000'
+//             })
+//             //const priceamount = await getaaaa.methods.items(isd).call();
+//             //console.log(priceamount.price)
+//             // await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
+//             await getaaaa.methods.approve(item.categoryText,item.title).send({
+//               from:accounts[0],
+//               //gas: 51753,
+//               //gasPrice:'10000000000'
+//             })
+//             // let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
+//             // const keysellers = refsellers.push().key;          
+//             // refsellers.child(keysellers).set({
+//             //   id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+//             //   soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+//             // })            
+// fireDb.database().ref(`imageref/${accounts[0]}`).child(item.highestBid).update({
+//               id:item.title,imageUrl:item.image,priceSet:price,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,ownerAddress:accounts[0],
+//               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+// }).then(()=>{
+
+//   //setTprice("");
+//   //setIsOpensetFirst(false);
+//   //setIsOpen(true);
+
+//   setIsOpens(false)
+
+//   setIsOpenss(true)
+
+//     //window.location.reload(false)   
+
+// })
+// // fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
+// //               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+// //               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+// // }).then(()=> {
+// //   setTprice("");
+// //   //setIsOpensetFirst(false);
+// //   setIsOpen(true);
+// //  });  
+// }
+// else{
+// alert("Your are not owner so you does not update or set prizes......")
+// }
+// }
+
+// }
 
   //history function
   const viewhistory=()=>{
@@ -479,31 +479,22 @@ else{
           >
             <Icon name="heart" size="20" />
           </button>
-
-          {item.price === "" ? 
-(
-  <>
-</>):(
-  <>
-
-<button className={cn("button-small", styles.button)} onClick={saledbset}>
+          <button className={cn("button-small", styles.button)} onClick={saledbset}>
             <span>Place a sale</span>
             <Icon name="scatter-up" size="16" />
           </button>
-</>
-)
-}
-  
         </div>
         
       </div>
       <br></br>
+
+
       {item.price === "" ? 
 (
   <>
   <TextInput
                       className={styles.field}
-                      label="Custom Prize"
+                      label="Custom prize"
                       name="Url"
                       type="text"
                       placeholder="create prize"
@@ -527,7 +518,7 @@ else{
                     
                     <TextInput
                       className={styles.field}
-                      label="Custom Prize"
+                      label="Custom prize"
                       name="Url"
                       type="text"
                       placeholder="update prize"
@@ -537,7 +528,7 @@ else{
 
                     <br></br>
       
-      <button className={cn("button-small")} onClick={updatepricedb}>
+      <button className={cn("button-small")} onClick={setpricedb}>
       <span>Update price</span>
       {/* <Icon name="scatter-up" size="16" /> */}
     </button>
@@ -545,6 +536,7 @@ else{
     )
     
 }
+    
       <Link className={styles.link} to={item.url}>
         <div className={styles.body}>
           <div className={styles.line}>
@@ -554,10 +546,9 @@ else{
           </div>
           <div className={styles.line}>
             <div className={styles.users}>
-              {item.users.map((x, index) => (                
+              {item.users.map((x, index) => (
                 <div className={styles.avatar} key={index}>
-                                            
-                  {/* <img src={x.avatar} alt="Avatar" onClick={viewhistory}/>                   */}
+                  <img src={x.avatar} alt="Avatar" onClick={viewhistory}/>                  
                 </div>
               ))}
             </div>
@@ -585,13 +576,13 @@ else{
     <Modald visible={isOpen} onClose={() => setIsOpen(false)}>
     <FolowStepsd className={styles.steps} viewhistory={historydb}/>
   </Modald>
-  {/* <Modald visible={isOpens} >
+  <Modald visible={isOpens} >
 <FolowStep className={styles.steps} />
 </Modald>
 
 <Modald visible={isOpenss} >
 <FolowSteps className={styles.steps} onSub={()=>onSub}/>
-</Modald> */}
+</Modald>
 
 {/* onClose={() => setIsOpens(false)} */}
 </>

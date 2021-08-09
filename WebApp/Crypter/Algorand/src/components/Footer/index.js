@@ -48,10 +48,16 @@ const Footers = () => {
   const handleSubmit = (e) => {
     console.log("inside email function");
   //let getac="undefined";
-  let getalgo="undefined";
-  let getname="undefined";
+  let getalgo="";
+  let getname="";
   //getac=localStorage.getItem("wallet");
   //console.log("getmetamask",getac)
+
+  if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
+
+  }
+
+  else{
   getalgo=localStorage.getItem("walletalgo");
   console.log("getalgo",getalgo)
   getname=localStorage.getItem("walletname");
@@ -64,6 +70,7 @@ const Footers = () => {
           ref2.set({dbkey:db,ownerAddress:getalgo,username:getname,datedb:dateset,mailid:email}).then(()=>{
             setIsOpen(true)        
           })
+        }
 
   };
 
@@ -91,8 +98,8 @@ const Footers = () => {
             <Link className={styles.logo} to="/">
               <Image
                 className={styles.pic}
-                src="/images/logo-dark.png"
-                srcDark="/images/logo-light.png"
+                src="/images/logocifis.png"
+                srcDark="/images/logocifis.png"
                 alt="Fitness Pro"
               />
             </Link>
@@ -130,7 +137,7 @@ const Footers = () => {
         </div>
         <div className={styles.foot}>
           <div className={styles.copyright}>
-            Copyright © 2021 UI8 LLC. All rights reserved
+            Copyright © 2021 BOSON LABS. All rights reserved
           </div>
           <div className={styles.note}>
             We use cookies for better service. <a href="/#">Accept</a>
