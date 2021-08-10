@@ -26,6 +26,8 @@ import FolowStepsdr from "./FolowStepsdr";
 //import Modald from "../../components/ModalD";
 //import FolowStep from "../../screens/Profile/FolowStep";
 
+import FolowStep from "../../screens/Profile/FolowStep";
+
 
 //const royaltiesOptions = ["10%", "20%", "30%"];
 
@@ -67,6 +69,7 @@ const Upload = () => {
   //
   let history=useHistory();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpens, setIsOpens] = useState(false);
   //const [isOpens, setIsOpens] = useState(false);
   const [ipfsHash,setIpfsHash] = useState(null);
   //const [ipf,setIpf] = useState(null);
@@ -189,7 +192,18 @@ const Upload = () => {
 
 const onSubmitNFT = async()=>{
 
-  let params;
+
+
+  if(tname === "" || tdescription === "" || tmnemonic === ""){
+
+    alert("please enter name / description / mnemonic");
+
+  }
+
+  else{
+
+    setVisibleModal(true)
+    let params;
   //event.preventDefault();
   //const axios = require('axios');
   let pinataApiKey='88348e7ce84879e143e1';
@@ -207,24 +221,24 @@ const onSubmitNFT = async()=>{
     let tf='https://ipfs.io/ipfs/'+ipfsHash;
     //let tdescription=tdes;
 
-      let ref23=fireDb.database().ref(`tokenkey`);      
-      let getfire="";
-      let setfire="";
-      fireDb.database().ref(`tokenkey`).on("value", (data) => {
-        if (data) {
-           data.forEach((d) => {
-            getfire=d.val();
-          });        
-        }
-      });
+      // let ref23=fireDb.database().ref(`tokenkey`);      
+      // let getfire="";
+      // let setfire="";
+      // fireDb.database().ref(`tokenkey`).on("value", (data) => {
+      //   if (data) {
+      //      data.forEach((d) => {
+      //       getfire=d.val();
+      //     });        
+      //   }
+      // });
 
-      setfire= (getfire+1);
-      console.log("setfire",setfire)
-      //alert("your token"+setfire+"getfire"+getfire);
-      ref23.update({id:setfire});
-      var te= getfire;
-      //var te=5;
-      console.log("te",te)
+      // setfire= (getfire+1);
+      // console.log("setfire",setfire)
+      // //alert("your token"+setfire+"getfire"+getfire);
+      // ref23.update({id:setfire});
+      // var te= getfire;
+      // //var te=5;
+      // console.log("te",te)
 
       //algo start
 
@@ -245,56 +259,58 @@ const onSubmitNFT = async()=>{
     }
     else{
 
+      setIsOpens(true)
+
       console.log("name",assname)
       console.log("symbol",asssymbol)
       //console.log("symbol",tmnemonic)
 
-      AlgoSigner.connect()
-.then((d) => {
+//       AlgoSigner.connect()
+// .then((d) => {
 
-  AlgoSigner.accounts({
-    ledger: 'TestNet'
-  })
-  .then((d) => {
-    accounts = d;
-    console.log("acc",accounts[0].address)
+//   AlgoSigner.accounts({
+//     ledger: 'TestNet'
+//   })
+//   .then((d) => {
+//     accounts = d;
+//     console.log("acc",accounts[0].address)
 
-    AlgoSigner.algod({
-      ledger: 'TestNet',
-      path: '/v2/transactions/params'
-    })
-    .then((d) => {
-      txParams = d;
-      console.log("txp",txParams)
+//     AlgoSigner.algod({
+//       ledger: 'TestNet',
+//       path: '/v2/transactions/params'
+//     })
+//     .then((d) => {
+//       txParams = d;
+//       console.log("txp",txParams)
 
-      AlgoSigner.sign({
-        from: accounts[0].address,
-        assetName: assname,
-        assetUnitName: asssymbol,
-        assetTotal: +1,
-        assetDecimals: +0,
-        note: undefined,
-        type: 'acfg',
-        fee: txParams['min-fee'],
-        firstRound: txParams['last-round'],
-        lastRound: txParams['last-round'] + 1000,
-        genesisID: txParams['genesis-id'],
-        genesisHash: txParams['genesis-hash'],
-        flatFee: true
-      })
-      .then((d) => {
-        signedTx = d;
-        console.log("singTx",signedTx)
+//       AlgoSigner.sign({
+//         from: accounts[0].address,
+//         assetName: assname,
+//         assetUnitName: asssymbol,
+//         assetTotal: +1,
+//         assetDecimals: +0,
+//         note: undefined,
+//         type: 'acfg',
+//         fee: txParams['min-fee'],
+//         firstRound: txParams['last-round'],
+//         lastRound: txParams['last-round'] + 1000,
+//         genesisID: txParams['genesis-id'],
+//         genesisHash: txParams['genesis-hash'],
+//         flatFee: true
+//       })
+//       .then((d) => {
+//         signedTx = d;
+//         console.log("singTx",signedTx)
 
-        AlgoSigner.send({
-          ledger: 'TestNet',
-          tx: signedTx.blob
-        })
-        .then((d) => {
-          tx = d;
+//         AlgoSigner.send({
+//           ledger: 'TestNet',
+//           tx: signedTx.blob
+//         })
+//         .then((d) => {
+//           tx = d;
 
-          console.log("last",tx)
-          localStorage.setItem("txdid",tx.txId);
+//           console.log("last",tx)
+//           localStorage.setItem("txdid",tx.txId);
 
           const server = "https://testnet-algorand.api.purestake.io/ps2";
   const port = "";
@@ -411,7 +427,7 @@ console.log(recoveredAccount2.addr);
   // Friendly name of the asset    
   let assetName = assname;
   // Optional string pointing to a URL relating to the asset
-  let assetURL = "http://someurl";
+  let assetURL = "https://square-algo.vercel.app/";
   // Optional hash commitment of some sort relating to the asset. 32 character length.
   let assetMetadataHash = "16efaa3924a6fd9d3a4824799a4ac65d";
   // The following parameters are the only ones
@@ -477,16 +493,16 @@ console.log(recoveredAccount2.addr);
           //let nftname=fireDb.database().ref(`nftname`);
           //const nftdb = nftname.push().key;
           //nftname.child(nftdb).set({name:tname});                  
-          let ref2=fireDb.database().ref(`imagerefAlgos/${accounts[0].address}`);
+          let ref2=fireDb.database().ref(`imagerefAlgos/${recoveredAccount2.addr}`);
           let dateset=new Date().toDateString();
           console.log("dateget",dateset)
           const db = ref2.push().key;                         
           console.log("dbcheck",db)
-          let his=[accounts[0].address]
-          ref2.child(db).set({id:assetID,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:"Algos",ipfsUrl:tf,ownerAddress:accounts[0].address,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',description:tdescription,privatekey:tmnemonic,paramsdb:params,history:his}).then(()=>{
+          let his=[recoveredAccount2.addr]
+          ref2.child(db).set({id:assetID,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:"Algos",ipfsUrl:tf,ownerAddress:recoveredAccount2.addr,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',description:tdescription,privatekey:tmnemonic,
+          paramsdb:params,history:his}).then(()=>{
           // let ref23=fireDb.database().ref(`imagepurcre/${accounts[4].address}`);                
           // ref23.child(db).set({id:"",imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:"",ownerAddress:accounts[0].address,soldd:"",extra1:"",datesets:dateset,whois:'',description:tdescription,privatekey:tmnemonic}).then(()=>{
-
             pinata.testAuthentication().then((result) => {
               //handle successful authentication here
               console.log(result);
@@ -526,6 +542,9 @@ console.log(recoveredAccount2.addr);
                           //handle error here
                           console.log(err);
                       });                      
+
+                      
+
           })    
 
 
@@ -533,28 +552,32 @@ console.log(recoveredAccount2.addr);
   console.log(e);
   console.trace();
 });
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-    })
-    .catch((e) => {
-      console.error(e);
-    });
-  })
-  .catch((e) => {
-    console.error(e);
-  });  
-})
-.catch((e) => {
-  console.error(e);
-});
+//         })
+//         .catch((e) => {
+//           console.error(e);
+//         });
+//       })
+//       .catch((e) => {
+//         console.error(e);
+//       });
+//     })
+//     .catch((e) => {
+//       console.error(e);
+//     });
+//   })
+//   .catch((e) => {
+//     console.error(e);
+//   });  
+// })
+// .catch((e) => {
+//   console.error(e);
+// });
     
-}   
+} 
+
+  }
+
+    
 //algo end
 }
 
@@ -597,12 +620,12 @@ const checkasset=async()=>{
                 Create single collectible
               </div>
 
-              <button
+              {/* <button
               className={cn("button-small", styles.button)}
               onClick={() => checkasset()}
             >
               check
-            </button>
+            </button> */}
               <button
                 className={cn("button-stroke button-small", styles.button)}
               >
@@ -746,7 +769,7 @@ const checkasset=async()=>{
                  */}
                 <button
                   className={cn("button", styles.button)}
-                  onClick={() => setVisibleModal(true)}
+                  onClick={() => onSubmitNFT()}
                   // type="button" hide after form customization
                   type="button"                              
                 >
@@ -782,6 +805,12 @@ const checkasset=async()=>{
       <Modald visible={isOpen} onClose={() => setIsOpen(false)}>
         <FolowStepsdr className={styles.steps} onSub={()=>onSub}/>
       </Modald>
+
+
+      <Modald visible={isOpens} >
+<FolowStep className={styles.steps} />
+</Modald>
+
 
       {/* <Modald visible={isOpens} >
         <FolowStep className={styles.steps} />
