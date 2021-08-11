@@ -56,6 +56,7 @@ class TextWidgetState extends State<TextWidget> {
   var password = AccountCreation.controller4;
   var repassword = AccountCreation.controller5;
   var wallet = AccountCreation.controller12;
+  var wallet2 = AccountCreation.controller13;
   var temp;
 
   void logindata(BuildContext ctx) async {
@@ -72,11 +73,11 @@ class TextWidgetState extends State<TextWidget> {
             'password': password.text,
             'phone_no': phoneno.text,
             'user_name': username.text,
-            
           }).then((value) {
             ref.child('User').child(email.text).set({
               'user': username.text,
               'wallet_address': wallet.text,
+              'algoand_address': wallet2.text,
             });
           }).then((value) => context.vxNav.push(Uri(path: '/')));
         }).then((value) {
@@ -120,7 +121,7 @@ class TextWidgetState extends State<TextWidget> {
       'buyed': 'false',
       'buyedowner': '',
       'buyername': '',
-      'setPrice':'false',
+      'setPrice': 'false',
     }).then((_) {
       ref.child('count').once().then((count) {
         int i = count.value;
@@ -128,12 +129,19 @@ class TextWidgetState extends State<TextWidget> {
 
         ref.child('NFTNAME').update({index.toString(): name}).then((_) {
           ref.update({'count': index});
-        }).then((_) async => await launch(
-              'https://hungry-kalam-03b7d1.netlify.app/?nftname=${nftname.text}',
-              forceSafariVC: false,
-              forceWebView: false,
-              enableJavaScript: true,
-            ));
+        }).then((_) async => (nftsymbol.text == 'ALGOREN')
+            ? await launch(
+                'https://hungry-kalam-03b7d1.netlify.app/?nftname=${nftname.text}&aloren=create',
+                forceSafariVC: false,
+                forceWebView: false,
+                enableJavaScript: true,
+              )
+            : await launch(
+                'https://hungry-kalam-03b7d1.netlify.app/?nftname=${nftname.text}',
+                forceSafariVC: false,
+                forceWebView: false,
+                enableJavaScript: true,
+              ));
         Timer(Duration(minutes: 10), () {
           nftname.clear();
           nftsymbol.clear();

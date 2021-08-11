@@ -3,7 +3,6 @@ import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-
 //in this page we create an account for user
 // ignore: must_be_immutable
 class AccountCreation extends StatelessWidget {
@@ -13,12 +12,14 @@ class AccountCreation extends StatelessWidget {
   static TextEditingController controller4 = TextEditingController();
   static TextEditingController controller5 = TextEditingController();
   static TextEditingController controller12 = TextEditingController();
+  static TextEditingController controller13 = TextEditingController();
   FocusNode f1 = FocusNode();
   FocusNode f2 = FocusNode();
   FocusNode f3 = FocusNode();
   FocusNode f4 = FocusNode();
   FocusNode f5 = FocusNode();
   FocusNode f12 = FocusNode();
+  FocusNode f13 = FocusNode();
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -119,6 +120,20 @@ class AccountCreation extends StatelessWidget {
             controller: controller5,
             ctx: context,
             focusnode: f5,
+            focusfun: (_) {
+              f5.unfocus();
+            },
+            action: TextInputAction.done,
+          ),
+          TextWidget(
+            label: 'algorand account mnemonics(optional)',
+            id: 13,
+            obsecure: true,
+            prefix: false,
+            keybordtype: TextInputType.text,
+            controller: controller13,
+            ctx: context,
+            focusnode: f13,
             focusfun: (_) {
               f5.unfocus();
             },
