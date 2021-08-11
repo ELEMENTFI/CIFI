@@ -40,81 +40,66 @@ const Connect = () => {
         
 //const  MyAlgoWallet  = require('@randlabs/myalgo-connect');
 
-const myAlgoWallet = new MyAlgo();
+//const myAlgoWallet = new MyAlgo();
 
 /*Warning: Browser will block pop-up if user doesn't trigger myAlgoWallet.connect() with a button interation */
 
-  try {
-    const accounts = await myAlgoWallet.connect();
+//   try {
+//     const accounts = await myAlgoWallet.connect();
 
-    const addresses = accounts.map(account => account.address);
-    console.log("address",addresses)
-    //setIsOpen(true)        
-
-
-    //wallet local start
-
-    if(localStorage.getItem("walletalgo") === null )
-{
-
-  localStorage.setItem("walletalgo",addresses[0])
-    let refprofile=fireDb.database().ref(`profiledata/${addresses[0]}`);
-    let dateset=new Date().toDateString();
-    console.log("dateget",dateset)
-    const db = refprofile.push().key;
-    console.log("dbcheck",db)
-          refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:addresses[0],dbkey:"",username:"bbbb"}).then(()=>{                      
-          })                
-}
-else if(localStorage.getItem("walletalgo") === "0x"){ 
-
-  localStorage.setItem("walletalgo",addresses[0])
-  let refprofile=fireDb.database().ref(`profiledata/${addresses[0]}`);
-    let dateset=new Date().toDateString();
-    console.log("dateget",dateset)
-    const db = refprofile.push().key;
-    console.log("dbcheck",db)
-          refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:addresses[0],dbkey:"",username:"bbbb"}).then(()=>{                      
-          })                
-
-  setIsOpen(true)
-}
-else{
-
-  localStorage.setItem("walletalgo",addresses[0])
-  let refprofile=fireDb.database().ref(`profiledata/${addresses[0]}`);
-    let dateset=new Date().toDateString();
-    console.log("dateget",dateset)
-    const db = refprofile.push().key;
-    console.log("dbcheck",db)
-          refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:addresses[0],dbkey:"",username:"bbbb"}).then(()=>{                      
-          })                
-
-  setIsOpen(true)
-}
+//     const addresses = accounts.map(account => account.address);
+//     console.log("address",addresses)
+//     //setIsOpen(true)        
 
 
+//     //wallet local start
 
+//     if(localStorage.getItem("walletalgo") === null )
+// {
 
+//   localStorage.setItem("walletalgo",addresses[0])
+//     let refprofile=fireDb.database().ref(`profiledata/${addresses[0]}`);
+//     let dateset=new Date().toDateString();
+//     console.log("dateget",dateset)
+//     const db = refprofile.push().key;
+//     console.log("dbcheck",db)
+//           refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:addresses[0],dbkey:"",username:"bbbb"}).then(()=>{                      
+//           })                
+// }
+// else if(localStorage.getItem("walletalgo") === "0x"){ 
 
-    //wallet local end
+//   localStorage.setItem("walletalgo",addresses[0])
+//   let refprofile=fireDb.database().ref(`profiledata/${addresses[0]}`);
+//     let dateset=new Date().toDateString();
+//     console.log("dateget",dateset)
+//     const db = refprofile.push().key;
+//     console.log("dbcheck",db)
+//           refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:addresses[0],dbkey:"",username:"bbbb"}).then(()=>{                      
+//           })                
 
+//   setIsOpen(true)
+// }
+// else{
 
+//   localStorage.setItem("walletalgo",addresses[0])
+//   let refprofile=fireDb.database().ref(`profiledata/${addresses[0]}`);
+//     let dateset=new Date().toDateString();
+//     console.log("dateget",dateset)
+//     const db = refprofile.push().key;
+//     console.log("dbcheck",db)
+//           refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:addresses[0],dbkey:"",username:"bbbb"}).then(()=>{                      
+//           })                
 
+//   setIsOpen(true)
+// }
+//     //wallet local end  
+//   } catch (err) {
+//     console.error(err);
+//   }          
 
+  //algo wallet end
 
-
-    
-  } catch (err) {
-    console.error(err);
-  }          
-         
-
-   
-
-        
         //onClick={() => setVisibleModal(true)}
-        
         //if(accounts[0]!== ''){
           //var btns = document.getElementById("me");
           //btns.innerHTML = "CONNECTED";          
