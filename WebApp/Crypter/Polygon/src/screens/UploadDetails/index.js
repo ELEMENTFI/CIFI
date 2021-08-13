@@ -609,8 +609,8 @@ const onSubmitNFT = async (event) => {
     const accounts = await web3.eth.getAccounts();
     console.log("acc",accounts[0]);
     ta=tname;
-    tb='BNB';
-    te=1000;
+    tb='MATICMUM';
+    //te=1000;
     //var tb=tdescription;
     //var tc='https://ipfs.io/ipfs/'+ipfsHash;
     //var td=toaddress;
