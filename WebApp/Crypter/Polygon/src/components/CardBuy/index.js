@@ -159,11 +159,11 @@ useEffect(()=>{usernameget()},[])
        from:accounts[0]
      });
 
-      fireDb.database().ref(`imagerefexploreone/${item.bid}`).child(item.highestBid).remove().then(()=>{
+      fireDb.database().ref(`imagerefexplorepoly/${item.bid}`).child(item.highestBid).remove().then(()=>{
 
         if(getprodata.username === null){
   
-          fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(item.highestBid).set({
+          fireDb.database().ref(`imagerefpolybuy/${accounts[0]}`).child(item.highestBid).set({
             id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
             keyId:item.highestBid,userName:item.counter,
             userSymbol:"BNB",previousoaddress:item.bid,
