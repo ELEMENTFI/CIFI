@@ -199,7 +199,7 @@ const convertToBuffer = async(reader) => {
 //     //let asssymbol=prompt("Please enter your asset symbol");
 
 //     let assname=tname;
-//     let asssymbol="BNB";
+//     let asssymbol="MATIC";
     
 //     if(assname === '' && asssymbol === '' ){
 
@@ -631,7 +631,7 @@ const onSubmitNFT = async (event) => {
 
     //alert("getdata from SYMBOL  "+tb);
     
-    //if(tb==="BNB")
+    //if(tb==="MATIC")
     //{
 
     
