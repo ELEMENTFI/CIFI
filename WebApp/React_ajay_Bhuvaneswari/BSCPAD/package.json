@@ -1,5 +1,5 @@
 {
-  "homepage": "http://Bhuvaneswari13.github.io/BSCPAD_DB",
+  "homepage": ".",
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
@@ -26,8 +26,6 @@
     "npm": "7.6.0"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -52,6 +50,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3"
+    
   }
 }

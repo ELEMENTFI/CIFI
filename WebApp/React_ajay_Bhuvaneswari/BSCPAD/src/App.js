@@ -46,8 +46,7 @@ class App extends Component {
 
     }
 
-    //const price=await testtoken.methods.getDollarPrice().call();
-  
+    
     this.setState({totalsupply,balance,name,symbol,decimal,accounts});
 
     
@@ -79,26 +78,26 @@ window.ethereum.enable();
           <Navbar.Brand href="#home">
       
         
-        <Link class="navlink"  exact to="/pages/h">
+        <Link class="navlink"  exact to="/h">
 
   Home
 
 </Link>
       
-      <Link class="navlink"  exact to="/pages/s">
+      <Link class="navlink"  exact to="/s">
 Join Pool{' '}
             </Link>
             {/*<Link class="navlink"  exact to="/t">
 History{' '}
             </Link>*/}
-            <Link class="navlink"  exact to="/pages/t1">
+            <Link class="navlink"  exact to="/t1">
       History{' '}
             </Link>
     </Navbar.Brand>
     <Navbar.Collapse className="justify-content-end">
     <Button  onClick={connect} id="cc" variant="flat" style={{ backgroundColor: "#fa3455", color: "white"}}> Connect Wallet</Button>
 
-<Link exact to="/pages/h">
+<Link exact to="/h">
 <Button variant="flat" style={{ backgroundColor: "#fa3455", color: "white"}}> {this.state.accounts}</Button>
 <label class="mr-3 mt-2" style={{color:"white"}}>
 
@@ -110,10 +109,10 @@ History{' '}
       </Navbar.Collapse>
       </Navbar>
           <Switch>
-    <Route exact path='/pages/h' component={home}/>
-    <Route exact path='/pages/t' component={thirdpage}/> 
-    <Route exact path='/pages/t1' component={fourthpage}/>
-      <Route  exact path='/pages/s' component={secondpage}/>
+    <Route exact path='/h' component={home}/>
+    <Route exact path='/t' component={thirdpage}/> 
+    <Route exact path='/t1' component={fourthpage}/>
+      <Route  exact path='/s' component={secondpage}/>
     </Switch>
     
   </Router>
