@@ -298,11 +298,11 @@ axios.get(`${url}`)
           
             {algobalance === "" ? (
               <div className={styles.wallet}>
-{""}<span className={styles.currency}>MATICMUM</span>
+{""}<span className={styles.currency}>MATIC</span>
 </div>
             ):(
               <div className={styles.wallet}>
-{algobalance.toFixed(4)}<span className={styles.currency}>MATICMUM</span>
+{algobalance.toFixed(4)}<span className={styles.currency}>MATIC</span>
               </div>
 
             )}
@@ -353,7 +353,7 @@ axios.get(`${url}`)
                 <div className={styles.preview}>
                   <img
                     src="/images/polygonlogo.jpg"
-                    alt="MATICMUM"
+                    alt="MATIC"
                   />
                 </div>
                 {algobalance === "" ? (
@@ -361,7 +361,7 @@ axios.get(`${url}`)
 <div className={styles.details}>
 <div className={styles.info}>Balance</div>
 
-<div className={styles.price}>{"demo"} MATICMUM</div>
+<div className={styles.price}>{"demo"} MATIC</div>
 </div>
               
             ):(
@@ -369,7 +369,7 @@ axios.get(`${url}`)
               <div className={styles.details}>
               <div className={styles.info}>Balance</div>
               
-              <div className={styles.price}>{algobalance.toFixed(4)} MATICMUM</div>
+              <div className={styles.price}>{algobalance.toFixed(4)} MATIC</div>
             </div>
               
             )}

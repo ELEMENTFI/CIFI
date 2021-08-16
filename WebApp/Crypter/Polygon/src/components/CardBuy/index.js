@@ -61,7 +61,7 @@ const CardBuy = ({ className, item }) => {
     const accounts = await  web3.eth.getAccounts();
     fireDb.database().ref(`imagereflikes/${accounts[0]}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-      userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,
+      userName:item.counter,userSymbol:"MATIC",ipfsUrl:item.image,
       ownerAddress:accounts[0],soldd:"",extra1:"ready to sold",
       previousoaddress:"",datesets:new Date().toDateString(),
       description:"",whois:'likes'      
@@ -118,7 +118,7 @@ useEffect(()=>{usernameget()},[])
     
 
     setIsOpenss(true)
-  //bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
+  //MATIC 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
   //let gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
 
   //polygon
@@ -151,7 +151,7 @@ useEffect(()=>{usernameget()},[])
 
     await gettrans.methods.sendss(item.bid).send({
       from: accounts[0],
-      //value:web3.utils.toWei(a.addPrices,'BNB')
+      //value:web3.utils.toWei(a.addPrices,'MATIC')
       value: web3.utils.toWei(item.price, 'ether')//ether
      });
   
@@ -166,7 +166,7 @@ useEffect(()=>{usernameget()},[])
           fireDb.database().ref(`imagerefpolybuy/${accounts[0]}`).child(item.highestBid).set({
             id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
             keyId:item.highestBid,userName:item.counter,
-            userSymbol:"BNB",previousoaddress:item.bid,
+            userSymbol:"MATIC",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
             datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
               setIsOpenss(false)
@@ -186,10 +186,10 @@ useEffect(()=>{usernameget()},[])
           console.log("itemacc",accounts[0])
           
   
-          fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(item.highestBid).set({
+          fireDb.database().ref(`imagerefpolybuy/${accounts[0]}`).child(item.highestBid).set({
             id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
             keyId:item.highestBid,userName:item.counter,
-            userSymbol:"BNB",previousoaddress:item.bid,
+            userSymbol:"MATIC",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
             datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
               setIsOpenss(false)
@@ -223,21 +223,39 @@ useEffect(()=>{usernameget()},[])
   //history function
   const viewhistory=()=>{
 
+    // console.log("viewhistory inside");
+    // setIsOpen(true)
+    // let get=[];
+    // // get=item.url;
+
+    // get.push({
+    //   address:item.url,
+    //   asset:item.title
+    // })
+
+    // sethistorydb(get)
+    
+    // console.log("gettt",get)
+
+    // setIsOpen(true)
+
+
     console.log("viewhistory inside");
-    setIsOpen(true)
+
+    //setIsOpen(true)
     let get=[];
     // get=item.url;
 
+    //console.log("histo",item.url)
     get.push({
-      address:item.url,
-      asset:item.title
+      address:item.categoryText,
+      asset:item.title,
+      owaddress:item.bid
     })
-
     sethistorydb(get)
-    
     console.log("gettt",get)
-
-    // setIsOpen(true)
+    
+    setIsOpen(true)  
     
     
   }

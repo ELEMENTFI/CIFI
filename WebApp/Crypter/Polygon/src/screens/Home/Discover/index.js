@@ -291,8 +291,8 @@ const Discover = () => {
                 )}
               />
               <div className={styles.scale}>
-                <div className={styles.number}>0.01 BNB</div>
-                <div className={styles.number}>10 BNB</div>
+                <div className={styles.number}>0.01 MATIC</div>
+                <div className={styles.number}>10 MATIC</div>
               </div>
             </div>
           </div>

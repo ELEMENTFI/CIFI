@@ -43,7 +43,7 @@ const Card = ({ className, item }) => {
     
     fireDb.database().ref(`imagereflikes/${accounts[0]}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-      userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,
+      userName:item.counter,userSymbol:"MATIC",ipfsUrl:item.image,
       ownerAddress:accounts[0],soldd:"",extra1:"ready to sold",
       previousoaddress:"",datesets:new Date().toDateString(),
       description:"",whois:'likes'      
@@ -91,7 +91,7 @@ const Card = ({ className, item }) => {
       setIsOpens(true)
       fireDb.database().ref(`imagerefexplorepoly/${accounts[0]}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-      userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,
+      userName:item.counter,userSymbol:"MATIC",ipfsUrl:item.image,
       ownerAddress:accounts[0],soldd:"",extra1:"ready to sold",
       previousoaddress:"",datesets:new Date().toDateString(),
       description:"",whois:'Sellers'      
@@ -185,7 +185,7 @@ else{
     //   getting.push(item.bid)    
 //     fireDb.database().ref(`imageref/${item.bid}`).child(item.highestBid).update({
 //       id:"",imageUrl:item.image,priceSet:getprize,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,
-//       userSymbol:"BNB",ipfsUrl:"",
+//       userSymbol:"MATIC",ipfsUrl:"",
 //       ownerAddress:item.bid,soldd:"",extra1:"",
 //       //history:item.url,
 //       previousoaddress:"",datesets:new Date().toDateString(),whois:'',
@@ -240,7 +240,7 @@ else{
             //   soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
             // })            
 fireDb.database().ref(`imagerefPoly/${accounts[0]}`).child(item.highestBid).update({
-              id:item.title,imageUrl:item.image,priceSet:price,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,ownerAddress:accounts[0],
+              id:item.title,imageUrl:item.image,priceSet:price,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,userSymbol:"MATIC",ipfsUrl:item.image,ownerAddress:accounts[0],
               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
 }).then(()=>{
 
@@ -286,7 +286,7 @@ else{
     //   getting.push(item.bid)    
 //     fireDb.database().ref(`imageref/${item.bid}`).child(item.highestBid).update({
 //       id:"",imageUrl:item.image,priceSet:getprize,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,
-//       userSymbol:"BNB",ipfsUrl:"",
+//       userSymbol:"MATIC",ipfsUrl:"",
 //       ownerAddress:item.bid,soldd:"",extra1:"",
 //       //history:item.url,
 //       previousoaddress:"",datesets:new Date().toDateString(),whois:'',
@@ -335,7 +335,7 @@ else{
             //   soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
             // })            
 fireDb.database().ref(`imagerefPoly/${accounts[0]}`).child(item.highestBid).update({
-              id:item.title,imageUrl:item.image,priceSet:price,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,userSymbol:"BNB",ipfsUrl:item.image,ownerAddress:accounts[0],
+              id:item.title,imageUrl:item.image,priceSet:price,cAddress:item.categoryText,keyId:item.highestBid,userName:item.counter,userSymbol:"MATIC",ipfsUrl:item.image,ownerAddress:accounts[0],
               soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
 }).then(()=>{
 

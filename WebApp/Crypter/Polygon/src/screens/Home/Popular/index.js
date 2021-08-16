@@ -20,7 +20,7 @@ const items = [
     color: "#3772FF",
     avatar: "/images/content/gayle.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Odell Hane",
@@ -30,7 +30,7 @@ const items = [
     color: "#9757D7",
     avatar: "/images/content/babar.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Marlee Kuphal",
@@ -40,7 +40,7 @@ const items = [
     color: "#45B26B",
     avatar: "/images/content/bens.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Payton Kunde",
@@ -50,7 +50,7 @@ const items = [
     color: "#23262F",
     avatar: "/images/content/kevin.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Payton Buckridge",
@@ -60,7 +60,7 @@ const items = [
     color: "#777E90",
     avatar: "/images/content/dhoni image.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Edd Harris",
@@ -70,7 +70,7 @@ const items = [
     color: "#3772FF",
     avatar: "/images/content/kohli image.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Odell Hane",
@@ -80,7 +80,7 @@ const items = [
     color: "#9757D7",
     avatar: "/images/content/JontyRhodes.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Marlee Kuphal",
@@ -90,7 +90,7 @@ const items = [
     color: "#45B26B",
     avatar: "/images/content/bens2.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
 ];
 
@@ -104,7 +104,7 @@ const itemss = [
     color: "#3772FF",
     avatar: "/images/content/dhoni image.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Odell Hane",
@@ -114,7 +114,7 @@ const itemss = [
     color: "#9757D7",
     avatar: "/images/content/babar.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Marlee Kuphal",
@@ -124,7 +124,7 @@ const itemss = [
     color: "#45B26B",
     avatar: "/images/content/bens.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Payton Kunde",
@@ -134,7 +134,7 @@ const itemss = [
     color: "#23262F",
     avatar: "/images/content/kevin.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Payton Buckridge",
@@ -144,7 +144,7 @@ const itemss = [
     color: "#777E90",
     avatar: "/images/content/dhoni image.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Edd Harris",
@@ -154,7 +154,7 @@ const itemss = [
     color: "#3772FF",
     avatar: "/images/content/kohli image.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Odell Hane",
@@ -164,7 +164,7 @@ const itemss = [
     color: "#9757D7",
     avatar: "/images/content/JontyRhodes.jpg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
   {
     name: "Marlee Kuphal",
@@ -174,7 +174,7 @@ const itemss = [
     color: "#45B26B",
     avatar: "/images/content/bens2.jpeg",
     reward: "/images/content/reward-1.svg",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span> MATIC",
   },
 ];
 

@@ -7,20 +7,23 @@ import Icon from "../../../components/Icon";
 
 const FolowStepsd = ({ className,viewhistory}) => {
 
-  console.log("viewh",viewhistory)
+  console.log("viewh",viewhistory[0].address)
   //console.log("viewasset",viewhistorys)
   const checkasset=(x)=>{
 
     console.log("checkasset inside")
   
-    let url="https://testnet.algoexplorer.io/asset/"+x;
+    let url="https://mumbai.polygonscan.com/asset/"+x;
+
+  
     window.open(url);
   }
 
   const checkaddress=(y)=>{
 
     console.log("checkasset inside")  
-    let url="https://testnet.algoexplorer.io/address/"+y;
+    let url="https://mumbai.polygonscan.com/address/"+y;
+    //0xa9CBD39dfA719BA4f713B03dd0F8345Cc2c934dA
     window.open(url);
 
   }
@@ -43,7 +46,14 @@ const FolowStepsd = ({ className,viewhistory}) => {
                 {/* <h1>{viewhistory()}</h1> */}
 
                 <tbody>
-                {viewhistory.map((x, index) => ( 
+                <div> 
+{/* <h5 style={{cursor:"pointer"}} onClick={e => checkasset(viewhistory[0].asset)}>Asset-Id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{viewhistory[0].asset}</h5> */}
+
+<h5 style={{cursor:"pointer"}} onClick={e => checkaddress(viewhistory[0].address)}>Contract Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{(viewhistory[0].address).slice(0,10)}....</h5>
+
+<h5 style={{cursor:"pointer"}} onClick={e => checkaddress(viewhistory[0].owaddress)}>Creator Address &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{(viewhistory[0].owaddress).slice(0,10)}....</h5>
+</div>
+                {/* {viewhistory.map((x, index) => ( 
                               
                     <div> 
 <h5 style={{cursor:"pointer"}} onClick={e => checkasset(x.asset)}>Asset-Id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{x.asset}</h5>
@@ -56,13 +66,13 @@ const FolowStepsd = ({ className,viewhistory}) => {
 </>
 ))}
                </div>
-              ))}
+              ))} */}
               </tbody>
                 </div>                            
             </div>
           </div>
           
-          {/* <button type="submit" className={cn("button-small", styles.button)} onClick={viewhistory()}>Done</button> */}
+          {/* <button type="submit" className={cn("button-small", styles.button)} >Done</button> */}
           {/* <button type="submit" onClick={()=>dones()}>Start nowss</button> */}
         </div>                  
       </div>
