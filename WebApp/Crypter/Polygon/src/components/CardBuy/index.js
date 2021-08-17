@@ -273,7 +273,7 @@ useEffect(()=>{usernameget()},[])
               styles.category
             )}
           >
-            {item.categoryText}
+            {item.categoryText}            
           </div>
           <button
             className={cn(styles.favorite, { [styles.active]: visible })}
@@ -303,9 +303,13 @@ useEffect(()=>{usernameget()},[])
 }
       <Link className={styles.link} to={item.url}>
         <div className={styles.body}>
+          
           <div className={styles.line}>
-            <div className={styles.title}>{item.title}</div>
+            
+            <div className={styles.title}>{item.title}</div>            
+            <div className={styles.price}>Price</div>
             <div className={styles.price}>{item.price}</div>
+            {/* <div className={styles.price}>{item.price}</div> */}
             
           </div>
           <div className={styles.line}>

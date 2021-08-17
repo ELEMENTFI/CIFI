@@ -610,7 +610,7 @@ const onSubmitNFT = async (event) => {
     console.log("acc",accounts[0]);
     ta=tname;
     tb='MATICMUM';
-    //te=1000;
+    te=1000;
     //var tb=tdescription;
     //var tc='https://ipfs.io/ipfs/'+ipfsHash;
     //var td=toaddress;

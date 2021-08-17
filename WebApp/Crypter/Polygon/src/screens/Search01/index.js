@@ -40,6 +40,7 @@ const Search = () => {
 
   //const [search, setSearch] = useState("");
   const [values, setValues] = useState([5]);
+  //console.log("hellow",values)
   const[getImgreffalgosale,setgetImgreffalgosale]=useState([]);
   console.log("getImgalgo",getImgreffalgosale)
 
@@ -152,6 +153,9 @@ const Search = () => {
     let data= getI.filter((val)=>{
       return val.counter.toLowerCase().trim().includes(searchTerm.toLowerCase().trim())      
     })
+
+    
+    
     //console.log('returndata',data)
     return data;    
   };
@@ -164,6 +168,21 @@ const Search = () => {
     console.log("hello close")
     //setIsOpen(false);
     history.push("/")
+  }
+
+
+  const filterdata=()=>{
+
+    //alert("filterdata function calling")
+    console.log("filterprice",values[0])
+    if(values[0] === '') return getI
+    let data= getI.filter((val)=>{
+      console.log(val.price.trim().includes(values[0]))      
+      return val.price.trim().includes(values[0])      
+    })
+    //console.log('returndata',data)
+    return data;    
+
   }
 
   return (
@@ -315,17 +334,18 @@ const Search = () => {
                     >
                       {values[0].toFixed(1)}
                     </div>
+                    
                   </div>
                 )}
               />
               <div className={styles.scale}>
-                <div className={styles.number}>0.01 MATIC</div>
+                <div className={styles.number}>0.1 MATIC</div>
                 <div className={styles.number}>10 MATIC</div>
               </div>
             </div>
             <div className={styles.group}>
               <div className={styles.item}>
-                <div className={styles.label}>Price</div>
+                <div className={styles.label}>Likes</div>
                 <Dropdown
                   className={styles.dropdown}
                   value={likes}
@@ -353,16 +373,27 @@ const Search = () => {
               </div>
             </div>
             <div className={styles.reset}>
-              <Icon name="close-circle-fill" size="24" />
-              <span>Reset filter</span>
+              {/* <Icon name="close-circle-fill" size="24" /> */}
+              {/* <Icon name="" size="24" />
+              <span>Filter</span> */}
+
+<button className={cn("button-small")} onClick={filterdata}>
+      <span>Filter</span>
+            </button>
             </div>
+
+            
           </div>
           <div className={styles.wrapper}>
             <div className={styles.list}>
-              
-              {handleSubmit().map((x, index) => (                              
+
+            {handleSubmit().map((x, index) => (                              
                 <CardBuy className={styles.card} item={x} key={index} />                
               ))}
+              
+              {/* {filterdata().map((x, index) => (                              
+                <CardBuy className={styles.card} item={x} key={index} />                
+              ))} */}
             </div>
             <div className={styles.btns}>
               <button className={cn("button-stroke", styles.button)}>
