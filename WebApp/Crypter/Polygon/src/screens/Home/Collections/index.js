@@ -88,7 +88,7 @@ const Collections = () => {
           <div className={styles.inner}>
             <Slider className="collection-slider" {...settings}>
               {items.map((x, index) => (
-                <Link className={styles.item} to="/profile" key={index}>
+                <Link className={styles.item} to="/search01" key={index}>
                   <div className={styles.gallery}>
                     {x.gallery.map((x, index) => (
                       <div className={styles.preview} key={index}>
