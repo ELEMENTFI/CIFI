@@ -47,7 +47,7 @@ const User = ({ className,onProfile}) => {
 
   const[getprodata,setgetprodata]=useState([]);
   console.log("getprodata",getprodata)
-  const[getusername,setgetusername]=useState("");
+  //const[getusername,setgetusername]=useState("");
 
   let history=useHistory();
   const [visible, setVisible] = useState(false);
@@ -76,27 +76,23 @@ const User = ({ className,onProfile}) => {
     let req = [];
       
     if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
-  
-      console.log("notalgoget",getalgo)
-
+      //console.log("notalgoget",getalgo)
       req.push(              
         {              
           Bio: "",
           Twitter: "",
           address: "",
           displayname:"...",
-          profileurl:"",
+          profileurl:"aaa",
           username: "..."
         })
         setgetprodata(req);   
-
-
     }
     else{  
-      //let kreq =[];
+      let getalgo=localStorage.getItem("wallet");
+      let kreq =[];
       fire.database().ref("profiledata").child(getalgo).on("value", (data) => {
         if (data) {
-
           console.log("startcon",data.val())          
           //   console.log("datacover",data)
           //   data.forEach((d) => {
@@ -105,8 +101,9 @@ const User = ({ className,onProfile}) => {
           //   });        
           // }      
           let value=data.val();
-          console.log("valuess",value)
-          // req.push(              
+          setgetprodata(data.val());       
+          //console.log("valuess",value)
+          // kreq.push(              
           //   {              
           //     Bio: value.Bio,
           //     Twitter: value.Twitter,
@@ -114,12 +111,24 @@ const User = ({ className,onProfile}) => {
           //     displayname:value.displayname,
           //     profileurl:value.profileurl,
           //     username: value.username
-          //   })        
-
-          
+          //   })                  
         }     
+        else{
+
+          kreq.push(              
+            {              
+              Bio: "",
+              Twitter: "",
+              address: "",
+              displayname:"...",
+              profileurl:"aaa",
+              username: "..."
+            })            
+
+            setgetprodata(kreq);   
+        }
         
-        setgetprodata(data.val());       
+        
         
      });
       
@@ -219,50 +228,53 @@ axios.get(`${url}`)
 
   useEffect(()=>{balancecall()},[])
 
-  const dbcall=async()=>{
+  // const dbcall=async()=>{
     
-    console.log("inside dbcall function")
-    //db call start
+  //   console.log("inside dbcall function")
+  //   //db call start
 
-    //const accounts = await web3.eth.getAccounts();
-    let req = [];
+  //   //const accounts = await web3.eth.getAccounts();
+  //   let req = [];
     
-    //let kreq =[];
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+  //   //let kreq =[];
+  //   if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
 
       
-      req.push(              
-        {              
-          Bio: "",
-          Twitter: "",
-          address: "",
-          displayname:"...",
-          profileurl:"",
-          username: "..."
-        })
+  //     req.push(              
+  //       {              
+  //         Bio: "",
+  //         Twitter: "",
+  //         address: "",
+  //         displayname:"...",
+  //         profileurl:"aaa",
+  //         username: "..."
+  //       })
 
-      setgetusername(req)
-      console.log("dbcallalgo",getalgo)
-    }else{
+  //     setgetusername(req)
+  //     console.log("dbcallalgo",getalgo)
+  //   }else{
 
-      let getalgo=localStorage.getItem("wallet");
+  //     let getalgo=localStorage.getItem("wallet");
+
       
-     fire.database().ref("profiledata").child(getalgo).on("value", (data) => {
-      if (data) {
-         let value=data.val();
-         setgetusername(value.username)
-         //localStorage.getItem("walletname",value.username);
-          console.log("valueuser",value.username);          
-      }
-      else{
-        setgetusername("....")
-      }
-    });
-  }
-   console.log("acc",getalgo)  
+      
+  //    fire.database().ref("profiledata").child(getalgo).on("value", (data) => {
+  //     if (data) {
+  //        let value=data.val();
+  //        //setgetusername(value.username)
+  //        //localStorage.getItem("walletname",value.username);
+  //         //console.log("valueuser",value.username);          
+  //     }
+  //     else{
+
+  //       setgetusername("....")
+  //     }
+  //   });
+  // }
+  //  console.log("acc",getalgo)  
   
-  }
-  useEffect(()=>{dbcall()},[])
+  // }
+  // useEffect(()=>{dbcall()},[])
 
 
 
@@ -273,7 +285,7 @@ axios.get(`${url}`)
 
         <div className={styles.head} onClick={() => setVisible(!visible)}>
 
-        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || getprodata.profileurl === "aaa") ? 
+        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" ) ? 
         (
         <>
 
@@ -287,22 +299,54 @@ axios.get(`${url}`)
         )
         
         :(
+
+          <>
+          
         <>
-        <div className={styles.avatar}>            
-                 {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
-                 <img src={getprodata.profileurl} alt="world" />                       
-          </div>
+        {getprodata === null ? (
+
+<div className={styles.avatar}>            
+          
+{/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
+<img src={"/images/logocifis.png"} alt="helloworld" />                       
+
+</div>
+
+        ):(
+
+<>
+          {getprodata.profileurl === null || getprodata.profileurl === "" || getprodata.profileurl === "aaa" ? (
+          
+            <div className={styles.avatar}>            
+            
+            {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
+            <img src={"/images/logocifis.png"} alt="helloworld" />                       
+            
+     </div>
+          ):(
+            <div className={styles.avatar}>            
+                   {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
+                   <img src={getprodata.profileurl} alt="world" />                       
+                   {/* <h1>{getprodata.profileurl}</h1> */}
+            </div>
+          )}
+
+</>
+        )}
+        </>
+        
+        
         </>
         )
         }
           
             {algobalance === "" ? (
               <div className={styles.wallet}>
-{""}<span className={styles.currency}>MATIC</span>
+{""}<span className={styles.currency}>MATICMUM</span>
 </div>
             ):(
               <div className={styles.wallet}>
-{algobalance.toFixed(4)}<span className={styles.currency}>MATIC</span>
+{algobalance.toFixed(4)}<span className={styles.currency}>MATICMUM</span>
               </div>
 
             )}
@@ -311,18 +355,19 @@ axios.get(`${url}`)
         </div>
         {visible && (
           <div className={styles.body}>          
-          {getprodata.username === "" ? (
+          {getprodata === "" || getprodata === null? (
 
 <div className={styles.name}>              
 
-{"demo"}
+{"..."}
 </div>
 
           ):(
 
+            
             <div className={styles.name}>              
 
-              {getprodata.username}
+              {getprodata.displayname}
               </div>
 
           )}
@@ -353,7 +398,7 @@ axios.get(`${url}`)
                 <div className={styles.preview}>
                   <img
                     src="/images/polygonlogo.jpg"
-                    alt="MATIC"
+                    alt="MATICMUM"
                   />
                 </div>
                 {algobalance === "" ? (
@@ -361,7 +406,7 @@ axios.get(`${url}`)
 <div className={styles.details}>
 <div className={styles.info}>Balance</div>
 
-<div className={styles.price}>{"demo"} MATIC</div>
+<div className={styles.price}>{"demo"} MATICMUM</div>
 </div>
               
             ):(
@@ -369,7 +414,7 @@ axios.get(`${url}`)
               <div className={styles.details}>
               <div className={styles.info}>Balance</div>
               
-              <div className={styles.price}>{algobalance.toFixed(4)} MATIC</div>
+              <div className={styles.price}>{algobalance.toFixed(4)} MATICMUM</div>
             </div>
               
             )}

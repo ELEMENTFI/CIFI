@@ -14,8 +14,8 @@ const shareUrlTwitter = "https://ui8.net";
 const User = ({ className, item }) => {
   const[getprodata,setgetprodata]=useState([]);
   console.log("getprodata",getprodata)
-  const[getusername,setgetusername]=useState("");
-  const [visible, setVisible] = useState(false);
+  // const[getusername,setgetusername]=useState("");
+  //const [visible, setVisible] = useState(false);
   const [visibleShare, setVisibleShare] = useState(false);
   const [visibleModalReport, setVisibleModalReport] = useState(false);
   //let getac="";
@@ -40,16 +40,14 @@ const User = ({ className, item }) => {
     
     let req = [];
       
-    if(localStorage.getItem("wallet") === null){
-
-
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" ){
       req.push(              
         {              
           Bio: "",
           Twitter: "",
           address: "",
           displayname:"aaa",
-          profileurl:"",
+          profileurl:"aaa",
           username: "bbb"
         })
         setgetprodata(req);   
@@ -57,17 +55,17 @@ const User = ({ className, item }) => {
     }
     else{  
       let getalgo=localStorage.getItem("wallet");
-      //let kreq =[];
+      let kreq =[];
       fireDb.database().ref("profiledata").child(getalgo).on("value", (data) => {
         if (data) {
 
           console.log("start",data.val())
 
           let value=data.val();
-          console.log("valuess",value)
-          setgetusername(value.username)
+          //console.log("valuess",value)
+          //setgetusername(value)
          //localStorage.getItem("walletname",value.username);
-        console.log("valueuser",value.username);
+        //console.log("valueuser",value.username);
           // req.push(              
           //   {              
           //     Bio: value.Bio,
@@ -79,6 +77,23 @@ const User = ({ className, item }) => {
           //   })
             setgetprodata(value);   
         }     
+        else{
+
+          kreq.push(              
+            {              
+              Bio: "",
+              Twitter: "",
+              address: "",
+              displayname:"...",
+              profileurl:"aaa",
+              username: "..."
+            })            
+
+            setgetprodata(kreq)
+
+        }
+
+
         
       });
       
@@ -126,26 +141,57 @@ const User = ({ className, item }) => {
     <>
 
       <div className={cn(styles.user, className)}>
-        <div className={styles.avatar}>
-          {getprodata === null ? (
 
-<img src="/images/content/avatar-big.jpg" alt="Avatar" />
+      {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" ) ? 
+        (
+        <>
+        <div className={styles.avatar}>            
+<img src="/images/logocifis.png" alt="Avatar" />
+</div>
+        </>):(
+          <>
+                    { getprodata === "" || getprodata === null ? (
+
+<div className={styles.avatar}>            
+<img src="/images/logocifis.png" alt="Avatar" />
+</div>
           ):(
 
-            <img src={getprodata.profileurl} alt="Avatar" />
+            <>
+            {getprodata.profileurl === "" || getprodata.profileurl ==="" || getprodata.profileurl ==="aaa" ? (
+              <div className={styles.avatar}>            
+<img src="/images/logocifis.png" alt="Avatar" />
+</div>
+
+            ) :(
+
+              <div className={styles.avatar}>            
+              <img src={getprodata.profileurl} alt="Avatar" />
+              </div>
+
+            )}
+
+
+</>
+   
           )}
+
+
+          </>
+        )
+}
           
           
-        </div>
-        {getusername === null ? (
+        
+        {getprodata === null || getprodata === "" ? (
           <div className={styles.name}>{"abcdedd"}</div>
 
         ):(
 
-          <div className={styles.name}>{getusername}</div>
+          <div className={styles.name}>{getprodata.displayname}</div>
         )}
         
-        {localStorage.getItem("wallet") === null ? (
+        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x") ? (
 
 <div className={styles.code}>
 <div className={styles.number}>{"0Xasdhaudhu"}....</div>
@@ -157,7 +203,7 @@ const User = ({ className, item }) => {
         ):(
 
           <div className={styles.code}>
-          <div className={styles.number}>{getalgo.slice(0,10)}....</div>
+          <div className={styles.number}>{localStorage.getItem("wallet").slice(0,10)}....</div>
           {/* <button className={styles.copy}>
             <Icon name="copy" size="16" />
           </button> */}
