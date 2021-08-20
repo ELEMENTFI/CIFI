@@ -84,31 +84,13 @@ class App extends Component {
       <Link class="navlink"  exact to="/s">
 Join Pool{' '}
             </Link>
-            {/*<Link class="navlink"  exact to="/t">
-History{' '}
-            </Link>*/}
+            
             <Link class="navlink"  exact to="/t1">
       History{' '}
             </Link>
     </Navbar.Brand>
     <Navbar.Collapse className="justify-content-end">
-    {
-            this.a!=0?((
-               <div>
-                          <button id="cc1" class="btn-primary">{this.state.a}</button>
-
-
-               </div>
-            )):
-            ((
-               <div>
-      <button id="cc" class="btn-primary" onClick={connect}>connect wallet</button>
-
-               </div>
-            ))
-         }
-
-
+    
       </Navbar.Collapse>
       </Navbar>
           <Switch>
@@ -130,15 +112,3 @@ History{' '}
 export default App;
 
 
-{/* 
-<button type="button" class="btn btn-primary" >
-  <span class="badge" style={{ backgroundColor: "#fa3455", color: "white"}}> {this.state.accounts}</span>
-  </button>
-
-
-
-  <label class="mr-3 mt-2" style={{color:"white"}}>
-
-</label>
-
-*/} 

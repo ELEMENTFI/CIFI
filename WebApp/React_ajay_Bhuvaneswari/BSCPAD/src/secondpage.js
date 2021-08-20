@@ -7,10 +7,7 @@ import {Card} from "react-bootstrap"
 import tokencontract from './tokencontract';
 import TESTToken from './TESTToken';
 import TEST from './TEST';
-//import $, { error, event, get } from 'jquery';
-//import Web3 from 'web3';
-//import Background from '../src/images/aa.gif'
-//import Popup from 'reactjs-popup';
+
 
 import { Modal, Button,InputGroup,FormControl } from "react-bootstrap";
 
@@ -43,7 +40,7 @@ class secondpage extends Component{
 
     
   async componentDidMount() {
-    //const ooc = await TEST.methods.isSLATEOpen().call();
+   
 
 
 //time function
@@ -84,7 +81,6 @@ var x = setInterval(function() {
  
  else {
     
-   //  document.getElementById("dem").innerHTML = "closed";
      document.getElementById("ap").disabled = true;
      document.getElementById("ap1").disabled=true;
      
@@ -97,9 +93,6 @@ var x = setInterval(function() {
 }, 1000);
 
 
-
-
-  //  var x = document.getElementById('myDIV').style.visibility = "hidden";
   var bigInt = require("big-integer");
     var amount1;
      const accounts = await  web3.eth.getAccounts();
