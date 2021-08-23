@@ -11,6 +11,7 @@ import Followers from "./Followers";
 import firebase from "../UploadDetails/firebase";
 //import web3 from '../UploadDetails/web3';
 import Compress from "react-image-file-resizer";
+import { useLocation } from "react-router-dom";
 //import axios from 'axios';
 
 // data
@@ -189,6 +190,11 @@ const followers = [
 ];
 
 const Profile = () => {
+  const location = useLocation()
+  //const { data } = location.state
+
+  console.log("tdata",location.state)
+
   const [Img,setImg] = useState("")
   const [buffer,setBuffer] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -231,7 +237,9 @@ const dbcallalgolikes=async()=>{
   }
   else{
 
-    let getalgo=localStorage.getItem("wallet");
+    //let getalgo=localStorage.getItem("wallet");
+
+    let getalgo=location.state;
   
     //let kreq =[];
     firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
@@ -287,7 +295,9 @@ const dbcallsalealgo=async()=>{
 
   }else{
 
-    let getalgo=localStorage.getItem("wallet");
+    //let getalgo=localStorage.getItem("wallet");
+
+    let getalgo=location.state;
     
     //let kreq =[];
     firebase.database().ref("imagerefexplorepoly").child(getalgo).on("value", (data) => {
@@ -341,7 +351,8 @@ const dbcallalgo=async()=>{
   }
   else{
 
-    let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=localStorage.getItem("wallet");    
+    let getalgo=location.state;
     //let kreq =[];
     firebase.database().ref("imagerefPoly").child(getalgo).on("value", (data) => {
       if (data) {
@@ -402,7 +413,9 @@ const dbcallalgobuy=async()=>{
   else{
 
   
-    let getalgo=localStorage.getItem("wallet");
+    //let getalgo=localStorage.getItem("wallet");
+
+    let getalgo=location.state;
     
     //let kreq =[];
     firebase.database().ref("imagerefpolybuy").child(getalgo).on("value", (data) => {
@@ -514,7 +527,8 @@ const setprofilephoto=()=>{
   
     }else{
 
-      let getalgo=localStorage.getItem("wallet");
+      //let getalgo=localStorage.getItem("wallet");
+      let getalgo=location.state;
   let ref=firebase.database().ref(`bgphoto/${getalgo}`);
   let dateset=new Date().toDateString();
   console.log("dateget",dateset)
@@ -638,12 +652,12 @@ const checkasset=async()=>{
                   
                 )}
                 {activeIndex === 1 && (
-                  <Items class={styles.items} items={getImgreffalgobuy} />
+                  <Itemss class={styles.items} items={getImgreffalgobuy} />
                   // bids.slice(0, 6)
                 )}
 
                 {activeIndex === 2 && (                                     
-                  <Items class={styles.items} items={getImgreffalgo} />              
+                  <Itemss class={styles.items} items={getImgreffalgo} />              
                  )} 
                 {activeIndex === 3 && (
                   <Itemss class={styles.items} items={getImgreffalgolikes} />

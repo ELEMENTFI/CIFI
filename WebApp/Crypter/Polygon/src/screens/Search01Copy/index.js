@@ -9,7 +9,7 @@ import Dropdown from "../../components/Dropdown";
 import firebase from "../UploadDetails/firebase";
 import Modald from "../../components/ModalD";
 import FolowStepsdr from "./FolowSteps";
-import { useParams,useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 //UploadDetails/firebase
 
 // data

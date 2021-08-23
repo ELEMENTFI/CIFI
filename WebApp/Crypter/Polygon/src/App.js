@@ -13,8 +13,27 @@ import Profile from "./screens/Profile";
 import ProfileEdit from "./screens/ProfileEdit";
 import Item from "./screens/Item";
 import PageList from "./screens/PageList";
+import Search01Copy from "./screens/Search01Copy";
+import ProfileCopy from "./screens/ProfileCopy";
+
 
 function App() {
+  //window.addEventListener("beforeunload", () => localStorage.removeItem('wallet'));
+  //window.onbeforeunload = () => {
+    //localStorage.removeItem('wallet');
+  //}
+//   function clearStorage() {
+
+//     let session = sessionStorage.getItem('wallet');
+
+//     if (session == null) {
+
+//         localStorage.removeItem('wallet');
+
+//     }
+//     sessionStorage.setItem('wallet', 1);
+// }
+// window.addEventListener('wallet', clearStorage);
   return (    
     <Router>
       <Switch>
@@ -82,6 +101,17 @@ function App() {
             </Page>
           )}
         />
+
+<Route
+          exact
+          path="/search01copy"
+          render={() => (
+            <Page>
+              <Search01Copy />
+            </Page>
+          )}
+        />
+
         <Route
           exact
           path="/search02"
@@ -100,6 +130,17 @@ function App() {
             </Page>
           )}
         />
+
+<Route
+          exact
+          path="/profilecopy"
+          render={() => (
+            <Page>
+              <ProfileCopy />
+            </Page>
+          )}
+        />
+
         <Route
           exact
           path="/profile-edit"

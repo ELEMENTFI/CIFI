@@ -10,7 +10,7 @@ import firebase from "../../UploadDetails/firebase"
 //import firebase from "../UploadDetails/firebase";
 // data
 //import { bids } from "../../../mocks/bids";
-import CardBuy from "../../../components/CardBuy";
+//import CardBuy from "../../../components/CardBuy";
 import CardDiscover from "../../../components/CardDiscover";
 import { Link } from "react-router-dom";
 
@@ -92,6 +92,8 @@ const Discover = () => {
                 categoryText: a[b].cAddress,
                 //purchasing !
                 url: "/",
+                league:a[b].league,
+                team:a[b].team,
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",

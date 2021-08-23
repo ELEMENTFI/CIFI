@@ -187,9 +187,7 @@ const Popular = () => {
   let history=useHistory();
 
   const onClo=()=>{
-
-    console.log("hello onclo")
-    
+    console.log("hello onclo")    
     //setIsOpen(false);
     history.push("/search01")
     window.location.reload();
@@ -297,6 +295,8 @@ const directionOptions = ["Sellers", "Buyers"];
                 categoryText: a[b].cAddress,
                 //purchasing !
                 url: a[b].datesets,
+                league:a[b].league,
+              team:a[b].team,
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",
@@ -311,9 +311,9 @@ const directionOptions = ["Sellers", "Buyers"];
   
   }
   
-  useEffect(()=>{dbcallalgobuy()},[getIm])
+  useEffect(()=>{dbcallalgobuy()},[])
 
-  //
+  //getIm
   //getImb
 
   //seller
@@ -349,6 +349,8 @@ const directionOptions = ["Sellers", "Buyers"];
                 categoryText: a[b].cAddress,
                 //purchasing !
                 url: a[b].datesets,
+                league:a[b].league,
+                team:a[b].team,
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",
@@ -362,32 +364,41 @@ const directionOptions = ["Sellers", "Buyers"];
     //console.log("cfbbba",req) 
   
   }
-  useEffect(()=>{dbcallsalealgo()},[getIm])
+  useEffect(()=>{dbcallsalealgo()},[])
 
-  //
+  //getIm
 
   const filterdata=()=>{
     console.log("inside filter function")
 
     if(direction === 'Sellers'){
 
-      if(date === '1')
-      {
-        console.log("one")
-        return items;
-      }    
+
+      dbcallalgobuy();
+
+
+      // if(date === '1')
+      // {
+      //   console.log("one")
+      //   return items;
+      // }    
         
-        return items;    
+      //   return items;    
     }
 
 
-    if(date === '1')
-    {
+    dbcallsalealgo();
+
+
+
+
+    // if(date === '1')
+    // {
         
-      return itemss;
-    }    
+    //   return itemss;
+    // }    
       
-      return itemss;    
+    //   return itemss;    
 
 
 
@@ -455,6 +466,7 @@ const directionOptions = ["Sellers", "Buyers"];
         <div className={styles.top}>
           <div className={styles.box}>
             <div className={styles.stage}>Popular</div>
+          
             <DropdownEmpty
               className={styles.dropdown}
               value={direction}
@@ -462,7 +474,26 @@ const directionOptions = ["Sellers", "Buyers"];
               options={directionOptions}
               //onChange={changeSelectOptionHandler}
             />
+            
           </div>
+
+          {/* <div className={styles.reset}> */}
+              {/* <Icon name="close-circle-fill" size="24" /> */}
+              {/* <Icon name="" size="24" />
+              <span>Filter</span> */}
+
+<button className={cn("button-small")} onClick={filterdata}>
+      <span>Filter</span>
+            </button>
+            {/* <button className={cn("button-small")} onClick={dbcallsalealgo}>
+      <span>Buyer</span>
+            </button> */}
+
+
+            {/* </div> */}
+
+
+
           {/* <div className={styles.field}>
             <div className={styles.label}>timeframe</div>
             <Dropdown
@@ -489,11 +520,18 @@ const directionOptions = ["Sellers", "Buyers"];
           
           {/* {getIb.length === 0 && getI.length === 0 ? ( */}
 
+
+
+            
+
             {direction==="Sellers"  ? (
             
 <div className={styles.wrapper}>
-          <Slider className="popular-slider" {...settings}>
-            
+          <Slider className="popular-slider" {...settings}>            
+
+
+
+
 {getI.map((x, index) => (
               <div className={styles.slide} key={index} onClick={() => onClo()}>
                 <div className={styles.item}>

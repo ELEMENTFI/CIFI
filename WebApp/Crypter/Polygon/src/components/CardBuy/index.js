@@ -61,10 +61,11 @@ const CardBuy = ({ className, item }) => {
     const accounts = await  web3.eth.getAccounts();
     fireDb.database().ref(`imagereflikes/${accounts[0]}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-      userName:item.counter,userSymbol:"MATIC",ipfsUrl:item.image,
+      userName:item.counter,userSymbol:"MATICMUM",ipfsUrl:item.image,
       ownerAddress:accounts[0],soldd:"",extra1:"ready to sold",
       previousoaddress:"",datesets:new Date().toDateString(),
-      description:"",whois:'likes'      
+      description:"",whois:'likes',  league:item.league,
+      team:item.team
       }).then(()=>{
         setVisible(!visible)
         window.location.reload(false)   
@@ -77,7 +78,7 @@ const CardBuy = ({ className, item }) => {
 
     console.log("inside usernameget function")
 
-    if(localStorage.getItem("wallet") === null){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
 
     }
     else{
@@ -108,7 +109,7 @@ useEffect(()=>{usernameget()},[])
     console.log("inside buy function")
 
     
-    if(localStorage.getItem("wallet") === null){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
 
     }
     else{
@@ -118,10 +119,14 @@ useEffect(()=>{usernameget()},[])
     
 
     setIsOpenss(true)
-  //MATIC 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
+  //bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
   //let gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
 
   //polygon
+  let percentagcrypterwallet = ((2*item.price)/100).toString();
+  console.log("checkpercentage",percentagcrypterwallet)
+  //let changepercentage = percentagcrypterwallet;
+
   let gettrans=new web3.eth.Contract(tra,'0x2Faf13681f0b9dAD5074E52CcAC3d614dbf84c83');
 
   let gettest=item.categoryText
@@ -148,10 +153,15 @@ useEffect(()=>{usernameget()},[])
   }
   else{
 
+    await gettrans.methods.sendss("0xD264b074c4a772E56536005Ae629518ee1bCc83a").send({
+      from: accounts[0],
+      //value:web3.utils.toWei(a.addPrices,'BNB')
+      value: web3.utils.toWei(percentagcrypterwallet,'ether')//ether
+     });
 
     await gettrans.methods.sendss(item.bid).send({
       from: accounts[0],
-      //value:web3.utils.toWei(a.addPrices,'MATIC')
+      //value:web3.utils.toWei(a.addPrices,'BNB')
       value: web3.utils.toWei(item.price, 'ether')//ether
      });
   
@@ -166,9 +176,10 @@ useEffect(()=>{usernameget()},[])
           fireDb.database().ref(`imagerefpolybuy/${accounts[0]}`).child(item.highestBid).set({
             id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
             keyId:item.highestBid,userName:item.counter,
-            userSymbol:"MATIC",previousoaddress:item.bid,
+            userSymbol:"MATICMUM",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
-            datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
+            datesets:new Date().toDateString(),whois:'Buyers',league:item.league,
+            team:item.team}).then(()=>{
               setIsOpenss(false)
               setIsOpens(true)
               
@@ -189,9 +200,10 @@ useEffect(()=>{usernameget()},[])
           fireDb.database().ref(`imagerefpolybuy/${accounts[0]}`).child(item.highestBid).set({
             id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
             keyId:item.highestBid,userName:item.counter,
-            userSymbol:"MATIC",previousoaddress:item.bid,
+            userSymbol:"MATICMUM",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
-            datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
+            datesets:new Date().toDateString(),whois:'Buyers',league:item.league,
+            team:item.team}).then(()=>{
               setIsOpenss(false)
               setIsOpens(true)
               
@@ -223,23 +235,6 @@ useEffect(()=>{usernameget()},[])
   //history function
   const viewhistory=()=>{
 
-    // console.log("viewhistory inside");
-    // setIsOpen(true)
-    // let get=[];
-    // // get=item.url;
-
-    // get.push({
-    //   address:item.url,
-    //   asset:item.title
-    // })
-
-    // sethistorydb(get)
-    
-    // console.log("gettt",get)
-
-    // setIsOpen(true)
-
-
     console.log("viewhistory inside");
 
     //setIsOpen(true)
@@ -256,8 +251,6 @@ useEffect(()=>{usernameget()},[])
     console.log("gettt",get)
     
     setIsOpen(true)  
-    
-    
   }
 
   return (
@@ -273,7 +266,7 @@ useEffect(()=>{usernameget()},[])
               styles.category
             )}
           >
-            {item.categoryText}            
+            {item.categoryText}
           </div>
           <button
             className={cn(styles.favorite, { [styles.active]: visible })}
@@ -303,13 +296,9 @@ useEffect(()=>{usernameget()},[])
 }
       <Link className={styles.link} to={item.url}>
         <div className={styles.body}>
-          
           <div className={styles.line}>
-            
-            <div className={styles.title}>{item.title}</div>            
-            <div className={styles.price}>Price</div>
+            <div className={styles.title}>{item.title}</div>
             <div className={styles.price}>{item.price}</div>
-            {/* <div className={styles.price}>{item.price}</div> */}
             
           </div>
           <div className={styles.line}>

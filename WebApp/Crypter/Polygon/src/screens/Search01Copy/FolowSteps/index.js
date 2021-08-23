@@ -2,10 +2,10 @@ import React from "react";
 import cn from "classnames";
 import styles from "./FolowSteps.module.sass";
 import Icon from "../../../components/Icon";
-import Loader from "../../../components/Loader";
+//import Loader from "../../../components/Loader";
 //import LoaderCircle from "../../../components/LoaderCircle";
 
-const FolowStepss = ({ className,onSub}) => {
+const FolowSteps = ({ className,onSub}) => {
   return (
     <div className={cn(className, styles.steps)}>
       {/* <h1>{test}</h1> */}
@@ -14,20 +14,16 @@ const FolowStepss = ({ className,onSub}) => {
         <div className={cn(styles.item, styles.done)}>
           <div className={styles.head}>
             <div className={styles.icon}>
-              {/* <Icon name="upload-file" size="24" /> */}
+              <Icon name="upload-file" size="24" />
             </div>
             <div className={styles.details}>
-              <div className={styles.info}>Loading........</div>              
+              <div className={styles.info}>Token Purchase successful !</div>      
             </div>
           </div>
           {/* <button type="submit" className={cn("button done", styles.button)} onClick={onSubmitNFT()}>Done</button> */}
-          {/* <button className={cn("button", styles.button)} onClick={onSub()}>Done</button> */}
+          <button className={cn("button", styles.button)} onClick={onSub()}>Done</button>
           {/* <button type="submit" onClick={()=>dones()}>Start nowss</button> */}
         </div>
-        <div className={styles.saving}>
-                  <span></span>
-                  <Loader className={styles.loader} />
-                </div>
         
           {/* <button className={cn("button disabled", styles.button)}>
             Start now
@@ -37,4 +33,4 @@ const FolowStepss = ({ className,onSub}) => {
   );
 };
 
-export default FolowStepss;
+export default FolowSteps;

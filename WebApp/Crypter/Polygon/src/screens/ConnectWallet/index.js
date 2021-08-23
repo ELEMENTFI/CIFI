@@ -35,13 +35,14 @@ const Connect = () => {
       color: "#9757D7",
       onclick:async()=>{        
         console.log("Metamask")
-        window.ethereum.enable();
+        //window.ethereum.enable();
         //const currProvider = window.web3.currentProvider;
       
         if(localStorage.getItem("wallet") === null){
           let accounts=await web3.eth.getAccounts();
         await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
+          //document.cookie = "loginstatus=loggedin";
           localStorage.setItem("wallet",accounts[0])
           
           let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
@@ -49,9 +50,11 @@ const Connect = () => {
     console.log("dateget",dateset)
     const db = refprofile.push().key;
     console.log("dbcheck",db)
+    
           refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbb"}).then(()=>{                      
           })                
          }).then(()=>{    
+          
           setIsOpen(true)        
          })        
         }
@@ -61,6 +64,13 @@ const Connect = () => {
         await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
           localStorage.setItem("wallet",accounts[0])
+          let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
+    let dateset=new Date().toDateString();
+    console.log("dateget",dateset)
+    const db = refprofile.push().key;
+    console.log("dbcheck",db)
+          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbb"}).then(()=>{                      
+          })                
           setIsOpen(true)        
         }).then(()=>{
         })        
@@ -140,7 +150,7 @@ const Connect = () => {
     //setIsOpen(false);
     history.push("/")
     window.location.reload();
-    window.location.reload();
+    //window.location.reload();
 
   }
   
