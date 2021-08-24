@@ -246,7 +246,7 @@ console.log("getlt",getImgreffalgobuy)
             <Slider className="collection-slider" {...settings}>
 
 {getImgreffalgobuy.map((x, index) => (
-  <Link className={styles.item} to={{pathname:`/profilecopy`,state:x.bid}}   key={index}>
+  <Link className={styles.item} to={{pathname:`/profilecopy`,state:{add:x.bid,team:x.team}}}   key={index}>
     
     <div className={styles.gallery}>
     <div className={styles.preview} key={index}>
@@ -274,7 +274,7 @@ console.log("getlt",getImgreffalgobuy)
           <img src={x.image} alt="Avatar" />          
         </div>
         <div className={styles.author}>        
-          By <span>{x.counter}</span>
+          By <span>{x.team}</span>
         </div>        
       </div>
       <div className={cn("status-stroke-black", styles.counter)}>

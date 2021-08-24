@@ -21,6 +21,34 @@ const User = ({ className, item }) => {
   //let getac="";
   let getalgo="";
   //let getname="";
+
+  const[getteamname,setgetteamname]=useState(null);
+  const[getaddress,setgetaddress]=useState(null);
+  const[getaddresslink,setgetaddresslink]=useState(null);
+  const addteamname=()=>{
+
+    if(localStorage.getItem("address") === null || localStorage.getItem("teamname") === null)
+  {}
+  else{
+
+//     if(localStorage.getItem("teamname") === "Atlanta Fire")
+// {
+
+// }
+    setgetteamname(localStorage.getItem("teamname"));
+    setgetaddress(localStorage.getItem("address"));
+    setgetaddresslink("https://mumbai.polygonscan.com/address/"+localStorage.getItem("address"))
+    console.log("ls1",localStorage.getItem("teamname"))
+    console.log("ls2",localStorage.getItem("address"))
+    console.log("ls3",getaddresslink)
+  }
+
+  }
+
+  useEffect(()=>{addteamname()},[])
+
+
+
   if(localStorage.getItem("wallet") === null)
   {
 
@@ -142,56 +170,80 @@ const User = ({ className, item }) => {
 
       <div className={cn(styles.user, className)}>
 
-      {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" ) ? 
+      {localStorage.getItem("teamname") === null || localStorage.getItem("teamname") === ""   ? 
         (
         <>
         <div className={styles.avatar}>            
 <img src="/images/logocifis.png" alt="Avatar" />
 </div>
         </>):(
-          <>
-                    { getprodata === "" || getprodata === null ? (
+<>
+          {localStorage.getItem("teamname") === "Morrisville Cardinals" ? (
 
 <div className={styles.avatar}>            
-<img src="/images/logocifis.png" alt="Avatar" />
+<img src="/images/MorrisviCardinals.png" alt="Avatar" />
 </div>
           ):(
-
             <>
-            {getprodata.profileurl === "" || getprodata.profileurl ==="" || getprodata.profileurl ==="aaa" ? (
-              <div className={styles.avatar}>            
-<img src="/images/logocifis.png" alt="Avatar" />
-</div>
-
-            ) :(
+            {localStorage.getItem("teamname") === "Atlanta Fire" ? (
 
               <div className={styles.avatar}>            
-              <img src={getprodata.profileurl} alt="Avatar" />
+              <img src="/images/AustinAthletics.png" alt="Avatar" />
               </div>
+              
+              
+                        ):(
+                          <>
+            {localStorage.getItem("teamname") === "Dc Hawks" ? (
 
-            )}
+              <div className={styles.avatar}>            
+              <img src="/images/DcHawks.png" alt="Avatar" />
+              </div>
+              
+              
+                        ):(
+              
+<>
+            {localStorage.getItem("teamname") === "Austin Athletics" ? (
 
-
+              <div className={styles.avatar}>            
+              <img src="/images/AustinAthletics.png" alt="Avatar" />
+              </div>
+              
+              
+                        ):(
+              
+                          <div className={styles.avatar}>            
+              <img src="/images/EastBayBlazers.png" alt="Avatar" />
+              </div>
+                          
+                        )}
+                        </>                          
+                        )}
 </>
-   
+              
+                          
+                        )}
+</>
+
+
           )}
+ </>
 
-
-          </>
-        )
-}
-          
-          
         
-        {getprodata === null || getprodata === "" ? (
+
+        )    
+}   
+        
+        {(localStorage.getItem("teamname") === null || localStorage.getItem("teamname") === "") ? (
           <div className={styles.name}>{"abcdedd"}</div>
 
         ):(
 
-          <div className={styles.name}>{getprodata.displayname}</div>
+          <div className={styles.name}>{localStorage.getItem("teamname")}</div>
         )}
         
-        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x") ? (
+        {(localStorage.getItem("address") === null || localStorage.getItem("address") === "") ? (
 
 <div className={styles.code}>
 <div className={styles.number}>{"0Xasdhaudhu"}....</div>
@@ -203,7 +255,7 @@ const User = ({ className, item }) => {
         ):(
 
           <div className={styles.code}>
-          <div className={styles.number}>{localStorage.getItem("wallet").slice(0,10)}....</div>
+          <div className={styles.number}>{localStorage.getItem("address").slice(0,10)}....</div>
           {/* <button className={styles.copy}>
             <Icon name="copy" size="16" />
           </button> */}
@@ -217,12 +269,12 @@ const User = ({ className, item }) => {
         </div>
         <a
           className={styles.site}
-          href="https://ui8.net"
+          href ={getaddresslink}
           target="_blank"
           rel="noopener noreferrer"
         >
           <Icon name="globe" size="16" />
-          <span>https://ui8.net</span>
+          <span>https://polygon//....</span>
         </a>
         <div className={styles.control}>
           <div className={styles.btns}>

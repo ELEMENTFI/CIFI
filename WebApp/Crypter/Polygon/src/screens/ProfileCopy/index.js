@@ -191,9 +191,9 @@ const followers = [
 
 const Profile = () => {
   const location = useLocation()
-  //const { data } = location.state
+  //const { data } = location.state.add.add
 
-  console.log("tdata",location.state)
+  console.log("tdata",location.state.add)
 
   const [Img,setImg] = useState("")
   const [buffer,setBuffer] = useState("");
@@ -225,7 +225,13 @@ const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
 console.log("getImgalgobuy",getImgreffalgobuy)
 
 
+const storelocal=()=>{
 
+  localStorage.setItem("address",location.state.add)
+  localStorage.setItem("teamname",location.state.team)
+  
+}
+useEffect(()=>{storelocal()},[])
 
 const dbcallalgolikes=async()=>{
   console.log("inside dbcallsalealgo function")
@@ -233,13 +239,12 @@ const dbcallalgolikes=async()=>{
   let req = [];
     
   if(localStorage.getItem("wallet") === null){
-
   }
   else{
 
     //let getalgo=localStorage.getItem("wallet");
 
-    let getalgo=location.state;
+    let getalgo=location.state.add;
   
     //let kreq =[];
     firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
@@ -297,7 +302,7 @@ const dbcallsalealgo=async()=>{
 
     //let getalgo=localStorage.getItem("wallet");
 
-    let getalgo=location.state;
+    let getalgo=location.state.add;
     
     //let kreq =[];
     firebase.database().ref("imagerefexplorepoly").child(getalgo).on("value", (data) => {
@@ -352,7 +357,7 @@ const dbcallalgo=async()=>{
   else{
 
     //let getalgo=localStorage.getItem("wallet");    
-    let getalgo=location.state;
+    let getalgo=location.state.add;
     //let kreq =[];
     firebase.database().ref("imagerefPoly").child(getalgo).on("value", (data) => {
       if (data) {
@@ -415,7 +420,7 @@ const dbcallalgobuy=async()=>{
   
     //let getalgo=localStorage.getItem("wallet");
 
-    let getalgo=location.state;
+    let getalgo=location.state.add;
     
     //let kreq =[];
     firebase.database().ref("imagerefpolybuy").child(getalgo).on("value", (data) => {
@@ -528,7 +533,7 @@ const setprofilephoto=()=>{
     }else{
 
       //let getalgo=localStorage.getItem("wallet");
-      let getalgo=location.state;
+      let getalgo=location.state.add;
   let ref=firebase.database().ref(`bgphoto/${getalgo}`);
   let dateset=new Date().toDateString();
   console.log("dateget",dateset)
@@ -615,10 +620,7 @@ const checkasset=async()=>{
       <div className={styles.body}>
         
         <div className={cn("container", styles.container)}>
-
-
-          
-          
+                      
           <User className={styles.user} item={socials} />
           
           <div className={styles.wrapper}>

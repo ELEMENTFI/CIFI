@@ -34,6 +34,10 @@ function App() {
 //     sessionStorage.setItem('wallet', 1);
 // }
 // window.addEventListener('wallet', clearStorage);
+//let acc =web3.eth.accounts.getAccounts();
+
+
+
   return (    
     <Router>
       <Switch>
