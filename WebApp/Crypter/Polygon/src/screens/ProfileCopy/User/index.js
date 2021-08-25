@@ -185,7 +185,7 @@ const User = ({ className, item }) => {
 </div>
           ):(
             <>
-            {localStorage.getItem("teamname") === "Atlanta Fire" ? (
+            {localStorage.getItem("teamname") === "Austin Athletics" ? (
 
               <div className={styles.avatar}>            
               <img src="/images/AustinAthletics.png" alt="Avatar" />
@@ -204,10 +204,10 @@ const User = ({ className, item }) => {
                         ):(
               
 <>
-            {localStorage.getItem("teamname") === "Austin Athletics" ? (
+            {localStorage.getItem("teamname") === "Golden State Grizzlies" ? (
 
               <div className={styles.avatar}>            
-              <img src="/images/AustinAthletics.png" alt="Avatar" />
+              <img src="/images/GoldenStateGrizzlies.png" alt="Avatar" />
               </div>
               
               

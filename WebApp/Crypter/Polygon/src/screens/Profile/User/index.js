@@ -180,9 +180,7 @@ const User = ({ className, item }) => {
           </>
         )
 }
-          
-          
-        
+                            
         {getprodata === null || getprodata === "" ? (
           <div className={styles.name}>{"abcdedd"}</div>
 
@@ -215,7 +213,32 @@ const User = ({ className, item }) => {
           A wholesome farm owner in Montana. Upcoming gallery solo show in
           Germany
         </div>
-        <a
+        {localStorage.getItem("walletpoly") === null || localStorage.getItem("walletpoly") === "0x" ? (
+          <a
+          className={styles.site}
+          href={localStorage.getItem("walletpoly")}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="globe" size="16" />
+          <span>{localStorage.getItem("walletpoly")}</span>
+        </a>
+
+        ):(
+          <>
+          
+          <a
+          className={styles.site}
+          href={localStorage.getItem("walletpoly")}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="globe" size="16" />
+          <span>{localStorage.getItem("walletpoly").slice(0,10)}...</span>
+        </a>
+</>
+        )}
+        {/* <a
           className={styles.site}
           href="https://ui8.net"
           target="_blank"
@@ -223,7 +246,8 @@ const User = ({ className, item }) => {
         >
           <Icon name="globe" size="16" />
           <span>https://ui8.net</span>
-        </a>
+        </a> */}
+        <br></br>
         <div className={styles.control}>
           <div className={styles.btns}>
             {/* <button

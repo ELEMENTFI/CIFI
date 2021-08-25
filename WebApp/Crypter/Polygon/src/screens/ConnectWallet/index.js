@@ -40,10 +40,11 @@ const Connect = () => {
       
         if(localStorage.getItem("wallet") === null){
           let accounts=await web3.eth.getAccounts();
-        await web3.eth.getAccounts().then(()=>{          
+          await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
           //document.cookie = "loginstatus=loggedin";
           localStorage.setItem("wallet",accounts[0])
+          localStorage.setItem("walletpoly",("https://mumbai.polygonscan.com/address/"+accounts[0]));
           
           let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
     let dateset=new Date().toDateString();
@@ -64,6 +65,7 @@ const Connect = () => {
         await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
           localStorage.setItem("wallet",accounts[0])
+          localStorage.setItem("walletpoly",("https://mumbai.polygonscan.com/address/"+null));
           let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
     let dateset=new Date().toDateString();
     console.log("dateget",dateset)
@@ -81,6 +83,7 @@ const Connect = () => {
         await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
           localStorage.setItem("wallet",accounts[0])
+          localStorage.setItem("walletpoly",("https://mumbai.polygonscan.com/address/"+accounts[0]));
           setIsOpen(true)        
         }).then(()=>{
         })

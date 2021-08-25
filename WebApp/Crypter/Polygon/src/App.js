@@ -15,9 +15,12 @@ import Item from "./screens/Item";
 import PageList from "./screens/PageList";
 import Search01Copy from "./screens/Search01Copy";
 import ProfileCopy from "./screens/ProfileCopy";
-
+//import React, { useState } from "react";
+//import Logins from "./components/Login";
+//import Profiles from "./components/Profiledisplay";
 
 function App() {
+  //const [addressaddshow,setaddressaddshow] = useState(false);
   //window.addEventListener("beforeunload", () => localStorage.removeItem('wallet'));
   //window.onbeforeunload = () => {
     //localStorage.removeItem('wallet');
@@ -39,6 +42,7 @@ function App() {
 
 
   return (    
+    // <>
     <Router>
       <Switch>
         <Route
@@ -174,6 +178,12 @@ function App() {
         />
       </Switch>
     </Router>
+//     {/* {addressaddshow ? (
+// <Profiles />
+//     ) : (
+// <Logins />
+//     )}
+//     </> */}
   );
 }
 
