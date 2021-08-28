@@ -11,7 +11,9 @@ import fireDb from "../../screens/../UploadDetails/firebase";
 const shareUrlFacebook = "https://ui8.net";
 const shareUrlTwitter = "https://ui8.net";
 
-const User = ({ className, item }) => {
+const User = ({ className, item,onSubs,onSub,onSubss}) => {
+
+  console.log("proitem",onSub,onSubs,onSubss)
   const[getprodata,setgetprodata]=useState([]);
   console.log("getprodata",getprodata)
   // const[getusername,setgetusername]=useState("");
@@ -22,24 +24,24 @@ const User = ({ className, item }) => {
   let getalgo="";
   //let getname="";
 
-  const[getteamname,setgetteamname]=useState(null);
-  const[getaddress,setgetaddress]=useState(null);
+  //const[getteamname,setgetteamname]=useState(null);
+  //const[getaddress,setgetaddress]=useState(null);
   const[getaddresslink,setgetaddresslink]=useState(null);
   const addteamname=()=>{
 
-    if(localStorage.getItem("address") === null || localStorage.getItem("teamname") === null)
+    if(onSubss === null || onSub === null)
   {}
   else{
 
-//     if(localStorage.getItem("teamname") === "Atlanta Fire")
+//     if(onSub === "Atlanta Fire")
 // {
 
 // }
-    setgetteamname(localStorage.getItem("teamname"));
-    setgetaddress(localStorage.getItem("address"));
-    setgetaddresslink("https://mumbai.polygonscan.com/address/"+localStorage.getItem("address"))
-    console.log("ls1",localStorage.getItem("teamname"))
-    console.log("ls2",localStorage.getItem("address"))
+    //setgetteamname(onSub);
+    //setgetaddress(localStorage.getItem("address"));
+    setgetaddresslink("https://mumbai.polygonscan.com/address/"+onSub)
+    console.log("ls1",onSub)
+    //console.log("ls2",localStorage.getItem("address"))
     console.log("ls3",getaddresslink)
   }
 
@@ -170,7 +172,7 @@ const User = ({ className, item }) => {
 
       <div className={cn(styles.user, className)}>
 
-      {localStorage.getItem("teamname") === null || localStorage.getItem("teamname") === ""   ? 
+      { onSubs === null || onSubs === "" || onSubs === undefined || onSubs === " "  ? 
         (
         <>
         <div className={styles.avatar}>            
@@ -178,72 +180,23 @@ const User = ({ className, item }) => {
 </div>
         </>):(
 <>
-          {localStorage.getItem("teamname") === "Morrisville Cardinals" ? (
-
 <div className={styles.avatar}>            
-<img src="/images/MorrisviCardinals.png" alt="Avatar" />
+<img src={onSubs} alt="Avatar" />
 </div>
-          ):(
-            <>
-            {localStorage.getItem("teamname") === "Austin Athletics" ? (
 
-              <div className={styles.avatar}>            
-              <img src="/images/AustinAthletics.png" alt="Avatar" />
-              </div>
-              
-              
-                        ):(
-                          <>
-            {localStorage.getItem("teamname") === "Dc Hawks" ? (
-
-              <div className={styles.avatar}>            
-              <img src="/images/DcHawks.png" alt="Avatar" />
-              </div>
-              
-              
-                        ):(
-              
-<>
-            {localStorage.getItem("teamname") === "Golden State Grizzlies" ? (
-
-              <div className={styles.avatar}>            
-              <img src="/images/GoldenStateGrizzlies.png" alt="Avatar" />
-              </div>
-              
-              
-                        ):(
-              
-                          <div className={styles.avatar}>            
-              <img src="/images/EastBayBlazers.png" alt="Avatar" />
-              </div>
-                          
-                        )}
-                        </>                          
-                        )}
-</>
-              
-                          
-                        )}
-</>
-
-
-          )}
- </>
-
-        
-
+           </>
         )    
 }   
         
-        {(localStorage.getItem("teamname") === null || localStorage.getItem("teamname") === "") ? (
+        {(onSubss === null || onSubss === "" || onSubss === undefined || onSubss === " ") ? (
           <div className={styles.name}>{"abcdedd"}</div>
 
         ):(
 
-          <div className={styles.name}>{localStorage.getItem("teamname")}</div>
+          <div className={styles.name}>{onSubss}</div>
         )}
         
-        {(localStorage.getItem("address") === null || localStorage.getItem("address") === "") ? (
+        {(onSub === null || onSub === "" || onSub === " " || onSub === undefined)  ? (
 
 <div className={styles.code}>
 <div className={styles.number}>{"0Xasdhaudhu"}....</div>
@@ -255,7 +208,7 @@ const User = ({ className, item }) => {
         ):(
 
           <div className={styles.code}>
-          <div className={styles.number}>{localStorage.getItem("address").slice(0,10)}....</div>
+          <div className={styles.number}>{onSub.slice(0,10)}....</div>
           {/* <button className={styles.copy}>
             <Icon name="copy" size="16" />
           </button> */}

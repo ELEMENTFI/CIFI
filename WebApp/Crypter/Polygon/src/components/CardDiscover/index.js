@@ -65,7 +65,7 @@ const CardDiscover = ({ className, item }) => {
       ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
       previousoaddress:item.previousaddress,datesets:item.date,
       description:item.description,whois:'likes',history:item.url,paramsdb:item.image2x,privatekey:item.category,league:item.league,
-      team:item.team
+      team:item.team,type:item.type,dimen:item.dimen,teamlogo:item.teamlogo,      
         }).then(()=>{
         setVisible(!visible)
         window.location.reload(false)   

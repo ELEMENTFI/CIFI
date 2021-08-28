@@ -91,6 +91,70 @@ console.log("getlt",getImgreffalgobuy)
     ],
   };
 
+
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+
+      let req = [];
+  
+    // if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+  
+    // }
+    //else{
+  
+    
+//      let getalgo=localStorage.getItem("wallet");
+      
+      //let kreq =[];
+      firebase.database().ref("imagerefPolylt").on("value", (data) => {
+          
+        if (data) {
+          data.forEach((d) => {
+            //console.log("keycheck",d.key)
+            let value=d.val();
+            req.push(
+              
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )
+  
+            //image:images/content/card-pic-1.jpg
+            //image2x: "/images/content/card-pic-1@2x.jpg",
+  
+            //req.push(d.key)          
+          });        
+        }
+        setgetImgreffalgobuy(req);  
+      });
+      
+    };
+    fetchPosts();
+  }, []);
+
   const dbcallalgobuy=async()=>{
     console.log("inside dbcallalgobuy function")
     
@@ -128,6 +192,9 @@ console.log("getlt",getImgreffalgobuy)
                 url: value.history,
                 league:value.league,
                 team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",
@@ -144,7 +211,7 @@ console.log("getlt",getImgreffalgobuy)
           });        
         }
       });
-      setgetImgreffalgobuy(req);
+      //setgetImgreffalgobuy(req);
     
     
     //console.log("acc",getalgo)
@@ -246,7 +313,7 @@ console.log("getlt",getImgreffalgobuy)
             <Slider className="collection-slider" {...settings}>
 
 {getImgreffalgobuy.map((x, index) => (
-  <Link className={styles.item} to={{pathname:`/profilecopy`,state:{add:x.bid,team:x.team}}}   key={index}>
+  <Link className={styles.item} to={{pathname:`/profilecopy`,state:{add:x.bid,team:x.team,logo:x.teamlogo}}}   key={index}>
     
     <div className={styles.gallery}>
     <div className={styles.preview} key={index}>

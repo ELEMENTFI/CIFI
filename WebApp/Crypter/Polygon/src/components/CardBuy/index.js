@@ -64,8 +64,9 @@ const CardBuy = ({ className, item }) => {
       userName:item.counter,userSymbol:"MATICMUM",ipfsUrl:item.image,
       ownerAddress:accounts[0],soldd:"",extra1:"ready to sold",
       previousoaddress:"",datesets:new Date().toDateString(),
-      description:"",whois:'likes',  league:item.league,
-      team:item.team
+      description:"",whois:'likes',league:item.league,
+      team:item.team,type:item.type,dimen:item.dimen,
+      teamlogo:item.teamlogo,      
       }).then(()=>{
         setVisible(!visible)
         window.location.reload(false)   
@@ -178,8 +179,8 @@ useEffect(()=>{usernameget()},[])
             keyId:item.highestBid,userName:item.counter,
             userSymbol:"MATICMUM",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
-            datesets:new Date().toDateString(),whois:'Buyers',league:item.league,
-            team:item.team}).then(()=>{
+            datesets:new Date().toDateString(),whois:'Buyers',league:item.league,type:item.type,teamlogo:item.teamlogo,      
+            team:item.team,dimen:item.dimen,}).then(()=>{
               setIsOpenss(false)
               setIsOpens(true)
               
@@ -202,8 +203,8 @@ useEffect(()=>{usernameget()},[])
             keyId:item.highestBid,userName:item.counter,
             userSymbol:"MATICMUM",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
-            datesets:new Date().toDateString(),whois:'Buyers',league:item.league,
-            team:item.team}).then(()=>{
+            datesets:new Date().toDateString(),whois:'Buyers',league:item.league,teamlogo:item.teamlogo,      
+            team:item.team,type:item.type,dimen:item.dimen}).then(()=>{
               setIsOpenss(false)
               setIsOpens(true)
               

@@ -88,6 +88,8 @@ const Search = (props) => {
                 url: a[b].history,
                 league:a[b].league,
                 team:a[b].team,
+                dimen:a[b].dimen,
+                teamlogo:a[b].teamlogo,      
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",

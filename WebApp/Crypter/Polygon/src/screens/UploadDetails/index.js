@@ -69,6 +69,9 @@ const Upload = () => {
   //const directionOptions = ["Sellers", "Buyers"];
 
   const [selected, setSelected] = React.useState("Minor League");
+  const [selectedImg, setSelectedImg] = React.useState("");
+
+  console.log("Selec",selectedImg)
 
   const changeSelectOptionHandler = (event) => {
     setSelected(event.target.value);
@@ -79,10 +82,116 @@ const Upload = () => {
   const [selected2, setSelected2] = React.useState("Atlanta Fire");
 
   const changeSelectOptionHandler2 = (event) => {
-    setSelected2(event.target.value);
+    if(event.target.value === "Atlanta Fire")
+    {
+      setSelected2("Atlanta Fire");
+      setSelectedImg("/images/AtlantaFire.png");
+    }else if(event.target.value === "Atlanta Param Veers"){
+      setSelected2("Atlanta Param Veers");
+      setSelectedImg("/images/AtlantaParamVeers.png");
+    }else if(event.target.value === "Florida Beamers"){
+      setSelected2("Florida Beamers");
+      setSelectedImg("/images/FloridaBeamers.png");
+    }else if(event.target.value === "Ft. Lauderdale Lions"){
+      setSelected2("Ft. Lauderdale Lions");
+      setSelectedImg("/images/FT.LauderdaleLions.png");
+    }else if(event.target.value === "Morrisville Cardinals"){
+      setSelected2("Morrisville Cardinals");
+      setSelectedImg("/images/MorrisviCardinals.png");
+    }else if(event.target.value === "Orlando Galaxy"){
+      setSelected2("Orlando Galaxy");
+      setSelectedImg("/images/OrlandoGalaxy.png");
+    }else if(event.target.value === "DC Hawks"){
+      setSelected2("DC Hawks");
+      setSelectedImg("/images/DcHawks.png");
+    }else if(event.target.value === "Empire State Titans"){
+      setSelected2("Empire State Titans");
+      setSelectedImg("/images/EmpireStateTitans.png");
+    }else if(event.target.value === "Manhattan Yorkers"){
+      setSelected2("Manhattan Yorkers");
+      setSelectedImg("/images/ManhattanYorkers.png");
+    }else if(event.target.value === "New England Eagles"){
+      setSelected2("New England Eagles");
+      setSelectedImg("/images/NewEnglandEagles.png");
+    }else if(event.target.value === "New Jersey Somerset Cavaliers"){
+      setSelected2("New Jersey Somerset Cavaliers");
+      setSelectedImg("/images/NewJerseySomersetCavaliers.png");
+    }else if(event.target.value === "New Jersey Stallions"){
+      setSelected2("New Jersey Stallions");
+      setSelectedImg("/images/NewJerseyStallions.png");
+    }else if(event.target.value === "The Philadelphians"){
+      setSelected2("The Philadelphians");
+      setSelectedImg("/images/ThePhiladelphians.png");
+    }else if(event.target.value === "Austin Athletics"){
+      setSelected2("Austin Athletics");
+      setSelectedImg("/images/AustinAthletics.png");
+    }else if(event.target.value === "Chicago Blasters"){
+      setSelected2("Chicago Blasters");
+      setSelectedImg("/images/ChicagoBlasters.png");
+    }else if(event.target.value === "Chicago Catchers"){
+      setSelected2("Chicago Catchers");
+      setSelectedImg("/images/ChicagoCatchers.png");
+    }else if(event.target.value === "Houston Hurricanes"){
+      setSelected2("Houston Hurricanes");
+      setSelectedImg("/images/HoustonHurricanes.png");
+    }else if(event.target.value === "Irving Mustangs"){
+      setSelected2("Irving Mustangs");
+      setSelectedImg("/images/IrvingMustangs.png");
+    }else if(event.target.value === "Michigan Cricket Stars"){
+      setSelected2("Michigan Cricket Stars");
+      setSelectedImg("/images/MichiganCricketStars.png");
+    }else if(event.target.value === "St. Louis Americans"){
+      setSelected2("St. Louis Americans");
+      setSelectedImg("/images/ST.LouisAmericans.png");
+    }else if(event.target.value === "East Bay Blazers"){
+      setSelected2("East Bay Blazers");
+      setSelectedImg("/images/EastBayBlazers.png");
+    }else if(event.target.value === "Golden State Grizzlies"){
+      setSelected2("Golden State Grizzlies");
+      setSelectedImg("/images/GoldenStateGrizzlies.png");
+    }else if(event.target.value === "Hollywood Master Blasters"){
+      setSelected2("Hollywood Master Blasters");
+      setSelectedImg("/images/HollywoodMasterBlasters.png");
+    }else if(event.target.value === "San Diego Surf Riders"){
+      setSelected2("San Diego Surf Riders");
+      setSelectedImg("/images/SanDiegoSurfRiders.png");
+    }else if(event.target.value === "Seattle Thunderbolts"){
+      setSelected2("Seattle Thunderbolts");
+      setSelectedImg("/images/SeattleThunderBolts.png");
+    }else if(event.target.value === "Silicon Valley Strikers"){
+      setSelected2("Silicon Valley Strikers");
+      setSelectedImg("/images/SiliconValleyStrikers.png");
+    }else if(event.target.value === "Socal Lashings"){
+      setSelected2("Socal Lashings");
+      setSelectedImg("/images/SocalLashings.png");
+    }
+    else{
+      setSelected2("Others");
+      setSelectedImg("");
+    }
+    
   };
 
   console.log("Sel2",selected2)
+
+
+  const [selected3, setSelected3] = React.useState("Award");
+
+  const changeSelectOptionHandler3 = (event) => {
+    setSelected3(event.target.value);
+  };
+
+  console.log("Sel2",selected2)
+
+  const [selected4, setSelected4] = React.useState("2D");
+
+  const changeSelectOptionHandler4 = (event) => {
+    setSelected4(event.target.value);
+  };
+
+  console.log("Sel4",selected4)
+
+  
 
 
   // const actionsextra = [
@@ -1835,11 +1944,12 @@ const dbstore=async()=>{
                       const db2 = ref22.push().key;                         
                       console.log("dbcheck",db)
                       ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,
-                      ipfsUrl:Img,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',league:selected,team:selected2})
+                      ipfsUrl:Img,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',league:selected,team:selected2,type:selected3,
+                      teamlogo:selectedImg,dimen:selected4})
                       .then(()=>{
 
                       ref22.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,
-                      ipfsUrl:Img,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',league:selected,team:selected2})
+                      ipfsUrl:Img,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',league:selected,team:selected2,type:selected3,teamlogo:selectedImg,dimen:selected4})
                       .then(()=>{
                         setIsOpens(false)
                       setIsOpen(true);
@@ -1959,7 +2069,7 @@ const callof=()=>{
               {/* /> */}
 
 <div className={styles.fieldset} >
-<select onChange={changeSelectOptionHandler} style={{width:"815px"}}>
+<select onChange={changeSelectOptionHandler} style={{width:"100%"}}>
             <option value='Minor League'>Minor League</option>
             <option value='Major League'>Major League</option>
             <option value='Triangle League'>Triangle League</option>
@@ -1969,13 +2079,13 @@ const callof=()=>{
 </div>
 
 <div className={styles.fieldset} >
-<select onChange={changeSelectOptionHandler2} style={{width:"815px"}}>
+<select onChange={changeSelectOptionHandler2} style={{width:"100%"}}>
             <option value='Atlanta Fire'>Atlanta Fire</option>
             <option value='Atlanta Param Veers'>Atlanta Param Veers</option>
             <option value='Florida Beamers'>Florida Beamers</option>
             <option value='Ft. Lauderdale Lions'>Ft. Lauderdale Lions</option>
             <option value='Morrisville Cardinals'>Morrisville Cardinals</option>
-            <option value='Major League'>Orlando Galaxy</option>
+            <option value='Orlando Galaxy'>Orlando Galaxy</option>
             <option value='DC Hawks'>DC Hawks</option>
             <option value='Empire State Titans'>Empire State Titans</option>
             <option value='Manhattan Yorkers'>Manhattan Yorkers</option>
@@ -1998,6 +2108,22 @@ const callof=()=>{
             <option value='Silicon Valley Strikers'>Silicon Valley Strikers</option>
             <option value='Socal Lashings'>Socal Lashings</option>            
             <option value='Others'>Others</option>
+          </select>
+</div>
+
+<div className={styles.fieldset} >
+<select onChange={changeSelectOptionHandler3} style={{width:"100%"}}>
+            <option value='Award'>Award</option>
+            <option value='Trophy'>Trophy</option>
+            <option value='Player'>Player</option>
+            <option value='Others'>Others</option>
+          </select>
+</div>
+
+<div className={styles.fieldset} >
+<select onChange={changeSelectOptionHandler4} style={{width:"100%"}}>
+            <option value='2D'>2D</option>
+            <option value='3D'>3D</option>
           </select>
 </div>
 

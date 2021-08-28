@@ -260,6 +260,9 @@ const directionOptions = ["Sellers", "Buyers"];
 
   //buyers
 
+
+
+  
   const dbcallalgobuy=async()=>{
     //console.log("inside dbcallalgobuy function")
     let req2 = [];//imagerefexplore//
@@ -297,6 +300,7 @@ const directionOptions = ["Sellers", "Buyers"];
                 url: a[b].datesets,
                 league:a[b].league,
               team:a[b].team,
+              type:a[b].type,
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",
@@ -351,6 +355,7 @@ const directionOptions = ["Sellers", "Buyers"];
                 url: a[b].datesets,
                 league:a[b].league,
                 team:a[b].team,
+                type:a[b].type,
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",

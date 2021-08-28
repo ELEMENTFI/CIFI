@@ -193,7 +193,10 @@ const Profile = () => {
   const location = useLocation()
   //const { data } = location.state.add.add
 
-  console.log("tdata",location.state.add)
+  console.log("tdataprint",location.state.add)
+
+  console.log("profileimage",location.state.logo)
+  
 
   const [Img,setImg] = useState("")
   const [buffer,setBuffer] = useState("");
@@ -238,7 +241,7 @@ const dbcallalgolikes=async()=>{
   
   let req = [];
     
-  if(localStorage.getItem("wallet") === null){
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
   }
   else{
 
@@ -247,7 +250,7 @@ const dbcallalgolikes=async()=>{
     let getalgo=location.state.add;
   
     //let kreq =[];
-    firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagereflikes").child(location.state.add).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -269,6 +272,9 @@ const dbcallalgolikes=async()=>{
               url: value.history,
               league:value.league,
               team:value.team,
+              type:value.type,
+              teamlogo:value.teamlogo,
+              dimen:value.dimen,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -296,16 +302,16 @@ const dbcallsalealgo=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
-
-  }else{
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  }
+  else{
 
     //let getalgo=localStorage.getItem("wallet");
 
-    let getalgo=location.state.add;
+    //let getalgo=location.state.add;
     
     //let kreq =[];
-    firebase.database().ref("imagerefexplorepoly").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefexplorepoly").child(location.state.add).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -326,6 +332,9 @@ const dbcallsalealgo=async()=>{
               url: value.history,
               league:value.league,
               team:value.team,
+              type:value.type,
+              teamlogo:value.teamlogo,
+              dimen:value.dimen,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -351,15 +360,14 @@ const dbcallalgo=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
-
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
   }
   else{
 
     //let getalgo=localStorage.getItem("wallet");    
-    let getalgo=location.state.add;
+    //let getalgo=location.state.add;
     //let kreq =[];
-    firebase.database().ref("imagerefPoly").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefPoly").child(location.state.add).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -381,6 +389,9 @@ const dbcallalgo=async()=>{
               url: value.history,
               league:value.league,
               team:value.team,
+              type:value.type,
+              teamlogo:value.teamlogo,
+              dimen:value.dimen,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -412,18 +423,17 @@ const dbcallalgobuy=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
-
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
   }
   else{
 
   
     //let getalgo=localStorage.getItem("wallet");
 
-    let getalgo=location.state.add;
+    //let getalgo=location.state.add;
     
     //let kreq =[];
-    firebase.database().ref("imagerefpolybuy").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefpolybuy").child(location.state.add).on("value", (data) => {
 
       
       if (data) {
@@ -447,6 +457,9 @@ const dbcallalgobuy=async()=>{
               url: value.history,
               league:value.league,
               team:value.team,
+              type:value.type,
+              teamlogo:value.teamlogo,
+              dimen:value.dimen,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -499,11 +512,11 @@ const getbg=()=>{
 
   
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
+    if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
   
     }else{
 
-      let getalgo=localStorage.getItem("wallet");
+      //let getalgo=localStorage.getItem("wallet");
 
       let req=[];
   // firebase.database().ref("bgphoto").child(getalgo).on("value", (data) => {
@@ -528,18 +541,17 @@ const setprofilephoto=()=>{
   console.log("inside setprofilephoto function")
   
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
-  
-    }else{
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  }else{
 
       //let getalgo=localStorage.getItem("wallet");
-      let getalgo=location.state.add;
-  let ref=firebase.database().ref(`bgphoto/${getalgo}`);
+      //let getalgo=location.state.add;
+  let ref=firebase.database().ref(`bgphoto/${location.state.add}`);
   let dateset=new Date().toDateString();
   console.log("dateget",dateset)
   const db = ref.push().key;                       
   console.log("dbcheck",db)
-  ref.child("bg").set({bgurl:Img,datesets:dateset,dbkey:db,ownaddress:getalgo}).then(()=>{
+  ref.child("bg").set({bgurl:Img,datesets:dateset,dbkey:db,ownaddress:location.state.add}).then(()=>{
     setVisible(true)
     window.location.reload(false)
 
@@ -568,7 +580,10 @@ const checkasset=async()=>{
 }
   return (
     <div className={styles.profile}>
-      <div
+         
+      {location.state.logo === "" || location.state.logo === null || location.state.logo === undefined || location.state.logo === " "? ( 
+        <>
+        <div
         className={cn(styles.head, { [styles.active]: visible })}                        
         style={{
   backgroundImage: "url(/images/content/bg-profile.jpg)",
@@ -617,11 +632,76 @@ const checkasset=async()=>{
           </div>
         </div>
       </div>
-      <div className={styles.body}>
+ 
+        </>
+      ):(
+
+        <>
+
+<div
+        className={cn(styles.head, { [styles.active]: visible })}                        
+        style={{
+  //backgroundImage: url(location.state.logo),
+
+  //src : location.state.logo
+
+  backgroundImage : `url(${location.state.logo})`
+
+  
+  //url:getcover
+}}
+      >
+
+        {/* <img src="/images/content/avatar-1.jpg" alt="Avatar" /> */}
+        {/* <img src={getcover} alt="Avatar" /> */}
+        {/* /images/content/bg-profile.jpg */}
+        <div className={cn("container", styles.container)}>
+          <div className={styles.btns}>
+            <button
+              className={cn("button-stroke button-small", styles.button)}
+              onClick={() => setVisible(true)}
+            >
+              {/*  */}
+              <span>Edit cover photo</span>
+              <Icon name="edit" size="16" />
+            </button>
+            <Link
+              className={cn("button-stroke button-small", styles.button)}
+              to="profile-edit"
+            >
+              <span>Edit profile</span>
+              <Icon name="image" size="16" />
+            </Link>
+          </div>
+
+          <div className={styles.file}>
+            {/* <input type="file" /> */}
+            <input 
+             name="tfile" id="fileid" type = "file" onChange = {captureFile} required />
+
+            <div className={styles.wrap}>
+              <Icon name="upload-file" size="48" />
+              <div className={styles.info}>Drag and drop your photo here</div>
+              <div className={styles.text}>or click to browse</div>
+            </div>
+            <button
+              className={cn("button-small", styles.button)}
+              onClick={() => setprofilephoto()}
+            >
+              Save photo
+            </button>
+          </div>
+        </div>
+      </div>
+ 
+        
+        </>
+       )}
+        <div className={styles.body}>
         
         <div className={cn("container", styles.container)}>
                       
-          <User className={styles.user} item={socials} />
+          <User className={styles.user} item={socials} onSub={location.state.add} onSubs={location.state.logo} onSubss={location.state.team}/>
           
           <div className={styles.wrapper}>
             <div className={styles.nav}>                          

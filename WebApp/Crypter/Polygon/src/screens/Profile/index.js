@@ -256,6 +256,9 @@ const dbcallalgolikes=async()=>{
               url: value.history,
               league:value.league,
               team:value.team,
+              type:value.type,
+              dimen:value.dimen,
+              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -275,6 +278,53 @@ const dbcallalgolikes=async()=>{
 }
 
 useEffect(()=>{dbcallalgolikes()},[])
+
+
+// useEffect(() => {
+//   const fetchPosts = async () => {
+
+//     let getalgo=localStorage.getItem("wallet");
+  
+//     let req =[];
+//     firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
+//       if (data) {
+//         data.forEach((d) => {
+//           //console.log("keycheck",d.key)
+//           let value=d.val();
+//           req.push(
+            
+//             {
+//               title: value.id,
+//               price: value.priceSet,
+//               highestBid: value.keyId,
+//               counter:value.userName ,
+//               //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+//               bid:value.ownerAddress,
+//               image: value.imageUrl,
+//               image2x: value.imageUrl,
+//               category: "green",
+//               categoryText: value.cAddress,
+//               //purchasing !
+//               url: value.history,
+//               league:value.league,
+//               team:value.team,
+//               users: [                
+//                 {
+//                   avatar: "/images/content/avatar-4.jpg",
+//                 },
+//               ],
+//             },
+          
+//           )
+//         });        
+//       }
+      
+//     });
+    
+//   };
+
+//   fetchPosts();
+// }, []);
 
 
 
@@ -311,6 +361,9 @@ const dbcallsalealgo=async()=>{
               url: value.history,
               league:value.league,
               team:value.team,
+              type:value.type,
+              dimen:value.dimen,
+              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -365,6 +418,9 @@ const dbcallalgo=async()=>{
               url: value.history,
               league:value.league,
               team:value.team,
+              type:value.type,
+              dimen:value.dimen,
+              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -429,6 +485,9 @@ const dbcallalgobuy=async()=>{
               url: value.history,
               league:value.league,
               team:value.team,
+              type:value.type,
+              dimen:value.dimen,
+              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -547,6 +606,17 @@ const checkasset=async()=>{
   //   refprofile.set({profileurl:"https://",displayname:"demo",http:"https://",Bio:"dem",social:"https://",Twitter:"https://",address:"dem",dbkey:db,username:"demo"});
 
 }
+
+// const checkaddress=(y)=>{
+
+//     //console.log("checkasset inside")  
+//     //let url="https://mumbai.polygonscan.com/address/"+y;
+//     //0xa9CBD39dfA719BA4f713B03dd0F8345Cc2c934dA
+    
+
+//   }
+
+
   return (
     <div className={styles.profile}>
       <div
@@ -616,6 +686,9 @@ const checkasset=async()=>{
             >
               check
             </button> */}
+{/* <h5 style={{cursor:"pointer"}} onClick={e => window.open("https://www.youtube.com/")}>Contract Addres</h5> */}
+
+{/* <h1 onClick={}>Click Me</h1> */}
               
               {navLinks.map((x, index) => (
                 <button
