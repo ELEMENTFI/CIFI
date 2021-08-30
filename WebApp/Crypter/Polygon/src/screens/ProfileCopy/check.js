@@ -11,7 +11,8 @@ import Followers from "./Followers";
 import firebase from "../UploadDetails/firebase";
 //import web3 from '../UploadDetails/web3';
 import Compress from "react-image-file-resizer";
-import Itemssss from "../ProfileCopy/Itemssss";
+import { useLocation } from "react-router-dom";
+import Itemssss from "./Itemssss";
 //import axios from 'axios';
 
 // data
@@ -23,7 +24,7 @@ const navLinks = [
   "Collectibles",
   "Created",
   "Likes",
-  "Collection",
+  "Fall"
 ];
 
 // "Following",
@@ -190,7 +191,15 @@ const followers = [
   },
 ];
 
-const Profile = () => {
+const Check = () => {
+  const location = useLocation()
+  //const { data } = location.state.add.add
+
+  console.log("tdataprint",location.state.add)
+
+  console.log("profileimage",location.state.logo)
+  
+
   const [Img,setImg] = useState("")
   const [buffer,setBuffer] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -220,304 +229,30 @@ console.log("getImgalgolikes",getImgreffalgolikes)
 const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
 console.log("getImgalgobuy",getImgreffalgobuy)
 
-const[getCollection,setgetCollection]=useState([]);
-console.log("getCollection",getCollection)
-const[getCollection2,setgetCollection2]=useState([]);
-console.log("getCollection2",getCollection2)
 
-const[getCollection3,setgetCollection3]=useState([]);
-console.log("getCollection3",getCollection3)
-const[getCollection4,setgetCollection4]=useState([]);
-console.log("getCollection4",getCollection4)
+const storelocal=()=>{
 
-
-const dbcollection=async()=>{
-  console.log("inside dbcallalgo function")
+  localStorage.setItem("address",location.state.add)
+  localStorage.setItem("teamname",location.state.team)
   
-  let req = [];
-
-  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet")  === undefined){
-  }
-  else{
-
-    //let getalgo=localStorage.getItem("wallet");    
-    //let getalgo=localStorage.getItem("wallet") ;
-    //let kreq =[];
-    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
-      if (data) {
-        data.forEach((d) => {
-          let value=d.val();
-          console.log("keycheckCollection",value.type)
-
-          if(value.type === "Player")
-          {
-            req.push(
-            
-              {
-                title: value.id,
-                price: value.priceSet,
-                highestBid: value.keyId,
-                counter:value.userName ,
-                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                bid:value.ownerAddress,
-                image: value.imageUrl,
-                image2x:value.paramsdb,
-                category: value.privatekey,
-                categoryText: value.cAddress,
-                //purchasing !
-                url: value.history,
-                league:value.league,
-                team:value.team,
-                type:value.type,
-                teamlogo:value.teamlogo,
-                dimen:value.dimen,
-                users: [                
-                  {
-                    avatar: "/images/content/avatar-4.jpg",
-                  },
-                ],
-              },
-            
-            )  
-            
-          }                    
-        });        
-      }
-    });
-    setgetCollection(req);
-  }
-  //console.log("acc",getalgo)
-  //image:images/content/card-pic-1.jpg
-          //image2x: "/images/content/card-pic-1@2x.jpg",
-
-          //req.push(d.key)          
-
 }
-
-useEffect(()=>{dbcollection()},[])
-
-//
-
-const dbcollection2=async()=>{
-  console.log("inside dbcallalgo function")
-  
-  let req = [];
-
-  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet")  === undefined){
-  }
-  else{
-
-    //let getalgo=localStorage.getItem("wallet");    
-    //let getalgo=localStorage.getItem("wallet") ;
-    //let kreq =[];
-    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
-      if (data) {
-        data.forEach((d) => {
-          let value=d.val();
-          console.log("keycheckCollection",value.type)
-
-          if (value.type === "Award")
-          {
-            req.push(
-            
-              {
-                title: value.id,
-                price: value.priceSet,
-                highestBid: value.keyId,
-                counter:value.userName ,
-                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                bid:value.ownerAddress,
-                image: value.imageUrl,
-                image2x:value.paramsdb,
-                category: value.privatekey,
-                categoryText: value.cAddress,
-                //purchasing !
-                url: value.history,
-                league:value.league,
-                team:value.team,
-                type:value.type,
-                teamlogo:value.teamlogo,
-                dimen:value.dimen,
-                users: [                
-                  {
-                    avatar: "/images/content/avatar-4.jpg",
-                  },
-                ],
-              },
-            
-            )  
-            
-          }                    
-        });        
-      }
-    });
-    setgetCollection2(req);
-  }
-  //console.log("acc",getalgo)
-  //image:images/content/card-pic-1.jpg
-          //image2x: "/images/content/card-pic-1@2x.jpg",
-
-          //req.push(d.key)          
-
-}
-
-useEffect(()=>{dbcollection2()},[])
-
-
-//
-
-
-//
-const dbcollection3=async()=>{
-  console.log("inside dbcallalgo function")
-  
-  //let req = [];
-
-  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet")  === undefined){
-  }
-  else{
-
-    //let getalgo=localStorage.getItem("wallet");    
-    //let getalgo=localStorage.getItem("wallet") ;
-    let kreq3 =[];
-    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
-      if (data) {
-        data.forEach((d) => {
-          let value=d.val();
-          console.log("keycheckCollection",value.type)
-
-          if (value.type === "Trophy")
-          {
-            kreq3.push(
-            
-              {
-                title: value.id,
-                price: value.priceSet,
-                highestBid: value.keyId,
-                counter:value.userName ,
-                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                bid:value.ownerAddress,
-                image: value.imageUrl,
-                image2x:value.paramsdb,
-                category: value.privatekey,
-                categoryText: value.cAddress,
-                //purchasing !
-                url: value.history,
-                league:value.league,
-                team:value.team,
-                type:value.type,
-                teamlogo:value.teamlogo,
-                dimen:value.dimen,
-                users: [                
-                  {
-                    avatar: "/images/content/avatar-4.jpg",
-                  },
-                ],
-              },
-            
-            )  
-            
-          }                    
-        });        
-      }
-    });
-    setgetCollection3(kreq3);
-  }
-  //console.log("acc",getalgo)
-  //image:images/content/card-pic-1.jpg
-          //image2x: "/images/content/card-pic-1@2x.jpg",
-
-          //req.push(d.key)          
-
-}
-
-useEffect(()=>{dbcollection3()},[])
-
-
-
-//
-
-const dbcollection4=async()=>{
-  console.log("inside dbcallalgo function")
-  
-  //let req = [];
-
-  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet")  === undefined){
-  }
-  else{
-
-    //let getalgo=localStorage.getItem("wallet");    
-    //let getalgo=localStorage.getItem("wallet") ;
-    let kreq4 =[];
-    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
-      if (data) {
-        data.forEach((d) => {
-          let value=d.val();
-          console.log("keycheckCollection",value.type)
-
-          if (value.type === "Others")
-          {
-            kreq4.push(
-            
-              {
-                title: value.id,
-                price: value.priceSet,
-                highestBid: value.keyId,
-                counter:value.userName ,
-                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                bid:value.ownerAddress,
-                image: value.imageUrl,
-                image2x:value.paramsdb,
-                category: value.privatekey,
-                categoryText: value.cAddress,
-                //purchasing !
-                url: value.history,
-                league:value.league,
-                team:value.team,
-                type:value.type,
-                teamlogo:value.teamlogo,
-                dimen:value.dimen,
-                users: [                
-                  {
-                    avatar: "/images/content/avatar-4.jpg",
-                  },
-                ],
-              },
-            
-            )  
-            
-          }                    
-        });        
-      }
-    });
-    setgetCollection4(kreq4);
-  }
-  //console.log("acc",getalgo)
-  //image:images/content/card-pic-1.jpg
-          //image2x: "/images/content/card-pic-1@2x.jpg",
-
-          //req.push(d.key)          
-
-}
-
-useEffect(()=>{dbcollection4()},[])
-
-
+useEffect(()=>{storelocal()},[])
 
 const dbcallalgolikes=async()=>{
   console.log("inside dbcallsalealgo function")
   
   let req = [];
     
-  if(localStorage.getItem("wallet") === null){
-
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
   }
   else{
 
-    let getalgo=localStorage.getItem("wallet");
+    //let getalgo=localStorage.getItem("wallet");
+
+    let getalgo=location.state.add;
   
     //let kreq =[];
-    firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagereflikes").child(location.state.add).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -540,8 +275,8 @@ const dbcallalgolikes=async()=>{
               league:value.league,
               team:value.team,
               type:value.type,
+              teamlogo:value.teamlogo,
               dimen:value.dimen,
-              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -563,67 +298,22 @@ const dbcallalgolikes=async()=>{
 useEffect(()=>{dbcallalgolikes()},[])
 
 
-// useEffect(() => {
-//   const fetchPosts = async () => {
-
-//     let getalgo=localStorage.getItem("wallet");
-  
-//     let req =[];
-//     firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
-//       if (data) {
-//         data.forEach((d) => {
-//           //console.log("keycheck",d.key)
-//           let value=d.val();
-//           req.push(
-            
-//             {
-//               title: value.id,
-//               price: value.priceSet,
-//               highestBid: value.keyId,
-//               counter:value.userName ,
-//               //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-//               bid:value.ownerAddress,
-//               image: value.imageUrl,
-//               image2x: value.imageUrl,
-//               category: "green",
-//               categoryText: value.cAddress,
-//               //purchasing !
-//               url: value.history,
-//               league:value.league,
-//               team:value.team,
-//               users: [                
-//                 {
-//                   avatar: "/images/content/avatar-4.jpg",
-//                 },
-//               ],
-//             },
-          
-//           )
-//         });        
-//       }
-      
-//     });
-    
-//   };
-
-//   fetchPosts();
-// }, []);
-
-
 
 const dbcallsalealgo=async()=>{
   console.log("inside dbcallsalealgo function")
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  }
+  else{
 
-  }else{
+    //let getalgo=localStorage.getItem("wallet");
 
-    let getalgo=localStorage.getItem("wallet");
+    //let getalgo=location.state.add;
     
     //let kreq =[];
-    firebase.database().ref("imagerefexplorepoly").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefexplorepoly").child(location.state.add).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -645,8 +335,8 @@ const dbcallsalealgo=async()=>{
               league:value.league,
               team:value.team,
               type:value.type,
+              teamlogo:value.teamlogo,
               dimen:value.dimen,
-              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -672,14 +362,14 @@ const dbcallalgo=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
-
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
   }
   else{
 
-    let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=location.state.add;
     //let kreq =[];
-    firebase.database().ref("imagerefPoly").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefPoly").child(location.state.add).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -702,8 +392,8 @@ const dbcallalgo=async()=>{
               league:value.league,
               team:value.team,
               type:value.type,
+              teamlogo:value.teamlogo,
               dimen:value.dimen,
-              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -735,16 +425,17 @@ const dbcallalgobuy=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
-
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
   }
   else{
 
   
-    let getalgo=localStorage.getItem("wallet");
+    //let getalgo=localStorage.getItem("wallet");
+
+    //let getalgo=location.state.add;
     
     //let kreq =[];
-    firebase.database().ref("imagerefpolybuy").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefpolybuy").child(location.state.add).on("value", (data) => {
 
       
       if (data) {
@@ -769,8 +460,8 @@ const dbcallalgobuy=async()=>{
               league:value.league,
               team:value.team,
               type:value.type,
+              teamlogo:value.teamlogo,
               dimen:value.dimen,
-              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -823,11 +514,11 @@ const getbg=()=>{
 
   
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
+    if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
   
     }else{
 
-      let getalgo=localStorage.getItem("wallet");
+      //let getalgo=localStorage.getItem("wallet");
 
       let req=[];
   // firebase.database().ref("bgphoto").child(getalgo).on("value", (data) => {
@@ -852,17 +543,17 @@ const setprofilephoto=()=>{
   console.log("inside setprofilephoto function")
   
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
-  
-    }else{
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  }else{
 
-      let getalgo=localStorage.getItem("wallet");
-  let ref=firebase.database().ref(`bgphoto/${getalgo}`);
+      //let getalgo=localStorage.getItem("wallet");
+      //let getalgo=location.state.add;
+  let ref=firebase.database().ref(`bgphoto/${location.state.add}`);
   let dateset=new Date().toDateString();
   console.log("dateget",dateset)
   const db = ref.push().key;                       
   console.log("dbcheck",db)
-  ref.child("bg").set({bgurl:Img,datesets:dateset,dbkey:db,ownaddress:getalgo}).then(()=>{
+  ref.child("bg").set({bgurl:Img,datesets:dateset,dbkey:db,ownaddress:location.state.add}).then(()=>{
     setVisible(true)
     window.location.reload(false)
 
@@ -889,20 +580,12 @@ const checkasset=async()=>{
   //   refprofile.set({profileurl:"https://",displayname:"demo",http:"https://",Bio:"dem",social:"https://",Twitter:"https://",address:"dem",dbkey:db,username:"demo"});
 
 }
-
-// const checkaddress=(y)=>{
-
-//     //console.log("checkasset inside")  
-//     //let url="https://mumbai.polygonscan.com/address/"+y;
-//     //0xa9CBD39dfA719BA4f713B03dd0F8345Cc2c934dA
-    
-
-//   }
-
-
   return (
     <div className={styles.profile}>
-      <div
+         
+      {location.state.logo === "" || location.state.logo === null || location.state.logo === undefined || location.state.logo === " "? ( 
+        <>
+        <div
         className={cn(styles.head, { [styles.active]: visible })}                        
         style={{
   backgroundImage: "url(/images/content/bg-profile.jpg)",
@@ -951,14 +634,76 @@ const checkasset=async()=>{
           </div>
         </div>
       </div>
-      <div className={styles.body}>
+ 
+        </>
+      ):(
+
+        <>
+
+<div
+        className={cn(styles.head, { [styles.active]: visible })}                        
+        style={{
+  //backgroundImage: url(location.state.logo),
+
+  //src : location.state.logo
+
+  backgroundImage : `url(${location.state.logo})`
+
+  
+  //url:getcover
+}}
+      >
+
+        {/* <img src="/images/content/avatar-1.jpg" alt="Avatar" /> */}
+        {/* <img src={getcover} alt="Avatar" /> */}
+        {/* /images/content/bg-profile.jpg */}
+        <div className={cn("container", styles.container)}>
+          <div className={styles.btns}>
+            <button
+              className={cn("button-stroke button-small", styles.button)}
+              onClick={() => setVisible(true)}
+            >
+              {/*  */}
+              <span>Edit cover photo</span>
+              <Icon name="edit" size="16" />
+            </button>
+            <Link
+              className={cn("button-stroke button-small", styles.button)}
+              to="profile-edit"
+            >
+              <span>Edit profile</span>
+              <Icon name="image" size="16" />
+            </Link>
+          </div>
+
+          <div className={styles.file}>
+            {/* <input type="file" /> */}
+            <input 
+             name="tfile" id="fileid" type = "file" onChange = {captureFile} required />
+
+            <div className={styles.wrap}>
+              <Icon name="upload-file" size="48" />
+              <div className={styles.info}>Drag and drop your photo here</div>
+              <div className={styles.text}>or click to browse</div>
+            </div>
+            <button
+              className={cn("button-small", styles.button)}
+              onClick={() => setprofilephoto()}
+            >
+              Save photo
+            </button>
+          </div>
+        </div>
+      </div>
+ 
+        
+        </>
+       )}
+        <div className={styles.body}>
         
         <div className={cn("container", styles.container)}>
-
-
-          
-          
-          <User className={styles.user} item={socials} />
+                      
+          <User className={styles.user} item={socials} onSub={location.state.add} onSubs={location.state.logo} onSubss={location.state.team}/>
           
           <div className={styles.wrapper}>
             <div className={styles.nav}>                          
@@ -969,9 +714,6 @@ const checkasset=async()=>{
             >
               check
             </button> */}
-{/* <h5 style={{cursor:"pointer"}} onClick={e => window.open("https://www.youtube.com/")}>Contract Addres</h5> */}
-
-{/* <h1 onClick={}>Click Me</h1> */}
               
               {navLinks.map((x, index) => (
                 <button
@@ -994,20 +736,25 @@ const checkasset=async()=>{
                   
                 )}
                 {activeIndex === 1 && (
-                  <Items class={styles.items} items={getImgreffalgobuy} />
+                  <Itemss class={styles.items} items={getImgreffalgobuy} />
                   // bids.slice(0, 6)
                 )}
 
                 {activeIndex === 2 && (                                     
-                  <Items class={styles.items} items={getImgreffalgo} />              
+                  <Itemss class={styles.items} items={getImgreffalgo} />              
                  )} 
                 {activeIndex === 3 && (
                   <Itemss class={styles.items} items={getImgreffalgolikes} />
                 )}
-                {activeIndex === 4 && (                  
-                  <Itemssss class={styles.items} items={getCollection} items2={getCollection2} items3={getCollection3} items4={getCollection4}/>
+
+                {activeIndex === 4 && (
+                  <Itemssss className={styles.followers} items={getImgreffalgo} />
                 )}
+
                 {activeIndex === 5 && (
+                  <Followers className={styles.followers} items={following} />
+                )}
+                {activeIndex === 6 && (
                   <Followers className={styles.followers} items={followers} />
                 )}
               </div>
@@ -1019,4 +766,4 @@ const checkasset=async()=>{
   );
 };
 
-export default Profile;
+export default Check;

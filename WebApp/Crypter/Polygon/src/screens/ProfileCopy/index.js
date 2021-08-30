@@ -12,6 +12,10 @@ import firebase from "../UploadDetails/firebase";
 //import web3 from '../UploadDetails/web3';
 import Compress from "react-image-file-resizer";
 import { useLocation } from "react-router-dom";
+import Itemssss from "./Itemssss";
+import Followerscopy from "./Followerscopy";
+//import
+//<Itemssss className={styles.followers} items={getImgreffalgo} />
 //import axios from 'axios';
 
 // data
@@ -22,7 +26,10 @@ const navLinks = [
   "On Sale",
   "Collectibles",
   "Created",
-  "Likes"  
+  "Likes",
+  "Collection",
+  // "Following",
+
 ];
 
 // "Following",
@@ -189,7 +196,7 @@ const followers = [
   },
 ];
 
-const Profile = () => {
+const ProfileCopy = () => {
   const location = useLocation()
   //const { data } = location.state.add.add
 
@@ -226,6 +233,16 @@ console.log("getImgalgolikes",getImgreffalgolikes)
 
 const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
 console.log("getImgalgobuy",getImgreffalgobuy)
+
+const[getCollection,setgetCollection]=useState([]);
+console.log("getCollection",getCollection)
+const[getCollection2,setgetCollection2]=useState([]);
+console.log("getCollection2",getCollection2)
+
+const[getCollection3,setgetCollection3]=useState([]);
+console.log("getCollection3",getCollection3)
+const[getCollection4,setgetCollection4]=useState([]);
+console.log("getCollection4",getCollection4)
 
 
 const storelocal=()=>{
@@ -486,6 +503,276 @@ const dbcallalgobuy=async()=>{
 useEffect(()=>{dbcallalgobuy()},[])
 
 
+const dbcollection=async()=>{
+  console.log("inside dbcallalgo function")
+  
+  let req = [];
+
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  }
+  else{
+
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=location.state.add;
+    //let kreq =[];
+    firebase.database().ref("imagerefPoly").child(location.state.add).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          let value=d.val();
+          console.log("keycheckCollection",value.type)
+
+          if(value.type === "Player")
+          {
+            req.push(
+            
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )  
+            
+          }                    
+        });        
+      }
+    });
+    setgetCollection(req);
+  }
+  //console.log("acc",getalgo)
+  //image:images/content/card-pic-1.jpg
+          //image2x: "/images/content/card-pic-1@2x.jpg",
+
+          //req.push(d.key)          
+
+}
+
+useEffect(()=>{dbcollection()},[])
+
+//
+
+const dbcollection2=async()=>{
+  console.log("inside dbcallalgo function")
+  
+  let req = [];
+
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  }
+  else{
+
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=location.state.add;
+    //let kreq =[];
+    firebase.database().ref("imagerefPoly").child(location.state.add).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          let value=d.val();
+          console.log("keycheckCollection",value.type)
+
+          if (value.type === "Award")
+          {
+            req.push(
+            
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )  
+            
+          }                    
+        });        
+      }
+    });
+    setgetCollection2(req);
+  }
+  //console.log("acc",getalgo)
+  //image:images/content/card-pic-1.jpg
+          //image2x: "/images/content/card-pic-1@2x.jpg",
+
+          //req.push(d.key)          
+
+}
+
+useEffect(()=>{dbcollection2()},[])
+
+
+//
+
+
+//
+const dbcollection3=async()=>{
+  console.log("inside dbcallalgo function")
+  
+  //let req = [];
+
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  }
+  else{
+
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=location.state.add;
+    let kreq3 =[];
+    firebase.database().ref("imagerefPoly").child(location.state.add).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          let value=d.val();
+          console.log("keycheckCollection",value.type)
+
+          if (value.type === "Trophy")
+          {
+            kreq3.push(
+            
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )  
+            
+          }                    
+        });        
+      }
+    });
+    setgetCollection3(kreq3);
+  }
+  //console.log("acc",getalgo)
+  //image:images/content/card-pic-1.jpg
+          //image2x: "/images/content/card-pic-1@2x.jpg",
+
+          //req.push(d.key)          
+
+}
+
+useEffect(()=>{dbcollection3()},[])
+
+
+
+//
+
+const dbcollection4=async()=>{
+  console.log("inside dbcallalgo function")
+  
+  //let req = [];
+
+  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  }
+  else{
+
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=location.state.add;
+    let kreq4 =[];
+    firebase.database().ref("imagerefPoly").child(location.state.add).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          let value=d.val();
+          console.log("keycheckCollection",value.type)
+
+          if (value.type === "Others")
+          {
+            kreq4.push(
+            
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )  
+            
+          }                    
+        });        
+      }
+    });
+    setgetCollection4(kreq4);
+  }
+  //console.log("acc",getalgo)
+  //image:images/content/card-pic-1.jpg
+          //image2x: "/images/content/card-pic-1@2x.jpg",
+
+          //req.push(d.key)          
+
+}
+
+useEffect(()=>{dbcollection4()},[])
 
 
 
@@ -744,10 +1031,13 @@ const checkasset=async()=>{
                 {activeIndex === 3 && (
                   <Itemss class={styles.items} items={getImgreffalgolikes} />
                 )}
-                {activeIndex === 4 && (
-                  <Followers className={styles.followers} items={following} />
+                {activeIndex === 4 && (                  
+                  <Itemssss class={styles.items} items={getCollection} items2={getCollection2} items3={getCollection3} items4={getCollection4}/>
                 )}
                 {activeIndex === 5 && (
+                  <Followerscopy className={styles.followers} items={getCollection} items2={getCollection2} items3={getCollection3} items4={getCollection4} />
+                )}
+                {activeIndex === 6 && (
                   <Followers className={styles.followers} items={followers} />
                 )}
               </div>
@@ -759,4 +1049,4 @@ const checkasset=async()=>{
   );
 };
 
-export default Profile;
+export default ProfileCopy;
