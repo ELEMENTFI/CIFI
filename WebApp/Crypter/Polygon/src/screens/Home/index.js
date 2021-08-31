@@ -8,6 +8,8 @@ import Discover from "./Discover";
 import Description from "./Description";
 
 const Home = () => {
+  
+  
   return (
     <>
     

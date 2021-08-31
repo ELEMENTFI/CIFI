@@ -759,7 +759,7 @@ const onSubmitNFT = async (event) => {
   event.preventDefault();  
     //new write below
 
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
 
     }
     else{
@@ -1926,7 +1926,7 @@ const callmint=async(event)=>{
 
 const dbstore=async()=>{
 
-  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet")==="0x"){
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet")==="0x" || localStorage.getItem("wallet") === undefined){
 
   }
   else{

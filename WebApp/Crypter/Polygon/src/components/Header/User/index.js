@@ -55,7 +55,7 @@ const User = ({ className,onProfile}) => {
   let getac="";
   let getalgo="";
   //let getname="undefined";
-  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
 
   }
   else{
@@ -75,7 +75,7 @@ const User = ({ className,onProfile}) => {
     //let getalgo=;
     let req = [];
       
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
       //console.log("notalgoget",getalgo)
       req.push(              
         {              
@@ -143,7 +143,7 @@ const User = ({ className,onProfile}) => {
     console.log("disconnect function call")
 
     
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
 
     }
     else{
@@ -160,11 +160,45 @@ const User = ({ className,onProfile}) => {
     console.log("getafter",getalafter)
     //console.log("getnameafter",getalnameafter)
 
-    history.push("/")
     window.location.reload();
+    history.push("/")
+    //window.location.reload();
     }
 
   }
+
+  useEffect(() => {
+    async function listenMMAccount() {
+
+      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+
+        console.log("MATICMUMalgo",getalgo)
+      
+      }
+      else{
+      
+        getalgo=localStorage.getItem("wallet");
+      //let url="https://api-testnet.bscscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
+      
+      let url="https://api-testnet.polygonscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
+      
+      
+      //+"&tag=latest&apikey=26NPBCN1ZIZ33YJKKJ24MSY9GB6I6I4NVQ";
+      
+      axios.get(`${url}`)
+               .then((url)=>{
+                 const allnote=url.data.result/1000000000000000000;
+                 
+                 setalgobalance(allnote);
+                 console.log("matbal",allnote)
+               }).catch(error => console.error(`Error: ${error}`));       
+              }
+      
+
+    }
+    listenMMAccount();
+  }, []);
+
 
   const balancecall=async()=>{
     console.log("inside balance function")
@@ -200,29 +234,29 @@ const User = ({ className,onProfile}) => {
 // .then(console.log);
 
 
-if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+// if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
 
-  console.log("MATICMUMalgo",getalgo)
+//   console.log("MATICMUMalgo",getalgo)
 
-}
-else{
+// }
+// else{
 
-  getalgo=localStorage.getItem("wallet");
-//let url="https://api-testnet.bscscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
+//   getalgo=localStorage.getItem("wallet");
+// //let url="https://api-testnet.bscscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
 
-let url="https://api-testnet.polygonscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
+// let url="https://api-testnet.polygonscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
 
 
-//+"&tag=latest&apikey=26NPBCN1ZIZ33YJKKJ24MSY9GB6I6I4NVQ";
+// //+"&tag=latest&apikey=26NPBCN1ZIZ33YJKKJ24MSY9GB6I6I4NVQ";
 
-axios.get(`${url}`)
-         .then((url)=>{
-           const allnote=url.data.result/1000000000000000000;
+// axios.get(`${url}`)
+//          .then((url)=>{
+//            const allnote=url.data.result/1000000000000000000;
            
-           setalgobalance(allnote);
-           console.log("matbal",allnote)
-         }).catch(error => console.error(`Error: ${error}`));       
-        }
+//            setalgobalance(allnote);
+//            console.log("matbal",allnote)
+//          }).catch(error => console.error(`Error: ${error}`));       
+//         }
 
   }
 
@@ -285,7 +319,7 @@ axios.get(`${url}`)
 
         <div className={styles.head} onClick={() => setVisible(!visible)}>
 
-        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" ) ? 
+        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined) ? 
         (
         <>
 

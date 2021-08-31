@@ -70,7 +70,7 @@ const User = ({ className, item,onSubs,onSub,onSubss}) => {
     
     let req = [];
       
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" ){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "" ){
       req.push(              
         {              
           Bio: "",
@@ -227,7 +227,7 @@ const User = ({ className, item,onSubs,onSub,onSubss}) => {
           rel="noopener noreferrer"
         >
           <Icon name="globe" size="16" />
-          <span>https://polygon//....</span>
+          <span>{getaddresslink.slice(0,10)}....</span>
         </a>
         <div className={styles.control}>
           <div className={styles.btns}>

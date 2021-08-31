@@ -15,11 +15,60 @@ import Item from "./screens/Item";
 import PageList from "./screens/PageList";
 import Search01Copy from "./screens/Search01Copy";
 import ProfileCopy from "./screens/ProfileCopy";
-//import React, { useState } from "react";
+//import web3 from '../src/screens/UploadDetails/web3';
+import  { useEffect,useState } from "react";
+import React from 'react';
+//import toaster from 'toasted-notes';
+//import 'toasted-notes/src/styles.css';
+//import FolowStepsd from "./FolowStepsd";
+//import Modald from "../../components/ModalD";
+//ConnectWallet.module.sass";
+//import {NotificationContainer, NotificationManager} from 'react-notifications';
+//import { ToastProvider, useToasts } from 'react-toast-notifications';
+
+//../UploadDetails/web3
 //import Logins from "./components/Login";
 //import Profiles from "./components/Profiledisplay";
 
+
+//const FormWithToasts = () => {
+  
+
+//   const onSubmit = async value => {
+//     const { error } = await dataPersistenceLayer(value);
+
+//     if (error) {
+//       addToast(error.message, { appearance: 'error' });
+//     } else {
+//       addToast('Saved Successfully', { appearance: 'success' });
+//     }
+//   };
+
+//   return <form onSubmit={onSubmit}>...</form>;
+// };
+
+// const MyCustomToast = ({ appearance, children }) => (
+//   <div style={{ background: appearance === 'error' ? 'red' : 'green' }}>
+//     {children}
+//   </div>
+// );
+
 function App() {
+  //const [visibleMeta, setVisibleMeta] = useState(false);
+
+  //const { addToast } = useToasts();
+  //const [visible, setVisible] = useState(false);
+  // useEffect(() => {
+  //   async function listenMMAccount() {
+  //     //window.ethereum.on("accountsChanged", async function() {
+  //       // Time to reload your interface with accounts[0]!
+  //       let accounts = await web3.eth.getAccounts();
+  //       // accounts = await web3.eth.getAccounts();
+  //       console.log("appjsjs",accounts);
+  //     //});
+  //   }
+  //   listenMMAccount();
+  // }, []);
   //const [addressaddshow,setaddressaddshow] = useState(false);
   //window.addEventListener("beforeunload", () => localStorage.removeItem('wallet'));
   //window.onbeforeunload = () => {
@@ -39,11 +88,29 @@ function App() {
 // window.addEventListener('wallet', clearStorage);
 //let acc =web3.eth.accounts.getAccounts();
 
+//const NotificationContainer = window.ReactNotifications.NotificationContainer;
+//const NotificationManager = window.ReactNotifications.NotificationManager;
+//NotificationManager.info('Info message');
+
+if (typeof window.ethereum !== 'undefined') {
+  console.log('MetaMask is installed!');
+  //toaster.notify('With a simple string')
+  //setVisibleMeta(true)
+}
+else{
+  
+}
 
 
   return (    
-    // <>
+    <>
+   
+   {/* <Modald visible={visibleMeta} onClose={() => setVisibleMeta(false)}>
+        <FolowStepsd className={styles.steps} />
+      </Modald> */}
+
     <Router>
+      
       <Switch>
         <Route
           exact
@@ -178,12 +245,7 @@ function App() {
         />
       </Switch>
     </Router>
-//     {/* {addressaddshow ? (
-// <Profiles />
-//     ) : (
-// <Logins />
-//     )}
-//     </> */}
+</>     
   );
 }
 

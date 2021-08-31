@@ -38,7 +38,9 @@ const Connect = () => {
         //window.ethereum.enable();
         //const currProvider = window.web3.currentProvider;
       
-        if(localStorage.getItem("wallet") === null){
+        if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "undefined"){
+
+          console.log("checklocal",localStorage.getItem("wallet"))
           let accounts=await web3.eth.getAccounts();
           await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
@@ -52,7 +54,7 @@ const Connect = () => {
     const db = refprofile.push().key;
     console.log("dbcheck",db)
     
-          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbb"}).then(()=>{                      
+          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:accounts[0],dbkey:"",username:"bbb"}).then(()=>{                      
           })                
          }).then(()=>{    
           
@@ -61,6 +63,7 @@ const Connect = () => {
         }
         else if(localStorage.getItem("wallet") === "0x")
         {
+          console.log("checklocaldis",localStorage.getItem("wallet"))
           let accounts=await web3.eth.getAccounts();
         await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
@@ -71,7 +74,7 @@ const Connect = () => {
     console.log("dateget",dateset)
     const db = refprofile.push().key;
     console.log("dbcheck",db)
-          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbb"}).then(()=>{                      
+          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:accounts[0],dbkey:"",username:"bbb"}).then(()=>{                      
           })                
           setIsOpen(true)        
         }).then(()=>{
@@ -79,6 +82,7 @@ const Connect = () => {
         }
         else{
 
+          console.log("checklocalcon",localStorage.getItem("wallet"))
           let accounts=await web3.eth.getAccounts();
         await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])

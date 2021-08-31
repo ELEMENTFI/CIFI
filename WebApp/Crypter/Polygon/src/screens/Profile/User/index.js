@@ -21,7 +21,7 @@ const User = ({ className, item }) => {
   //let getac="";
   let getalgo="";
   //let getname="";
-  if(localStorage.getItem("wallet") === null)
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "")
   {
 
   getalgo=localStorage.getItem("wallet");
@@ -40,7 +40,7 @@ const User = ({ className, item }) => {
     
     let req = [];
       
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" ){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "" ){
       req.push(              
         {              
           Bio: "",
@@ -131,18 +131,32 @@ const User = ({ className, item }) => {
     // }
   }
 
-  const unfollowcall=()=>{
 
-    // console.log("unfollowcall")
+
+  const[getaddresslink,setgetaddresslink]=useState(null);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "0x")
+      {
+        setgetaddresslink("https://mumbai.polygonscan.com/address/"+null)
+      }
+      else{
     
-  }
+        setgetaddresslink("https://mumbai.polygonscan.com/address/"+localStorage.getItem("wallet"))
+        console.log("ls3",getaddresslink)
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
 
   return (
     <>
 
       <div className={cn(styles.user, className)}>
 
-      {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" ) ? 
+      {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "" ) ? 
         (
         <>
         <div className={styles.avatar}>            
@@ -213,15 +227,15 @@ const User = ({ className, item }) => {
           A wholesome farm owner in Montana. Upcoming gallery solo show in
           Germany
         </div>
-        {localStorage.getItem("walletpoly") === null || localStorage.getItem("walletpoly") === "0x" ? (
+        {localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === " "? (
           <a
           className={styles.site}
-          href={localStorage.getItem("walletpoly")}
+          href={getaddresslink}
           target="_blank"
           rel="noopener noreferrer"
         >
           <Icon name="globe" size="16" />
-          <span>{localStorage.getItem("walletpoly")}</span>
+          <span>htpps://matic...</span>
         </a>
 
         ):(
@@ -229,12 +243,12 @@ const User = ({ className, item }) => {
           
           <a
           className={styles.site}
-          href={localStorage.getItem("walletpoly")}
+          href={localStorage.getItem("wallet")}
           target="_blank"
           rel="noopener noreferrer"
         >
           <Icon name="globe" size="16" />
-          <span>{localStorage.getItem("walletpoly").slice(0,10)}...</span>
+          <span>{localStorage.getItem("wallet").slice(0,10)}...</span>
         </a>
 </>
         )}

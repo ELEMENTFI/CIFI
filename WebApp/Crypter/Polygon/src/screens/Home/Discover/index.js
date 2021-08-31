@@ -35,7 +35,7 @@ const Discover = () => {
   const [creator, setCreator] = useState(creatorOptions[0]);
   const [sorting, setSorting] = useState(sortingOptions[0]);
 
-  const [values, setValues] = useState([5]);
+  const [values, setValues] = useState([1]);
   const [visible, setVisible] = useState(false);
 
   const[getI,setgetI]=useState([]);
@@ -49,7 +49,7 @@ const Discover = () => {
     console.log("inside dbcallsalealgo function")
 
 
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
 
     }
     else{

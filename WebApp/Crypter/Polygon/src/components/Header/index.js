@@ -8,6 +8,7 @@ import Image from "../Image";
 import Notification from "./Notification";
 import User from "./User";
 
+
 const nav = [
   {
     url: "/search01",
@@ -37,43 +38,78 @@ const Headers = () => {
   const [visibleNav, setVisibleNav] = useState(false);
   const [search, setSearch] = useState("");
   const [connected, setConnected] = useState(false);
+
+  
+  
+  
   
 
   const handleSearch = (e) => {
     console.log("inside search bar function")
   };
 
-  const isconnected=()=>{
 
-    //check    
-    if(localStorage.getItem("wallet") === null )
-    {
+
+  useEffect(() => {
+    async function isconnected() {
+
+      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+
+      //  console.log("MATICMUMalgo",getalgo)
+      
       setConnected(false)
 
-    }
-    else if(localStorage.getItem("wallet") === "0x")
-    {
-      setConnected(false)
-
-    }
-    else{
-
-      let get=localStorage.getItem("wallet");
+      }
+      else{
+      
+        let get=localStorage.getItem("wallet");
     //let getalgo=localStorage.getItem("walletalgo");
     console.log("walletcheck",get)
     //console.log("walletcheckalgo",getalgo)
     setConnected(true)
-
+        
+      }
     }
-    // else if(getalgo)
-    // setConnected(true)
+    isconnected();
+  }, []);
+
+
+  // const isconnected=()=>{
+
+  //   //check    
+  //   if(localStorage.getItem("wallet") === null )
+  //   {
+  //     setConnected(false)
+
+  //   }
+  //   else if(localStorage.getItem("wallet") === "0x")
+  //   {
+  //     setConnected(false)
+
+  //   }
+  //   if(localStorage.getItem("wallet") === undefined )
+  //   {
+  //     setConnected(false)
+
+  //   }
+  //   else{
+
+  //   let get=localStorage.getItem("wallet");
+  //   //let getalgo=localStorage.getItem("walletalgo");
+  //   console.log("walletcheck",get)
+  //   //console.log("walletcheckalgo",getalgo)
+  //   setConnected(true)
+
+  //   }
+  //   // else if(getalgo)
+  //   // setConnected(true)
     
-    //setConnected(false)
+  //   //setConnected(false)
     
   
-  }
+  // }
 
-  useEffect(() => {isconnected()}, [])
+  // useEffect(() => {isconnected()}, [])
 
   const onProfile=()=>{
     console.log("hello profile")
@@ -84,6 +120,8 @@ const Headers = () => {
   return (
     
     <header className={styles.header}>
+
+      
       
       <div className={cn("container", styles.container)}>
 
