@@ -51,7 +51,7 @@ const CardDiscover = ({ className, item }) => {
     //console.log("addlikedb function call");
     console.log("addlikedb function call");
 
-    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
     }
     else{
@@ -79,7 +79,7 @@ const CardDiscover = ({ className, item }) => {
 
     console.log("inside usernameget function")
 
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
     }
     else{

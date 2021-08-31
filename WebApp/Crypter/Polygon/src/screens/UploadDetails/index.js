@@ -759,7 +759,10 @@ const onSubmitNFT = async (event) => {
   event.preventDefault();  
     //new write below
 
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+
+
+      console.log("Empty",localStorage.getItem("wallet"))
 
     }
     else{
@@ -773,11 +776,17 @@ const onSubmitNFT = async (event) => {
 
       else{
 
-        const accounts = await web3.eth.getAccounts();
+    const accounts = await web3.eth.getAccounts();
     console.log("acc",accounts[0]);
     ta=tname;
     tb='MATICMUM';
     te=1000;
+
+
+    console.log("uploadonecheck",ta);
+    console.log("uploadtwocheck",tb);
+    console.log("uploadtwocheck",te);
+
     //var tb=tdescription;
     //var tc='https://ipfs.io/ipfs/'+ipfsHash;
     //var td=toaddress;
@@ -1926,7 +1935,7 @@ const callmint=async(event)=>{
 
 const dbstore=async()=>{
 
-  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet")==="0x" || localStorage.getItem("wallet") === undefined){
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet")==="0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }
   else{

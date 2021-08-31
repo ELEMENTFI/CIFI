@@ -38,60 +38,48 @@ const Connect = () => {
         //window.ethereum.enable();
         //const currProvider = window.web3.currentProvider;
       
-        if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "undefined"){
+        if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' ){
 
           console.log("checklocal",localStorage.getItem("wallet"))
+          
+          await web3.eth.getAccounts().then(async()=>{          
           let accounts=await web3.eth.getAccounts();
-          await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
           //document.cookie = "loginstatus=loggedin";
           localStorage.setItem("wallet",accounts[0])
-          localStorage.setItem("walletpoly",("https://mumbai.polygonscan.com/address/"+accounts[0]));
-          
+          localStorage.setItem("walletpoly",("https://mumbai.polygonscan.com/address/"+accounts[0]));          
           let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
-    let dateset=new Date().toDateString();
-    console.log("dateget",dateset)
-    const db = refprofile.push().key;
-    console.log("dbcheck",db)
-    
-          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:accounts[0],dbkey:"",username:"bbb"}).then(()=>{                      
+          let dateset=new Date().toDateString();
+          console.log("dateget",dateset)
+          const db = refprofile.push().key;
+          console.log("dbcheck",db)    
+          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbb"}).then(()=>{                      
           })                
-         }).then(()=>{    
-          
+         }).then(()=>{              
           setIsOpen(true)        
          })        
-        }
-        else if(localStorage.getItem("wallet") === "0x")
-        {
-          console.log("checklocaldis",localStorage.getItem("wallet"))
-          let accounts=await web3.eth.getAccounts();
-        await web3.eth.getAccounts().then(()=>{          
-          console.log("acc Algo",accounts[0])
-          localStorage.setItem("wallet",accounts[0])
-          localStorage.setItem("walletpoly",("https://mumbai.polygonscan.com/address/"+null));
-          let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
-    let dateset=new Date().toDateString();
-    console.log("dateget",dateset)
-    const db = refprofile.push().key;
-    console.log("dbcheck",db)
-          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:accounts[0],dbkey:"",username:"bbb"}).then(()=>{                      
-          })                
-          setIsOpen(true)        
-        }).then(()=>{
-        })        
-        }
+        }        
         else{
 
-          console.log("checklocalcon",localStorage.getItem("wallet"))
+          console.log("checklocalcon",localStorage.getItem("wallet"))          
+          await web3.eth.getAccounts().then(async()=>{            
           let accounts=await web3.eth.getAccounts();
-        await web3.eth.getAccounts().then(()=>{          
           console.log("acc Algo",accounts[0])
           localStorage.setItem("wallet",accounts[0])
           localStorage.setItem("walletpoly",("https://mumbai.polygonscan.com/address/"+accounts[0]));
-          setIsOpen(true)        
+          let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
+          let dateset=new Date().toDateString();
+          console.log("dateget",dateset)
+          const db = refprofile.push().key;
+          console.log("dbcheck",db)    
+          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:accounts[0],dbkey:"",
+          username:"bbb"}).then(()=>{                      
+          }).then(()=>{
+
+            setIsOpen(true)        
+          })                          
         }).then(()=>{
         })
-
         }
         
          

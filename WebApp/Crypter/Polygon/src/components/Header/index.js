@@ -53,7 +53,7 @@ const Headers = () => {
   useEffect(() => {
     async function isconnected() {
 
-      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
       //  console.log("MATICMUMalgo",getalgo)
       

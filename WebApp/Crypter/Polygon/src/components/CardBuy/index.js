@@ -50,7 +50,7 @@ const CardBuy = ({ className, item }) => {
     //console.log("addlikedb function call");
     console.log("addlikedb function call");
 
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
     }
 
@@ -79,7 +79,7 @@ const CardBuy = ({ className, item }) => {
 
     console.log("inside usernameget function")
 
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
     }
     else{
@@ -110,7 +110,7 @@ useEffect(()=>{usernameget()},[])
     console.log("inside buy function")
 
     
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
     }
     else{

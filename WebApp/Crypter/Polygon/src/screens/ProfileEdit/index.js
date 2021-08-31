@@ -51,7 +51,7 @@ const ProfileEdit = () => {
     
     let req = [];
       
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === "" || localStorage.getItem("wallet") === undefined){
+    if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   
       console.log("not algo get")
 
@@ -140,7 +140,7 @@ const ProfileEdit = () => {
   let getac="";
   let getalgo="";
   let getname="";
-  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === "" || localStorage.getItem("wallet") === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }else{
 

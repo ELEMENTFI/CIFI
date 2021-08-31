@@ -75,7 +75,7 @@ const User = ({ className,onProfile}) => {
     //let getalgo=;
     let req = [];
       
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
       //console.log("notalgoget",getalgo)
       req.push(              
         {              
@@ -143,7 +143,7 @@ const User = ({ className,onProfile}) => {
     console.log("disconnect function call")
 
     
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
     }
     else{
@@ -170,7 +170,7 @@ const User = ({ className,onProfile}) => {
   useEffect(() => {
     async function listenMMAccount() {
 
-      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
         console.log("MATICMUMalgo",getalgo)
       
@@ -319,7 +319,7 @@ const User = ({ className,onProfile}) => {
 
         <div className={styles.head} onClick={() => setVisible(!visible)}>
 
-        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined) ? 
+        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '') ? 
         (
         <>
 

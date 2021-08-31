@@ -258,7 +258,7 @@ const dbcallalgolikes=async()=>{
   
   let req = [];
     
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -319,7 +319,7 @@ const dbcallsalealgo=async()=>{
   
   let req = [];
 
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -377,7 +377,7 @@ const dbcallalgo=async()=>{
   
   let req = [];
 
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -440,7 +440,7 @@ const dbcallalgobuy=async()=>{
   
   let req = [];
 
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -508,7 +508,7 @@ const dbcollection=async()=>{
   
   let req = [];
 
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -575,7 +575,7 @@ const dbcollection2=async()=>{
   
   let req = [];
 
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -645,7 +645,7 @@ const dbcollection3=async()=>{
   
   //let req = [];
 
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -714,7 +714,7 @@ const dbcollection4=async()=>{
   
   //let req = [];
 
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -799,7 +799,7 @@ const getbg=()=>{
 
   
     
-    if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   
     }else{
 
@@ -828,7 +828,7 @@ const setprofilephoto=()=>{
   console.log("inside setprofilephoto function")
   
     
-  if(location.state.add === null || location.state.add === "" || location.state.add === " " || location.state.add === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }else{
 
       //let getalgo=localStorage.getItem("wallet");

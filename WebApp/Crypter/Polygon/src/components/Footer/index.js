@@ -53,7 +53,7 @@ const Footers = () => {
   //getac=localStorage.getItem("wallet");
   //console.log("getmetamask",getac)
   
-  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }
   else{

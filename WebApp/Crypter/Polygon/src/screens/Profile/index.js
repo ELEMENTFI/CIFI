@@ -236,7 +236,7 @@ const dbcollection=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet")  === undefined){
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -303,7 +303,7 @@ const dbcollection2=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet")  === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -373,7 +373,7 @@ const dbcollection3=async()=>{
   
   //let req = [];
 
-  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet")  === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -442,7 +442,7 @@ const dbcollection4=async()=>{
   
   //let req = [];
 
-  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet")  === undefined){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
   }
   else{
 
@@ -509,7 +509,7 @@ const dbcallalgolikes=async()=>{
   
   let req = [];
     
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }
   else{
@@ -616,7 +616,7 @@ const dbcallsalealgo=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }else{
 
@@ -672,7 +672,7 @@ const dbcallalgo=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }
   else{
@@ -735,7 +735,7 @@ const dbcallalgobuy=async()=>{
   
   let req = [];
 
-  if(localStorage.getItem("wallet") === null){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }
   else{
@@ -852,7 +852,7 @@ const setprofilephoto=()=>{
   console.log("inside setprofilephoto function")
   
     
-    if(localStorage.getItem("wallet") === null && Img === "" ){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || Img === ""){
   
     }else{
 
