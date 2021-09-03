@@ -1,3 +1,4 @@
+///* global AlgoSigner */
 import React, { useState,useEffect} from "react";
 import cn from "classnames";
 import { Link } from "react-router-dom";
@@ -880,24 +881,76 @@ const convertToBuffer = async(reader) => {
     //onSubmitImage();
 };
 
-const checkasset=async()=>{
-  // let refprofile=firebase.database().ref(`profiledata/${"0x"}`);
-  //   let dateset=new Date().toDateString();
-  //   console.log("dateget",dateset)
-  //   const db = refprofile.push().key;
-  //   console.log("dbcheck",db)
-  //   refprofile.set({profileurl:"https://",displayname:"demo",http:"https://",Bio:"dem",social:"https://",Twitter:"https://",address:"dem",dbkey:db,username:"demo"});
+// const checkasset=async()=>{
 
-}
+//   const server = "https://testnet-algorand.api.purestake.io/ps2";
+//   const port = "";
 
-// const checkaddress=(y)=>{
+// const token = {
+//     'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+// }
 
-//     //console.log("checkasset inside")  
-//     //let url="https://mumbai.polygonscan.com/address/"+y;
-//     //0xa9CBD39dfA719BA4f713B03dd0F8345Cc2c934dA
+
+// const algosdk = require('algosdk');
+
+//   AlgoSigner.connect()
+//   .then((d) => {
+//     //const algodServer = 'https://testnet-algorand.api.purestake.io/ps2'
+//     const indexerServer = 'https://testnet-algorand.api.purestake.io/idx2'
+//     //const token = { 'X-API-Key': 'YOUR API KEY HERE' }
+//     //const port = '';
     
+//     let algodClient = new algosdk.Algodv2(token, server, port);
+//     let indexerClient = new algosdk.Indexer(token, indexerServer, port);
+    
+//     algodClient.healthCheck().do()
+//     .then(d => { 
+//       AlgoSigner.accounts({
+//         ledger: 'TestNet'
+//       })
+//       .then((d) => {
+//         let accounts = d;
+//         console.log("addressalgo",accounts[0].address)
+//         algodClient.getTransactionParams().do()
+// .then((d) => {
+//   let txParamsJS = d;
 
-//   }
+//   const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+//     from: accounts[0].address,
+//     to: accounts[1].address,
+//     amount: 1,
+//     note: undefined,
+//     suggestedParams: {...txParamsJS}
+//   });
+  
+//   // Use the AlgoSigner encoding library to make the transactions base64
+//   let txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+  
+//   AlgoSigner.signTxn([{txn: txn_b64}])
+//   .then((d) => {
+//     let signedTxs = d;
+//   })
+//   .catch((e) => {
+//       console.error(e);
+//   });
+// })
+// .catch((e) => {
+//   console.error(e);
+// });
+//       })
+//       .catch((e) => {
+//         console.error(e);
+//       });
+//     })
+//     .catch(e => { 
+//       console.error(e); 
+//     });
+//   })
+//   .catch((e) => {
+//     console.error(e);
+//   });
+  
+//    }
 
 
   return (

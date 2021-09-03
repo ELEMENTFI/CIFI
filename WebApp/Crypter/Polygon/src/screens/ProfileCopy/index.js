@@ -883,21 +883,7 @@ const checkasset=async()=>{
         {/* /images/content/bg-profile.jpg */}
         <div className={cn("container", styles.container)}>
           <div className={styles.btns}>
-            <button
-              className={cn("button-stroke button-small", styles.button)}
-              onClick={() => setVisible(true)}
-            >
-              {/*  */}
-              <span>Edit cover photo</span>
-              <Icon name="edit" size="16" />
-            </button>
-            <Link
-              className={cn("button-stroke button-small", styles.button)}
-              to="profile-edit"
-            >
-              <span>Edit profile</span>
-              <Icon name="image" size="16" />
-            </Link>
+            
           </div>
 
           <div className={styles.file}>
@@ -944,21 +930,7 @@ const checkasset=async()=>{
         {/* /images/content/bg-profile.jpg */}
         <div className={cn("container", styles.container)}>
           <div className={styles.btns}>
-            <button
-              className={cn("button-stroke button-small", styles.button)}
-              onClick={() => setVisible(true)}
-            >
-              {/*  */}
-              <span>Edit cover photo</span>
-              <Icon name="edit" size="16" />
-            </button>
-            <Link
-              className={cn("button-stroke button-small", styles.button)}
-              to="profile-edit"
-            >
-              <span>Edit profile</span>
-              <Icon name="image" size="16" />
-            </Link>
+            
           </div>
 
           <div className={styles.file}>

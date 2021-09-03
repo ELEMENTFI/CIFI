@@ -38,7 +38,7 @@ const Connect = () => {
         //window.ethereum.enable();
         //const currProvider = window.web3.currentProvider;
       
-        if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' ){
+        if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === undefined){
 
           console.log("checklocal",localStorage.getItem("wallet"))
           
@@ -53,7 +53,7 @@ const Connect = () => {
           console.log("dateget",dateset)
           const db = refprofile.push().key;
           console.log("dbcheck",db)    
-          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbb"}).then(()=>{                      
+          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:localStorage.getItem("wallet"),dbkey:"",username:"bbb"}).then(()=>{                      
           })                
          }).then(()=>{              
           setIsOpen(true)        
@@ -72,7 +72,7 @@ const Connect = () => {
           console.log("dateget",dateset)
           const db = refprofile.push().key;
           console.log("dbcheck",db)    
-          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:accounts[0],dbkey:"",
+          refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:localStorage.getItem("wallet"),dbkey:"",
           username:"bbb"}).then(()=>{                      
           }).then(()=>{
 

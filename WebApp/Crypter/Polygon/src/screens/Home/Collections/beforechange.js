@@ -11,174 +11,41 @@ import DropdownEmptyCopy from "../../../components/DropdownEmptyCopy";
 //../UploadDetails/firebase
 const items = [
   {
-    title: "Atlanta Fire",
-    author: "Atlanta Fire",
+    title: "Awesome collection",
+    author: "Kennith Olson",
     counter: "28",
-    avatar: "/images/AtlantaFire.png",
+    avatar: "/images/content/dhoni image.jpg",
+    gallery: [
+      "/images/content/dhoni image.jpg",
+      "/images/content/dhoni image.jpg",
+      "/images/content/dhoni image.jpg",
+      "/images/content/dhoni image.jpg",
+    ],
   },
   {
-    title: "Atlanta Param Veers",
-    author: "Atlanta Param Veers",
+    title: "Awesome collection",
+    author: "Willie Barton",
     counter: "28",
-    avatar: "/images/AtlantaParamVeers.png",
+    avatar: "/images/content/kohli image.jpg",
+    gallery: [
+      "/images/content/kohli image.jpg",
+      "/images/content/kohli image.jpg",
+      "/images/content/kohli image.jpg",
+      "/images/content/kohli image.jpg",
+    ],
   },
   {
-    title: "Florida Beamers",
-    author: "Florida Beamers",
+    title: "Awesome collection",
+    author: "Halle Jakubowski",
     counter: "28",
-    avatar: "/images/FloridaBeamers.png",
-    
+    avatar: "/images/content/babar.jpeg",
+    gallery: [
+      "/images/content/babar.jpeg",
+      "/images/content/babar.jpeg",
+      "/images/content/babar.jpeg",
+      "/images/content/babar.jpeg",
+    ],
   },
-  {
-    title: "Ft. Lauderdale Lions",
-    author: "Ft. Lauderdale Lions",
-    counter: "28",
-    avatar: "/images/FT.LauderdaleLions.png",
-  },
-  {
-    title: "Morrisville Cardinals",
-    author: "Morrisville Cardinals",
-    counter: "28",
-    avatar: "/images/MorrisviCardinals.png",
-  },
-  {
-    title: "Orlando Galaxy",
-    author: "Orlando Galaxy",
-    counter: "28",
-    avatar: "/images/OrlandoGalaxy.png",
-  },
-  {
-    title: "DC Hawks",
-    author: "DC Hawks",
-    counter: "28",
-    avatar: "/images/DcHawks.png",  
-  },
-  {
-    title: "Empire State Titans",
-    author: "Empire State Titans",
-    counter: "28",
-    avatar: "/images/EmpireStateTitans.png",  
-  },
-  {
-    title: "Manhattan Yorkers",
-    author: "Manhattan Yorkers",
-    counter: "28",
-    avatar: "/images/ManhattanYorkers.png",  
-  },
-  {
-    title: "New England Eagles",
-    author: "New England Eagles",
-    counter: "28",
-    avatar: "/images/NewEnglandEagles.png",    
-  },
-  {
-    title: "New Jersey Somerset Cavaliers",
-    author: "New Jersey Somerset Cavaliers",
-    counter: "28",
-    avatar: "/images/NewJerseySomersetCavaliers.png",    
-  },
-  {
-    title: "New Jersey Stallions",
-    author: "New Jersey Stallions",
-    counter: "28",
-    avatar: "/images/NewJerseyStallions.png",    
-  },
-  {
-    title: "The Philadelphians",
-    author: "The Philadelphians",
-    counter: "28",
-    avatar: "/images/ThePhiladelphians.png",    
-  },
-  {
-    title: "Austin Athletics",
-    author: "Austin Athletics",
-    counter: "28",
-    avatar: "/images/AustinAthletics.png",
-  },
-  {
-    title: "Chicago Blasters",
-    author: "Chicago Blasters",
-    counter: "28",
-    avatar: "/images/ChicagoBlasters.png",  
-  },
-  {
-    title: "Chicago Catchers",
-    author: "Chicago Catchers",
-    counter: "28",
-    avatar: "/images/ChicagoCatchers.png",    
-  },
-  {
-    title: "Houston Hurricanes",
-    author: "Houston Hurricanes",
-    counter: "28",
-    avatar: "/images/HoustonHurricanes.png",    
-  },
-  {
-    title: "Irving Mustangs",
-    author: "Irving Mustangs",
-    counter: "28",
-    avatar: "/images/IrvingMustangs.png",    
-  },
-  {
-    title: "Michigan Cricket Stars",
-    author: "Michigan Cricket Stars",
-    counter: "28",
-    avatar: "/images/MichiganCricketStars.png",    
-  },
-  {
-    title: "St. Louis Americans",
-    author: "St. Louis Americans",
-    counter: "28",
-    avatar: "/images/ST.LouisAmericans.png",    
-  },
-  {
-    title: "East Bay Blazers",
-    author: "East Bay Blazers",
-    counter: "28",
-    avatar: "/images/EastBayBlazers.png",    
-  },
-  {
-    title: "Golden State Grizzlies",
-    author: "Golden State Grizzlies",
-    counter: "28",
-    avatar: "/images/Golden State Grizzlies.png",    
-  },
-  {
-    title: "Hollywood Master Blasters",
-    author: "Hollywood Master Blasters",
-    counter: "28",
-    avatar: "/images/HollywoodMasterBlasters.png",    
-  },
-  {
-    title: "San Diego Surf Riders",
-    author: "San Diego Surf Riders",
-    counter: "28",
-    avatar: "/images/SanDiegoSurfRiders.png",    
-  },
-  {
-    title: "Seattle Thunderbolts",
-    author: "Seattle Thunderbolts",
-    counter: "28",
-    avatar: "/images/SeattleThunderBolts.png",    
-  },
-  {
-    title: "Silicon Valley Strikers",
-    author: "Silicon Valley Strikers",
-    counter: "28",
-    avatar: "/images/SiliconValleyStrikers.png",    
-  },
-  {
-    title: "Socal Lashings",
-    author: "Socal Lashings",
-    counter: "28",
-    avatar: "/images/SocalLashings.png",    
-  },  
-  {
-    title: "Others",
-    author: "Others",
-    counter: "28",
-    avatar: "/images/logocifis.png",    
-  },  
 ];
 
 const SlickArrow = ({ currentSlide, slideCount, children, ...props }) => (
@@ -360,24 +227,68 @@ console.log("getlt",getImgreffalgobuy)
       <div className={cn("container", styles.container)}>
         <div className={styles.wrapper}>          
           <h3 className={cn("h3", styles.title)}>Hot collections</h3>          
+          
+          <button className={cn("button-small")} onClick={dbcallalgobuy}>
+      <span>Filter</span>
+            </button>
+            <br></br>
+            <br></br>
+
+
+          {/* <div className={styles.top}>
+          <DropdownEmptyCopy
+              className={styles.dropdown}
+              value={direction}
+              setValue={setDirection}
+              options={directionOptions}
+              //onChange={changeSelectOptionHandler}
+            />
+
+<button className={cn("button-small")} onClick={dbcallalgobuy}>
+      <span>Filter</span>
+            </button>
+</div> */}
           <div className={styles.box}>
+
+          
+{/* <select  style={{width:"815px"}}>
+            <option value='Minor League'>Minor League</option>
+            <option value='Major League'>Major League</option>
+            <option value='Triangle League'>Triangle League</option>
+            <option value='Aryan Shah'>Aryan Shah</option>
+            <option value='Others'>Others</option>
+          </select>
+
+&nbsp;&nbsp;&nbsp;
+          <button className={cn("button-small")} onClick={dbcallalgobuy}>
+      <span>Filter</span>
+            </button>
+
+<br></br> */}
+
+
+
+
+            
           
             </div>
           
 
+{getImgreffalgobuy === null || getImgreffalgobuy === "" ?(
+
 <div className={styles.inner}>
-<Slider className="collection-slider" {...settings}>
+            <Slider className="collection-slider" {...settings}>
 
 {items.map((x, index) => (
-  <Link className={styles.item} to={{pathname:`/profilecopy`,state:{add:'0x2709807c7bc1bb23fb3a7b8d2a2D829499212740',team:x.title,logo:x.avatar}}}   key={index}>
+  <Link className={styles.item} to="/search01copy" key={index}>
     <div className={styles.gallery}>
-      
+      {x.gallery.map((x, index) => (
         <div className={styles.preview} key={index}>
-          <img src={x.avatar} alt="Collectiond" />
+          <img src={x} alt="Collection" />
         </div>
-
+      ))}
     </div>
-    {/* <div className={styles.subtitle}>{x.title}</div> */}
+    <div className={styles.subtitle}>{x.title}</div>
     <div className={styles.line}>
       <div className={styles.user}>
         <div className={styles.avatar}>
@@ -397,6 +308,53 @@ console.log("getlt",getImgreffalgobuy)
 </div>
 
 
+):(
+  <div className={styles.inner}>
+            <Slider className="collection-slider" {...settings}>
+
+{getImgreffalgobuy.map((x, index) => (
+  <Link className={styles.item} to={{pathname:`/profilecopy`,state:{add:x.bid,team:x.team,logo:x.teamlogo}}}   key={index}>
+    
+    <div className={styles.gallery}>
+    <div className={styles.preview} key={index}>
+          <img src={x.image} alt="Collection" />
+        </div>
+      {/* {x.image.map((x, index) => (
+        <div className={styles.preview} key={index}>
+          <img src={x} alt="Collection" />
+        </div>
+      ))} */}
+      <div className={styles.preview} key={index}>
+          <img src={x.image} alt="Collection" />
+        </div>
+        <div className={styles.preview} key={index}>
+          <img src={x.image} alt="Collection" />
+        </div>
+        <div className={styles.preview} key={index}>
+          <img src={x.image} alt="Collection" />
+        </div>
+    </div>
+    <div className={styles.subtitle}>{x.title}</div>
+    <div className={styles.line}>
+      <div className={styles.user}>
+        <div className={styles.avatar}>
+          <img src={x.image} alt="Avatar" />          
+        </div>
+        <div className={styles.author}>        
+          By <span>{x.team}</span>
+        </div>        
+      </div>
+      <div className={cn("status-stroke-black", styles.counter)}>
+        <span>{x.league}</span>              
+      </div>      
+      
+    </div>    
+  </Link>
+))}
+
+</Slider>
+</div>
+)}
 
      </div>         
       </div>

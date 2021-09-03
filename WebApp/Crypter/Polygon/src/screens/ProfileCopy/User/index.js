@@ -227,7 +227,7 @@ const User = ({ className, item,onSubs,onSub,onSubss}) => {
           rel="noopener noreferrer"
         >
           <Icon name="globe" size="16" />
-          <span>{getaddresslink.slice(0,10)}....</span>
+          <span>https://mumbai...</span>
         </a>
         <div className={styles.control}>
           <div className={styles.btns}>
