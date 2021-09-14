@@ -1,0 +1,38 @@
+@import "../../styles/colors";
+
+.dashboard-wrapper {
+  width: 100%;
+  .dashboard-container {
+    .dashboard-header {
+      border-bottom: 1px solid $color-grey-light;
+      padding: 15px 0px;
+      .wallet-details {
+        word-break: break-all;
+        .account-icon {
+          margin-left: 25px;
+          vertical-align: middle;
+        }
+        .address {
+          font-size: 14px;
+          display: inline-block;
+          margin-left: 6px;
+          font-weight: bold;
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+        .balance {
+          font-size: 12px;
+          display: inline-block;
+          float: right;
+          margin-right: 25px;
+          font-weight: bold;
+        }
+      }
+    }
+    .dashboard-body {
+
+    }
+  }
+}

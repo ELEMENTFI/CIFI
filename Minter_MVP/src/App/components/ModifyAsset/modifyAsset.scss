@@ -1,0 +1,14 @@
+@import "../../styles/colors";
+
+.modify-asset-wrapper {
+  width: 100%;
+  .modify-asset-container {
+    margin-top: 25px;
+    .address-field {
+      font-size: 12px;
+    }
+    .breadcrumb {
+      margin-bottom: 20px;
+    }
+  }
+}
