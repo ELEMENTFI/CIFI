@@ -16,6 +16,9 @@ import FolowStepsdr from "../../screens/Search01/FolowSteps";
 
 import FolowStepss from "../../screens/Search01/FolowStepss";
 
+import algosdk from 'algosdk';
+//import MyAlgo from '@randlabs/myalgo-connect';
+
 
 const CardBuy = ({ className, item }) => {
 
@@ -160,6 +163,78 @@ useEffect(()=>{usernameget()},[])
       
       let algodclient = new algosdk.Algodv2(token, server, port);
 
+      //const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
+
+
+      // trans start
+
+      // let amount = parseInt(item.price.replace(/['"]+/g, ''));
+      //   console.log("conscheck",amount)
+
+       const myAlgoWallet = new MyAlgo();
+
+      // (async () => {
+      //   try {
+      
+      //     let txn = await algodclient.getTransactionParams().do();
+            
+      //     txn = {
+      //       ...txn,
+      //       fee: 1000,
+      //       flatFee: true,
+      //       type: 'pay',
+      //       from: getalgo,
+      //       to:  item.bid,
+      //       amount: amount,
+      //       note: new Uint8Array(Buffer.from('paid'))
+      //     };
+        
+      //     let signedTxn = await myAlgoWallet.signTransaction(txn);
+      //     console.log(signedTxn.txID);
+        
+      //     await algodclient.sendRawTransaction(signedTxn.blob).do();
+      
+        
+      //   } catch(err) {
+      //     console.error(err); 
+      //   }
+      // })();
+
+//wallet asset transfer start
+
+
+(async () => {
+  try {
+
+    let txn = await algodclient.getTransactionParams().do();
+      
+    txn = {
+      ...txn,
+      fee: 1000,
+      flatFee: true,
+      type: 'axfer',
+      assetIndex: item.title,
+      from: item.bid,
+      to:  getalgo,
+      amount: 1,
+      note: new Uint8Array(Buffer.from('transfer'))
+    };
+  
+    let signedTxn = await myAlgoWallet.signTransaction(txn);
+    console.log(signedTxn.txID);
+  
+    await algodclient.sendRawTransaction(signedTxn.blob).do();
+
+  
+  } catch(err) {
+    console.error(err); 
+  }
+})();
+
+
+//wallet asset transfer end
+
+// trans end
 
       //console.log("algodclient",algodclient)
       
@@ -168,34 +243,33 @@ useEffect(()=>{usernameget()},[])
 
       //algo transfer
 
-      (async() => {
+    //   (async() => {
 
-        let params = await algodclient.getTransactionParams().do();    
-        let amount = parseInt(item.price.replace(/['"]+/g, ''));
-        console.log("conscheck",amount)
-        var mnemonic = getprize; 
-        var recoveredAccount = algosdk.mnemonicToSecretKey(mnemonic); 
+    //     let params = await algodclient.getTransactionParams().do();    
         
-        let txn = {
-            "from": recoveredAccount.addr,
-            "to": item.bid,
-            "fee": 1,
-            "amount": amount,
-            "firstRound": params.firstRound,
-            "lastRound": params.lastRound,
-            "genesisID": params.genesisID,
-            "genesisHash": params.genesisHash,
-            "note": new Uint8Array(0),
-        };
-        console.log(txn);
+    //     var mnemonic = getprize; 
+    //     var recoveredAccount = algosdk.mnemonicToSecretKey(mnemonic); 
+        
+    //     let txn = {
+    //         "from": recoveredAccount.addr,
+    //         "to": item.bid,
+    //         "fee": 1,
+    //         "amount": amount,
+    //         "firstRound": params.firstRound,
+    //         "lastRound": params.lastRound,
+    //         "genesisID": params.genesisID,
+    //         "genesisHash": params.genesisHash,
+    //         "note": new Uint8Array(0),
+    //     };
+    //     console.log(txn);
     
-        let signedTxn = algosdk.signTransaction(txn, recoveredAccount.sk);
-        let sendTx = await algodclient.sendRawTransaction(signedTxn.blob).do();
+    //     let signedTxn = algosdk.signTransaction(txn, recoveredAccount.sk);
+    //     let sendTx = await algodclient.sendRawTransaction(signedTxn.blob).do();
     
-        console.log("Transaction",sendTx.txId);
-    })().catch(e => {
-        console.log(e);
-    }); 
+    //     console.log("Transaction",sendTx.txId);
+    // })().catch(e => {
+    //     console.log(e);
+    // }); 
     
       //algo transfer
       //start money transfer here and opt and transfer algos
@@ -255,159 +329,162 @@ useEffect(()=>{usernameget()},[])
     
     // var account1_mnemonic = "canal enact luggage spring similar zoo couple stomach shoe laptop middle wonder eager monitor weather number heavy skirt siren purity spell maze warfare ability ten";
     // var account2_mnemonic = "beauty nurse season autumn curve slice cry strategy frozen spy panic hobby strong goose employ review love fee pride enlist friend enroll clip ability runway";
-    var account3_mnemonic =  getprize;
-    
-    var recoveredAccount1 = algosdk.mnemonicToSecretKey(item.category);
-    var recoveredAccount2 = algosdk.mnemonicToSecretKey(item.category);
-    var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
-    console.log(recoveredAccount1.addr);
-    console.log(recoveredAccount2.addr);
-    console.log(recoveredAccount3.addr);
-    
-    // Instantiate the algod wrapper
-    
-    
-    
-        (async () => {
-    
-        //params = await algodclient.getTransactionParams().do();
-        //comment out the next two lines to use suggested fee
-        //params.fee = 1000;
-        //params.flatFee = true;
-    
-        let sender = recoveredAccount3.addr;
-        let recipient = sender;
-        // We set revocationTarget to undefined as 
-        // This is not a clawback operation
-        let revocationTarget = undefined;
-        // CloseReaminerTo is set to undefined as
-        // we are not closing out an asset
-        let closeRemainderTo = undefined;
-        // We are sending 0 assets
-        let amount = 0;
-        let note = undefined;
-        let assetID= item.title
-        //item.title;
-        //let params =  item.image2x;
 
-        let params = await algodclient.getTransactionParams().do();
+    //cmd now
+
+  //   var account3_mnemonic =  getprize;
+    
+  //   var recoveredAccount1 = algosdk.mnemonicToSecretKey(item.category);
+  //   var recoveredAccount2 = algosdk.mnemonicToSecretKey(item.category);
+  //   var recoveredAccount3 = algosdk.mnemonicToSecretKey(account3_mnemonic);
+  //   console.log(recoveredAccount1.addr);
+  //   console.log(recoveredAccount2.addr);
+  //   console.log(recoveredAccount3.addr);
+    
+  //   // Instantiate the algod wrapper
+    
+    
+    
+  //       (async () => {
+    
+  //       //params = await algodclient.getTransactionParams().do();
+  //       //comment out the next two lines to use suggested fee
+  //       //params.fee = 1000;
+  //       //params.flatFee = true;
+    
+  //       let sender = recoveredAccount3.addr;
+  //       let recipient = sender;
+  //       // We set revocationTarget to undefined as 
+  //       // This is not a clawback operation
+  //       let revocationTarget = undefined;
+  //       // CloseReaminerTo is set to undefined as
+  //       // we are not closing out an asset
+  //       let closeRemainderTo = undefined;
+  //       // We are sending 0 assets
+  //       let amount = 0;
+  //       let note = undefined;
+  //       let assetID= item.title
+  //       //item.title;
+  //       //let params =  item.image2x;
+
+  //       let params = await algodclient.getTransactionParams().do();
     
 
-        console.log("check","287")
+  //       console.log("check","287")
     
-        // signing and sending "txn" allows sender to begin accepting asset specified by creator and index
-        let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
-             amount, note, assetID, params);
+  //       // signing and sending "txn" allows sender to begin accepting asset specified by creator and index
+  //       let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
+  //            amount, note, assetID, params);
     
-        // Must be signed by the account wishing to opt in to the asset    
-        let rawSignedTxn = opttxn.signTxn(recoveredAccount3.sk);
-        let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-        console.log("Transaction : " + opttx.txId);
-        // wait for transaction to be confirmed
-        //await waitForConfirmation(algodclient, opttx.txId);
+  //       // Must be signed by the account wishing to opt in to the asset    
+  //       let rawSignedTxn = opttxn.signTxn(recoveredAccount3.sk);
+  //       let opttx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+  //       console.log("Transaction : " + opttx.txId);
+  //       // wait for transaction to be confirmed
+  //       //await waitForConfirmation(algodclient, opttx.txId);
     
-        //You should now see the new asset listed in the account information
-        console.log("Account 3 = " + recoveredAccount3.addr);
-        //await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
+  //       //You should now see the new asset listed in the account information
+  //       console.log("Account 3 = " + recoveredAccount3.addr);
+  //       //await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
     
     
-        console.log("opt","success")
+  //       console.log("opt","success")
 
-        //trans
+  //       //trans
     
-        sender = recoveredAccount1.addr;
-        recipient = recoveredAccount3.addr;
-        revocationTarget = undefined;
-        closeRemainderTo = undefined;
-            //Amount of the asset to transfer
-        amount = 1;
-        note = undefined
-        assetID= item.title
-        //params=item.image2x
+  //       sender = recoveredAccount1.addr;
+  //       recipient = recoveredAccount3.addr;
+  //       revocationTarget = undefined;
+  //       closeRemainderTo = undefined;
+  //           //Amount of the asset to transfer
+  //       amount = 1;
+  //       note = undefined
+  //       assetID= item.title
+  //       //params=item.image2x
 
-        //let params = await algodclient.getTransactionParams().do();
+  //       //let params = await algodclient.getTransactionParams().do();
         
     
-        // signing and sending "txn" will send "amount" assets from "sender" to "recipient"
-        let xtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
-          amount,  note, assetID, params);
-     // Must be signed by the account sending the asset  
-     rawSignedTxn = xtxn.signTxn(recoveredAccount1.sk)
-     let xtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
-     console.log("Transaction : " + xtx.txId);
-     // wait for transaction to be confirmed
-     //await waitForConfirmation(algodclient, xtx.txId);
+  //       // signing and sending "txn" will send "amount" assets from "sender" to "recipient"
+  //       let xtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(sender, recipient, closeRemainderTo, revocationTarget,
+  //         amount,  note, assetID, params);
+  //    // Must be signed by the account sending the asset  
+  //    rawSignedTxn = xtxn.signTxn(recoveredAccount1.sk)
+  //    let xtx = (await algodclient.sendRawTransaction(rawSignedTxn).do());
+  //    console.log("Transaction : " + xtx.txId);
+  //    // wait for transaction to be confirmed
+  //    //await waitForConfirmation(algodclient, xtx.txId);
     
-     // You should now see the 10 assets listed in the account information
-     console.log("Account 3 = " + recoveredAccount3.addr);
-     //await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
+  //    // You should now see the 10 assets listed in the account information
+  //    console.log("Account 3 = " + recoveredAccount3.addr);
+  //    //await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
 
-     console.log("trans","success")
+  //    console.log("trans","success")
 
-     fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).remove().then(()=>{
+  //    fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).remove().then(()=>{
 
-      if(getprodata.displayname === null){
+  //     if(getprodata.displayname === null){
   
-        fireDb.database().ref(`imagerefbuy/${getalgo}`).child(item.highestBid).set({
-  
-  
-    id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-    userName:"",userSymbol:"Algos",ipfsUrl:item.ipfsurl,
-    ownerAddress:getalgo,soldd:item.soldd,extra1:item.extra,
-    previousoaddress:item.previousaddress,datesets:item.date,
-    description:item.description,whois:'buyers',history:item.url,paramsdb:item.image2x,privatekey:item.category
+  //       fireDb.database().ref(`imagerefbuy/${getalgo}`).child(item.highestBid).set({
   
   
-          }).then(()=>{
-            setIsOpenss(false)
-            setIsOpens(true)
+  //   id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
+  //   userName:"",userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+  //   ownerAddress:getalgo,soldd:item.soldd,extra1:item.extra,
+  //   previousoaddress:item.previousaddress,datesets:item.date,
+  //   description:item.description,whois:'buyers',history:item.url,paramsdb:item.image2x,privatekey:item.category
+  
+  
+  //         }).then(()=>{
+  //           setIsOpenss(false)
+  //           setIsOpens(true)
             
-          }) 
+  //         }) 
   
-      }else{
+  //     }else{
   
-        console.log("itemid",item.title)
-        console.log("itemimage",item.image)
-        console.log("itemprice",item.price)
-        console.log("itemcAddress",item.categoryText)
-        console.log("itemkeyid",item.highestBid)
-        console.log("itemusername",getprodata.username)
-        console.log("itempreaddress",item.bid)
-        console.log("itemacc",getalgo)
+  //       console.log("itemid",item.title)
+  //       console.log("itemimage",item.image)
+  //       console.log("itemprice",item.price)
+  //       console.log("itemcAddress",item.categoryText)
+  //       console.log("itemkeyid",item.highestBid)
+  //       console.log("itemusername",getprodata.username)
+  //       console.log("itempreaddress",item.bid)
+  //       console.log("itemacc",getalgo)
         
   
-        fireDb.database().ref(`imagerefbuyAlgos/${getalgo}`).child(item.highestBid).set({
+  //       fireDb.database().ref(`imagerefbuyAlgos/${getalgo}`).child(item.highestBid).set({
   
-    id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
-    userName:"",userSymbol:"Algos",ipfsUrl:item.ipfsurl,
-    ownerAddress:getalgo,soldd:item.soldd,extra1:item.extra,
-    previousoaddress:item.previousaddress,datesets:item.date,
-    description:item.description,whois:'buyers',history:item.url,paramsdb:item.image2x,privatekey:item.category
+  //   id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
+  //   userName:"",userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+  //   ownerAddress:getalgo,soldd:item.soldd,extra1:item.extra,
+  //   previousoaddress:item.previousaddress,datesets:item.date,
+  //   description:item.description,whois:'buyers',history:item.url,paramsdb:item.image2x,privatekey:item.category
           
   
-          }).then(()=>{
-            setIsOpenss(false)
-            setIsOpens(true)
+  //         }).then(()=>{
+  //           setIsOpenss(false)
+  //           setIsOpens(true)
             
-            //window.location.reload(false)   
-          }) 
+  //           //window.location.reload(false)   
+  //         }) 
   
-      }
+  //     }
   
-     //alert("amount has been sent")
-  //end trans 
-     //let thing = a.addIds; 
-     //let s = await getaaa.methods.items(thing).call(); 
-     //console.log("sget",s) 
-     //let state = a.addPrices;       
-    })    
+  //    //alert("amount has been sent")
+  // //end trans 
+  //    //let thing = a.addIds; 
+  //    //let s = await getaaa.methods.items(thing).call(); 
+  //    //console.log("sget",s) 
+  //    //let state = a.addPrices;       
+  //   })    
     
     
 
-    })().catch(e => {
-      console.log(e);
-      console.trace();
-  });
+  //   })().catch(e => {
+  //     console.log(e);
+  //     console.trace();
+  // });
 
 
   

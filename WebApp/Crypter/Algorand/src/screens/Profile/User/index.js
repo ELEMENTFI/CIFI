@@ -14,55 +14,58 @@ const shareUrlTwitter = "https://ui8.net";
 const User = ({ className, item }) => {
   const[getprodata,setgetprodata]=useState([]);
   console.log("getprodata",getprodata)
-  const[getusername,setgetusername]=useState("");
-  const [visible, setVisible] = useState(false);
+  // const[getusername,setgetusername]=useState("");
+  //const [visible, setVisible] = useState(false);
   const [visibleShare, setVisibleShare] = useState(false);
   const [visibleModalReport, setVisibleModalReport] = useState(false);
-  let getac="undefined";
-  let getalgo="undefined";
-  let getname="undefined";
-  getalgo=localStorage.getItem("walletalgo");
+  //let getac="";
+  let getalgo="";
+  //let getname="";
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "")
+  {
+
+  getalgo=localStorage.getItem("wallet");
   console.log("getmetamask",getalgo)
   //getalgo=localStorage.getItem("walletalgo");
-  getname=localStorage.getItem("walletname");
+  //getname=localStorage.getItem("walletname");
   //const[getImgreff,setgetImgreff]=useState([]);
   //console.log("getImHeader",getImgreff)
-
   //console.log("checking",getprodata[0].profileurl)
-
+  }
+  
   const dbcallprodata=()=>{
 
 
     console.log("inside setgetdbcall function")
-    let getalgo=localStorage.getItem("walletalgo");
+    
     let req = [];
       
-    if(localStorage.getItem("walletalgo") === null){
-
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "" ){
       req.push(              
         {              
           Bio: "",
           Twitter: "",
           address: "",
-          displayname:"",
-          profileurl:"",
-          username: ""
+          displayname:"aaa",
+          profileurl:"aaa",
+          username: "bbb"
         })
         setgetprodata(req);   
   
     }
     else{  
-      //let kreq =[];
+      let getalgo=localStorage.getItem("wallet");
+      let kreq =[];
       fireDb.database().ref("profiledata").child(getalgo).on("value", (data) => {
         if (data) {
 
           console.log("start",data.val())
 
           let value=data.val();
-          console.log("valuess",value)
-          setgetusername(value.username)
-         localStorage.getItem("walletname",value.username);
-        console.log("valueuser",value.username);
+          //console.log("valuess",value)
+          //setgetusername(value)
+         //localStorage.getItem("walletname",value.username);
+        //console.log("valueuser",value.username);
           // req.push(              
           //   {              
           //     Bio: value.Bio,
@@ -74,6 +77,23 @@ const User = ({ className, item }) => {
           //   })
             setgetprodata(value);   
         }     
+        else{
+
+          kreq.push(              
+            {              
+              Bio: "",
+              Twitter: "",
+              address: "",
+              displayname:"...",
+              profileurl:"aaa",
+              username: "..."
+            })            
+
+            setgetprodata(kreq)
+
+        }
+
+
         
       });
       
@@ -84,63 +104,109 @@ const User = ({ className, item }) => {
 
   const followcall=(event)=>{
 
-    console.log("followcall",event.target.innerText)
-    let getalgo=localStorage.getItem("walletalgo");    
-    if(event.target.innerText === 'Follow'){    
-    console.log("addlikedb function follow call");
-    let ref2=fireDb.database().ref(`followdb/${getalgo}`).child(getalgo);
-    //const db = ref2.push().key;                         
-    ref2.set({
-      username:"",
-      datesets:new Date().toDateString(),
-      description:"",whois:'follow',
-      status:"",      
+    // console.log("followcall",event.target.innerText)
+    // let getalgo=localStorage.getItem("walletalgo");    
+    // if(event.target.innerText === 'Follow'){    
+    // console.log("addlikedb function follow call");
+    // let ref2=fireDb.database().ref(`followdb/${getalgo}`).child(getalgo);
+    // //const db = ref2.push().key;                         
+    // ref2.set({
+    //   username:"",
+    //   datesets:new Date().toDateString(),
+    //   description:"",whois:'follow',
+    //   status:"",      
       
 
-      }).then(()=>{
-        setVisible(!visible)
-      });    
-    }
-    else if(event.target.innerText === 'Unfollow'){
+    //   }).then(()=>{
+    //     setVisible(!visible)
+    //   });    
+    // }
+    // else if(event.target.innerText === 'Unfollow'){
       
-    console.log("addlikedb function unfollow call");
-    fireDb.database().ref(`followdb/${getalgo}`).child(getalgo).remove().then(()=>{
-      setVisible(!visible)
-    });    
+    // console.log("addlikedb function unfollow call");
+    // fireDb.database().ref(`followdb/${getalgo}`).child(getalgo).remove().then(()=>{
+    //   setVisible(!visible)
+    // });    
     
-    }
+    // }
   }
 
-  const unfollowcall=()=>{
 
-    console.log("unfollowcall")
+
+  const[getaddresslink,setgetaddresslink]=useState(null);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "0x")
+      {
+        setgetaddresslink("https://testnet.algoexplorer.io/address/"+null)
+
+
+        
+      }
+      else{
     
-  }
+        setgetaddresslink("https://testnet.algoexplorer.io/address/"+localStorage.getItem("wallet"))
+        console.log("ls3",getaddresslink)
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
 
   return (
     <>
 
       <div className={cn(styles.user, className)}>
-        <div className={styles.avatar}>
-          {getprodata === null ? (
 
-<img src="/images/content/avatar-big.jpg" alt="Avatar" />
+      {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === "" ) ? 
+        (
+        <>
+        <div className={styles.avatar}>            
+<img src="/images/logocifis.png" alt="Avatar" />
+</div>
+        </>):(
+          <>
+                    { getprodata === "" || getprodata === null ? (
+
+<div className={styles.avatar}>            
+<img src="/images/logocifis.png" alt="Avatar" />
+</div>
           ):(
 
-            <img src={getprodata.profileurl} alt="Avatar" />
+            <>
+            {getprodata.profileurl === "" || getprodata.profileurl ==="" || getprodata.profileurl ==="aaa" ? (
+              <div className={styles.avatar}>            
+<img src="/images/logocifis.png" alt="Avatar" />
+</div>
+
+            ) :(
+
+              <div className={styles.avatar}>            
+              <img src={getprodata.profileurl} alt="Avatar" />
+              </div>
+
+            )}
+
+
+</>
+   
           )}
-          
-          
-        </div>
-        {getusername === null ? (
+
+
+          </>
+        )
+}
+                            
+        {getprodata === null || getprodata === "" ? (
           <div className={styles.name}>{"abcdedd"}</div>
 
         ):(
 
-          <div className={styles.name}>{getusername}</div>
+          <div className={styles.name}>{getprodata.displayname}</div>
         )}
         
-        {localStorage.getItem("walletalgo") === null ? (
+        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x") ? (
 
 <div className={styles.code}>
 <div className={styles.number}>{"0Xasdhaudhu"}....</div>
@@ -152,7 +218,7 @@ const User = ({ className, item }) => {
         ):(
 
           <div className={styles.code}>
-          <div className={styles.number}>{getalgo.slice(0,10)}....</div>
+          <div className={styles.number}>{localStorage.getItem("wallet").slice(0,10)}....</div>
           {/* <button className={styles.copy}>
             <Icon name="copy" size="16" />
           </button> */}
@@ -164,7 +230,32 @@ const User = ({ className, item }) => {
           A wholesome farm owner in Montana. Upcoming gallery solo show in
           Germany
         </div>
-        <a
+        {localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === " "? (
+          <a
+          className={styles.site}
+          href={getaddresslink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="globe" size="16" />
+          <span>https://algoexplorer...</span>
+        </a>
+
+        ):(
+          <>
+          
+          <a
+          className={styles.site}
+          href={getaddresslink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="globe" size="16" />
+          <span>https://algoexplorer...</span>
+        </a>
+</>
+        )}
+        {/* <a
           className={styles.site}
           href="https://ui8.net"
           target="_blank"
@@ -172,7 +263,8 @@ const User = ({ className, item }) => {
         >
           <Icon name="globe" size="16" />
           <span>https://ui8.net</span>
-        </a>
+        </a> */}
+        <br></br>
         <div className={styles.control}>
           <div className={styles.btns}>
             {/* <button
@@ -251,4 +343,5 @@ const User = ({ className, item }) => {
     </>
   );
 };
+
 export default User;

@@ -52,16 +52,16 @@ const Footers = () => {
   let getname="";
   //getac=localStorage.getItem("wallet");
   //console.log("getmetamask",getac)
-
-  if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
+  
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }
-
   else{
-  getalgo=localStorage.getItem("walletalgo");
+
+  getalgo=localStorage.getItem("wallet");
   console.log("getalgo",getalgo)
-  getname=localStorage.getItem("walletname");
-  console.log("namewallet",getname)
+  //getname=localStorage.getItem("walletname");
+  //console.log("namewallet",getname)
           let ref2=fireDb.database().ref(`emailregister/${getalgo}`);
           let dateset=new Date().toDateString();
           console.log("dateget",dateset)
@@ -70,8 +70,11 @@ const Footers = () => {
           ref2.set({dbkey:db,ownerAddress:getalgo,username:getname,datedb:dateset,mailid:email}).then(()=>{
             setIsOpen(true)        
           })
-        }
 
+
+  }
+  
+  
   };
 
   
@@ -98,7 +101,7 @@ const Footers = () => {
             <Link className={styles.logo} to="/">
               <Image
                 className={styles.pic}
-                src="/images/logocifis.png"
+                src="/images/logocifisnew.png"
                 srcDark="/images/logocifis.png"
                 alt="Fitness Pro"
               />

@@ -9,7 +9,7 @@ const FolowStepsd = ({ className,onClo}) => {
   return (
     <div className={cn(className, styles.steps)}>
       {/* <h1>{test}</h1> */}
-      <div className={cn("h4", styles.title)}>Notification</div>
+      <div className={cn("h4", styles.title)}></div>
       <div className={styles.list}>
 
       <div className={cn(styles.item, styles.done)}>
@@ -18,7 +18,7 @@ const FolowStepsd = ({ className,onClo}) => {
               <Icon name="upload-file" size="24" />
             </div>
             <div className={styles.details}>
-              <div className={styles.info}>Metamask Connect</div>
+              <div className={styles.info}>Algosigner Connect</div>
               
             </div>
           </div>

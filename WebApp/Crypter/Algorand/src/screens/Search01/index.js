@@ -47,6 +47,14 @@ const Search = () => {
   const dbcallsaleal=async(index)=>{
     setActiveIndex(index)
     console.log("inside dbcallsalealgo function")
+
+
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
+
+    }
+    else{
+
+    
     //let getalgo=localStorage.getItem("walletalgo");
     //let req = [];
   
@@ -87,6 +95,14 @@ const Search = () => {
                 categoryText: a[b].cAddress,
                 //purchasing !
                 url: a[b].history,
+                date:a[b].datesets,
+                description:a[b].description,
+                extra:a[b].extra1,
+                ipfsurl:a[b].ipfsUrl,
+                previousaddress:a[b].previousoaddress,
+                soldd:a[b].soldd,
+                whois:a[b].whois,
+
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",
@@ -98,7 +114,7 @@ const Search = () => {
       setgetI(req)    
     })    
     console.log("cfbbba",req) 
-    
+  }
   //}
   
 }
@@ -106,14 +122,15 @@ const Search = () => {
 
   const dbcallsalealgo=async()=>{
     console.log("inside dbcallsalealgo function")
-    let getalgo=localStorage.getItem("walletalgo");
+    
     let req = [];
   
-    if(getalgo === ""){
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
   
     }else{
   
     
+      let getalgo=localStorage.getItem("walletalgo");
       
       //let kreq =[];
       firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
@@ -332,8 +349,8 @@ const Search = () => {
                 )}
               />
               <div className={styles.scale}>
-                <div className={styles.number}>0.01 BNB</div>
-                <div className={styles.number}>10 BNB</div>
+                <div className={styles.number}>0.01 Algos</div>
+                <div className={styles.number}>10 Algos</div>
               </div>
             </div>
             <div className={styles.group}>

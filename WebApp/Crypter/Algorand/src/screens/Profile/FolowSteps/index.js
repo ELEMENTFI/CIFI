@@ -5,7 +5,7 @@ import Icon from "../../../components/Icon";
 //import Loader from "../../../components/Loader";
 //import LoaderCircle from "../../../components/LoaderCircle";
 
-const FolowStepsProfileEdit = ({ className,onClose}) => {
+const FolowSteps = ({ className,onSub}) => {
 
   return (
     <div className={cn(className, styles.steps)}>
@@ -19,11 +19,11 @@ const FolowStepsProfileEdit = ({ className,onClose}) => {
               <Icon name="upload-file" size="24" />
             </div>
             <div className={styles.details}>
-              <div className={styles.info}>Profile Updated</div>
+              <div className={styles.info}>Price Updated</div>
               
             </div>
           </div>
-          <button type="submit" className={cn("button done", styles.button)} onClick={onClose()}>Done</button>
+          <button type="submit" className={cn("button done", styles.button)} onClick={onSub()}>Done</button>
           {/* <button type="submit" onClick={()=>dones()}>Start nowss</button> */}
           {/* onClick={onClo()} */}
         </div>
@@ -37,4 +37,4 @@ const FolowStepsProfileEdit = ({ className,onClose}) => {
   );
 };
 
-export default FolowStepsProfileEdit;
+export default FolowSteps;
