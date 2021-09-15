@@ -171,7 +171,7 @@ useEffect(()=>{usernameget()},[])
       // let amount = parseInt(item.price.replace(/['"]+/g, ''));
       //   console.log("conscheck",amount)
 
-       const myAlgoWallet = new MyAlgo();
+       //const myAlgoWallet = new MyAlgo();
 
       // (async () => {
       //   try {
@@ -220,10 +220,10 @@ useEffect(()=>{usernameget()},[])
       note: new Uint8Array(Buffer.from('transfer'))
     };
   
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
+  //  let signedTxn = await myAlgoWallet.signTransaction(txn);
+   // console.log(signedTxn.txID);
   
-    await algodclient.sendRawTransaction(signedTxn.blob).do();
+    //await algodclient.sendRawTransaction(signedTxn.blob).do();
 
   
   } catch(err) {
