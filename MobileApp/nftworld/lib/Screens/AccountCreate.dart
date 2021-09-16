@@ -12,14 +12,14 @@ class AccountCreation extends StatelessWidget {
   static TextEditingController controller4 = TextEditingController();
   static TextEditingController controller5 = TextEditingController();
   static TextEditingController controller12 = TextEditingController();
-  static TextEditingController controller13 = TextEditingController();
+ 
   FocusNode f1 = FocusNode();
   FocusNode f2 = FocusNode();
   FocusNode f3 = FocusNode();
   FocusNode f4 = FocusNode();
   FocusNode f5 = FocusNode();
   FocusNode f12 = FocusNode();
-  FocusNode f13 = FocusNode();
+ 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -67,7 +67,7 @@ class AccountCreation extends StatelessWidget {
             action: TextInputAction.next,
           ),
           TextWidget(
-            label: 'YOUR WALLET ADDRESS',
+            label: 'YOUR ALGORND WALLET ADDRESS',
             id: 12,
             obsecure: false,
             prefix: false,
@@ -125,20 +125,7 @@ class AccountCreation extends StatelessWidget {
             },
             action: TextInputAction.done,
           ),
-          TextWidget(
-            label: 'algorand account mnemonics(optional)',
-            id: 13,
-            obsecure: true,
-            prefix: false,
-            keybordtype: TextInputType.text,
-            controller: controller13,
-            ctx: context,
-            focusnode: f13,
-            focusfun: (_) {
-              f5.unfocus();
-            },
-            action: TextInputAction.done,
-          ),
+         
           HStack(
             [
               Button(

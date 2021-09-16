@@ -12,9 +12,11 @@ class NFTCreation extends StatelessWidget {
   static TextEditingController controller8 = TextEditingController();
   static TextEditingController controller9 = TextEditingController();
   static TextEditingController controller10 = TextEditingController();
+  static TextEditingController controller13 = TextEditingController();
   FocusNode f8 = FocusNode();
   FocusNode f9 = FocusNode();
   FocusNode f10 = FocusNode();
+  FocusNode f13 = FocusNode();
   final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,7 @@ class NFTCreation extends StatelessWidget {
               ).expand(),
               DropButon(),
             ]),
+            
             (context.percentHeight * 5).heightBox,
             TextWidget(
               label: 'URL',
@@ -77,6 +80,20 @@ class NFTCreation extends StatelessWidget {
               ctx: context,
               focusnode: f10,
               focusfun: (_) => f10.unfocus(),
+              action: TextInputAction.done,
+            ),
+            if(controller9.text == 'ALGOREN') 
+             (context.percentHeight * 5).heightBox,
+            TextWidget(
+              label: 'ALGORAND WALLET ADDRESS',
+              prefix: false,
+              id: 13,
+              obsecure: false,
+              keybordtype: TextInputType.text,
+              controller: controller13,
+              ctx: context,
+              focusnode: f13,
+              focusfun: (_) => f13.unfocus(),
               action: TextInputAction.done,
             ),
             (context.percentHeight * 2).heightBox,

@@ -36,6 +36,7 @@ class _DropButonState extends State<DropButon> {
       onChanged: (String newvalue) {
         setState(() {
           NFTCreation.controller9.text = newvalue;
+          
         });
       },
     );

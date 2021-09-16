@@ -55,8 +55,8 @@ class TextWidgetState extends State<TextWidget> {
   var username = AccountCreation.controller3;
   var password = AccountCreation.controller4;
   var repassword = AccountCreation.controller5;
-  var wallet = AccountCreation.controller12;
-  var wallet2 = AccountCreation.controller13;
+  var walleta = AccountCreation.controller12;
+  var wallet = NFTCreation.controller13;
   var temp;
 
   void logindata(BuildContext ctx) async {
@@ -73,12 +73,8 @@ class TextWidgetState extends State<TextWidget> {
             'password': password.text,
             'phone_no': phoneno.text,
             'user_name': username.text,
-          }).then((value) {
-            ref.child('User').child(email.text).set({
-              'user': username.text,
-              'wallet_address': wallet.text,
-              'algoand_address': wallet2.text,
-            });
+            'address': '',
+            'algorand_address': walleta.text,
           }).then((value) => context.vxNav.push(Uri(path: '/')));
         }).then((value) {
           email.clear();
@@ -108,13 +104,15 @@ class TextWidgetState extends State<TextWidget> {
     }
   }
 
-  void nftdata(counts, user) {
+  void nftdata() {
+    Mystore stores = VxState.store;
+    var user = stores.user[0].username;
     var name = nftname.text;
     ref.child('NFT').child(name).set({
       'Image_url': url.text,
       'Price': '',
       'Nft_Symbol': nftsymbol.text,
-      'WalletAddress': '',
+      'WalletAddress': nftsymbol.text == 'ALGOREN' ? wallet.text : '',
       'ContractAddress': '',
       'user': user,
       'Token': 0,
@@ -158,7 +156,6 @@ class TextWidgetState extends State<TextWidget> {
     File pickedImage;
     Mystore stores = VxState.store;
     var count = stores.nftname;
-    var user = stores.username;
     return TextFormField(
       controller: widget.controller,
       focusNode: widget.focusnode,
@@ -211,7 +208,7 @@ class TextWidgetState extends State<TextWidget> {
             logindata(context);
           }
           if (widget.id == 10) {
-            nftdata(count, user);
+            nftdata();
           }
         } catch (e) {
           Alert(

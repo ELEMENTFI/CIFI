@@ -1,52 +1,56 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import '../Providers/Datafunction.dart';
+import 'package:nftworld/Providers/Datafunction.dart';
+import 'package:splashscreen/splashscreen.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class SplashScreen extends StatefulWidget {
+class Splash extends StatefulWidget {
+  final navigation;
+  const Splash({Key key, @required this.navigation}) : super(key: key);
+
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _SplashState createState() => _SplashState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
-  final skey = GlobalKey<ScaffoldState>();
+class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    print('lok');
-    Initial();
-    Mydatas();
-    delay();
+    if (widget.navigation == 2) {
+      Userdetails();
+      Initial();
+      Mydatas();
+      delay();
+    }
   }
 
   delay() async {
     Timer(Duration(seconds: 5), () {
-      print('lo');
       BuyedNft();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
     return Scaffold(
-      key: skey,
-      backgroundColor: theme.primaryColor,
-      body: ZStack([
-        VStack(
-          [
-            VxBox()
-                .square(200)
-                .bgImage(DecorationImage(
-                    image: AssetImage('assets/splash.gif'), fit: BoxFit.fill))
-                .makeCentered()
-                .p(20)
-          ],
-          alignment: MainAxisAlignment.center,
-          axisSize: MainAxisSize.max,
-        )
-      ]),
+      body: SplashScreen(
+        loaderColor: context.primaryColor,
+        gradientBackground: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              context.primaryColor,
+              Colors.orange[400],
+            ]),
+        seconds: 8,
+        navigateAfterSeconds: widget.navigation == 1
+            ? context.vxNav.push(Uri(path: '/login'))
+            : context.vxNav.push(Uri(path: '/main')),
+        image: Image(
+          image: AssetImage('assets/splash.gif'),
+        ),
+        photoSize: 100.0,
+      ),
     );
   }
 }

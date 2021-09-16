@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import '../Providers/Datafunction.dart';
 import '../Widgets/Button.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'ListScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -14,29 +13,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int index = 0;
 
-  changeindex(int cindex, store) {
+  changeindex(int cindex, store) async {
+    print(await FirebaseAuth.instance.currentUser);
     setState(() {
       index = cindex;
     });
     store.search == false ? Search(false) : Search(true);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    print('p');
-    Initial();
-    Mydatas();
-    delay();
-    // Login.controller6.clear();
-    // Login.controller7.clear();
-  }
-
-  delay() async {
-    Timer(Duration(seconds: 5), () {
-      print('lo');
-      BuyedNft();
-    });
   }
 
   @override

@@ -39,7 +39,6 @@ class Nftdatas {
 class Auth {
   final username;
   final password;
-
   Auth({@required this.username, @required this.password});
 }
 
@@ -49,12 +48,16 @@ class Logindata {
   final phone;
   final username;
   final password;
-
-  Logindata(
-      {@required this.email,
-      @required this.phone,
-      @required this.username,
-      @required this.password});
+  final address;
+  final algorand_address;
+  Logindata({
+    @required this.email,
+    @required this.phone,
+    @required this.username,
+    @required this.password,
+    @required this.address,
+    @required this.algorand_address,
+  });
 }
 
 //list and variable for statemanagement in app
@@ -63,12 +66,12 @@ class Mystore extends VxStore {
   List<Nftdatas> mydata = [];
   List<Nftdatas> buyednft = [];
   List<String> nftname = [];
+  List<Logindata> user = [];
   bool image = false;
   bool sign = false;
   var count = 0;
   bool search = false;
   var start = 0;
-  String username;
   bool called = false;
 }
 
@@ -79,11 +82,35 @@ class Images extends VxMutation<Mystore> {
   }
 }
 
+class Userdetails extends VxMutation<Mystore> {
+
+  final fs = FirebaseFirestore.instance;
+  
+  @override
+  perform() {
+    try{
+      final user = FirebaseAuth.instance.currentUser.email;
+if(user != null)
+    fs.collection('User').doc(user).get().then((value) {
+      store.user.add(Logindata(
+          email: value['email_id'],
+          phone: value['phone_no'],
+          username: value['user_name'],
+          password: value['password'],
+          address: value['address'],
+          algorand_address: value['algorand_address']));
+    });
+    }
+    catch(e){
+
+    }
+    
+  }
+}
+
 //fetch and store a public & own nfts in a list which is call first
 class Initial extends VxMutation<Mystore> {
   final ref = FirebaseDatabase.instance.reference();
-  final user = FirebaseAuth.instance.currentUser.email;
-  final fs = FirebaseFirestore.instance;
 
   adddata(start, count) {
     for (int k = start; k < count; k++) {
@@ -106,12 +133,6 @@ class Initial extends VxMutation<Mystore> {
               setprice: result.value['setPrice'],
             ),
           );
-        }
-
-        if (user.toString().contains('@')) {
-          fs.collection('User').doc(user).get().then((value) {
-            store.username = value['user_name'];
-          });
         }
       });
     }
@@ -176,7 +197,7 @@ class Mydatas extends VxMutation<Mystore> {
   perform() {
     for (int i = 0; i < store.nftname.length; i++) {
       ref.child('NFT').child(store.nftname[i]).once().then((result) {
-        if ((result.value['user'] == store.username) &&
+        if ((result.value['user'] == store.user[0].username) &&
             (result.value['buyed'] == 'false')) {
           print('nftt' + i.toString());
           store.mydata.add(
@@ -209,9 +230,9 @@ class BuyedNft extends VxMutation<Mystore> {
     for (int i = 0; i < store.nftname.length; i++) {
       ref.child('NFT').child(store.nftname[i]).once().then((result) {
         print('worked');
-        if (result.value['buyername'] == store.username &&
-            store.username.length > 0) {
-          print(store.username);
+        if (result.value['buyername'] == store.user[0].username &&
+            (store.user[0].username).length > 0) {
+        
           store.buyednft.add(
             Nftdatas(
               nftname: store.nftname[i],

@@ -3,24 +3,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../Providers/Datafunction.dart';
 import '../Screens/splashscreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'MainScreen.dart';
 
 class Authcheck extends StatelessWidget {
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: Login.auth.authStateChanges(),
+        stream: auth.authStateChanges(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return SplashScreen();
-          }
           if (snapshot.hasData) {
-            return MainPage();
+            return Splash(
+              navigation: 2,
+            );
           } else {
             return Login();
           }
@@ -34,7 +32,6 @@ class Login extends StatefulWidget {
   static TextEditingController controller7 = TextEditingController();
   FocusNode f6 = FocusNode();
   FocusNode f7 = FocusNode();
-  static final scaffold = GlobalKey<ScaffoldState>();
   static final auth = FirebaseAuth.instance;
 
   static Future<String> user() async {
@@ -59,16 +56,14 @@ class Login extends StatefulWidget {
     scaf,
   ) async {
     try {
-      SharedPreferences sp = await SharedPreferences.getInstance();
       String uid = await user();
-
+      await Userdetails();
       auth
           .signInWithEmailAndPassword(email: uid, password: controller7.text)
           .then((value) {
         Login.controller6.clear();
         Login.controller7.clear();
       });
-      sp.setBool('login', true);
     } catch (e) {
       Alert(
         context: scaf.currentContext,
@@ -81,7 +76,7 @@ class Login extends StatefulWidget {
               "OK",
               style: Theme.of(stylecontext).textTheme.headline2,
             ),
-            onPressed: () => Navigator.pop(scaffold.currentContext),
+            onPressed: () => Navigator.pop(scaf.currentContext),
             width: 120,
           ),
         ],
@@ -94,7 +89,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  static final scaffold = GlobalKey<ScaffoldState>();
   final formkey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+    print('log');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +105,7 @@ class _LoginState extends State<Login> {
     var sign = data.sign;
 
     return Scaffold(
-        key: Login.scaffold,
+        key: scaffold,
         backgroundColor: theme.primaryColor,
         appBar: AppBar(
           centerTitle: true,
@@ -162,6 +163,7 @@ class _LoginState extends State<Login> {
                       label: 'LOG IN',
                       navname: '/main',
                       form: formkey,
+                      key: scaffold,
                     ),
                     Button(
                       id: 4,
