@@ -69,4 +69,5 @@ MINTER (Fan Club)
 
 MVP Link : https://cifi-mvp-mint.vercel.app/
 
+For more information, please contact info@cifinetwork.com
 
