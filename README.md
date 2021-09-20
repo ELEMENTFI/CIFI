@@ -1,7 +1,7 @@
-# CIFI
+# CIFI NETWORK
 CIFI Network is the first tokenized all in one enterprise-grade multi-dimensional sports ecosystem connecting the cricket industry that aligns the interests of fans, sponsors, clubs, players, teams, and rights-holders in one place. CIFI comes with the blockchain infrastructure, Secured Mobile &amp; DApp, and DeFi services powered by CIFI cryptocurrency.
 
-# Types
+# TYPE OF PLATFORMS
 There will be two platforms - CIFI Labs and CIFI Sports
 
 CIFI Labs is a fine state the art Enterprise-grade generic all-in-one crypto DeFi, NFT, and Gaming platform for global crypto users without KYC restrictions using Algorand
