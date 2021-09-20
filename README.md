@@ -16,7 +16,7 @@ The CIFI Ecosystem consists of two clusters
 2) CIFI Sports  - A Decentralized All-in-one Regulatory Platform for global cricketing community
 
 
-#CIFI Ecosystem Components
+# Ecosystem Components
 
 SQUARE	(NFT Platform)
 1) Decentralized 2D, 3D and Voice based NFT Minting Dapp
