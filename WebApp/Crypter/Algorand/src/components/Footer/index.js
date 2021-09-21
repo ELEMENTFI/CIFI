@@ -13,7 +13,7 @@ import Modald from "../../components/ModalD";
 
 const items = [
   {
-    title: "Crypter.",
+    title: "Cifi",
     menu: [
       {
         title: "Discover",

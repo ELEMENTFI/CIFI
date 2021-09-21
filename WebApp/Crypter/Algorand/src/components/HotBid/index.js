@@ -8,6 +8,7 @@ import firebase from "../../screens/UploadDetails/firebase";
 
 // data
 import { bids } from "../../mocks/bids";
+import Cards from "../Cards";
 
 const SlickArrow = ({ currentSlide, slideCount, children, ...props }) => (
   <button {...props}>{children}</button>
@@ -16,6 +17,87 @@ const SlickArrow = ({ currentSlide, slideCount, children, ...props }) => (
 const navLinks = ["All items", "Art", "Game", "Photography", "Music", "Video"];
 
 const Hot = ({ classSection }) => {
+
+  const items = [
+    {
+      title: "Chicago Blasters",
+      content: "Highest bid",
+      counter: "18 in stock",
+      price: "1.125Algos",
+      url: "/search01",
+      avatar: "/images/Chicago Blasters.png",
+      image: "/images/Chicago Blasters.png",
+      image2x: "/images/Chicago Blasters.png",
+      highestBid: "",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Chicago Blasters.png",
+        },
+      ],
+    },
+    {
+      title: "Morrisville Cardinals",
+      content: "1 of 12",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Morrisville Cardinals.png",
+      image: "/images/Morrisville Cardinals.png",
+      image2x: "/images/Morrisville Cardinals.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Morrisville Cardinals.png",
+        },
+      ],
+    },
+    {
+      title: "Empire State Titans",
+      content: "1 of 3",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Empire State Titans.png",
+      image: "/images/Empire State Titans.png",
+      image2x: "/images/Empire State Titans.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Empire State Titans.png",
+        },
+      ],
+    },
+    {
+      
+      title: "Silicon Valley Strikers",
+      content: "1 of 4",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Silicon Valley Strikers.png",
+      image: "/images/Silicon Valley Strikers.png",
+      image2x: "/images/Silicon Valley Strikers.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Silicon Valley Strikers.png",
+        },
+      ],
+    },
+  ];
+
   const [activeIndex, setActiveIndex] = useState(0);
   const settings = {
     infinite: false,
@@ -131,8 +213,8 @@ const Hot = ({ classSection }) => {
           <h3 className={cn("h3", styles.title)}>Hot bid</h3>
           <div className={styles.inner}>
             <Slider className="bid-slider" {...settings}>
-              {bids.map((x, index) => (
-                <Card key={index} className={styles.card} item={x} />
+              {items.map((x, index) => (
+                <Cards key={index} className={styles.card} item={x} />
               ))}
             </Slider>
           </div>

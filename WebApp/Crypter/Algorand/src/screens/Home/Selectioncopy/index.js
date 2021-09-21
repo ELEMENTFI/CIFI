@@ -6,72 +6,72 @@ import Icon from "../../../components/Icon";
 
 const items = [
   {
-    title: "The future of Algos®",
+    title: "Atlanta Fire®",
     content: "Highest bid",
     counter: "18 in stock",
     price: "1.125Algos",
     url: "/search01",
-    avatar: "/images/content/dhoni image.jpg",
-    image: "/images/content/dhoni image.jpg",
-    image2x: "/images/content/dhoni image.jpg",
+    avatar: "/images/Atlanta Fire.png",
+    image: "/images/Atlanta Fire.png",
+    image2x: "/images/Atlanta Fire.png",
   },
   {
-    title: "Algo never die",
+    title: "Austin Athletics",
     content: "1 of 12",
     price: "0.27Algos",
     url: "/search01",
-    avatar: "/images/content/kohli image.jpg",
-    image: "/images/content/kohli image.jpg",
-    image2x: "/images/content/kohli image.jpg",
+    avatar: "/images/Austin Athletics.png",
+    image: "/images/Austin Athletics.png",
+    image2x: "/images/Austin Athletics.png",
   },
   {
-    title: "Future coming soon",
+    title: "Dc Hawks",
     content: "1 of 3",
     price: "0.27Algos",
     url: "/search01",
-    avatar: "/images/content/gilchrist image.jpeg",
-    image: "/images/content/gilchrist image.jpeg",
-    image2x: "/images/content/gilchrist image.jpeg",
+    avatar: "/images/Dc Hawks.png",
+    image: "/images/Dc Hawks.png",
+    image2x: "/images/Dc Hawks.png",
   },
   {
-    title: "Elon Musk silver coin 3d print",
+    title: "East Bay Blazers",
     content: "1 of 4",
     price: "0.27Algos",
     url: "/search01",
-    avatar: "/images/content/willi.jpeg",
-    image: "/images/content/willi.jpeg",
-    image2x: "/images/content/willi.jpeg",
+    avatar: "/images/East Bay Blazers.png",
+    image: "/images/East Bay Blazers.png",
+    image2x: "/images/East Bay Blazers.png",
   },
 ];
 
 const users = [
   {
-    name: "Payton Harris",
+    name: "Ahmed Butt",
     price: "<span>2.456</span>Algos",
     counter: "6",
-    avatar: "/images/content/dhoni image.jpg",
+    avatar: "/images/Ahmed Butt.png",
   },
   {
-    name: "Anita Bins",
+    name: "Ishan Sharma",
     price: "<span>2.456</span>Algos",
     counter: "2",
-    avatar: "/images/content/bens.jpeg",
+    avatar: "/images/Ishan Sharma.png",
   },
   {
-    name: "Joana Wuckert",
+    name: "Aditya Padala",
     price: "<span>2.456</span>Algos",
     counter: "3",
-    avatar: "/images/content/abd.jpeg",
+    avatar: "/images/Aditya Padala.png",
   },
   {
-    name: "Lorena Ledner",
+    name: "Hammed Azam",
     price: "<span>2.456</span>Algos",
     counter: "4",
-    avatar: "/images/content/babar.jpeg",
+    avatar: "/images/Hammed Azam.png",
   },
 ];
 
-const Selection = () => {
+const Selectioncopy = () => {
   return (
     <div className={cn("section-pb", styles.section)}>
       <div className={cn("container", styles.container)}>
@@ -179,4 +179,4 @@ const Selection = () => {
   );
 };
 
-export default Selection;
+export default Selectioncopy;

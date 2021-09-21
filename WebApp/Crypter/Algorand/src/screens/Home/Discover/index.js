@@ -44,6 +44,87 @@ const Discover = () => {
   const[getIm,setgetIm]=useState([]);
   console.log("getImgalgosss",getIm)
 
+
+  const items = [
+    {
+      title: "Chicago Blasters",
+      content: "Highest bid",
+      counter: "18 in stock",
+      price: "1.125Algos",
+      url: "/search01",
+      avatar: "/images/Chicago Blasters.png",
+      image: "/images/Chicago Blasters.png",
+      image2x: "/images/Chicago Blasters.png",
+      highestBid: "",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Chicago Blasters.png",
+        },
+      ],
+    },
+    {
+      title: "Morrisville Cardinals",
+      content: "1 of 12",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Morrisville Cardinals.png",
+      image: "/images/Morrisville Cardinals.png",
+      image2x: "/images/Morrisville Cardinals.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Morrisville Cardinals.png",
+        },
+      ],
+    },
+    {
+      title: "Empire State Titans",
+      content: "1 of 3",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Empire State Titans.png",
+      image: "/images/Empire State Titans.png",
+      image2x: "/images/Empire State Titans.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Empire State Titans.png",
+        },
+      ],
+    },
+    {
+      
+      title: "Silicon Valley Strikers",
+      content: "1 of 4",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Silicon Valley Strikers.png",
+      image: "/images/Silicon Valley Strikers.png",
+      image2x: "/images/Silicon Valley Strikers.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Silicon Valley Strikers.png",
+        },
+      ],
+    },
+  ];
+
   const dbcallsaleal=async(index)=>{
     setActiveIndex(index)
     console.log("inside dbcallsalealgo function")
@@ -306,7 +387,7 @@ const Discover = () => {
             className={cn("discover-slider", styles.slider)}
             {...settings}
           >
-            {getI.map((x, index) => (
+            {items.map((x, index) => (
               
               <CardDiscover className={styles.card} item={x} key={index} />
             
@@ -315,11 +396,11 @@ const Discover = () => {
         </div>
         </Link>
         
-        <div className={styles.btns}>
+        {/* <div className={styles.btns}>
           <button className={cn("button-stroke button-small", styles.button)}>
             <span>Load more</span>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
