@@ -6,19 +6,29 @@ import HotBid from "../../components/HotBid";
 import Collections from "./Collections";
 import Discover from "./Discover";
 import Description from "./Description";
+import Selectioncopy from "./Selectioncopy";
 
 const Home = () => {
   return (
     <>
     
       {/* <Hero /> */}
+      
+
+      <Selectioncopy />
+
       <Selection />
-      <Popular />
+      {/* <Popular /> */}
       {/* <HotBid classSection="section" /> */}
-      <Collections />
+      {/* <Collections /> */}
+
+      {/* <PopularCopy />
+      <PopularCopys /> */}
       <Discover />
       <Description />
-      
+
+
+                
     </>
   );
 };

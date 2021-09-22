@@ -48,6 +48,14 @@ const ProfileEdit = () => {
   const dbcallprodata=()=>{
 
     console.log("inside setgetdbcall function")
+
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x")
+    {
+
+    }
+    else{
+
+    
     let getalgo=localStorage.getItem("wallet");
     let req = [];
       
@@ -55,15 +63,15 @@ const ProfileEdit = () => {
   
       console.log("not algo get")
 
-      // req.push(              
-      //   {              
-      //     Bio: "",
-      //     Twitter: "",
-      //     address: "",
-      //     displayname:"",
-      //     profileurl:"",
-      //     username: ""
-      //   })
+      req.push(              
+        {              
+          Bio: "",
+          Twitter: "",
+          address: "",
+          displayname:"aaaa",
+          profileurl:"",
+          username: "bbbb"
+        })
         setgetprodata(req);   
 
 
@@ -99,7 +107,7 @@ const ProfileEdit = () => {
         
         
       });
-      
+    } 
     }    
     //console.log("accpro",getprodata)    
   }
@@ -135,17 +143,24 @@ const ProfileEdit = () => {
   const adddbprofile=async()=>{
 
     console.log("adddbprofile");
-    const accounts = await web3.eth.getAccounts();
-  let getac="undefined";
-  let getalgo="undefined";
-  let getname="undefined";
-  getalgo=localStorage.getItem("wallet");
+    //const accounts = await web3.eth.getAccounts();
+  let getac="";
+  let getalgo="";
+  let getname="";
+  if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x")
+  {
+
+  }
+  else{
+
+  
+  getalgo=localStorage.getItem("walletalgo");
   console.log("getmetamask",getac)
   //getalgo=localStorage.getItem("walletalgo");
   getname=localStorage.getItem("walletname");
 
 
-    console.log("acc",accounts[0]);
+    //console.log("acc",accounts[0]);
   
 
     if(Img===null){
@@ -169,8 +184,8 @@ const ProfileEdit = () => {
     }
     else{
 
-      localStorage.setItem("wallet",accounts[0]);      
-      localStorage.setItem("walletname",name);
+      //localStorage.setItem("walletalgo",);      
+      //localStorage.setItem("walletname",name);
     let refprofile=fireDb.database().ref(`profiledata/${getalgo}`);
     let dateset=new Date().toDateString();
     console.log("dateget",dateset)
@@ -179,6 +194,7 @@ const ProfileEdit = () => {
     refprofile.set({profileurl:Img,displayname:name,http:url,Bio:bio,social:socialweb,Twitter:twitter,address:getalgo,dbkey:db,username:getname}).then(()=>{
       setIsOpen(true)
     })
+  }
   
     }
   }

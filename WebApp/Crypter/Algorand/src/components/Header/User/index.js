@@ -47,21 +47,27 @@ const User = ({ className,onProfile}) => {
 
   const[getprodata,setgetprodata]=useState([]);
   console.log("getprodata",getprodata)
-  const[getusername,setgetusername]=useState("");
+  //const[getusername,setgetusername]=useState("");
 
   let history=useHistory();
   const [visible, setVisible] = useState(false);
   const [algobalance, setalgobalance] = useState("");
-  let getac="undefined";
-  let getalgo="undefined";
+  let getac="";
+  let getalgo="";
   //let getname="undefined";
-  getac=localStorage.getItem("walletalgo");
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined){
+
+  }
+  else{
+
+  getac=localStorage.getItem("wallet");
   console.log("getmetamask",getac)
-  getalgo=localStorage.getItem("walletalgo");
+  getalgo=localStorage.getItem("wallet");
   //getname=localStorage.getItem("walletname");
   //const[getImgHeader,setgetImgHeader]=useState([]);
   //console.log("getImHeader",getImgHeader)
-
+  }
+  
 
   const dbcallprodata=()=>{
 
@@ -69,31 +75,25 @@ const User = ({ className,onProfile}) => {
     //let getalgo=;
     let req = [];
       
-    if(localStorage.getItem("wallet") === null){
-  
-      console.log("notalgoget",getalgo)
-
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+      //console.log("notalgoget",getalgo)
       req.push(              
         {              
           Bio: "",
           Twitter: "",
           address: "",
-          displayname:"",
-          profileurl:"",
-          username: ""
+          displayname:"...",
+          profileurl:"aaa",
+          username: "..."
         })
         setgetprodata(req);   
-
-
     }
     else{  
-      //let kreq =[];
+      let getalgo=localStorage.getItem("wallet");
+      let kreq =[];
       fire.database().ref("profiledata").child(getalgo).on("value", (data) => {
         if (data) {
-
-          console.log("startcon",data.val())
-
-          
+          console.log("startcon",data.val())          
           //   console.log("datacover",data)
           //   data.forEach((d) => {
           //     req.push(d.val().profileurl)      
@@ -101,8 +101,9 @@ const User = ({ className,onProfile}) => {
           //   });        
           // }      
           let value=data.val();
-          console.log("valuess",value)
-          // req.push(              
+          setgetprodata(data.val());       
+          //console.log("valuess",value)
+          // kreq.push(              
           //   {              
           //     Bio: value.Bio,
           //     Twitter: value.Twitter,
@@ -110,10 +111,23 @@ const User = ({ className,onProfile}) => {
           //     displayname:value.displayname,
           //     profileurl:value.profileurl,
           //     username: value.username
-          //   })        
-
-            setgetprodata(value);   
+          //   })                  
         }     
+        else{
+
+          kreq.push(              
+            {              
+              Bio: "",
+              Twitter: "",
+              address: "",
+              displayname:"...",
+              profileurl:"aaa",
+              username: "..."
+            })            
+
+            setgetprodata(kreq);   
+        }
+        
         
         
      });
@@ -128,23 +142,43 @@ const User = ({ className,onProfile}) => {
   const disconn=()=>{
     console.log("disconnect function call")
 
-    let getal=localStorage.getItem("wallet");
-    let getalname=localStorage.getItem("walletname");
-    console.log("get",getal)
-    console.log("getname",getalname)
-    localStorage.setItem("wallet","")
-    localStorage.setItem("walletname","")
-    let getalafter=localStorage.getItem("walletalgo");
-    let getalnameafter=localStorage.getItem("walletname");
-    console.log("getafter",getalafter)
-    console.log("getnameafter",getalnameafter)
+    
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
-    history.push("/")
+    }
+    else{
+  
+
+    let getal=localStorage.getItem("wallet");
+    //let getalname=localStorage.getItem("walletname");
+    console.log("get",getal)
+    //console.log("getname",getalname)
+    localStorage.setItem("wallet","0x")
+    //localStorage.setItem("`walletname`","demo")
+    let getalafter=localStorage.getItem("wallet");
+    //let getalnameafter=localStorage.getItem("walletname");
+    console.log("getafter",getalafter)
+    //console.log("getnameafter",getalnameafter)
+
     window.location.reload();
+    history.push("/")
+    //window.location.reload();
+    }
 
   }
 
-  const balancecall=async()=>{
+  useEffect(() => {
+    async function listenMMAccount() {
+
+      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+
+        console.log("algobalance",getalgo)
+      
+      }
+      else{
+      
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        getalgo=localStorage.getItem("wallet");
     console.log("inside balance function")
     const algosdk = require('algosdk');
     const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
@@ -172,21 +206,62 @@ const User = ({ className,onProfile}) => {
 })().catch(e => {
 	console.log(e);
 })
+      
+              }
+      
+
+    }
+    listenMMAccount();
+  }, []);
+
+
+  const balancecall=async()=>{
+    console.log("inside balance function")
+//     const algosdk = require('algosdk');
+//     const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+//           const port = "";
+//           //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
+//           const token = {
+          
+//               'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+//           }
+//           let client = new algosdk.Algodv2(token, baseServer, port);  
+
+//           console.log("log1",client);
+
+//   ( async() => {
+//     let account1_info = (await client.accountInformation(getalgo).do());
+//     console.log("accinfo",account1_info)
+//     console.log("accinfoamount",account1_info.amount)
+//     let calc=JSON.stringify(account1_info.amount)/1000000;
+//     console.log("calc",calc)
+//     setalgobalance(JSON.stringify(account1_info.amount)/1000000);
+//     console.log("Balance of account 1: " + JSON.stringify(account1_info.amount));
+//     localStorage.setItem("balget",account1_info);
+//     // let account2_info = (await client.accountInformation().do());
+//     // console.log("Balance of account 2: " + JSON.stringify(account2_info.amount));
+// })().catch(e => {
+// 	console.log(e);
+// })
 
 // var accounts = await web3.eth.getAccounts();
 // web3.eth.getBalance(getalgo)
 // .then(console.log);
 
-// if(localStorage.getItem("wallet") === null){
 
-//   console.log("bnbalgo",getalgo)
+// if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
+
+//   console.log("MATICMUMalgo",getalgo)
 
 // }
 // else{
 
+//   getalgo=localStorage.getItem("wallet");
+// //let url="https://api-testnet.bscscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
+
+// let url="https://api-testnet.polygonscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
 
 
-// let url="https://api-testnet.bscscan.com/api?module=account&action=balance&address="+getalgo+"&tag=latest&apikey=YourApiKeyToken";
 // //+"&tag=latest&apikey=26NPBCN1ZIZ33YJKKJ24MSY9GB6I6I4NVQ";
 
 // axios.get(`${url}`)
@@ -194,7 +269,7 @@ const User = ({ className,onProfile}) => {
 //            const allnote=url.data.result/1000000000000000000;
            
 //            setalgobalance(allnote);
-//            console.log("bnbbal",allnote)
+//            console.log("matbal",allnote)
 //          }).catch(error => console.error(`Error: ${error}`));       
 //         }
 
@@ -202,37 +277,53 @@ const User = ({ className,onProfile}) => {
 
   useEffect(()=>{balancecall()},[])
 
-  const dbcall=async()=>{
-    let getalgo=localStorage.getItem("walletalgo");
-    console.log("inside dbcall function")
-    //db call start
-
-    //const accounts = await web3.eth.getAccounts();
-    let req = [];
+  // const dbcall=async()=>{
     
-    //let kreq =[];
-    if(localStorage.getItem("walletalgo") === null){
+  //   console.log("inside dbcall function")
+  //   //db call start
 
-      setgetusername("")
-
-      console.log("dbcallalgo",getalgo)
-
-    }else{
+  //   //const accounts = await web3.eth.getAccounts();
+  //   let req = [];
+    
+  //   //let kreq =[];
+  //   if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
 
       
-     fire.database().ref("profiledata").child(getalgo).on("value", (data) => {
-      if (data) {
-         let value=data.val();
-         setgetusername(value.username)
-         localStorage.getItem("walletname",value.username);
-          console.log("valueuser",value.username);          
-      }
-    });
-  }
-   console.log("acc",getalgo)  
+  //     req.push(              
+  //       {              
+  //         Bio: "",
+  //         Twitter: "",
+  //         address: "",
+  //         displayname:"...",
+  //         profileurl:"aaa",
+  //         username: "..."
+  //       })
+
+  //     setgetusername(req)
+  //     console.log("dbcallalgo",getalgo)
+  //   }else{
+
+  //     let getalgo=localStorage.getItem("wallet");
+
+      
+      
+  //    fire.database().ref("profiledata").child(getalgo).on("value", (data) => {
+  //     if (data) {
+  //        let value=data.val();
+  //        //setgetusername(value.username)
+  //        //localStorage.getItem("walletname",value.username);
+  //         //console.log("valueuser",value.username);          
+  //     }
+  //     else{
+
+  //       setgetusername("....")
+  //     }
+  //   });
+  // }
+  //  console.log("acc",getalgo)  
   
-  }
-  useEffect(()=>{dbcall()},[])
+  // }
+  // useEffect(()=>{dbcall()},[])
 
 
 
@@ -243,27 +334,68 @@ const User = ({ className,onProfile}) => {
 
         <div className={styles.head} onClick={() => setVisible(!visible)}>
 
-        {getprodata.profileurl === "" ? (
-          <div className={styles.avatar}>
+        {(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '') ? 
+        (
+        <>
+
+<div className={styles.avatar}>
             
-          {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
-          <img src={getprodata.profileurl} alt="Avatar" />          
-   </div>
-            ):(
-              <div className={styles.avatar}>            
-                 {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
-                 <img src={getprodata.profileurl} alt="Avatar" />                       
-          </div>
-          )}
+            {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
+            <img src={"/images/logocifis.png"} alt="hello" />          
+     </div>
+        
+        </>
+        )
+        
+        :(
+
+          <>
           
+        <>
+        {getprodata === null ? (
+
+<div className={styles.avatar}>            
+          
+{/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
+<img src={"/images/logocifis.png"} alt="helloworld" />                       
+
+</div>
+
+        ):(
+
+<>
+          {getprodata.profileurl === null || getprodata.profileurl === "" || getprodata.profileurl === "aaa" ? (
+          
+            <div className={styles.avatar}>            
+            
+            {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
+            <img src={"/images/logocifis.png"} alt="helloworld" />                       
+            
+     </div>
+          ):(
+            <div className={styles.avatar}>            
+                   {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
+                   <img src={getprodata.profileurl} alt="world" />                       
+                   {/* <h1>{getprodata.profileurl}</h1> */}
+            </div>
+          )}
+
+</>
+        )}
+        </>
+        
+        
+        </>
+        )
+        }
           
             {algobalance === "" ? (
               <div className={styles.wallet}>
-{"demo"}<span className={styles.currency}>Algo</span>
+{""}<span className={styles.currency}>ALGO</span>
 </div>
             ):(
               <div className={styles.wallet}>
-{algobalance.toFixed(4)}<span className={styles.currency}>Algo</span>
+{algobalance.toFixed(4)}<span className={styles.currency}>ALGO</span>
               </div>
 
             )}
@@ -272,24 +404,25 @@ const User = ({ className,onProfile}) => {
         </div>
         {visible && (
           <div className={styles.body}>          
-          {getprodata.username === "" ? (
+          {getprodata === "" || getprodata === null? (
 
 <div className={styles.name}>              
 
-{"demo"}
+{"..."}
 </div>
 
           ):(
 
+            
             <div className={styles.name}>              
 
-              {getprodata.username}
+              {getprodata.displayname}
               </div>
 
           )}
           
             
-              {localStorage.getItem("walletalgo") === null ?(
+              {localStorage.getItem("wallet") === null ?(
 
 <div className={styles.code}>
 <div className={styles.number} >{"0Xsdjsjipps"}....</div>
@@ -314,7 +447,7 @@ const User = ({ className,onProfile}) => {
                 <div className={styles.preview}>
                   <img
                     src="/images/Algo.png"
-                    alt="Algo"
+                    alt="ALGO"
                   />
                 </div>
                 {algobalance === "" ? (
@@ -322,7 +455,7 @@ const User = ({ className,onProfile}) => {
 <div className={styles.details}>
 <div className={styles.info}>Balance</div>
 
-<div className={styles.price}>{"demo"} Algo</div>
+<div className={styles.price}>{"demo"} ALGO</div>
 </div>
               
             ):(
@@ -330,7 +463,7 @@ const User = ({ className,onProfile}) => {
               <div className={styles.details}>
               <div className={styles.info}>Balance</div>
               
-              <div className={styles.price}>{algobalance.toFixed(4)} Algo</div>
+              <div className={styles.price}>{algobalance.toFixed(4)} ALGO</div>
             </div>
               
             )}

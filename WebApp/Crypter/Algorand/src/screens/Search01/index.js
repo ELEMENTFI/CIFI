@@ -47,6 +47,14 @@ const Search = () => {
   const dbcallsaleal=async(index)=>{
     setActiveIndex(index)
     console.log("inside dbcallsalealgo function")
+
+
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
+
+    }
+    else{
+
+    
     //let getalgo=localStorage.getItem("walletalgo");
     //let req = [];
   
@@ -56,7 +64,7 @@ const Search = () => {
 
       //let req = [];
     let req2 = [];//imagerefexplore//
-    firebase.database().ref("imagerefexploreoneAlgo").on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           req2.push(d.val())          
@@ -87,6 +95,14 @@ const Search = () => {
                 categoryText: a[b].cAddress,
                 //purchasing !
                 url: a[b].history,
+                date:a[b].datesets,
+                description:a[b].description,
+                extra:a[b].extra1,
+                ipfsurl:a[b].ipfsUrl,
+                previousaddress:a[b].previousoaddress,
+                soldd:a[b].soldd,
+                whois:a[b].whois,
+
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",
@@ -98,7 +114,7 @@ const Search = () => {
       setgetI(req)    
     })    
     console.log("cfbbba",req) 
-    
+  }
   //}
   
 }
@@ -106,17 +122,18 @@ const Search = () => {
 
   const dbcallsalealgo=async()=>{
     console.log("inside dbcallsalealgo function")
-    let getalgo=localStorage.getItem("walletalgo");
+    
     let req = [];
   
-    if(getalgo === ""){
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
   
     }else{
   
     
+      let getalgo=localStorage.getItem("walletalgo");
       
       //let kreq =[];
-      firebase.database().ref("imagerefexploreoneAlgo").child(getalgo).on("value", (data) => {
+      firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
         if (data) {
           data.forEach((d) => {
             //console.log("keycheck",d.key)
@@ -124,23 +141,30 @@ const Search = () => {
             req.push(
               
               {
-                title: value.id,
-                price: value.priceSet,
-                highestBid: value.keyId,
-                counter:value.userName ,
-                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
-                bid:value.ownerAddress,
-                image: value.imageUrl,
-                image2x: value.paramsdb,
-                category: value.privatekey,
-                categoryText: value.cAddress,
-                //purchasing !
-                url: value.history,
-                users: [                
-                  {
-                    avatar: "/images/content/avatar-4.jpg",
-                  },
-                ],
+              title: value.id,
+              price: value.priceSet,
+              highestBid: value.keyId,
+              counter:value.userName ,
+              //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+              bid:value.ownerAddress,
+              image: value.imageUrl,
+              image2x: value.paramsdb,
+              category: value.privatekey,
+              categoryText: value.cAddress,
+              //purchasing !
+              url: value.history,
+              date:value.datesets,
+              description:value.description,
+              extra:value.extra1,
+              ipfsurl:value.ipfsUrl,
+              previousaddress:value.previousoaddress,
+              soldd:value.soldd,
+              whois:value.whois,
+              users: [                
+                {
+                  avatar: "/images/content/avatar-4.jpg",
+                },
+              ],
               },
             
             )
@@ -325,8 +349,8 @@ const Search = () => {
                 )}
               />
               <div className={styles.scale}>
-                <div className={styles.number}>0.01 BNB</div>
-                <div className={styles.number}>10 BNB</div>
+                <div className={styles.number}>0.01 Algos</div>
+                <div className={styles.number}>10 Algos</div>
               </div>
             </div>
             <div className={styles.group}>

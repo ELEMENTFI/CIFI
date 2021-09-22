@@ -5,13 +5,14 @@ import cn from "classnames";
 import styles from "./ConnectWallet.module.sass";
 import Icon from "../../components/Icon";
 import Checkbox from "../../components/Checkbox";
-import web3 from './web3';
+//import web3 from './web3';
 //import Popup from './Popup';
 import 'reactjs-popup/dist/index.css';
 //import Popup from 'reactjs-popup';
 import FolowStepsd from "./FolowStepsd";
 import Modald from "../../components/ModalD";
 import fireDb from '../UploadDetails/firebase';
+import MyAlgo from '@randlabs/myalgo-connect';
 
 
 
@@ -30,41 +31,69 @@ const Connect = () => {
   console.log(isOpen)
 
   const menu = [
-    {
-      title: "Connect Metamask",
-      color: "#9757D7",
-      onclick:async()=>{        
-        console.log("Metamask")
-        window.ethereum.enable();
-        //const currProvider = window.web3.currentProvider;
-        let accounts=await web3.eth.getAccounts();
-        await web3.eth.getAccounts().then(()=>{          
-          console.log("acc Algo",accounts[0])
-          localStorage.setItem("wallet",accounts[0])
-          let refprofile=fireDb.database().ref(`profiledata/${accounts[0]}`);
-    let dateset=new Date().toDateString();
-    console.log("dateget",dateset)
-    const db = refprofile.push().key;
-    console.log("dbcheck",db)
-        //   refprofile.set({profileurl:"",displayname:"",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:""}).then(()=>{                      
-        //   })                
-         }).then(()=>{
+//     {
+//       title: "Connect Algo Wallet",
+//       color: "#9757D7",
+//       onclick:async()=>{        
+//         console.log("algo wallet")
+//         //window.ethereum.enable();
+        
+// //const  MyAlgoWallet  = require('@randlabs/myalgo-connect');
 
-           setIsOpen(true)
+// const myAlgoWallet = new MyAlgo();
 
+// /*Warning: Browser will block pop-up if user doesn't trigger myAlgoWallet.connect() with a button interation */
+
+//   try {
+//     const accounts = await myAlgoWallet.connect();
+
+//     const addresses = accounts.map(account => account.address);
+//     console.log("address",addresses)
+//     //setIsOpen(true)        
+//     //wallet local start
+//     if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === undefined)
+
+// {
+
+//   localStorage.setItem("wallet",addresses[0])
+//     let refprofile=fireDb.database().ref(`profiledata/${addresses[0]}`);
+//     let dateset=new Date().toDateString();
+//     console.log("dateget",dateset)
+//     const db = refprofile.push().key;
+//     console.log("dbcheck",db)
+//     refprofile.set({profileurl:"aaa",displayname:"aaa",http:"",Bio:"",social:"",Twitter:"",address:localStorage.getItem("wallet"),dbkey:"",
+//     username:"bbb"})
+// }
+// else {
+
+//   localStorage.setItem("wallet",addresses[0])
+//   let refprofile=fireDb.database().ref(`profiledata/${addresses[0]}`);
+//     let dateset=new Date().toDateString();
+//     console.log("dateget",dateset)
+//     const db = refprofile.push().key;
+//     console.log("dbcheck",db)
+//           refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:addresses[0],dbkey:"",username:"bbbb"}).then(()=>{                      
+//           })                
+
+//   setIsOpen(true)
+// }
+
+//   //setIsOpen(true)
+
+//     //wallet local end
+//   } catch (err) {
+//     console.error(err);
+//   }          
+//         //onClick={() => setVisibleModal(true)}
         
-         })        
-        
-        //onClick={() => setVisibleModal(true)}
-        
-        //if(accounts[0]!== ''){
-          //var btns = document.getElementById("me");
-          //btns.innerHTML = "CONNECTED";          
-        //}
-        //console.log(accounts[0]);  
-        //alert("connected....")
-      }
-    },
+//         //if(accounts[0]!== ''){
+//           //var btns = document.getElementById("me");
+//           //btns.innerHTML = "CONNECTED";          
+//         //}
+//         //console.log(accounts[0]);  
+//         //alert("connected....")
+//       }
+//     },
     {
       title: "Algosigner Wallet",
       color: "#3772FF",
@@ -72,7 +101,7 @@ const Connect = () => {
         console.log("Coinbase")
   
         AlgoSigner.connect()
-  .then((d) => {
+    .then((d) => {
     
     AlgoSigner.accounts({
       ledger: 'TestNet'
@@ -80,9 +109,32 @@ const Connect = () => {
     .then((d) => {
       let accounts = d;
       console.log("acc Algo",accounts[0].address)
-      localStorage.setItem("walletalgo",accounts[0].address)
-      setIsOpen(true)
-  
+      localStorage.setItem("wallet",accounts[0].address)
+
+      if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || localStorage.getItem("wallet") === undefined)
+{
+
+    let refprofile=fireDb.database().ref(`profiledata/${accounts[0].address}`);
+    let dateset=new Date().toDateString();
+    console.log("dateget",dateset)
+    const db = refprofile.push().key;
+    console.log("dbcheck",db)
+          refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbbb"}).then(()=>{                      
+          })                
+}
+else{
+
+  localStorage.setItem("wallet",accounts[0].address)
+  let refprofile=fireDb.database().ref(`profiledata/${accounts[0].address}`);
+    let dateset=new Date().toDateString();
+    console.log("dateget",dateset)
+    const db = refprofile.push().key;
+    console.log("dbcheck",db)
+          refprofile.set({profileurl:"",displayname:"aaaa",http:"",Bio:"",social:"",Twitter:"",address:"",dbkey:"",username:"bbbb"}).then(()=>{                      
+          })                
+
+  setIsOpen(true)
+}
     })
     .catch((e) => {
       console.error(e);
@@ -96,17 +148,18 @@ const Connect = () => {
   
       }
   
-    },
-    {
-      title: "MyEtherWallet",
-      color: "#45B26B",
-      onclick:()=>{console.log("Etherwallet")}
-    },
-    {
-      title: "Wallet Connect",
-      color: "#EF466F",
-      onclick:()=>{console.log("Wallet Connect")}
-    },
+    }
+    //,
+    // {
+    //   title: "MyEtherWallet",
+    //   color: "#45B26B",
+    //   onclick:()=>{console.log("Etherwallet")}
+    // },
+    // {
+    //   title: "Wallet Connect",
+    //   color: "#EF466F",
+    //   onclick:()=>{console.log("Wallet Connect")}
+    // },
   ];
 
   const onClo=()=>{
@@ -116,10 +169,9 @@ const Connect = () => {
     //setIsOpen(false);
     history.push("/")
     window.location.reload();
+    window.location.reload();
 
   }
-  
-  
   
 
   return (
@@ -140,7 +192,7 @@ const Connect = () => {
               //connect wallet write below
                             
               <div
-                className={cn({ [styles.active]: index === 0 }, styles.link)}
+                className={cn({ [styles.active]: index === 1 }, styles.link)}
                 key={index}                                
                 onClick={x.onclick}
               >            

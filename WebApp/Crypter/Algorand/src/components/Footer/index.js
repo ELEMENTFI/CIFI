@@ -13,7 +13,7 @@ import Modald from "../../components/ModalD";
 
 const items = [
   {
-    title: "Crypter.",
+    title: "Cifi",
     menu: [
       {
         title: "Discover",
@@ -48,14 +48,20 @@ const Footers = () => {
   const handleSubmit = (e) => {
     console.log("inside email function");
   //let getac="undefined";
-  let getalgo="undefined";
-  let getname="undefined";
+  let getalgo="";
+  let getname="";
   //getac=localStorage.getItem("wallet");
   //console.log("getmetamask",getac)
-  getalgo=localStorage.getItem("walletalgo");
+  
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+
+  }
+  else{
+
+  getalgo=localStorage.getItem("wallet");
   console.log("getalgo",getalgo)
-  getname=localStorage.getItem("walletname");
-  console.log("namewallet",getname)
+  //getname=localStorage.getItem("walletname");
+  //console.log("namewallet",getname)
           let ref2=fireDb.database().ref(`emailregister/${getalgo}`);
           let dateset=new Date().toDateString();
           console.log("dateget",dateset)
@@ -65,6 +71,10 @@ const Footers = () => {
             setIsOpen(true)        
           })
 
+
+  }
+  
+  
   };
 
   
@@ -91,8 +101,8 @@ const Footers = () => {
             <Link className={styles.logo} to="/">
               <Image
                 className={styles.pic}
-                src="/images/logo-dark.png"
-                srcDark="/images/logo-light.png"
+                src="/images/logocifisnew.png"
+                srcDark="/images/logocifis.png"
                 alt="Fitness Pro"
               />
             </Link>
@@ -130,7 +140,7 @@ const Footers = () => {
         </div>
         <div className={styles.foot}>
           <div className={styles.copyright}>
-            Copyright © 2021 UI8 LLC. All rights reserved
+            Copyright © 2021 BOSON LABS. All rights reserved
           </div>
           <div className={styles.note}>
             We use cookies for better service. <a href="/#">Accept</a>

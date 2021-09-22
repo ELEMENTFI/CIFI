@@ -137,7 +137,7 @@ useEffect(()=>{usernameget()},[])
   
           fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(item.highestBid).set({
             id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
-            keyId:item.highestBid,userName:"",
+            keyId:item.highestBid,userName:item.counter,
             userSymbol:"BNB",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
             datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{
@@ -160,7 +160,7 @@ useEffect(()=>{usernameget()},[])
   
           fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(item.highestBid).set({
             id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,
-            keyId:item.highestBid,userName:getprodata.username,
+            keyId:item.highestBid,userName:item.counter,
             userSymbol:"BNB",previousoaddress:item.bid,
             ipfsUrl:item.image,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",
             datesets:new Date().toDateString(),whois:'Buyers'}).then(()=>{

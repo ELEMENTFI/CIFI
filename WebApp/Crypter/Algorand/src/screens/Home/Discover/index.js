@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { Link } from "react-router-dom";
 import cn from "classnames";
 import styles from "./Discover.module.sass";
 import { Range, getTrackBackground } from "react-range";
@@ -10,7 +11,8 @@ import firebase from "../../UploadDetails/firebase"
 //import firebase from "../UploadDetails/firebase";
 // data
 //import { bids } from "../../../mocks/bids";
-import CardBuy from "../../../components/CardBuy";
+//import CardBuy from "../../../components/CardBuy";
+import CardDiscover from "../../../components/CardDiscover";
 
 const navLinks = ["All items", "Art", "Game", "Photography", "Music", "Video"];
 
@@ -42,9 +44,98 @@ const Discover = () => {
   const[getIm,setgetIm]=useState([]);
   console.log("getImgalgosss",getIm)
 
+
+  const items = [
+    {
+      title: "Chicago Blasters",
+      content: "Highest bid",
+      counter: "18 in stock",
+      price: "1.125Algos",
+      url: "/search01",
+      avatar: "/images/Chicago Blasters.png",
+      image: "/images/Chicago Blasters.png",
+      image2x: "/images/Chicago Blasters.png",
+      highestBid: "",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Chicago Blasters.png",
+        },
+      ],
+    },
+    {
+      title: "Morrisville Cardinals",
+      content: "1 of 12",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Morrisville Cardinals.png",
+      image: "/images/Morrisville Cardinals.png",
+      image2x: "/images/Morrisville Cardinals.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Morrisville Cardinals.png",
+        },
+      ],
+    },
+    {
+      title: "Empire State Titans",
+      content: "1 of 3",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Empire State Titans.png",
+      image: "/images/Empire State Titans.png",
+      image2x: "/images/Empire State Titans.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Empire State Titans.png",
+        },
+      ],
+    },
+    {
+      
+      title: "Silicon Valley Strikers",
+      content: "1 of 4",
+      price: "0.27Algos",
+      url: "/search01",
+      avatar: "/images/Silicon Valley Strikers.png",
+      image: "/images/Silicon Valley Strikers.png",
+      image2x: "/images/Silicon Valley Strikers.png",
+      highestBid: "",
+      counter:"",
+      bid:"",
+      category: "green",
+      categoryText: "",
+      users: [                
+        {
+          avatar: "/images/Silicon Valley Strikers.png",
+        },
+      ],
+    },
+  ];
+
   const dbcallsaleal=async(index)=>{
     setActiveIndex(index)
     console.log("inside dbcallsalealgo function")
+
+
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x"){
+
+    }
+    else{
+
+    
     let getalgo=localStorage.getItem("walletalgo");
     //let req = [];
   
@@ -54,7 +145,7 @@ const Discover = () => {
 
       //let req = [];
     let req2 = [];//imagerefexplore//
-    firebase.database().ref("imagerefexploreone").on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           req2.push(d.val())          
@@ -98,7 +189,7 @@ const Discover = () => {
     console.log("cfbbba",req) 
     
   }
-  
+}
 }
   useEffect(()=>{dbcallsaleal()},[])
 
@@ -284,27 +375,32 @@ const Discover = () => {
                 )}
               />
               <div className={styles.scale}>
-                <div className={styles.number}>0.01 ETH</div>
-                <div className={styles.number}>10 ETH</div>
+                <div className={styles.number}>0.01 Algos</div>
+                <div className={styles.number}>10 Algos</div>
               </div>
             </div>
           </div>
         </div>
+        <Link className={styles.card} to={"/search01"}>
         <div className={styles.list}>
           <Slider
             className={cn("discover-slider", styles.slider)}
             {...settings}
           >
-            {getI.map((x, index) => (
-              <CardBuy className={styles.card} item={x} key={index} />
+            {items.map((x, index) => (
+              
+              <CardDiscover className={styles.card} item={x} key={index} />
+            
             ))}
           </Slider>
         </div>
-        <div className={styles.btns}>
+        </Link>
+        
+        {/* <div className={styles.btns}>
           <button className={cn("button-stroke button-small", styles.button)}>
             <span>Load more</span>
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 ///* global AlgoSigner */
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useHistory } from "react-router-dom";
 //Link,
 import cn from "classnames";
@@ -554,6 +554,57 @@ const convertToBuffer = async(reader) => {
 
 // }
 
+
+const addfire=()=>{
+
+  let ref23=fireDb.database().ref(`tokenkey`);      
+      let getfire="";
+      let setfire="";
+
+
+      
+
+
+      fireDb.database().ref(`tokenkey`).on("value", (data) => {
+        if (data) {
+           data.forEach((d) => {
+            getfire=parseInt(d.val());
+            setfire= parseInt(getfire)+1;
+            console.log("getfire",getfire)
+            console.log("setfire",setfire)
+            
+          });         
+        }
+      })
+      //ref23.update({id:setfire});
+
+      
+      
+      // console.log("setfire",setfire)
+      // //alert("your token"+setfire+"getfire"+getfire);      
+      te= getfire;
+      let ts= setfire;
+            if(ts === "")
+            {
+              console.log("empty",ts)
+              te=1000
+              ref23.update({id:te.toString()});
+            }
+            else{
+              console.log("notempty")
+              //setfire= parseInt(getfire)+1;
+              //te=parseInt(getfire)
+              ref23.update({id:setfire});
+            }
+      console.log("te",te)
+
+
+      
+    
+}
+
+useEffect(()=>{addfire()},[])
+
 const onSubmitNFT = async (event) => {
   event.preventDefault();  
     //new write below
@@ -561,6 +612,7 @@ const onSubmitNFT = async (event) => {
     console.log("acc",accounts[0]);
     ta=tname;
     tb='BNB';
+    te=1000;
     //var tb=tdescription;
     //var tc='https://ipfs.io/ipfs/'+ipfsHash;
     //var td=toaddress;
@@ -568,32 +620,8 @@ const onSubmitNFT = async (event) => {
     //tf='https://ipfs.io/ipfs/'+ipfsHash;
     //let tdescription=tdes;
 
-    setVisibleModal(false)
-                          
-  
+    setVisibleModal(false)                        
       
-
-      let ref23=fireDb.database().ref(`tokenkey`);      
-      let getfire="";
-      let setfire="";
-      fireDb.database().ref(`tokenkey`).on("value", (data) => {
-        if (data) {
-           data.forEach((d) => {
-            getfire=d.val();
-          });        
-        }
-      });
-
-      setfire= parseInt(getfire)+1;
-      console.log("setfire",setfire)
-      //alert("your token"+setfire+"getfire"+getfire);
-      ref23.update({id:setfire});
-      te= parseInt(getfire);
-      //.toString()
-      //te=1005;
-
-      console.log("te",te)
-
       if(Img === '')
       {
 
@@ -1709,43 +1737,42 @@ const callmint=async(event)=>{
 
   console.log("1686")
       
+  console.log("temint",te)
+  console.log("Imgmint",Img)
   await geta.methods.mintWithTokenURI(accounts[0],te,Img).send({
     from: accounts[0],
     //gas: 21000      
-  }).on('transactionHash',function(hash){
+  })
 
-    console.log("hashget",hash)              
-                  //let getaddress=localStorage.getItem('wallet')                    
-                  let getData=localStorage.getItem('myData')                    
-                      fireDb.database().ref("contractaddress").child(accounts[0]).push(getData, (err) => {                          
-                        if (err)
-                            console.log(err);                          
-                      });
-                                    
-                      let nftname=fireDb.database().ref(`nftname`);
-                      const nftdb = nftname.push().key;
-                      nftname.child(nftdb).set({name:tname});                  
-                      let ref2=fireDb.database().ref(`imageref/${accounts[0]}`);
+  dbstore();
+  // }).on('transactionHash',function(hash){
+  //   console.log("hashget",hash)          
+    
+  //   //setTimeout(dbstore, 10)
+  //   // dbstore()
+  //   })        
+
+    
+}
+
+const dbstore=async()=>{
+
+  const accounts = await web3.eth.getAccounts();
+  let getData=localStorage.getItem('myData')                    
+    let ref2=fireDb.database().ref(`imageref/${accounts[0]}`);
                       let dateset=new Date().toDateString();
                       console.log("dateget",dateset)
                       const db = ref2.push().key;                         
                       console.log("dbcheck",db)
-                      ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:Img,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:''}).then(()=>{
-
-                      //})
-                      // let ref23=fireDb.database().ref(`imagepurcre/${accounts[0]}`);                
-                      // ref23.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,ipfsUrl:"",ownerAddress:accounts[0],soldd:"",extra1:"",datesets:dateset,whois:''}).then(()=>{
-
+                      ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:getData,keyId:db,userName:ta,userSymbol:tb,
+                      ipfsUrl:Img,ownerAddress:accounts[0],soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:''})
+                      .then(()=>{
                       setIsOpens(false)
-                        setIsOpen(true);
-
+                      setIsOpen(true);
                       })    
         //end               
-    })        
-    
-
-
 }
+
 
 const onSub=()=>{
 
@@ -1753,6 +1780,33 @@ const onSub=()=>{
   //setIsOpen(false);
   history.push("/")
 
+}
+
+
+const callof=()=>{
+
+  
+  if(Img === "" && tname === "" && tdescription === ""){
+    alert("please fill all details")
+  }
+  else if(Img === ""){
+
+    alert("please upload Image details")
+
+  }
+  else if(tname === ""){
+    alert("please fill name details")
+
+  }
+  else if(tdescription === ""){
+    alert("please fill description details")
+
+  }
+  else{
+
+    //alert("call")
+    setVisibleModal(true)
+  }
 }
 
 
@@ -1911,7 +1965,7 @@ const onSub=()=>{
                  */}
                 <button
                   className={cn("button", styles.button)}
-                  onClick={() => setVisibleModal(true)}
+                  onClick={() => callof()}
                   // type="button" hide after form customization
                   type="button"                              
                 >

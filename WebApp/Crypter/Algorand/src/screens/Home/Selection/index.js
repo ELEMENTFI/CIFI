@@ -6,19 +6,19 @@ import Icon from "../../../components/Icon";
 
 const items = [
   {
-    title: "The future of BNB®",
+    title: "The future of Algos®",
     content: "Highest bid",
     counter: "18 in stock",
-    price: "1.125 BNB",
+    price: "1.125Algos",
     url: "/search01",
     avatar: "/images/content/dhoni image.jpg",
     image: "/images/content/dhoni image.jpg",
     image2x: "/images/content/dhoni image.jpg",
   },
   {
-    title: "BNB never die",
+    title: "Algo never die",
     content: "1 of 12",
-    price: "0.27 BNB",
+    price: "0.27Algos",
     url: "/search01",
     avatar: "/images/content/kohli image.jpg",
     image: "/images/content/kohli image.jpg",
@@ -27,7 +27,7 @@ const items = [
   {
     title: "Future coming soon",
     content: "1 of 3",
-    price: "0.27 BNB",
+    price: "0.27Algos",
     url: "/search01",
     avatar: "/images/content/gilchrist image.jpeg",
     image: "/images/content/gilchrist image.jpeg",
@@ -36,7 +36,7 @@ const items = [
   {
     title: "Elon Musk silver coin 3d print",
     content: "1 of 4",
-    price: "0.27 BNB",
+    price: "0.27Algos",
     url: "/search01",
     avatar: "/images/content/willi.jpeg",
     image: "/images/content/willi.jpeg",
@@ -47,25 +47,25 @@ const items = [
 const users = [
   {
     name: "Payton Harris",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span>Algos",
     counter: "6",
     avatar: "/images/content/dhoni image.jpg",
   },
   {
     name: "Anita Bins",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span>Algos",
     counter: "2",
     avatar: "/images/content/bens.jpeg",
   },
   {
     name: "Joana Wuckert",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span>Algos",
     counter: "3",
     avatar: "/images/content/abd.jpeg",
   },
   {
     name: "Lorena Ledner",
-    price: "<span>2.456</span> BNB",
+    price: "<span>2.456</span>Algos",
     counter: "4",
     avatar: "/images/content/babar.jpeg",
   },

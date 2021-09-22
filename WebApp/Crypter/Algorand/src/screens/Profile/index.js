@@ -1,3 +1,4 @@
+///* global AlgoSigner */
 import React, { useState,useEffect} from "react";
 import cn from "classnames";
 import { Link } from "react-router-dom";
@@ -11,7 +12,14 @@ import Followers from "./Followers";
 import firebase from "../UploadDetails/firebase";
 //import web3 from '../UploadDetails/web3';
 import Compress from "react-image-file-resizer";
+//import Itemssss from "../ProfileCopy/Itemssss";
+//import Popup from "../ConnectWallet/Popup"
 //import axios from 'axios';
+
+import Modald from "../../components/ModalD";
+import FolowStepsd from "../ConnectWallet/FolowStepsd";
+
+
 // data
 //import { bids } from "../../mocks/bids";
 //import { isStepDivisible } from "react-range/lib/utils";
@@ -20,7 +28,8 @@ const navLinks = [
   "On Sale",
   "Collectibles",
   "Created",
-  "Likes"  
+  "Likes",
+  "Collection",
 ];
 
 // "Following",
@@ -188,6 +197,10 @@ const followers = [
 ];
 
 const Profile = () => {
+
+  
+
+const [isOpen, setIsOpen] = useState(false);
   const [Img,setImg] = useState("")
   const [buffer,setBuffer] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -217,19 +230,301 @@ console.log("getImgalgolikes",getImgreffalgolikes)
 const[getImgreffalgobuy,setgetImgreffalgobuy]=useState([]);
 console.log("getImgalgobuy",getImgreffalgobuy)
 
+const[getCollection,setgetCollection]=useState([]);
+console.log("getCollection",getCollection)
+const[getCollection2,setgetCollection2]=useState([]);
+console.log("getCollection2",getCollection2)
+
+const[getCollection3,setgetCollection3]=useState([]);
+console.log("getCollection3",getCollection3)
+const[getCollection4,setgetCollection4]=useState([]);
+console.log("getCollection4",getCollection4)
+
+
+const dbcollection=async()=>{
+  console.log("inside dbcallalgo function")
+  
+  let req = [];
+
+  if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+  }
+  else{
+
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=localStorage.getItem("wallet") ;
+    //let kreq =[];
+    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          let value=d.val();
+          console.log("keycheckCollection",value.type)
+
+          if(value.type === "Player")
+          {
+            req.push(
+            
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )  
+            
+          }                    
+        });        
+      }
+    });
+    setgetCollection(req);
+  }
+  //console.log("acc",getalgo)
+  //image:images/content/card-pic-1.jpg
+          //image2x: "/images/content/card-pic-1@2x.jpg",
+
+          //req.push(d.key)          
+
+}
+
+useEffect(()=>{dbcollection()},[])
+
+//
+
+const dbcollection2=async()=>{
+  console.log("inside dbcallalgo function")
+  
+  let req = [];
+
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+  }
+  else{
+
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=localStorage.getItem("wallet") ;
+    //let kreq =[];
+    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          let value=d.val();
+          console.log("keycheckCollection",value.type)
+
+          if (value.type === "Award")
+          {
+            req.push(
+            
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )  
+            
+          }                    
+        });        
+      }
+    });
+    setgetCollection2(req);
+  }
+  //console.log("acc",getalgo)
+  //image:images/content/card-pic-1.jpg
+          //image2x: "/images/content/card-pic-1@2x.jpg",
+
+          //req.push(d.key)          
+
+}
+
+useEffect(()=>{dbcollection2()},[])
+
+
+//
+
+
+//
+const dbcollection3=async()=>{
+  console.log("inside dbcallalgo function")
+  
+  //let req = [];
+
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+  }
+  else{
+
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=localStorage.getItem("wallet") ;
+    let kreq3 =[];
+    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          let value=d.val();
+          console.log("keycheckCollection",value.type)
+
+          if (value.type === "Trophy")
+          {
+            kreq3.push(
+            
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )  
+            
+          }                    
+        });        
+      }
+    });
+    setgetCollection3(kreq3);
+  }
+  //console.log("acc",getalgo)
+  //image:images/content/card-pic-1.jpg
+          //image2x: "/images/content/card-pic-1@2x.jpg",
+
+          //req.push(d.key)          
+
+}
+
+useEffect(()=>{dbcollection3()},[])
+
+
+
+//
+
+const dbcollection4=async()=>{
+  console.log("inside dbcallalgo function")
+  
+  //let req = [];
+
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+  }
+  else{
+
+    //let getalgo=localStorage.getItem("wallet");    
+    //let getalgo=localStorage.getItem("wallet") ;
+    let kreq4 =[];
+    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
+      if (data) {
+        data.forEach((d) => {
+          let value=d.val();
+          console.log("keycheckCollection",value.type)
+
+          if (value.type === "Others")
+          {
+            kreq4.push(
+            
+              {
+                title: value.id,
+                price: value.priceSet,
+                highestBid: value.keyId,
+                counter:value.userName ,
+                //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+                bid:value.ownerAddress,
+                image: value.imageUrl,
+                image2x:value.paramsdb,
+                category: value.privatekey,
+                categoryText: value.cAddress,
+                //purchasing !
+                url: value.history,
+                league:value.league,
+                team:value.team,
+                type:value.type,
+                teamlogo:value.teamlogo,
+                dimen:value.dimen,
+                users: [                
+                  {
+                    avatar: "/images/content/avatar-4.jpg",
+                  },
+                ],
+              },
+            
+            )  
+            
+          }                    
+        });        
+      }
+    });
+    setgetCollection4(kreq4);
+  }
+  //console.log("acc",getalgo)
+  //image:images/content/card-pic-1.jpg
+          //image2x: "/images/content/card-pic-1@2x.jpg",
+
+          //req.push(d.key)          
+
+}
+
+useEffect(()=>{dbcollection4()},[])
 
 
 
 const dbcallalgolikes=async()=>{
   console.log("inside dbcallsalealgo function")
-  let getalgo=localStorage.getItem("walletalgo");
+  
   let req = [];
     
-  if(localStorage.getItem("walletalgo") === null){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }
   else{
 
+    let getalgo=localStorage.getItem("wallet");
   
     //let kreq =[];
     firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
@@ -252,6 +547,11 @@ const dbcallalgolikes=async()=>{
               categoryText: value.cAddress,
               //purchasing !
               url: value.history,
+              league:value.league,
+              team:value.team,
+              type:value.type,
+              dimen:value.dimen,
+              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -273,18 +573,67 @@ const dbcallalgolikes=async()=>{
 useEffect(()=>{dbcallalgolikes()},[])
 
 
+// useEffect(() => {
+//   const fetchPosts = async () => {
+
+//     let getalgo=localStorage.getItem("wallet");
+  
+//     let req =[];
+//     firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
+//       if (data) {
+//         data.forEach((d) => {
+//           //console.log("keycheck",d.key)
+//           let value=d.val();
+//           req.push(
+            
+//             {
+//               title: value.id,
+//               price: value.priceSet,
+//               highestBid: value.keyId,
+//               counter:value.userName ,
+//               //bid: 'New bid <span role="img" aria-label="fire">🔥</span>',
+//               bid:value.ownerAddress,
+//               image: value.imageUrl,
+//               image2x: value.imageUrl,
+//               category: "green",
+//               categoryText: value.cAddress,
+//               //purchasing !
+//               url: value.history,
+//               league:value.league,
+//               team:value.team,
+//               users: [                
+//                 {
+//                   avatar: "/images/content/avatar-4.jpg",
+//                 },
+//               ],
+//             },
+          
+//           )
+//         });        
+//       }
+      
+//     });
+    
+//   };
+
+//   fetchPosts();
+// }, []);
+
+
 
 const dbcallsalealgo=async()=>{
   console.log("inside dbcallsalealgo function")
-  let getalgo=localStorage.getItem("walletalgo");
+  
   let req = [];
 
-  if(localStorage.getItem("walletalgo") === null){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }else{
+
+    let getalgo=localStorage.getItem("wallet");
     
     //let kreq =[];
-    firebase.database().ref("imagerefexploreone").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefexploreAlgo").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -303,6 +652,11 @@ const dbcallsalealgo=async()=>{
               categoryText: value.cAddress,
               //purchasing !
               url: value.history,
+              league:value.league,
+              team:value.team,
+              type:value.type,
+              dimen:value.dimen,
+              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -325,18 +679,17 @@ useEffect(()=>{dbcallsalealgo()},[])
 
 const dbcallalgo=async()=>{
   console.log("inside dbcallalgo function")
-  let getalgo=localStorage.getItem("walletalgo");
+  
   let req = [];
 
-  if(localStorage.getItem("walletalgo") === null){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
 
   }
   else{
 
-  
-    
+    let getalgo=localStorage.getItem("wallet");    
     //let kreq =[];
-    firebase.database().ref("imageref").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -356,6 +709,11 @@ const dbcallalgo=async()=>{
               categoryText: value.cAddress,
               //purchasing !
               url: value.history,
+              league:value.league,
+              team:value.team,
+              type:value.type,
+              dimen:value.dimen,
+              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -375,24 +733,30 @@ const dbcallalgo=async()=>{
     setgetImgreffalgo(req);
   
   }
-  console.log("acc",getalgo)
+  //console.log("acc",getalgo)
 
 }
 
 useEffect(()=>{dbcallalgo()},[])
 
+
 const dbcallalgobuy=async()=>{
   console.log("inside dbcallalgobuy function")
-  let getalgo=localStorage.getItem("walletalgo");
+  
   let req = [];
-  if(localStorage.getItem("walletalgo") === null){
+
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
+
   }
   else{
 
   
+    let getalgo=localStorage.getItem("wallet");
     
     //let kreq =[];
-    firebase.database().ref("imagerefbuy").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefAlgobuy").child(getalgo).on("value", (data) => {
+
+      
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -412,6 +776,11 @@ const dbcallalgobuy=async()=>{
               categoryText: value.cAddress,
               //purchasing !
               url: value.history,
+              league:value.league,
+              team:value.team,
+              type:value.type,
+              dimen:value.dimen,
+              teamlogo:value.teamlogo,      
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -431,7 +800,7 @@ const dbcallalgobuy=async()=>{
     setgetImgreffalgobuy(req);
   
   }
-  console.log("acc",getalgo)
+  //console.log("acc",getalgo)
 
 }
 
@@ -462,11 +831,13 @@ const captureFile=(event)=>{
 
 const getbg=()=>{
 
-  let getalgo=localStorage.getItem("walletalgo");
+  
     
-    if(localStorage.getItem("walletalgo") === null && Img === "" ){
+    if(localStorage.getItem("wallet") === null && Img === "" ){
   
     }else{
+
+      let getalgo=localStorage.getItem("wallet");
 
       let req=[];
   // firebase.database().ref("bgphoto").child(getalgo).on("value", (data) => {
@@ -489,12 +860,13 @@ useEffect(()=>{getbg()},[])
 const setprofilephoto=()=>{
 
   console.log("inside setprofilephoto function")
-  let getalgo=localStorage.getItem("walletalgo");
+  
     
-    if(localStorage.getItem("walletalgo") === null && Img === "" ){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || Img === ""){
   
     }else{
 
+      let getalgo=localStorage.getItem("wallet");
   let ref=firebase.database().ref(`bgphoto/${getalgo}`);
   let dateset=new Date().toDateString();
   console.log("dateget",dateset)
@@ -518,12 +890,90 @@ const convertToBuffer = async(reader) => {
     //onSubmitImage();
 };
 
-const checkasset=async()=>{
-  
+// const checkasset=async()=>{
 
+//   const server = "https://testnet-algorand.api.purestake.io/ps2";
+//   const port = "";
+
+// const token = {
+//     'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+// }
+
+
+// const algosdk = require('algosdk');
+
+//   AlgoSigner.connect()
+//   .then((d) => {
+//     //const algodServer = 'https://testnet-algorand.api.purestake.io/ps2'
+//     const indexerServer = 'https://testnet-algorand.api.purestake.io/idx2'
+//     //const token = { 'X-API-Key': 'YOUR API KEY HERE' }
+//     //const port = '';
+    
+//     let algodClient = new algosdk.Algodv2(token, server, port);
+//     let indexerClient = new algosdk.Indexer(token, indexerServer, port);
+    
+//     algodClient.healthCheck().do()
+//     .then(d => { 
+//       AlgoSigner.accounts({
+//         ledger: 'TestNet'
+//       })
+//       .then((d) => {
+//         let accounts = d;
+//         console.log("addressalgo",accounts[0].address)
+//         algodClient.getTransactionParams().do()
+// .then((d) => {
+//   let txParamsJS = d;
+
+//   const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+//     from: accounts[0].address,
+//     to: accounts[1].address,
+//     amount: 1,
+//     note: undefined,
+//     suggestedParams: {...txParamsJS}
+//   });
+  
+//   // Use the AlgoSigner encoding library to make the transactions base64
+//   let txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+  
+//   AlgoSigner.signTxn([{txn: txn_b64}])
+//   .then((d) => {
+//     let signedTxs = d;
+//   })
+//   .catch((e) => {
+//       console.error(e);
+//   });
+// })
+// .catch((e) => {
+//   console.error(e);
+// });
+//       })
+//       .catch((e) => {
+//         console.error(e);
+//       });
+//     })
+//     .catch(e => { 
+//       console.error(e); 
+//     });
+//   })
+//   .catch((e) => {
+//     console.error(e);
+//   });
+  
+//    }
+
+
+const checkasset=()=>{
+setIsOpen(true)
 }
+
+ const togglePopup = () => {
+        setIsOpen(false);
+      }
+
   return (
     <div className={styles.profile}>
+
+     
       <div
         className={cn(styles.head, { [styles.active]: visible })}                        
         style={{
@@ -591,6 +1041,9 @@ const checkasset=async()=>{
             >
               check
             </button> */}
+{/* <h5 style={{cursor:"pointer"}} onClick={e => window.open("https://www.youtube.com/")}>Contract Addres</h5> */}
+
+{/* <h1 onClick={}>Click Me</h1> */}
               
               {navLinks.map((x, index) => (
                 <button
@@ -623,9 +1076,9 @@ const checkasset=async()=>{
                 {activeIndex === 3 && (
                   <Itemss class={styles.items} items={getImgreffalgolikes} />
                 )}
-                {activeIndex === 4 && (
-                  <Followers className={styles.followers} items={following} />
-                )}
+                {/* {activeIndex === 4 && (                  
+                  <Itemssss class={styles.items} items={getCollection} items2={getCollection2} items3={getCollection3} items4={getCollection4}/>
+                )} */}
                 {activeIndex === 5 && (
                   <Followers className={styles.followers} items={followers} />
                 )}
@@ -634,6 +1087,8 @@ const checkasset=async()=>{
           </div>
         </div>
       </div>
+
+      
     </div>
   );
 };

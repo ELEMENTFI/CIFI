@@ -13,6 +13,14 @@ const Cards = ({ className, item }) => {
   //setVisible(!visible)
 
   const dislikedb=()=>{
+
+    if(localStorage.getItem("walletalgo") === null || localStorage.getItem("walletalgo") === "0x")
+    {
+
+    }
+    else{
+
+    
    
     let getalgo=localStorage.getItem("walletalgo");
     console.log("addlikedb function call");
@@ -26,7 +34,7 @@ const Cards = ({ className, item }) => {
         window.location.reload(false)   
     
      })
-    
+    }
 
   }
 
