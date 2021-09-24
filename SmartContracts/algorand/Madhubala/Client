@@ -1,0 +1,110 @@
+package algorand.test;
+import com.algorand.algosdk.crypto.Ed25519PublicKey;
+import com.algorand.algosdk.crypto.MultisigAddress;
+import com.algorand.algosdk.transaction.SignedTransaction;
+import com.algorand.algosdk.util.Encoder;
+import com.algorand.algosdk.v2.client.common.AlgodClient;
+import com.algorand.algosdk.v2.client.common.Response;
+import com.algorand.algosdk.v2.client.model.*;
+import com.algorand.algosdk.account.Account;
+import com.algorand.algosdk;crypto.Address;
+import com.algorand.algosdk.transaction.Transaction;
+import com.google.gson.Gson;
+import java.io.*;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+static  AlgodClient algodClient;
+static String HACKATHON_API_ADDRESS="http://hackathon.algodev.network";
+static String HACKATHON_API_TOKEN="ef920e2e7e002953f4b29a8af720efe8e4ecc75ff102b165e0472834b25832c1";
+static Integer HACKATHON_API_PORT=9100;
+
+
+    //Method that creates an Account when given a mnemonic string
+ public static  Account createAccountWithMnemonic(String mnemonic){
+        Account myAccount1= null;
+        try {
+            myAccount1 = new Account(mnemonic);
+            System.out.println(" algod account address: " + myAccount1.getAddress());
+            System.out.println(" algod account MNEMONIC: " + myAccount1.toMnemonic());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            System.out.println(" Eror while creating new account "+e);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+        return  myAccount1;
+    }
+
+
+    //method that returns an Account balance
+     public static   Long getAccountBalance(Address address) {
+        com.algorand.algosdk.v2.client.model.Account accountInfo = null;
+        try {
+            accountInfo = algodClient.AccountInformation(address).execute().body();
+            System.out.println("Account Balance: "+ accountInfo.amount+" microAlgos");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return  accountInfo.amount;
+    }
+
+   //method that creates a transaction  
+    public static Transaction createTransaction(Account senderAccount,String receiverAdddress,String note,int valueToSend,String senderAddress){
+        TransactionParametersResponse transactionParametersResponse;
+        Transaction transaction=null;
+        PendingTransactionResponse pendingTransactionResponse;
+        try {
+            transactionParametersResponse = algodClient.TransactionParams().execute().body();
+            transaction= Transaction.PaymentTransactionBuilder().sender(senderAddress)
+                    .amount(valueToSend).receiver(new Address(receiverAdddress)).note(note.getBytes()).suggestedParams(transactionParametersResponse).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return transaction;
+    }
+
+    //method that tells us when our transaction has been confirmed
+     public static void waitForConfirmation(String txID) throws Exception {
+        Long lastRound = algodClient.GetStatus().execute().body().lastRound;
+        while (true) {
+            try {
+                // Check the pending tranactions
+                Response<PendingTransactionResponse> pendingInfo = algodClient.PendingTransactionInformation(txID).execute();
+                if (pendingInfo.body().confirmedRound != null && pendingInfo.body().confirmedRound > 0) {
+                    // Got the completed Transaction
+                    System.out.println("Transaction " + txID + " confirmed in round " + pendingInfo.body().confirmedRound);
+                    break;
+                }
+                lastRound++;
+                algodClient.WaitForBlock(lastRound).execute();
+            } catch (Exception e) {
+                throw (e);
+            }
+        }
+    }
+
+    // method to create an AlgodClient
+     public static AlgodClient createClientFromHackathonInstance(String HACKATHON_API_ADDRESS,int HACKATHON_API_PORT,String HACKATHON_API_TOKEN){
+        algodClient = (AlgodClient) new AlgodClient(HACKATHON_API_ADDRESS,
+                HACKATHON_API_PORT, HACKATHON_API_TOKEN);
+        try {
+            String[] headers = {"X-API-Key"};
+            String[] values = {HACKATHON_API_TOKEN};
+            NodeStatusResponse status = algodClient.GetStatus().execute(headers, values).body();
+            System.out.println("algod last round: " + status.lastRound);
+        } catch (Exception e) {
+            System.err.print("Failed to get algod status: " + e.getMessage());
+        }
+        return algodClient;
+    }
+}
+
+
