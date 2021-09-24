@@ -3,23 +3,23 @@ import React, { Component } from 'react';
 //import secondpage from './secondpage';
 import './App.css';
 import fireDB from './firebase.js';
-import card from './card1';
+//import card from './card1';
 import web3 from './web3';
 import tokencontract from './tokencontract';
 import TESTToken from './TESTToken';
 import { Card } from 'react-bootstrap';
-import Background from '../src/images/aa.gif'
+//import Background from '../src/images/aa.gif'
 //import TEST from './TEST';
 //import {BrowserRouter as Router , Route , Link , Switch , NavLink} from "react-router-dom";
-import Background2 from '../src/images/logo1.png'
-import { data } from 'jquery';
+//import Background2 from '../src/images/logo1.png'
+//import { data } from 'jquery';
 
 function fb(n1){
   var v=String(n1);
   var v2=v+"name";
   var v3=v+"ts";
-  var v4=v+"symbol"
-  var v5=v+"balance"
+  //var v4=v+"symbol"
+  //var v5=v+"balance"
 
   
   var firebase= fireDB.database().ref(v);
@@ -60,7 +60,7 @@ function fb1(n1){
   var v=String(n1);
   var v2=v+"name";
   var v3=v+"ts";
-  var v4=v+"symbol"
+  //var v4=v+"symbol"
   var v5=v+"at"
 
   
@@ -148,8 +148,8 @@ if(At==0){
 
   var a=5-availtk;
   
-  var a1=a/1000000000;
-  var p=a/5;
+  //var a1=a/1000000000;
+ //var p=a/5;
   
 }
 
@@ -195,7 +195,7 @@ fb1(n1);
 
     this.setState({totalsupply,balance,name,symbol,decimal,accounts,name1, });
 
-    var database = fireDB.database();
+    //var database = fireDB.database();
 var a= 1;
   
 //fireDB.database().ref().child(accounts).push(name);

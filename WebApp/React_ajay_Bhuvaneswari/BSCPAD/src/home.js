@@ -6,10 +6,10 @@ import web3 from './web3';
 import tokencontract from './tokencontract';
 import TESTToken from './TESTToken';
 import { Card } from 'react-bootstrap';
-import Background from '../src/images/aa.gif'
+//import Background from '../src/images/aa.gif'
 //import TEST from './TEST';
 //import {BrowserRouter as Router , Route , Link , Switch , NavLink} from "react-router-dom";
-import Background2 from '../src/images/logo1.png'
+//import Background2 from '../src/images/logo1.png'
 
 class home extends Component {
   state = {
