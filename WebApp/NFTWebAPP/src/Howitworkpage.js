@@ -1,22 +1,27 @@
 import React,{useState,useEffect} from "react";
-import history from "./utils/history";
+//import history from "./utils/history";
 import ReactPlayer from "react-player";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { Router, Route, Switch,Link } from "react-router-dom";
 
-import Myitem from "./Myitem";
-import Nft from "./Nft";
+// import Myitem from "./Myitem";
+// import Nft from "./Nft";
 //import firebase from "./firebase";
-import fireDb from "./firebase";
-import Followingpage from "./Followingpage";
-import Activitypage from "./Activitypage";
-//import Howitworkpage from "./Howitworkpage";
-import Communitypage from "./Communitypage";
-import Mypurchasepage from './Mypurchasepage'
-import Explore from "./Explore";
-import Createandpurchasepage from './Createandpurchasepage'
+// import fireDb from "./firebase";
+// import Followingpage from "./Followingpage";
+// import Activitypage from "./Activitypage";
+// //import Howitworkpage from "./Howitworkpage";
+// import Communitypage from "./Communitypage";
+// import Mypurchasepage from './Mypurchasepage'
+// import Explore from "./Explore";
+// import Createandpurchasepage from './Createandpurchasepage'
 import web3 from './web3';
-import Receivedpage from './Receivedpage';
+//import Receivedpage from './Receivedpage';
+import { Offline, Online } from "react-detect-offline";
+
+import Popup from './Popup';
+import Footer from './footer'
+
 
 function Howitworkpage() {
 
@@ -104,6 +109,10 @@ function Howitworkpage() {
 
   return (
     <div>
+
+<div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+
+<div style={{backgroundColor:'white',height:'43px',width:'1050px',marginLeft:'150px',marginBlock:'15px'}}>
 
 
 <Link
@@ -244,8 +253,9 @@ function Howitworkpage() {
               {" "}
 
 
+</div>
 
-
+</div>
               <br></br>
 <br></br>
 
@@ -255,63 +265,41 @@ function Howitworkpage() {
 
 
 
-                    
-                    
+<div>
 
-            {/* <Router history={history}>
-          <Switch>
-            <Route path="/" exact>
-              <div class="display-4 mb-1">Choose a route to go to</div>
-              
-            </Route>
-            
-            <Route path="/Myitem">
-              <Myitem />
-            </Route>
-            
-            <Route path="/Activitypage">
-              <Activitypage />
-            </Route>
-            <Route path="/Communitypage">
-              <Communitypage />
-            </Route>
-            <Route path="/Followingpage">
-              <Followingpage />
-            </Route>
-            <Route path="/Nft">
-              <Nft />
-            </Route>
+<div>
+    <Online>
+    
 
-            <Route path="/Mypurchasepage">
-              <Mypurchasepage />
-            </Route>
-            <Route path="/Explore">
-              <Explore />
-            </Route>
+</Online>
 
-            <Route path="/Createandpurchasepage">
-              <Createandpurchasepage />
-            </Route>
+    </div>
 
-            <Route path="/Receivedpage">
-              <Receivedpage />
-            </Route>
-            
-            
-            
-          </Switch>
-        </Router>
+    <div>
+
+    <Offline>
+
+{/* 
+    {<Popup content={<>
+        <b>Notification</b>
+        <p>Your are offline please check your internet connection......</p>
+        <center>
+        <button type="button" onClick={togglePopup}>close</button>
+        </center>
+      </>}
+     handleClose={togglePopup}
+    />}
  */}
 
+    </Offline>
 
+    </div>
 
-
-
-
+</div>
 
 <center>
 
-      <ReactPlayer
+      <ReactPlayer style={{backgroundColor:'white',height:'500px',width:'1000px',marginBlock:'5px',border: '2px solid white',borderRadius:'5px',display:'flex'}}
         url="https://www.youtube.com/watch?v=dA1lXZhWPoQ"
         
 />
@@ -321,6 +309,24 @@ function Howitworkpage() {
       </FullScreen>
 
 </center>
+
+<center>
+<div style={{backgroundColor:'white',height:'500px',width:'640px',marginBlock:'5px',border: '2px solid white',borderRadius:'5px',display:'flex'}}>
+<h1>document here...</h1>
+  </div>
+  <br></br>
+  <div style={{backgroundColor:'white',height:'500px',width:'640px',marginBlock:'5px',border: '2px solid white',borderRadius:'5px',display:'flex'}}>
+<h1>document here....</h1>
+  </div>
+  </center>
+
+  <div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+  <Footer/>
+  
+  </div>
+
+
       </div>
   )
 }

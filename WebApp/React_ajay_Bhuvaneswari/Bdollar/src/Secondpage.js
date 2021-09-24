@@ -1,8 +1,10 @@
 import React from "react";
 import history from "./utils/history";
 import BDO from "./BDO.png"
+//import Moment from 'react-moment';
+import 'moment-timezone';
 
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import web3 from './web3';
 import lottery from './storeabicon';//this line import lottery folder
 
@@ -47,6 +49,8 @@ function MyVerticallyCenteredModal1(props) {
     const accounts = await  web3.eth.getAccounts();
     var te=document.getElementById("tid").value;
     alert(te)
+    te=te*1000000;
+    te=te+"000000000000";
     setstake(await boardroom.methods.stake(te).
     send({
       from: accounts[0]
@@ -64,6 +68,8 @@ function MyVerticallyCenteredModal1(props) {
     
     <Modal
       {...props}
+      style={{width:"500px" , marginLeft:"400px"}}
+
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       id="mymodal"
@@ -104,6 +110,9 @@ function MyVerticallyCenteredModal2(props) {
     const accounts = await  web3.eth.getAccounts();
     var te1=document.getElementById("tid1").value;
     alert(te1);
+    te1=te1*1000000;
+    te1=te1+"000000000000";
+
     setwithdraw(await boardroom.methods.withdraw(te1).
     send({
       from: accounts[0]
@@ -119,6 +128,8 @@ function MyVerticallyCenteredModal2(props) {
     
     <Modal
       {...props}
+      style={{width:"500px" , marginLeft:"400px"}}
+
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       id="mymodal1"
@@ -155,6 +166,7 @@ function Secondpage() {
   const [modalShow2, setModalShow2] = React.useState(false);
 
   var [getCurrentEpoch,setepoch] = useState("");
+  var [getnextEpoch,setepoch1] = useState("");
 
   var [nextseigniorage,setnextseigniorage] = useState("");
 
@@ -162,6 +174,9 @@ function Secondpage() {
   const [geta,setgeta] = useState("");
   var [rate,setrate] = useState("");
   var [twap,settwap] = useState("");
+  var [twap1,settwap1] = useState("");
+  var [d,setd] = useState("");
+
   var [staked,setstaked] = useState("");
   var [locked,setlock] = useState("");
   var [app,setapprove] = useState("");
@@ -220,27 +235,36 @@ function Secondpage() {
         alert("Rewards claimed");
       }
       
-      const onSubmitNFT = async (event) => {
+      useEffect(()=>{bal1()},[]);
+      useEffect(()=>{check()},[]);
+
+      var check=async()=>{
+        alert("completed");  
+        setepoch1(await bdooracle.methods.nextEpochPoint().call());
+
+        d=new Date(getnextEpoch * 1000);
+        var d1=(d.toLocaleTimeString('en-US'));
+
+      // var dateStringWithTime = moment(d).format('HH:MM:SS');
+
+       
+        alert(d1)
+        document.getElementById("nextepo").innerHTML =d1;
+      }
+  var bal1 = async () => {
     
-    
-      //var te=tid;
-  
-      event.preventDefault();
-    
+
       const accounts = await  web3.eth.getAccounts();
       settwap(await bdooracle.methods.twap("0x8352A0a849cD181Cc7Ef61F972b7B8E5d677b66D","1000000000000000000").call());   
       //setrate(await Treasury.events.maxSupplyExpansionPercent);
       setepoch(await bdooracle.methods.getCurrentEpoch().call());
+
       setstaked(await boardroom.methods.totalSupply().call());
     setnextseigniorage(await Treasury.methods.nextEpochPoint().call()); 
     setlock(await bdo.methods.balanceOf("0xF277De5B326C3538c81e73cE9a6f7232eAEE4439").call()); 
     setbal(await boardroom.methods.balanceOf(accounts[0]).call());  
     setear(await boardroom.methods.earned(accounts[0]).call()); 
-     alert("completed");    
-
-   
-
-      
+     
   };
     
   return (
@@ -253,17 +277,9 @@ function Secondpage() {
 
   <br></br>
 
-		<form onSubmit={onSubmitNFT} id="create-course-form" >
+		<form onSubmit={bal1} id="create-course-form" >
 
-    <button
-                class="btn btn-primary"
-                type="submit">
-                
-                <img src={BDO} width="30px" height="30px"/>
-
-              </button>
-
-
+   
 </form>
 <br/>
 
@@ -277,10 +293,13 @@ function Secondpage() {
 
   <div class="row">
     <div class="col">
-      <label class="ll" width="100%">nextEpochPoint<span><br/>{nextseigniorage}</span></label>
+      <label class="ll"  width="100%">nextEpochPoint<br/><span id="nextepo"><br/></span></label>
+
     </div>
     <div class="col">
-      <label class="ll">eBNBmom Price(TWAP)<span><br/>{twap}</span></label>
+      <label class="ll">eBNBmom Price(TWAP)<br/>$<span>{((twap/100000000000000000)/(73.66)).toFixed(2)
+
+      }</span></label>
     </div>
   </div><br/>
   <br/>
@@ -328,7 +347,7 @@ function Secondpage() {
           <div class="col ll2">
             <br/>
             <br/>
-          <b>Your Earned amount=>{ear}</b><br /><br/>
+          <b>Your Earned amount  :{ear}</b><br /><br/>
   <button  class="btn btn-primary" onClick={Claim}>ClaimRewards</button>
      <br/>
      <br/>

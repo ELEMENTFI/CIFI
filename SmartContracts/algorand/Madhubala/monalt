@@ -1,0 +1,7 @@
+import numpy as np
+data['r'] = np.log(data['c'] / data['c'].shift(1))
+cols = []
+for momentum in [15, 30, 60, 120, 150]:
+    col = f'p_{momentum}'
+    data[col] = np.sign(data['r'].rolling(momentum).mean())
+    cols.append(col) 

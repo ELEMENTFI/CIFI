@@ -1,41 +1,39 @@
 import React, { useState,useEffect } from "react";
-//import history from "./utils/history";
-
-//import {useState} from 'react';
 import web3 from './web3';
-
-import { Router, Route, Switch,Link } from "react-router-dom";
-
-// import Nft from "./Nft";
-// import Sendpage from "./Sendpage";
-// import Newpage from "./Newpage";
-// import Tokencreate from "./Tokencreate";
-// import Printallimage from "./Printallimage";
-// //import getaaa from "./abinft";
-// import Saleimagepage from "./Saleimagepage";
-// import Myitem from "./Myitem";
+import { Link } from "react-router-dom";
 import firebase from "./firebase";
 import fireDb from "./firebase";
-//import Allcontractpage from "./Allcontractpage";
 import {abi} from './data'
-// import Mypurchasepage from './Mypurchasepage'
-// import Explore from './Explore'
-// import Createandpurchasepage from './Createandpurchasepage'
-// import Receivedpage from './Receivedpage';
 import Popup from './Popup';
-
-
-
-
-// console.log(`abi`, abi)
-
+import { Offline, Online } from "react-detect-offline";
+import Footer from './footer'
 
 function Salepagecopy() {
 
+  const [tprice,setTprice] = useState("");
+  const [isOpenset, setIsOpenset] = useState(false);
+  const [isOpensetFirst, setIsOpensetFirst] = useState(false);
+  const [a, setSelectImage] = useState({});
+  const [tsAddress,settsAddress] = useState("");
+  
+  console.log(`agets`, a);
+ 
+  const togglePopupset = () => {
+    setIsOpenset(false);    
+  }
+
+  const [isOpensetsend, setIsOpensetsend] = useState(false);
+ 
+  const togglePopupsetsend = () => {
+    setIsOpensetsend(false);
+
+    //window.location.reload(false)
+    
+  }
 
   const [isLoading, setLoading] = useState(false)
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);//update prize
  
   const togglePopup = () => {
     setIsOpen(false);
@@ -43,142 +41,30 @@ function Salepagecopy() {
     //window.location.reload(false)
     
   }
-
-
   const [isOpen2, setIsOpen2] = useState(false);
  
   const togglePopup2 = () => {
     setIsOpen2(false);
-
     window.location.reload(false)
     
   }
-
-
-
-
-
-
 const[getImgreff,setgetImgreff]=useState([]);
-
 const[getIm,setgetIm]=useState([]);
 
-
-
-  var abcd;
-
-  
-  //var names=[];
-  const [afternames,setAfternames] = useState([]);
-  
-  console.log("afternamescheck",afternames)
-  // const [names,setnames] = useState([]);
-
-  // console.log("initialnames",names)
-  
-  // const accounts = [];
-
-  
-  // const [getAddressDb,setGetAddressDb]=useState([]);
-
-  const [pa,setPa]=useState();
-  // console.log("initialgetaddress",getAddressDb)
-  
-
-  
-//  const getAdressbyAccount = async  ()=>{
-//   const accounts = await web3.eth.getAccounts();
-
-
-//     // console.log("getaddress0",accounts[0])
-  
-//     // console.log("function called");
-//    let address =[];
-//    let add=fireDb.database().ref(`contractaddress/${accounts[0]}`);
-//    console.log("addget",add)
-//    fireDb.database().ref(`contractaddress/${accounts[0]}`).on("value",(snapshot) =>{
-//      snapshot.forEach((s)=>{
-//        address.push(s.val());
-//      });
-     
-//    });
-
-//    setGetAddressDb(address)  
-//    //console.log("mani",address)
-
-   
-
-   
-//  }
-
-  
-//   useEffect(()=>{
-// getAdressbyAccount()
-// setTimeout(()=>{
-
-//   newget()
-
-// },5000)
-// setTimeout(()=>{
-
-//   s()
-
-// },10000)
-//   },[])
-
-
-
 let btn;
-  var accounts;
+var accounts;
 
   const connectmm = async () => {
-
-
-    //var getaddress=localStorage.getItem('myaddress')
-
-    //if(getaddress !== ""){
-
-
-      //var btn = document.getElementById("bu");
-        //btn.value = accounts[0]; // will just add a hidden value
-        //btn.innerHTML = accounts[0];
-        //btn.innerHTML = "CONNECTED"
-
-
-
-    //}
-    //else{
-
-
-      //window.alert("Do you want to connect with metamask");
-
-
-      //event.preventDefault();
-     //bring in user's metamask account address
-
-     
-
-     //const demo=await getaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
-
-      
-      //alert("acc"+accounts[0])
 
       accounts = await web3.eth.getAccounts();//.send({from:accounts[0]})
 
       if(accounts[0] !== ""){
 
-      
-
-        //accounts[0
-        //document.getElementById("bu").
-        //document.getElementById("bu").append("CONNECTED")
-
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
-
-
+        // btn.innerHTML = "CONNECTED"
+        btn.innerHTML = accounts[0];
         localStorage.setItem('myaddress', accounts[0]);
       
       }
@@ -189,9 +75,7 @@ let btn;
         //btns.value = accounts[0]; // will just add a hidden value
         btns.innerHTML = "NOT CONNECTED";
         localStorage.setItem('myaddress', "");
-      }
-
-    
+      }    
   };    
   useEffect(()=>{connectmm()},[])
 
@@ -201,9 +85,7 @@ let btn;
 
   const getImgpa = async() =>{
 
-
     setLoading(true);
-
     const accounts = await web3.eth.getAccounts();
     let req = [];
     let req2 = [];
@@ -221,22 +103,14 @@ let btn;
 
     });
 
-    setgetImgreff(req)
+    setgetImgreff(req);
 
-      getImgreff.map((a)=>{
-      console.log(`a`, a)
-    
-      //Object.keys(a).map((b)=>{
-    
-        console.log(`bba`, a)
-        console.log(`bbnexta`, a.imageUrl)
-        console.log(`bbaddessa`,a.cAddress)
-        console.log(`bbpricea`,a.priceSet)
-        console.log(`bbkeyid`,a.keyIds)
-        //console.log(`bbowner`,)
-//change here
-        req2.push({
-          //addAcc:
+    //change here
+
+    getImgreff.map((a)=>{
+      
+    req2.push({
+
           addAddress:a.ownerAddress,
           addPrices:a.priceSet,
           addcAdd:a.cAddress,
@@ -247,18 +121,14 @@ let btn;
       addSymbol:a.userSymbol,
     addIpfs:a.ipfsUrl,
     addsold:a.soldd,
-    addextra1:a.extra1})
-              
-      //})
+    addextra1:a.extra1,
+    addPoAddress:a.previousoaddress,
+    adddatesets:a.dateset,
+    addwhois:a.whois    
+  })
     })
 
-
-    
     setgetIm(req2)
-    
-    console.log("cfba",req)
-
-    setPa(0)
     setLoading(false);
   }
 
@@ -309,12 +179,9 @@ let btn;
 
 
    
-const setprice =async (a)=>{
+const setprice =async ()=>{
 
-  //let t= document.createElement("textbox")
-
-  //t="Added for sale";
-  //b.innerHTML="Enable Sale";
+  setIsOpensetFirst(false)
 
              var isd = a.addIds;//a
              console.log("targetid",isd)
@@ -323,106 +190,62 @@ const setprice =async (a)=>{
             let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
             const accounts = await  web3.eth.getAccounts();
             console.log("checking")
-            let price = window.prompt("enter the price for your token");
+            
 
+            let price=tprice;
 
             if(accounts[0] === a.addAddress)
             {
 
               await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
            // salepage.settokenstate();
-            
-
-
-
-
             await getaaaa.methods.setTokenPrice([isd],price).send({from:accounts[0]})
             const priceamount = await getaaaa.methods.items(isd).call();
             console.log(priceamount.price)
-
-
             // await getaaaa.methods.setApprovalForAll(a.addcAdd,"true").send({from:accounts[0]})
-
             await getaaaa.methods.approve(a.addcAdd,a.addIds).send({from:accounts[0]})
 
-
-            fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
+            let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
+            const keysellers = refsellers.push().key;
+          
+          
+            refsellers.child(keysellers).set({
               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-              soldd:"",extra1:"readytosold"
-
+              soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+            })
+          
+          
             
-            });
-
-
-            fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
+fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-              soldd:"",extra1:"readytosold"
-            
-            });
-
-
-            fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI).update({
+              soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+});
+fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
               id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-              soldd:"",extra1:"readytosold"
-
-            
-            });
-
-
-            
-
+              soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+}).then(()=> {
+  setTprice("");
+  //setIsOpensetFirst(false);
+  setIsOpen(true);
+ });  
 
 
-
-            
-                      
-
-
-            
-           //let pa = priceamount.state;
-           setPa(priceamount.state)
-         if(pa === 1){
-           //c.append(t)
-           console.log("checkcon","Added for sale console")
-
-
-
-         }
-         else{
-           //c.append(b)
-           console.log("checkcons","not for sale console")
-         }
-
-         
-         //alert("Your price has been set and ready to sale......")
-
-         setIsOpen(true);
-
-
-            }
-            else{
-
-              alert("Your are not owner so you does not update or set prizes......")
-
-            }
-
-            
+}
+else{
+alert("Your are not owner so you does not update or set prizes......")
+}
 }
 
-const send=async(a)=>{
+const send=async()=>{
 
-  //let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
-  //const accounts = await  web3.eth.getAccounts();
-  //console.log("logd1",accounts[0])
-  //console.log("logd2",a.addKeyI)
-
-
-  //console.log("logdele",ab)
+  setIsOpensetsend(false)
 
   let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
+
   const accounts = await  web3.eth.getAccounts();
 
-  let toaddressget = window.prompt("enter for your sender address");
+  let toaddressget=tsAddress;
+  
 
   if(toaddressget === null){
 
@@ -440,154 +263,100 @@ const send=async(a)=>{
     });
   
     console.log("checkinga",a.addOwnerAddress)
+
+
+    let refsellers=fireDb.database().ref(`buyerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
+    const keysellers = refsellers.push().key;
   
-    // fireDb.database().ref(`imagerefbuy/${toaddressget}`).child(a.addKeyI).set({
-    //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-    //   userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
-    // })
   
-    // fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).set({
-    //   id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-    //   userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget
-    // })
-
-
-
-      fireDb.database().ref(`imagerefsended/${toaddressget}`).child(a.addKeyI).set({
-        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
-      })
-
-
-      fireDb.database().ref(`imagerefexplore/${toaddressget}`).child(a.addKeyI).update({
-        id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
-      })
-
+    refsellers.child(keysellers).set({
+      id:a.addIds,imageUrl:a.addImgs,priceSet:a.price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+      soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Buyers'
+    })
+  
+    
+    
       fireDb.database().ref(`imageref/${toaddressget}`).child(a.addKeyI).update({
         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,
-        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed"
+        userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:toaddressget,soldd:"sended",extra1:"buyed",addPoAddress:accounts[0],
+        datesets:new Date().toDateString(),whois:'Buyers'
       })
 
 
-      fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove();
+      fireDb.database().ref('imageref').child(accounts[0]).child(a.addKeyI).remove().then(()=> {
+        settsAddress("")
+        setIsOpen2(true);
+        
+       });
 
-  try{
 
-    fireDb.database().ref('imagerefbuy').child(accounts[0]).child(a.addKeyI).remove();
-
-
-    fireDb.database().ref('imagepurcre').child(accounts[0]).child(a.addKeyI).remove();
-
-    fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).remove();
-
-  }catch(error)
-  {
-    
+      
   }
-
-  
-  //alert("Your token has been sent successfully......")
-
-  setIsOpen2(true);
-
-  }
-
-    
-  
 
 }
 
+//update prize
 
-//new
- const setprices =async (a,event)=>{
+const setprices =async ()=>{
 
-    
-  var isd = a.addIds;//a
-  console.log("targetid",isd)
 
- console.log(`a`, a)
- // let getaaaa=new web3.eth.Contract(abi,a.addcAdd);
- const accounts = await  web3.eth.getAccounts();
- // await getaaaa.methods.setTokenState([isd],"true").send({from:accounts[0]});
-// salepage.settokenstate();
- console.log("checking")
- let price = window.prompt("enter the price for your token");
-
- if(price !== '')
+var isd = a.addIds;//a
+console.log("targetid",isd)
+console.log(`a`, a)
+const accounts = await  web3.eth.getAccounts();
+console.log("checking")
+let price=tprice;
+if(price !== '')
  {
+
+  let refsellers=fireDb.database().ref(`sellerssavedb/${accounts[0]}`);//.child(a.addKeyI);//ref1
+  const keysellers = refsellers.push().key;
+
+
+  refsellers.child(keysellers).set({
+    id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
+    soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+  })
+
+
+  
+    
+
+    // refsellers.child(a.addKeyI).set({
+    //         id:a.addIds,imageUrl:a.addImgs,priceSet:a.addPrices,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addUname,userSymbol:a.addUsymbol,
+    //         ipfsUrl:a.addIpfs,ownerAddress:accounts[0],soldd:"solded",extra1:"buyed",datesets:new Date().toDateString(),whois:'Sellers'});
+
 
    fireDb.database().ref(`imageref/${accounts[0]}`).child(a.addKeyI).update({
      id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-     soldd:"",extra1:"readytosold"
+     soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
+});
 
-   
-   });
-
-
-   fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
+  fireDb.database().ref(`imagerefexplore/${accounts[0]}`).child(a.addKeyI).set({
      id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-     soldd:"",extra1:"readytosold"
+     soldd:"",extra1:"readytosold",datesets:new Date().toDateString(),whois:'Sellers'
    
    });
 
+   //previousoaddress:a.addOwnerAddress
 
-   fireDb.database().ref(`imagepurcre/${accounts[0]}`).child(a.addKeyI).update({
-     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-     soldd:"",extra1:"readytosold"
-
-   
-   });
-
-   fireDb.database().ref(`imagerefsended/${accounts[0]}`).child(a.addKeyI).update({
-     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-     soldd:"",extra1:"readytosold"
-
-   
-   });
-
-   fireDb.database().ref(`imagerefbuy/${accounts[0]}`).child(a.addKeyI).update({
-     id:a.addIds,imageUrl:a.addImgs,priceSet:price,cAddress:a.addcAdd,keyId:a.addKeyI,userName:a.addName,userSymbol:a.addSymbol,ipfsUrl:a.addIpfs,ownerAddress:accounts[0],
-     soldd:"",extra1:"readytosold"
-
-   
-   });
-
-
-   setIsOpen(true);
-
- }
-
- else{
-
-   alert("please enter updated prize..")
-
- }
-
-
- window.location.reload(false) 
-
+   fireDb.database().ref(`imagerefexplore/${a.addPoAddress}`).child(a.addKeyI).remove().then(()=> {
+     setTprice("");
+     setIsOpenset(false);
+     setIsOpen(true);
+    });  
+  }
 }
 
-
-// const imgcall = (a) => {
-
-//   alert(`Hello, ${a.keyId}`);
-// };
-
-
-// const [state, setstate] = useState({data:""})
-  
-//     const changeState = (a) => {  
-//         setstate({data:`state/hellooooo`}); 
-//        }; 
-  
-
-  return (    
+return (    
     
+  <>
 
     <div>
 
+<div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+
+<div style={{backgroundColor:'white',height:'43px',width:'1050px',marginLeft:'150px',marginBlock:'15px'}}>
   
 
 <Link
@@ -714,14 +483,11 @@ const send=async(a)=>{
 
               {" "}
 
-
-    
-
-
-
-
-
               <button
+              style={{whitespace: 'nowrap', 
+              width:'200px', 
+              overflow:'hidden',
+              textoverflow:'ellipsis'}}
               id="bu"
                 class="btn btn-info btn-block"
                 type="button"
@@ -731,66 +497,36 @@ const send=async(a)=>{
 
               {" "}
 
-
-
-
-
-              <br></br>
 <br></br>
+<br></br>
+</div>
+
+</div>
 
 
-{isLoading ? <div><h4>Fetching........</h4>
-              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '}
+{/* {isLoading ? <div><h4>Fetching........</h4>
+              <img style={{width:"200px",height:"200px"}} src="/4V0b.gif" alt=""/></div>:' '} */}
 
 
-
-
-
-
-
-
-
-
-
-{/* <button
-                class="btn btn-info btn-block"
-                type="button"
-               onClick={s}
-              >
-              
-              </button>
-
-              <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={newget}
-              >
-              
-              </button> */}
-
-
-              {/* <button
-                class="btn btn-info btn-block"
-                type="button"
-                onClick={getImgpa}
-              >
-              
-              Refresh
-              </button> */}
 {getIm.length === 0 ? null : 
-<div style={{backgroundColor:'skyblue',display:'flex',flexWrap:'wrap'}}>
+<div style={{backgroundColor:'black',display:'flex',flexWrap:'wrap',marginBottom:'10px'}}>
 {getIm.map((a)=>{
   console.log("getas", a.extra1)
 
-  if(a.addPrices === ''){
+  // if(a.addPrices === ''){
   return (
-    <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
+    <div style={{backgroundColor:'black',height:'350px',width:'300px',marginLeft:'60px',marginBottom:'15px'}}>
 
       {/* onClick={() => alert(a.addImgs)} */}
 
-      
 
-  <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""} />
+
+      
+      <div style={{border: '2px solid white',borderRadius:'5px'}}>
+
+        <center>
+
+  <img   src={a.addImgs}  style={{height:120,width:120,marginTop:'10px'}}    alt={""} />
 
   {/* </Link> */}
 
@@ -798,22 +534,45 @@ const send=async(a)=>{
   {' '}
   <br></br>
   
-  <h5>Name : {a.addName}</h5>
+  <h6 style={{color:'white'}}>Name : {a.addName}</h6>
     
-    <h5>Symbol : {a.addSymbol}</h5>
+    <h6 style={{color:'white'}}>Symbol : {a.addSymbol}</h6>
     
-    <h5>price : {a.addPrices}</h5>
+    <h6 style={{color:'white'}}>price : {a.addPrices}</h6>
 
-    <h5>address: {a.addAddress}</h5>
+    <h6 style={{color:'white'}}>address: {a.addAddress}</h6>
     
 
+    {/* <button onClick={()=>setprice(a)} style={{width:'80px',height:'43px'}} >SetPrice</button>   */}
   {/* <h4>Added to sale </h4> */}
+  {a.addPrices ===''?
+  <button onClick={()=>{
+    setSelectImage(a)
+    setIsOpensetFirst(true)
+  }} style={{width:'80px',height:'43px'}} >SetPrice</button>  
+
   
-  <button onClick={()=>setprice(a)} >SetPrice</button>  
+  :
+<>
+  <button onClick={()=>{
+      setSelectImage(a)
+      setIsOpenset(true)
+    }}  >UpdatePrice and sell</button>  
 
   {' '}
-
   
+  {/* <button onClick={()=>send(a)} style={{width:'80px',height:'43px'}}>Send</button> */}
+
+  <button onClick={()=>
+    {setSelectImage(a)
+    setIsOpensetsend(true)
+    }} style={{width:'80px',height:'43px'}}>Send</button>
+
+</>
+  }
+  </center>
+
+  </div>
 
   {isOpen && <Popup content={<>
         <b>Notification</b>
@@ -824,200 +583,144 @@ const send=async(a)=>{
       </>}
        handleClose={togglePopup}
     />}
-
-
-  {/* <button onClick={()=>send(a)} >Send</button> */}
   
   </div>
   )
-  
-  }else if(a.addImgSrc !== '' && a.addPrices !== ''){
-
-
-    return (
-      <div style={{backgroundColor:'skyblue',height:'600px',width:'600px'}}>
-
-{/* onClick={() => {imgcall(a); }} */}
-  
-    <img   src={a.addImgs}  style={{height:250,width:250}}    alt={""}   />
-    {' '}
-    <br></br>
-    
-    <h5>Name : {a.addName}</h5>
-    
-    <h5>Symbol : {a.addSymbol}</h5>
-    
-    <h5>price : {a.addPrices}</h5>
-
-    <h5>address: {a.addAddress}</h5>
-
-
-    
-    {/* <button  >SetPrice</button> */}
-
-    <button onClick={()=>setprices(a)} >UpdatePrice and again sale</button>  
-  {' '}
-  
-  
-    <button onClick={()=>send(a)} >Send</button>
-
-
-    {' '}
-
-    
-
-    {isOpen && <Popup content={<>
-        <b>Notification</b>
-        <p>Your token prize has been updated successfully......</p>
-        <center>
-        <button type="button" onClick={togglePopup}>close</button>
-        </center>
-      </>}
-     handleClose={togglePopup}
-    />}
-
-
-{isOpen2 && <Popup content={<>
-        <b>Notification</b>
-        <p>Your token  has been sended successfully......</p>
-        <button type="button" onClick={togglePopup2}>close</button>
-      </>}
-      // handleClose={togglePopup}
-    />}
-
-    
-    </div>
-    )
-
-
-    
-
-
-   
-    //return (
-  //     <div>
-  
-  // <img   src={a.addImgs}  style={{height:250,width:250}}  alt={""}   />
-  //   {''}
-  //   <br></br>
-  //   <h3>Name : {a.addName}</h3>
-    
-  //   <h3>Symbol : {a.addSymbol}</h3>
-    
-  //   <h3>price : {a.addPrices}</h3>
-    
-  //   <h3> Added for sale</h3>
-
-  //   <button onClick={()=>send(a)} >Send</button>
-    
-  //   </div>
-  //   )
-    
-  }
 })}
 </div>
 }
-
-
-      
-
-<br></br>
-
-
-
-
-	      
 <br></br>
 <br></br>
-
-
-
-
 <br></br>
 <br></br>
+<br></br>
+<div>
+
+<div>
+    <Online>
+    
+</Online>
+
+</div>
+
+    <div>
+
+    <Offline>
 
 
-
-                    
-                    
-
-            {/* <Router history={history}>
-          <Switch>
-            <Route path="/" exact>
-              <div class="display-4 mb-1">Choose a route to go to</div>
-              
-            </Route>
-            
-            <Route path="/Myitem">
-              <Myitem />
-            </Route>
-            <Route path="/nft">
-              <Nft />
-            </Route>
-            <Route path="/sendpage">
-              <Sendpage />
-            </Route>
-            <Route path="/tokencreate">
-              <Tokencreate />
-            </Route>
-            <Route path="/newpage">
-              <Newpage />
-            </Route>
-            <Route path="/printallimage">
-              <Printallimage />
-            </Route>
-            <Route path="/Saleimagepage">
-              <Saleimagepage />
-            </Route>
-            <Route path="/Mypurchasepage">
-              <Mypurchasepage />
-            </Route>
-            <Route path="/Explore">
-              <Explore />
-            </Route>
-
-            <Route path="/Createandpurchasepage">
-              <Createandpurchasepage />
-            </Route>
+    {/* {<Popup content={<>
+        <b>Notification</b>
+        <p>Your are offline please check your internet connection......</p>
+        <center> */}
+        {/* <button type="button" onClick={togglePopup}>close</button> */}
+        {/* </center> */}
+      {/* </>} */}
+    {/* //  handleClose={togglePopup} */}
+    {/* />} */}
 
 
-            <Route path="/Receivedpage">
-              <Receivedpage />
-            </Route>
-            
-            
-          </Switch>
-        </Router> */}
-
-
-
-
-        
-
-
-{/* <div style={{flexDirection:'column',width:'500px',flexWrap:'wrap'}}>
-
-<ul id="prabha">
-
-</ul>
-
-
-<ul id="prag">
-
-
-</ul>
-
-<ul id="ram" >
-  
-</ul>
-
-    </div> */}
-	  
+    </Offline>
 
     </div>
 
-  );
+</div>
+
+    <div>
+    
+    {isOpensetFirst && <Popup content={<>
+        <b>Notification</b>
+        <p>Enter prize </p>
+        <center>
+      <input
+        type="text"
+        value={tprice}
+        placeholder="Enter Prize"
+        onChange={e => {
+          setTprice(e.target.value);
+        }}
+      />
+      <br></br>
+      <br></br>
+
+        <button type="button" onClick={()=>{setprice()}}>submit</button>
+        </center>
+      </>}
+       handleClose={togglePopupset}
+    />}
+
+    {isOpenset && <Popup content={<>
+        <b>Notification</b>
+        <p>Enter prize </p>
+        <center>
+      <input
+        type="text"
+        value={tprice}
+        placeholder="Enter Prize"
+        onChange={e => {
+          setTprice(e.target.value);
+        }}
+      />
+      <br></br>
+      <br></br>
+
+        <button type="button" onClick={()=>{setprices()}}>submit</button>
+        </center>
+      </>}
+       handleClose={togglePopupset}
+    />}
+</div>
+
+
+
+<div>
+
+{isOpensetsend && <Popup content={<>
+    <b>Notification</b>
+    <p>Send Address </p>
+    <center>
+    <input
+        type="text"
+        value={tsAddress}
+        placeholder="Enter Address"
+        onChange={e => {
+          settsAddress(e.target.value);
+        }}
+      />
+      <br></br>
+      <br></br>
+
+        <button type="button" onClick={()=>{send()}}>submit</button>
+    </center>
+  </>}
+   handleClose={togglePopupsetsend}
+/>}
+</div>
+
+{isOpen2 && <Popup content={<>
+        <b>Notification</b>
+        <p>Your token has been sent successfully......</p>
+        <center>
+        <button type="button" onClick={togglePopup2}>close</button>
+        </center>
+      </>}
+       handleClose={togglePopup2}
+    />}
+
+
+
+
+</div>
+
+
+<div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+  <Footer/>
   
+  </div>
+
+</>
+
+);
 }
 
 export default Salepagecopy;

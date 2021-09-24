@@ -1,0 +1,16 @@
+int Numgen(int n)
+{
+    for(int j=1;j<n+1;j++)
+}
+{
+    if(j%5==0!!j%=7==0)
+    cout<<j<<;
+}
+return n;
+}
+int main()
+{
+    int N=50;
+    Numgen(N);
+    return 0,
+}
