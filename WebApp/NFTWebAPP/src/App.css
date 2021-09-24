@@ -1,3 +1,29 @@
+:root {
+  --blue: rgb(26, 57, 87);
+  --white: rgb(236, 236, 236);
+}
+body.light {
+  --background-color: var(--white);
+  --text-color: var(--blue);
+  --font-weight: 400;
+  /* --image: url("../day.jpg"); */
+}
+
+body.dark {
+  --background-color: var(--blue);
+  --text-color: var(--white);
+  --font-weight: 500;
+  /* --image: url("../night.jpg"); */
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-weight: var(--font-weight);
+  transition: background 0.3s ease-in-out, color 0.6s ease-in-out;
+}
+
+
 .App {
   text-align: center;
 }
@@ -47,12 +73,12 @@ button {
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 15px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 12px;
-  size: 5px;
+  font-size: 10px;
+  size: 2px;
   
 }
 

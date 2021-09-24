@@ -3,20 +3,25 @@ import history from "./utils/history";
 import web3 from './web3';
 import { Router, Route, Switch ,Link} from "react-router-dom";
 
-import Myitem from "./Myitem";
-import Nft from "./Nft";
+// import Myitem from "./Myitem";
+// import Nft from "./Nft";
 //import firebase from "./firebase";
-import fireDb from "./firebase";
+// import fireDb from "./firebase";
 //import Followingpage from "./Followingpage";
-import Activitypage from "./Activitypage";
-import Howitworkpage from "./Howitworkpage";
-import Communitypage from "./Communitypage";
-import firebase from "firebase";
-import {abi} from './datas'
-import Mypurchasepage from './Mypurchasepage'
-import Explore from './Explore'
-import Createandpurchasepage from './Createandpurchasepage'
-import Receivedpage from './Receivedpage';
+// import Activitypage from "./Activitypage";
+// import Howitworkpage from "./Howitworkpage";
+// import Communitypage from "./Communitypage";
+// import firebase from "firebase";
+// import {abi} from './datas'
+// import Mypurchasepage from './Mypurchasepage'
+// import Explore from './Explore'
+// import Createandpurchasepage from './Createandpurchasepage'
+// import Receivedpage from './Receivedpage';
+
+import { Offline, Online } from "react-detect-offline";
+
+import Popup from './Popup';
+import Footer from './footer'
 
 
 
@@ -71,7 +76,8 @@ function Followingpage() {
         btn= document.getElementById("bu");
         //btn.value = accounts[0]; // will just add a hidden value
         //btn.innerHTML = accounts[0];
-        btn.innerHTML = "CONNECTED"
+        // btn.innerHTML = "CONNECTED"
+        btn.innerHTML = accounts[0];
 
 
         localStorage.setItem('myaddress', accounts[0]);
@@ -347,6 +353,10 @@ function Followingpage() {
 
       <div class="display-4 mb-1"></div>
 
+      <div style={{backgroundColor:'white',height:'70px',width:'1500px',marginBlock:'5px',display:'flex'}}>
+
+
+      <div style={{backgroundColor:'white',height:'43px',width:'1050px',marginLeft:'150px',marginBlock:'15px'}}>
 
       <Link
               to="/">
@@ -476,6 +486,10 @@ function Followingpage() {
 
       
               <button
+              style={{whitespace: 'nowrap', 
+              width:'200px', 
+              overflow:'hidden',
+              textoverflow:'ellipsis'}}
               id="bu"
                 class="btn btn-info btn-block"
                 type="button"
@@ -486,7 +500,9 @@ function Followingpage() {
               {" "}
 
 
+</div>
 
+</div>
 
               <br></br>
 <br></br>
@@ -494,6 +510,40 @@ function Followingpage() {
 
 <br></br>
 <br></br>
+
+
+<div>
+
+<div>
+    <Online>
+    
+
+</Online>
+
+    </div>
+
+    <div>
+
+    <Offline>
+
+{/* 
+    {<Popup content={<>
+        <b>Notification</b>
+        <p>Your are offline please check your internet connection......</p>
+        <center>
+        {/* <button type="button" onClick={togglePopup}>close</button> */}
+        {/* </center> */}
+      {/* </>} */}
+    {/* //  handleClose={togglePopup} */}
+    {/* />} */} 
+
+
+    </Offline>
+
+    </div>
+
+</div>
+
 
 
               {/* <button
@@ -666,6 +716,11 @@ return (
 
 
 
+  <div style={{backgroundColor:'white',height:'150px',width:'1500px',marginBlock:'5px',display:'flex',marginLeft:'2px'}} >
+
+<Footer/>
+
+</div>
 
     </>
 

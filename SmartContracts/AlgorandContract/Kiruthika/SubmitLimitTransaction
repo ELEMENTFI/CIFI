@@ -34,7 +34,7 @@ public class SubmitLimitTransaction
 
         // Recover accounts used in example
         // Account 1 is the asset owner 
-        // Used later in the example
+        // Used later in the examples
         String account1_mnemonic = "portion never forward pill lunch organ biology" +
             " weird catch curve isolate plug innocent skin grunt" +
          " bounce clown mercy hole eagle soul chunk type absorb trim";

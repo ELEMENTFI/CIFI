@@ -1,0 +1,7 @@
+AlgoSigner.connect()
+.then((d) => {
+  ...
+})
+.catch((e) => {
+  console.error(e);
+});

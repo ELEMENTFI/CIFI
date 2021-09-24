@@ -28,7 +28,7 @@ public class SubmitHtlcTransaction
         final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";
         final int ALGO_PORT = 443;
         final String ALGOD_API_TOKEN = "usat0kaLvk8eIBpk7XuwXawXu0xRw9n88vYqNFaR";
-        // Instaniate the algod wrapper
+        // Instaniates the algod wrapper
         AlgodClient client = (AlgodClient) new AlgodClient().setBasePath(ALGOD_API_ADDR);
         ApiKeyAuth api_key = (ApiKeyAuth) client.getAuthentication("api_key");
         api_key.setApiKey(ALGOD_API_TOKEN);
@@ -59,7 +59,7 @@ public class SubmitHtlcTransaction
         Address receiver = new Address("42NJMHTPFVPXVSDGA6JGKUV6TARV5UZTMPFIREMLXHETRKIVW34QFSDFRE");
         String hashFn = "sha256";
         String hashImg = "QzYhq9JlYbn2QdOMrhyxVlNtNjeyvyJc/I8d8VAGfGc=";
-        // Instantiate the templates
+        // Instantiates the templates
         ContractTemplate result = HTLC.MakeHTLC(owner, receiver, hashFn, hashImg, expiryRound.intValue(), maxFee);        
 
         // Get the program and parameters and use them to create an lsig

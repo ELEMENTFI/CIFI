@@ -13,7 +13,7 @@ public class App {
         System.out.println("My Address3: " + myAccount3.getAddress());
         System.out.println("My Passphrase3: " + myAccount3.toMnemonic());
 
-        //Copy off accounts and mnemonics    
-        //Dispense TestNet Algos to each account: https://bank.testnet.algorand.network/
+        //Copy the accounts and mnemonics    
+        //Dispense the TestNet Algos to each account: https://bank.testnet.algorand.network//
     }
 }
