@@ -18,7 +18,7 @@ public class TransactionFee
 
     public static void main(String args[]) throws Exception {
         final String ALGOD_API_ADDR = "https://api.testnet.algoexplorer.io";
-        final String ALGOD_API_TOKEN = " ";
+        final String ALGOD_API_TOKEN = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ";
 
         AlgodClient client = (AlgodClient) new AlgodClient().setBasePath(ALGOD_API_ADDR);
         ApiKeyAuth api_key = (ApiKeyAuth) client.getAuthentication("api_key");
@@ -26,7 +26,7 @@ public class TransactionFee
         AlgodApi algodApiInstance = new AlgodApi(client);
 
 
-        // Setup suggested parameters
+        // Setup suggested parameter
         TransactionParams params = algodApiInstance.transactionParams();
         BigInteger suggestedFee = algodApiInstance.suggestedFee().getFee();
         BigInteger firstRound = params.getLastRound();

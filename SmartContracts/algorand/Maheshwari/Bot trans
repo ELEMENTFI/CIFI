@@ -1,0 +1,22 @@
+from algosdk.v2client import algo
+url = ""SPECIFY THE V2 URL HERE""
+algod_token = "SPECIFY YOUR ACCESS TOKEN HERE"
+
+def connect():
+    # Here I use a third party API service to connect to the algod client 
+    # since I don't enough resources to run a full node. 
+    # Algorand has provided more information on how you can connect
+    # to the client even if you cannot run a node and still have
+    # access to a lot of features just as if you're running a node. 
+    # https://developer.algorand.org
+
+    algod_url = url
+    algod_auth = os.environ.get('ALGODTOKEN')
+    headers = {"X-API-Key": algod_token}
+    try:
+        return algod.AlgodClient(algod_auth, algod_url, headers)
+    except Exception as e:
+        return e
+
+
+algod_client = connect()
