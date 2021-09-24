@@ -67,7 +67,6 @@ public class SubmitSplitTransaction
             System.err.println("Exception when calling algod#rawTransaction: " + e);
         }
 
-=======
 import com.algorand.algosdk.account.Account;
 import com.algorand.algosdk.v2.client.common.AlgodClient;
 import com.algorand.algosdk.v2.client.model.PendingTransactionResponse;
