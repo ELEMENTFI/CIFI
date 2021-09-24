@@ -80,7 +80,6 @@ class _ListScreenState extends State<ListScreen> {
                 store.nftname.clear();
                 store.nftdatas.clear();
                 store.mydata.clear();
-                store.username = '';
                 store.count = 0;
                 store.called = false;
                 print(store.mydata.length);

@@ -20,7 +20,7 @@ class _DropButonState extends State<DropButon> {
       underline: VxBox().color(theme.primaryColor).make(),
       style: theme.textTheme.headline2,
       iconEnabledColor: theme.accentColor,
-      items: <String>['', 'ETH', 'BNB', 'MATICMUM']
+      items: <String>['', 'ETH', 'BNB', 'MATICMUM','ALGOREN']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
@@ -36,6 +36,7 @@ class _DropButonState extends State<DropButon> {
       onChanged: (String newvalue) {
         setState(() {
           NFTCreation.controller9.text = newvalue;
+          
         });
       },
     );

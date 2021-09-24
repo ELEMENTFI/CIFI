@@ -3,7 +3,6 @@ import '../Widgets/Button.dart';
 import '../Widgets/TextWidget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-
 //in this page we create an account for user
 // ignore: must_be_immutable
 class AccountCreation extends StatelessWidget {
@@ -13,12 +12,14 @@ class AccountCreation extends StatelessWidget {
   static TextEditingController controller4 = TextEditingController();
   static TextEditingController controller5 = TextEditingController();
   static TextEditingController controller12 = TextEditingController();
+ 
   FocusNode f1 = FocusNode();
   FocusNode f2 = FocusNode();
   FocusNode f3 = FocusNode();
   FocusNode f4 = FocusNode();
   FocusNode f5 = FocusNode();
   FocusNode f12 = FocusNode();
+ 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -66,7 +67,7 @@ class AccountCreation extends StatelessWidget {
             action: TextInputAction.next,
           ),
           TextWidget(
-            label: 'YOUR WALLET ADDRESS',
+            label: 'YOUR ALGORND WALLET ADDRESS',
             id: 12,
             obsecure: false,
             prefix: false,
@@ -124,6 +125,7 @@ class AccountCreation extends StatelessWidget {
             },
             action: TextInputAction.done,
           ),
+         
           HStack(
             [
               Button(

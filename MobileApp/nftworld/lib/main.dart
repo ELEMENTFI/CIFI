@@ -25,7 +25,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   void iniState() {
     super.initState();
-   
   }
 
   final _routerDelegate = VxNavigator(
@@ -39,8 +38,13 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     ),
+    //page navigation
     routes: {
-      '/': (uri, params) => MaterialPage(child: Authcheck()),
+      '/': (uri, params) => MaterialPage(
+              child: Splash(
+            navigation: 1,
+          )),
+      '/login': (uri, params) => MaterialPage(child: Authcheck()),
       '/signin': (uri, params) => MaterialPage(child: AccountCreation()),
       '/nft': (uri, params) => MaterialPage(child: NFTCreation()),
       '/main': (uri, params) => MaterialPage(child: MainPage()),
@@ -50,7 +54,6 @@ class _MyAppState extends State<MyApp> {
             id: params[1],
             index: params[2],
           )),
-      '/s': (uri, params) => MaterialPage(child: SplashScreen()),
     },
   );
 
