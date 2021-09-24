@@ -1,0 +1,7 @@
+algodClient.getTransactionParams().do()
+.then((d) => {
+  txParamsJS = d;
+})
+.catch((e) => {
+  console.error(e);
+});
