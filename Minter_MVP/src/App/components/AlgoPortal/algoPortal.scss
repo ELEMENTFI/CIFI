@@ -1,0 +1,12 @@
+@import "src/App/styles/colors";
+
+.asa-portal-wrapper {
+  width: 100%;
+  height: calc(100vh - 80px);
+  .asa-portal-container {
+    height: calc(100vh - 80px);
+    background: $color-light;
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+}
