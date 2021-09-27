@@ -63,6 +63,7 @@ import FolowStep from "../../screens/Profile/FolowStep";
 //     }
 //   },
 // ];
+import axios from 'axios';
 
 const Upload = () => {
 
@@ -755,6 +756,18 @@ const addfire=()=>{
 
 useEffect(()=>{addfire()},[])
 
+const checkurl=async()=>{  
+//const indexerserver = 'https://testnet-algorand.api.purestake.io/idx2';
+//const indexport='';
+//let algoindexer = new algosdk.Indexer(token,indexerserver,indexport);
+//let algodClient = new algosdk.Algodv2(token, server, port);
+//const algosdk = require('algosdk');
+//const token = {
+  //  'X-API-key' : 'B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab',
+//}
+
+}
+
 const onSubmitNFT = async (event) => {
   event.preventDefault();  
     //new write below
@@ -781,6 +794,8 @@ const onSubmitNFT = async (event) => {
     ta=tname;
     tb='ALGO';
     te=1000;
+    let idget="";
+    let txnInfo;
 
 
     console.log("uploadonecheck",ta);
@@ -806,16 +821,27 @@ const onSubmitNFT = async (event) => {
     
       
 const algosdk = require('algosdk');  
+
 let accounts;
 let tx;
 const server = "https://testnet-algorand.api.purestake.io/ps2";
-  const port = "";
-  
-  const token = {
+const port = "";  
+const token = {
       'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
-  }
+}
+//const indexerserver = 'https://testnet-algorand.api.purestake.io/idx2';
+//const indexport='';
+//let algoindexer = new algosdk.Indexer(token,indexerserver,indexport);
 
 let algodClient = new algosdk.Algodv2(token, server, port);
+//const algosdk = require('algosdk');  
+
+//const port = "";
+//const token = {
+  //'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+//}
+//const baseServer = "https://testnet-algorand.api.purestake.io/idx2";
+//let indexerClient = new algosdk.Indexer(token, baseServer, port);
 AlgoSigner.connect()
 .then((d) => {
 console.log("tested1")
@@ -826,17 +852,17 @@ algodClient.healthCheck().do()
     ledger: 'TestNet'
   })
   .then((d) => {
-    console.log("tested2")
+    console.log("tested2",d)
     accounts = d;
     console.log("algoacc",accounts[0].address)
     algodClient.getTransactionParams().do()
 .then((d) => {
   let txParamsJS = d;
-  console.log("tested3",txParamsJS)
+  console.log("txparamsJS",txParamsJS)
   const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
     from: accounts[0].address,
-    assetName: "demo",
-    unitName: ta,
+    assetName: tname,
+    unitName: tb,
     total: +1000,
     decimals: +2,
     note: AlgoSigner.encoding.stringToByteArray("nothing"),
@@ -844,14 +870,17 @@ algodClient.healthCheck().do()
     suggestedParams: txParamsJS
   });
   
-  console.log("fail")
+
+  console.log("txnprint",txn)
   // Use the AlgoSigner encoding library to make the transactions base64
   const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
   
   AlgoSigner.signTxn([{txn: txn_b64}])
   .then((d) => {
+    console.log("signTx",d)
     let signedTxs = d;
     let signCodeElem = JSON.stringify(d, null, 2);
+    console.log("signcoderElem",signCodeElem)
 
     AlgoSigner.send({
       ledger: 'TestNet',
@@ -859,36 +888,39 @@ algodClient.healthCheck().do()
     })
     .then((d) => {
       tx = d;
-
       console.log("txidprint",tx.txId)
       AlgoSigner.algod({
         ledger: 'TestNet',
         path: '/v2/transactions/pending/' + tx.txId
       })
       .then((d) => {
-        console.log(d);
-
+        console.log(d);        
+        //console.log("before",tx.txId)        
+      setIsOpens(true)
         
-        setIsOpens(true)
         let ref2=fireDb.database().ref(`imagerefAlgo/${accounts[0].address}`);
-    let ref22=fireDb.database().ref(`imagerefAlgolt`);
-    //.child(selected).child(selected2).child(accounts[0]);
+        let ref22=fireDb.database().ref(`imagerefAlgolt`);
+    //.child(selected).child(selected2).child(accounts[0]);    
 
+    
                       let dateset=new Date().toDateString();
                       console.log("dateget",dateset)
                       const db = ref2.push().key;                         
                       const db2 = ref22.push().key;                         
                       console.log("dbcheck",db)
-                      ref2.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:tb,
+                      ref2.child(db).set({id:idget,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:tb,
                       ipfsUrl:Img,ownerAddress:accounts[0].address,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,
                       whois:'',
                       league:selected,team:selected2,type:selected3,
-                      teamlogo:selectedImg,dimen:selected4})
+                      teamlogo:selectedImg,dimen:selected4,description:tdescription,history:""})
                       .then(()=>{
 
-                      ref22.child(db).set({id:te,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:tb,
-                      ipfsUrl:Img,ownerAddress:accounts[0].address,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,whois:'',
-                      league:selected,team:selected2,type:selected3,teamlogo:selectedImg,dimen:selected4})
+                      ref22.child(db).set({id:idget,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,
+                      userName:ta,userSymbol:tb,
+                      ipfsUrl:Img,ownerAddress:accounts[0].address,soldd:"",extra1:"",
+                      previousoaddress:"",datesets:dateset,whois:'',
+                      league:selected,team:selected2,type:selected3,teamlogo:selectedImg,dimen:selected4,
+                      description:tdescription,history:""})
                       .then(()=>{
                         setIsOpens(false)
                       setIsOpen(true);
@@ -1278,6 +1310,16 @@ const callof=()=>{
 
       {/* onClose={() => setIsOpens(false)} */}
 
+      {/* <button
+                  className={cn("button", styles.button)}
+                  onClick={() => checkurl()}
+                  // type="button" hide after form customization
+                  type="button"                              
+                >
+                  
+                  <span>CHECK</span>
+                  <Icon name="arrow-next" size="10" />
+                </button> */}
 
 
     </>
