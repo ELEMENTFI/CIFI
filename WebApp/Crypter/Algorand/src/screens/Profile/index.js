@@ -487,6 +487,7 @@ const dbcollection4=async()=>{
                 type:value.type,
                 teamlogo:value.teamlogo,
                 dimen:value.dimen,
+                soldd:"",
                 users: [                
                   {
                     avatar: "/images/content/avatar-4.jpg",
@@ -552,6 +553,12 @@ const dbcallalgolikes=async()=>{
               type:value.type,
               dimen:value.dimen,
               teamlogo:value.teamlogo,      
+              ipfsurl:value.ipfsUrl,
+              extra:value.extra1,
+              previousaddress:value.previousoaddress,
+              date:value.datesets,
+              description:value.description,
+              soldd:"",
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -633,7 +640,7 @@ const dbcallsalealgo=async()=>{
     let getalgo=localStorage.getItem("wallet");
     
     //let kreq =[];
-    firebase.database().ref("imagerefexploreAlgo").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -657,6 +664,12 @@ const dbcallsalealgo=async()=>{
               type:value.type,
               dimen:value.dimen,
               teamlogo:value.teamlogo,      
+              ipfsurl:value.ipfsUrl,
+              extra:value.extra1,
+              previousaddress:value.previousoaddress,
+              date:value.datesets,
+              description:value.description,
+              soldd:"",
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -714,6 +727,13 @@ const dbcallalgo=async()=>{
               type:value.type,
               dimen:value.dimen,
               teamlogo:value.teamlogo,      
+              ipfsurl:value.ipfsUrl,
+              extra:value.extra1,
+              previousaddress:value.previousoaddress,
+              date:value.datesets,
+              description:value.description,
+              soldd:"",
+              history:"",
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -781,6 +801,11 @@ const dbcallalgobuy=async()=>{
               type:value.type,
               dimen:value.dimen,
               teamlogo:value.teamlogo,      
+              ipfsurl:value.ipfsUrl,
+              extra:value.extra1,
+              previousaddress:value.previousoaddress,
+              date:value.datesets,
+              description:value.description,
               users: [                
                 {
                   avatar: "/images/content/avatar-4.jpg",
@@ -963,7 +988,8 @@ const convertToBuffer = async(reader) => {
 
 
 const checkasset=()=>{
-setIsOpen(true)
+//setIsOpen(true)
+firebase.database().ref("algorandData").remove();
 }
 
  const togglePopup = () => {

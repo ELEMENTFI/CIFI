@@ -83,11 +83,8 @@ const CardBuy = ({ className, item }) => {
     if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x"){
 
     }
-    else{
-
-    
+    else{    
     let getalgo=localStorage.getItem("wallet");
-
     fireDb.database().ref("profiledata").child(getalgo).on("value", (data) => {
       if (data) {
         console.log("startcon",data.val())        
@@ -106,8 +103,6 @@ useEffect(()=>{usernameget()},[])
   const updatepricedb=async()=>{
 
     console.log("inside buy function")
-
-
     if(localStorage.getItem("walletalgo") === null || localStorage.getItem("wallet") === "0x"){
 
     }
@@ -115,6 +110,34 @@ useEffect(()=>{usernameget()},[])
     else{
 
       let getalgo=localStorage.getItem("walletalgo");
+
+      const waitForConfirmation = async function (algodclient, txId) {
+        let response = await algodclient.status().do();
+        let lastround = response["last-round"];
+        while (true) {
+            const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
+            if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
+                console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+                break;
+            }
+            lastround++;
+            await algodclient.statusAfterBlock(lastround).do();
+        }
+    };
+    
+    const printCreatedAsset = async function (algodclient, account, assetid) {
+       
+        let accountInfo = await algodclient.accountInformation(account).do();
+        for (let idx = 0; idx < accountInfo['created-assets'].length; idx++) {
+            let scrutinizedAsset = accountInfo['created-assets'][idx];
+            if (scrutinizedAsset['index'] === assetid) {
+                console.log("AssetID = " + scrutinizedAsset['index']);
+                let myparms = JSON.stringify(scrutinizedAsset['params'], undefined, 2);
+                console.log("parms = " + myparms);
+                break;
+            }
+        }
+    };
     
   //bnb 0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18
 //   let gettrans=new web3.eth.Contract(tra,'0x2cA1655cceB43D27027e6676E880D1Ce4e7d7d18');
@@ -130,9 +153,12 @@ useEffect(()=>{usernameget()},[])
 //   //    value: web3.utils.toWei(a.addPrices, 'ether')
 //   //  });
 
-  if(item.bid === getalgo)
+  if(item.bid !== getalgo)
   {
 
+    //console.log("Inside Amount",item.price)
+    //let amountp=(item.price).replace(/^"(.+(?="$))"$/, '$1');
+    //console.log("amountprint",amountp)
     alert("you are owner so you does not purchase this token")
 
   }
@@ -140,28 +166,185 @@ useEffect(()=>{usernameget()},[])
 
     setIsOpenss(true)
 
-    let getprize = null;
+    //let getprize = null;
 
-    getprize = prompt("Please enter mnemonic");
+    //getprize = prompt("Please enter mnemonic");
 
-    if(getprize === null){
+    //if(getprize === null){
 
-      getprize = prompt("Please enter mnemonic");
+      //getprize = prompt("Please enter mnemonic");
 
-    }
-    else
-    {
+    //}
+    //else
+    //{
       const algosdk = require('algosdk');
 
-      const server = "https://testnet-algorand.api.purestake.io/ps2";
-      const port = "";
+      // const server = "https://testnet-algorand.api.purestake.io/ps2";
+      // const port = "";
       
-      const token = {
-        'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
-      }
+      // const token = {
+      //   'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+      // }
       
       
-      let algodclient = new algosdk.Algodv2(token, server, port);
+      // let algodclient = new algosdk.Algodv2(token, server, port);
+
+const algodServer = 'https://testnet-algorand.api.purestake.io/ps2'
+const indexerServer = 'https://testnet-algorand.api.purestake.io/idx2'
+const token = { 'X-API-Key': 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin' }
+const port = '';
+
+let algodClient = new algosdk.Algodv2(token, algodServer, port);
+let indexerClient = new algosdk.Indexer(token, indexerServer, port);
+let accounts;
+let txParamsJS;
+let signedTxs;
+let tx;
+
+      AlgoSigner.connect()
+.then((d) => {
+  
+  algodClient.healthCheck().do()
+.then(d => { 
+
+  AlgoSigner.accounts({
+    ledger: 'TestNet'
+  })
+  .then((d) => {
+    accounts = d;
+
+    algodClient.getTransactionParams().do()
+.then((d) => {
+  txParamsJS = d;
+  //let amountp=(item.price).replace(/^"(.+(?="$))"$/, '$1');
+  //console.log("amountp",amountp)
+  const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+    from: accounts[0].address,
+    to: item.bid,
+    amount: parseInt(item.price),
+    note: undefined,
+    suggestedParams: {...txParamsJS}
+  });
+  
+  // Use the AlgoSigner encoding library to make the transactions base64
+  let txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+  
+  AlgoSigner.signTxn([{txn: txn_b64}])
+  .then((d) => {
+    signedTxs = d;
+
+    AlgoSigner.send({
+      ledger: 'TestNet',
+      tx: signedTxs[0].blob
+    })
+    .then((d) => {
+      tx = d;
+      algodClient.pendingTransactionInformation(tx.txId).do()
+.then(async(d) => {
+  console.log(d);
+  console.log("last success")
+
+  //start shyam code add below
+
+  let program = new Uint8Array(Buffer.from("ASAEADoKAS0VIhJAACIvFSISQAAVLRUjEkAAAC4VIg1AAAAvFSQNQAAGLS4TQAAAJQ==", "base64"));
+    const args=[];
+    args.push([...Buffer.from(item.bid)]);//owner address
+    args.push([...Buffer.from(accounts[0].address)]);//receiver address
+    args.push([...Buffer.from('')]);
+    
+    let lsig = algosdk.makeLogicSig(program,args);
+    let  params = await algodClient.getTransactionParams().do();
+      params.fee = 1000;
+      params.flatFee = true;
+      let revocationTarget = undefined;
+     let closeRemainderTo = undefined;
+       let  amount = 0;
+       let note = undefined;
+       let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(lsig.address(), accounts[0].address, closeRemainderTo, revocationTarget,
+      amount, note, item.title, params);
+  
+ let rawSignedTxn = algosdk.signLogicSigTransaction(opttxn,lsig).blob;
+let opttx = (await algodClient.sendRawTransaction(rawSignedTxn).do());
+console.log("Transaction : " + opttx.txId);
+await waitForConfirmation(algodClient, opttx.txId);
+     let manager = lsig.address();
+     let reserve = accounts[0].address;
+     let freeze = accounts[0].address;
+     let clawback = accounts[0].address;
+      let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(lsig.address(), note, 
+      item.title, manager, reserve, freeze, clawback, params);  
+      rawSignedTxn = algosdk.signLogicSigTransaction(ctxn,lsig).blob;
+      let ctx = (await algodClient.sendRawTransaction(rawSignedTxn).do());
+      console.log("Transaction2 : " + ctx.txId);
+      await waitForConfirmation(algodClient, ctx.txId);
+      await printCreatedAsset(algodClient,item.bid, item.title);
+      
+      // await fetch(`https://nft-app-ec882-default-rtdb.firebaseio.com/NFT/${name}.json`,
+      // {
+      //   method:'PATCH',
+      //   headers:{
+      //     'CONTENT-TYPE': 'application/json',
+      //   },
+      //   body:JSON.stringify({
+      //     'WalletAddress': accounts[0].address,
+      //   })
+      // }
+      // );
+
+  
+  //end shyam code 
+  fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).remove().then(()=>{
+    fireDb.database().ref(`imagerefbuy/${getalgo}`).child(item.highestBid).set({
+    id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
+    userName:"",userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+    ownerAddress:getalgo,soldd:item.soldd,extra1:item.extra,
+    previousoaddress:item.bid,datesets:item.date,
+    description:item.description,whois:'buyers',history:item.url
+    //paramsdb:item.image2x,privatekey:item.category  
+          }).then(()=>{
+            setIsOpenss(false)
+            setIsOpens(true)
+            
+          }) 
+})
+.catch((e) => {
+  console.error(e);
+});
+
+  
+})
+.catch((e) => {
+  console.error(e);
+});
+    })
+    .catch((e) => {
+      console.error(e);
+    });
+
+  })
+  .catch((e) => {
+      console.error(e);
+  });
+})
+.catch((e) => {
+  console.error(e);
+});
+  })
+  .catch((e) => {
+    console.error(e);
+  });
+
+})
+.catch(e => { 
+  console.error(e); 
+});
+})
+.catch((e) => {
+  console.error(e);
+});
+
+
+
 
       //const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
@@ -171,7 +354,7 @@ useEffect(()=>{usernameget()},[])
       // let amount = parseInt(item.price.replace(/['"]+/g, ''));
       //   console.log("conscheck",amount)
 
-       const myAlgoWallet = new MyAlgo();
+       //const myAlgoWallet = new MyAlgo();
 
       // (async () => {
       //   try {
@@ -203,33 +386,33 @@ useEffect(()=>{usernameget()},[])
 //wallet asset transfer start
 
 
-(async () => {
-  try {
+// (async () => {
+//   try {
 
-    let txn = await algodclient.getTransactionParams().do();
+//     let txn = await algodclient.getTransactionParams().do();
       
-    txn = {
-      ...txn,
-      fee: 1000,
-      flatFee: true,
-      type: 'axfer',
-      assetIndex: item.title,
-      from: item.bid,
-      to:  getalgo,
-      amount: 1,
-      note: new Uint8Array(Buffer.from('transfer'))
-    };
+//     txn = {
+//       ...txn,
+//       fee: 1000,
+//       flatFee: true,
+//       type: 'axfer',
+//       assetIndex: item.title,
+//       from: ,
+//       to:  getalgo,
+//       amount: item.price,
+//       note: new Uint8Array(Buffer.from('transfer'))
+//     };
   
-    let signedTxn = await myAlgoWallet.signTransaction(txn);
-    console.log(signedTxn.txID);
+//     let signedTxn = await myAlgoWallet.signTransaction(txn);
+//     console.log(signedTxn.txID);
   
-    await algodclient.sendRawTransaction(signedTxn.blob).do();
+//     await algodclient.sendRawTransaction(signedTxn.blob).do();
 
   
-  } catch(err) {
-    console.error(err); 
-  }
-})();
+//   } catch(err) {
+//     console.error(err); 
+//   }
+// })();
 
 
 //wallet asset transfer end
@@ -491,7 +674,7 @@ useEffect(()=>{usernameget()},[])
 
     //end money transfer here and opt and transfer algos
 
-    }   
+    //}   
   } 
 
   }  

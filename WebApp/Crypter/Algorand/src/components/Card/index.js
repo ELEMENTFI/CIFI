@@ -25,7 +25,6 @@ const Card = ({ className, item }) => {
   let history=useHistory();
   const [isOpens, setIsOpens] = useState(false);
   const [isOpenss, setIsOpenss] = useState(false);
-
   const [visible, setVisible] = useState(false);
   const [historydb, sethistorydb] = useState([]);
   console.log("hist",historydb)
@@ -53,7 +52,8 @@ const Card = ({ className, item }) => {
       userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
       ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
       previousoaddress:item.previousaddress,datesets:item.date,
-      description:item.description,whois:'likes',history:item.url,paramsdb:item.image2x,privatekey:item.category
+      description:item.description,whois:'likes',history:item.url
+      //,paramsdb:item.image2x,privatekey:item.category
       }).then(()=>{
         setVisible(!visible)
         window.location.reload(false)   
@@ -86,11 +86,8 @@ const Card = ({ className, item }) => {
 
       }
     else{
-
-    
       //const accounts = await  web3.eth.getAccounts();
       let getalgo=localStorage.getItem("walletalgo");
-
       console.log("1",item.bid)
       console.log("2",item.highestBid)
       console.log("3",item.category)
@@ -99,27 +96,39 @@ const Card = ({ className, item }) => {
       console.log("6",item.categoryText)
       console.log("7",item.counter)
       console.log("8",item.image2x)
-    
-
+      
+    const algosdk = require('algosdk');
+    let idget="";
+    const port = "";  
+    const baseServer = "https://testnet-algorand.api.purestake.io/idx2";
+    const token = {
+      'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+    }
+    let indexerClient = new algosdk.Indexer(token, baseServer, port);
+    (async()=> {
+      //const txnInfo2 =  await indexerClient.searchForTransactions().txid('H6QGCDZGS64ZD6SXYUHQKFEG5CTF4VB3JCCT4WAGWRH2LTY7UV3A').do()
+      //console.log(txnInfo2)
+      let txnInfo =  await indexerClient.searchForTransactions().txid(item.categoryText).do();      
+      console.log(txnInfo)
+      idget=txnInfo.transactions[0]["created-asset-index"];
+      console.log("assetidget",txnInfo.transactions[0]["created-asset-index"])  
+      console.log("end")  
       setIsOpens(true)
       fireDb.database().ref(`imagerefexploreoneAlgos/${getalgo}`).child(item.highestBid).set({
-        id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
+        id:idget,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
         userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
         ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
         previousoaddress:item.previousaddress,datesets:item.date,
-        description:item.description,whois:'readytosale',history:item.url,paramsdb:item.image2x,privatekey:item.category
+        description:item.description,whois:'readytosale',history:item.url
       }).then(()=>{
-
-        fireDb.database().ref(`imagerefAlgos/${getalgo}`).child(item.highestBid).remove();
+        fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(item.highestBid).remove();
           console.log("remove db");
           setIsOpens(false)
           window.location.reload(false)   
-
-
-      })
-    
-
-
+      })    
+    })().catch(e => {
+        console.log(e);
+    });
     //   let res="https://testnet.algoexplorerapi.io/v2/transactions/pending/"+item.categoryText+"?format=json";
     //       console.log("ress",res);
     //       axios.get(`${res}`)
@@ -197,22 +206,37 @@ else{
 
   if(getalgo === item.bid)
   {
-
-    console.log("setitem",item)
+    const algosdk = require('algosdk');
+    let idget="";
+    const port = "";  
+    const baseServer = "https://testnet-algorand.api.purestake.io/idx2";
+    const token = {
+      'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+    }
+    let indexerClient = new algosdk.Indexer(token, baseServer, port);
+    (async()=> {
+      //const txnInfo2 =  await indexerClient.searchForTransactions().txid('H6QGCDZGS64ZD6SXYUHQKFEG5CTF4VB3JCCT4WAGWRH2LTY7UV3A').do()
+      //console.log(txnInfo2)
+      let txnInfo =  await indexerClient.searchForTransactions().txid(item.categoryText).do();      
+      console.log(txnInfo)
+      idget=txnInfo.transactions[0]["created-asset-index"];
+      console.log("assetidget",txnInfo.transactions[0]["created-asset-index"])  
+      console.log("end")  
+      console.log("setitem",item)
     console.log("settitem",item.price)
-    let checkdb=fireDb.database().ref(`imagerefAlgos/${item.bid}`).child(item.highestBid);
+    let checkdb=fireDb.database().ref(`imagerefAlgo/${item.bid}`).child(item.highestBid);
     console.log("cdb",checkdb)
     console.log("odb",item.bid)
     console.log("hdb",item.highestBid)
 
 
-    fireDb.database().ref(`imagerefAlgos/${getalgo}`).child(item.highestBid).update({
+    fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(item.highestBid).update({
 
-      id:item.title,imageUrl:item.image,priceSet:urlprize,cAddress:item.categoryText,keyId:item.highestBid,
+      id:idget,imageUrl:item.image,priceSet:urlprize,cAddress:item.categoryText,keyId:item.highestBid,
         userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
         ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
         previousoaddress:item.previousaddress,datesets:item.date,
-        description:item.description,whois:'readytosale',history:item.url,paramsdb:item.image2x,privatekey:item.category
+        description:item.description,whois:'readytosale',history:item.url
 
 
     }).then(()=>{
@@ -223,6 +247,13 @@ else{
   
     })
 
+    })().catch(e => {
+        console.log(e);
+    });
+
+    
+
+    
 
   }
 
@@ -460,8 +491,7 @@ else{
   return (
     <>
     <div className={cn(styles.card, className)}>
-      <div className={styles.preview}>
-        
+      <div className={styles.preview}>        
         <img srcSet={`${item.image2x} 2x`} src={item.image} alt="Card" />
         <div className={styles.control}>
           <div
@@ -479,12 +509,16 @@ else{
           >
             <Icon name="heart" size="20" />
           </button>
-          <button className={cn("button-small", styles.button)} onClick={saledbset}>
+          {item.price === "" || item.price === null || item.price === " " ? (<>
+            
+          </>) : (<>
+
+            <button className={cn("button-small", styles.button)} onClick={saledbset}>
             <span>Place a sale</span>
             <Icon name="scatter-up" size="16" />
           </button>
-        </div>
-        
+          </>)}          
+        </div>        
       </div>
       <br></br>
 
@@ -501,7 +535,6 @@ else{
                       required
                       onChange={event => setUrlprize(event.target.value)}
                     />
-
                     <br></br>
       <button className={cn("button-small")} onClick={setpricedb}>
       <span>Price set</span>
@@ -509,13 +542,9 @@ else{
     </button>
     </>
     )
-    
-    :
-    
+    :    
     (        
-      <>
-      
-                    
+      <>                     
                     <TextInput
                       className={styles.field}
                       label="Custom prize"
@@ -525,16 +554,13 @@ else{
                       required
                       onChange={event => setUrlprize(event.target.value)}
                     />
-
-                    <br></br>
-      
+                    <br></br>      
       <button className={cn("button-small")} onClick={setpricedb}>
       <span>Update price</span>
       {/* <Icon name="scatter-up" size="16" /> */}
     </button>
     </>
-    )
-    
+    )    
 }
     
       <Link className={styles.link} to={item.url}>
@@ -556,13 +582,9 @@ else{
           </div>
         </div>
         <div className={styles.foot}>
-          <div className={styles.status}>
-            
-            
+          <div className={styles.status}>                        
             {/* <Icon name="candlesticks-up" size="20" ></Icon> */}
-            {/* <button type="button">History</button> */}
-            
-            
+            {/* <button type="button">History</button> */}                    
             {/* Highest bid <span>{item.highestBid}</span> */}
           </div>
           {/* <div
