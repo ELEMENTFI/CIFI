@@ -1,0 +1,9 @@
+AlgoSigner.accounts({
+  ledger: 'TestNet'
+})
+.then((d) => {
+  accounts = d;
+})
+.catch((e) => {
+  console.error(e);
+});
