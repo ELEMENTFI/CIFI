@@ -26,7 +26,6 @@ function App() {
   const [isList, setisList] = useState([]);
   const [isClick, setClick] = useState();
   const [isOpenlist, setIsOpenlist] = useState(false);
-
   console.log("isClicking",isClick)
   console.log("islistfirst",isList)
   console.log("List account", accList);
@@ -38,6 +37,7 @@ function App() {
 
   const onChangeOption=async(e)=>{
     let a=await setClick(e)
+    console.log("setClick = ", e);
     //setIsOpenbutton(true)
 }
   const connect = () => {
@@ -50,6 +50,7 @@ function App() {
   .then((d) => {
     let accounts = d;
     //document.getElementById("listacc").innerHTML=isClick;
+    setClick(accounts[0].address);
     console.log("listaccount",d)
     setisList(d)
     setIsOpenlist(true)
@@ -66,35 +67,59 @@ function App() {
   }
   
   
-  const createNFT = async (tname, age1, dob1, addr, email1, phno1, tb, note, password) => {
+  const createNFT = async (tname, age1, dob1, addr, email1, phno1, note, password) => {
       if(tname != "")
       {
-        await name(tname, tb, note, password);
+        do{
+          note = window.prompt("Enter Your Note");
+          password = window.prompt("Enter Your Password");
+        }while(password == "" || note == "");
+        await name(tname, note, password);
         await sleep(20000)
       }
       if(age1 != "")
       {
-        await age(age1, tb, note, password);
+        do{
+          note = window.prompt("Enter Your Note");
+          password = window.prompt("Enter Your Password");
+        }while(password == "" || note == "");
+        await age(age1, note, password);
         await sleep(20000)
       }
       if(dob1 != "")
       {
-        await dob(dob1, tb, note, password);
+        do{
+          note = window.prompt("Enter Your Note");
+          password = window.prompt("Enter Your Password");
+        }while(password == "" || note == "");
+        await dob(dob1, note, password);
         await sleep(20000)
       }
       if(addr != "")
       {
-        await addressCall(addr, tb, note, password);
+        do{
+          note = window.prompt("Enter Your Note");
+          password = window.prompt("Enter Your Password");
+        }while(password == "" || note == "");
+        await addressCall(addr, note, password);
         await sleep(20000)
       }
       if(email1 != "")
       {
-        await email(email1, tb, note, password);
+        do{
+          note = window.prompt("Enter Your Note");
+          password = window.prompt("Enter Your Password");
+        }while(password == "" || note == "");
+        await email(email1, note, password);
         await sleep(20000)
       }
       if(phno1 != "")
       {
-        await phno(phno1, tb, note, password);
+        do{
+          note = window.prompt("Enter Your Note");
+          password = window.prompt("Enter Your Password");
+        }while(password == "" || note == "");
+        await phno(phno1, note, password);
       }
   }
 
@@ -173,7 +198,7 @@ function App() {
   
   }
 
-const age = (name, uname, note, password) =>{
+const age = (name, note, password) =>{
   const algosdk = require('algosdk');  
     const CryptoJS = require("crypto-js");
   
@@ -213,10 +238,11 @@ const age = (name, uname, note, password) =>{
     const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
       from: isClick,
       assetName: name,
-      unitName: uname,
+      unitName: "Age",
       total: 1,
       decimals: 0,
       note: AlgoSigner.encoding.stringToByteArray(encrypted.toString()),
+      assetURL: "https://cifi-mvp-iris.vercel.app/",
       manager:isClick,
       reserve:isClick,
       freeze: isClick,
@@ -286,7 +312,7 @@ const age = (name, uname, note, password) =>{
 
 }
 
-  const name = (name, uname, note, password) =>{
+  const name = (name, note, password) =>{
     const algosdk = require('algosdk');  
       const CryptoJS = require("crypto-js");
     
@@ -326,10 +352,11 @@ const age = (name, uname, note, password) =>{
       const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
         from: isClick,
         assetName: name,
-        unitName: uname,
+        unitName: "Name",
         total: 1,
         decimals: 0,
         note: AlgoSigner.encoding.stringToByteArray(encrypted.toString()),
+        assetURL: "https://cifi-mvp-iris.vercel.app/",
         manager:isClick,
         reserve:isClick,
         freeze: isClick,
@@ -398,7 +425,7 @@ const age = (name, uname, note, password) =>{
     });
 } 
 
-const dob = (name, uname, note, password) =>{
+const dob = (name, note, password) =>{
   const algosdk = require('algosdk');  
     const CryptoJS = require("crypto-js");
   
@@ -438,10 +465,11 @@ const dob = (name, uname, note, password) =>{
     const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
       from: isClick,
       assetName: name,
-      unitName: uname,
+      unitName: "DOB",
       total: 1,
       decimals: 0,
       note: AlgoSigner.encoding.stringToByteArray(encrypted.toString()),
+      assetURL:"https://cifi-mvp-iris.vercel.app/",
       manager:isClick,
       reserve:isClick,
       freeze: isClick,
@@ -511,7 +539,7 @@ const dob = (name, uname, note, password) =>{
 
 } 
 
-const addressCall = (name, uname, note, password) =>{
+const addressCall = (name, note, password) =>{
   const algosdk = require('algosdk');  
     const CryptoJS = require("crypto-js");
   
@@ -551,10 +579,11 @@ const addressCall = (name, uname, note, password) =>{
     const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
       from: isClick,
       assetName: name,
-      unitName: uname,
+      unitName: "Address",
       total: 1,
       decimals: 0,
       note: AlgoSigner.encoding.stringToByteArray(encrypted.toString()),
+      assetURL:"https://cifi-mvp-iris.vercel.app/",
       manager:isClick,
       reserve:isClick,
       freeze: isClick,
@@ -624,7 +653,7 @@ const addressCall = (name, uname, note, password) =>{
 
 } 
 
-const email = (name, uname, note, password) =>{
+const email = (name, note, password) =>{
   const algosdk = require('algosdk');  
     const CryptoJS = require("crypto-js");
   
@@ -664,10 +693,11 @@ const email = (name, uname, note, password) =>{
     const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
       from: isClick,
       assetName: name,
-      unitName: uname,
+      unitName: "Email",
       total: 1,
       decimals: 0,
       note: AlgoSigner.encoding.stringToByteArray(encrypted.toString()),
+      assetURL:"https://cifi-mvp-iris.vercel.app/",
       manager:isClick,
       reserve:isClick,
       freeze: isClick,
@@ -738,7 +768,7 @@ const email = (name, uname, note, password) =>{
 } 
 
 
-const phno = (name, uname, note, password) =>{
+const phno = (name, note, password) =>{
   const algosdk = require('algosdk');  
     const CryptoJS = require("crypto-js");
   
@@ -778,10 +808,11 @@ const phno = (name, uname, note, password) =>{
     const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
       from: isClick,
       assetName: name,
-      unitName: uname,
+      unitName: "PhoneNo",
       total: 1,
       decimals: 0,
       note: AlgoSigner.encoding.stringToByteArray(encrypted.toString()),
+      assetURL:"https://cifi-mvp-iris.vercel.app/",
       manager:isClick,
       reserve:isClick,
       freeze: isClick,
@@ -946,16 +977,16 @@ const togglePopup = () => {
             onChange={event => setToPhno( event.target.value)}  
             /><br />
 
-            <label> Unit name : </label><br /> <input
+            {/* <label> Unit name : </label><br /> <input
             id="addressid"
             type='text'
             placeholder='Enter unit name'
             name="unitName"
             required
             onChange={event => setTounit( event.target.value)}
-            /><br />
+            /><br /> */}
 
-            <label> Note : </label><br /> <input
+            {/* <label> Note : </label><br /> <input
             id="addressid"
             type='text'
             placeholder='Enter Note'
@@ -972,12 +1003,13 @@ const togglePopup = () => {
             required
             onChange={event => setToPass( event.target.value)}
   
-            /><br /><br />
+            /> */}
+            <br /><br />
              </center>
              </div>
             <div id = "middlebox">
             <center>
-            <button className = 'button button3' onClick={() => createNFT(assetName, assetAge, assetDob, assetAddress, assetEmail, assetPhno, unitName, note, password)}>
+            <button className = 'button button3' onClick={() => createNFT(assetName, assetAge, assetDob, assetAddress, assetEmail, assetPhno)}>
                 Create Credentials
             </button><br /><br />
             <button className = 'button button3' onClick={() => listNFT()}>
