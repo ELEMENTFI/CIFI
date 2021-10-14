@@ -127,6 +127,9 @@ useEffect(()=>{usernameget()},[])
         //console.log("rec2addr",recoveredAccount2.addr)
         let getalgo=localStorage.getItem("wallet");
 
+
+        
+
       const waitForConfirmation = async function (algodclient, txId) {
         let response = await algodclient.status().do();
         let lastround = response["last-round"];
@@ -319,19 +322,19 @@ let tx;
 
     console.log("itemid",item.title)
     let changeid=item.title;
-    let program = new Uint8Array(Buffer.from("AyAEAwHFxKUO6AcyBCISRDMBECMSRDMCEiMSRDMCESQSRDMCASUORDMCFTIDEkQzAiAyAxJEI0M=", "base64"));
-    const args=[];
-    args.push([...Buffer.from((changeid.toString()))]);
+    //let program = new Uint8Array(Buffer.from("AyAEAwHFxKUO6AcyBCISRDMBECMSRDMCEiMSRDMCESQSRDMCASUORDMCFTIDEkQzAiAyAxJEI0M=", "base64"));
+    //const args=[];
+    //args.push([...Buffer.from((changeid.toString()))]);
     //args.push([...Buffer.from(changeid.toString())]);
     //args.push([...Buffer.from(addr2)]);
     //args.push([...Buffer.from('')]);
 
-    const algosdk = require('algosdk');
+    //const algosdk = require('algosdk');
     
-    let lsig = algosdk.makeLogicSig(program,args);
+    //let lsig = algosdk.makeLogicSig(program,args);
 
 const algodServer = 'https://testnet-algorand.api.purestake.io/ps2'
-const indexerServer = 'https://testnet-algorand.api.purestake.io/idx2'
+//const indexerServer = 'https://testnet-algorand.api.purestake.io/idx2'
 const token = { 'X-API-Key': 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin' }
 const port = '';
 let note = undefined;
@@ -342,8 +345,60 @@ params.fee = 1000;
 params.flatFee = true;
 
 //new opt
+//new sent shyam ganesh
+
+let program = new Uint8Array(Buffer.from("ASAEADoKAS0VIhJAACIvFSISQAAVLRUjEkAAAC4VIg1AAAAvFSQNQAAGLS4TQAAAJQ==", "base64"));
+    const args=[];
+    //args.push([...Buffer.from(idget.toString())]);
+    //const args=[];
+    // args.push([...Buffer.from()]);//lsig address
+    // args.push([...Buffer.from('')]);//buyer address
+    // args.push([...Buffer.from('')]);
+
+  args.push([...Buffer.from('RWYPYF5XX40P2L6BCMZAA4ETP3S3HSF32QSWSGMXAU05NBJPKPHR6YCCAE')]);//lsig address
+  args.push([...Buffer.from(accounts[0].address)]);//buyer address
+  args.push([...Buffer.from('')]);
+
+    let lsig = algosdk.makeLogicSig(program,args);
+
+
+let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(lsig.address(), note, 
+parseInt(item.title), lsig.address(), accounts[0].address, accounts[0].address, accounts[0].address, params);        
+let rawSignedTxn = algosdk.signLogicSigTransaction(ctxn,lsig).blob;
+let ctx = (await algodClient.sendRawTransaction(rawSignedTxn).do());
+console.log("success optin")
+let txn = algosdk.makeAssetTransferTxnWithSuggestedParams(lsig.address(),accounts[0].address,undefined,undefined,1,undefined,parseInt(item.title),params);
+let signedTxn = algosdk.signLogicSigTransaction(txn,lsig).blob;
+let ctxs = (await algodClient.sendRawTransaction(signedTxn).do());
+await waitForConfirmation(algodClient,ctxs.txId)
+
+
+
+  fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).remove().then(()=>{
+    fireDb.database().ref(`imagerefbuy/${getalgo}`).child(item.highestBid).set({
+    id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
+    userName:"",userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+    ownerAddress:getalgo,soldd:item.soldd,extra1:item.extra,
+    previousoaddress:item.bid,datesets:item.date,
+    description:item.description,whois:'buyers',history:item.url
+    //paramsdb:item.image2x,privatekey:item.category  
+          }).then(()=>{
+            setIsOpenss(false)
+            setIsOpens(true)
+            
+          }) 
+})
+.catch((e) => {
+  console.error(e);
+});
+
+
+
+
+//
 
 //end new opt
+
 
 //let revocationTarget = undefined;
 //let closeRemainderTo = undefined;
@@ -373,63 +428,63 @@ params.flatFee = true;
 //         console.log("Note field: ", string);  
 
 //         console.log("transferred end")
-algodClient.getTransactionParams().do()
-.then((d) => {
-  let txParamsJS = d;
-  //document.getElementById('paramsprint').innerHTML = JSON.stringify(d);
-  const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-    from: lsig.address(),
-    to: accounts[0].address,
-    assetIndex: parseInt(item.title),
-    note: AlgoSigner.encoding.stringToByteArray("hello"),
-    amount: 0,
-    suggestedParams: {...txParamsJS}
-  });
+// algodClient.getTransactionParams().do()
+// .then((d) => {
+//   let txParamsJS = d;
+//   //document.getElementById('paramsprint').innerHTML = JSON.stringify(d);
+//   const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+//     from: lsig.address(),
+//     to: accounts[0].address,
+//     assetIndex: parseInt(item.title),
+//     note: AlgoSigner.encoding.stringToByteArray("hello"),
+//     amount: 0,
+//     suggestedParams: {...txParamsJS}
+//   });
   
-  // Use the AlgoSigner encoding library to make the transactions base64
-  const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+//   // Use the AlgoSigner encoding library to make the transactions base64
+//   const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
   
-  AlgoSigner.signTxn([{txn: txn_b64}]) 
-  .then((d) => {
-    let signedTxs = d;
-    //signCodeElem.innerHTML = JSON.stringify(d, null, 2);
-    AlgoSigner.send({
-        ledger: 'TestNet',
-        tx: signedTxs[0].blob
-      })
-      .then((d) => {
-        let tx = d;
+//   AlgoSigner.signTxn([{txn: txn_b64}]) 
+//   .then((d) => {
+//     let signedTxs = d;
+//     //signCodeElem.innerHTML = JSON.stringify(d, null, 2);
+//     AlgoSigner.send({
+//         ledger: 'TestNet',
+//         tx: signedTxs[0].blob
+//       })
+//       .then((d) => {
+//         let tx = d;
         //document.getElementById('opt').innerHTML = JSON.stringify(d);
 
         //transfer start
 
         
-        const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-          from: lsig.address(),
-          to: accounts[0].address,        
-          assetIndex: parseInt(item.title),
-          note: AlgoSigner.encoding.stringToByteArray("hello"),
-          amount: 1,
-          revocationTarget:undefined,
-          closeRemainderTo:undefined,
-          suggestedParams: {...txParamsJS}          
-        });        
+  //       const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+  //         from: lsig.address(),
+  //         to: accounts[0].address,        
+  //         assetIndex: parseInt(item.title),
+  //         note: AlgoSigner.encoding.stringToByteArray("hello"),
+  //         amount: 1,
+  //         revocationTarget:undefined,
+  //         closeRemainderTo:undefined,
+  //         suggestedParams: {...txParamsJS}          
+  //       });        
 
-        const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+  //       const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
   
-  AlgoSigner.signTxn([{txn: txn_b64}]) 
-  .then((d) => {
-    let signedTxs = d;
-    //signCodeElem.innerHTML = JSON.stringify(d, null, 2);
-    AlgoSigner.send({
-        ledger: 'TestNet',
-        tx: signedTxs[0].blob
-      })
-      .then((d) => {
-        let tx = d;
+  // AlgoSigner.signTxn([{txn: txn_b64}]) 
+  // .then((d) => {
+  //   let signedTxs = d;
+  //   //signCodeElem.innerHTML = JSON.stringify(d, null, 2);
+  //   AlgoSigner.send({
+  //       ledger: 'TestNet',
+  //       tx: signedTxs[0].blob
+  //     })
+  //     .then((d) => {
+  //       let tx = d;
 
 
-        console.log("done all done ",tx)
+  //       console.log("done all done ",tx)
         //   fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).remove().then(()=>{
 //     fireDb.database().ref(`imagerefbuy/${getalgo}`).child(item.highestBid).set({
 //     id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
@@ -449,15 +504,15 @@ algodClient.getTransactionParams().do()
 // });
 
 
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+  //     })
+  //     .catch((e) => {
+  //       console.error(e);
+  //     });
 
-  })
-  .catch((e) => {
-    console.error(e);
-  });
+  // })
+  // .catch((e) => {
+  //   console.error(e);
+  // });
 
 
         //end transfer
@@ -651,19 +706,19 @@ console.error(e);
 .catch((e) => {
   console.error(e);
 });
-  })
-  .catch((e) => {
-    console.error(e);
-  });
+  // })
+  // .catch((e) => {
+  //   console.error(e);
+  // });
 
-})
-.catch(e => { 
-  console.error(e); 
-});
-})
-.catch((e) => {
-  console.error(e);
-});
+// })
+// .catch(e => { 
+//   console.error(e); 
+// });
+// })
+// .catch((e) => {
+//   console.error(e);
+// });
 
 
 
