@@ -286,7 +286,7 @@ let tx;
   //let amountp=(item.price).replace(/^"(.+(?="$))"$/, '$1');
   //console.log("amountp",amountp)
   const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-    from: accounts[0].address,
+    from: localStorage.getItem("wallet"),
     to: item.bid,
     amount: parseInt(item.price),
     note: undefined,
@@ -310,7 +310,7 @@ let tx;
 .then(async(d) => {
   console.log(d);
   console.log("last success")
-  let mnemonic=item.Mnemonic;
+  //let mnemonic=item.Mnemonic;
 
   //opt start 
 
@@ -318,7 +318,7 @@ let tx;
     ledger: 'TestNet'
   })
   .then(async(d) => {
-    let accounts = d;
+    //let accounts = d;
 
     console.log("itemid",item.title)
     let changeid=item.title;
@@ -356,18 +356,18 @@ let program = new Uint8Array(Buffer.from("ASAEADoKAS0VIhJAACIvFSISQAAVLRUjEkAAAC
     // args.push([...Buffer.from('')]);
 
   args.push([...Buffer.from('RWYPYF5XX40P2L6BCMZAA4ETP3S3HSF32QSWSGMXAU05NBJPKPHR6YCCAE')]);//lsig address
-  args.push([...Buffer.from(accounts[0].address)]);//buyer address
+  args.push([...Buffer.from(localStorage.getItem("wallet"))]);//buyer address
   args.push([...Buffer.from('')]);
 
-    let lsig = algosdk.makeLogicSig(program,args);
+  let lsig = algosdk.makeLogicSig(program,args);
 
 
 let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(lsig.address(), note, 
-parseInt(item.title), lsig.address(), accounts[0].address, accounts[0].address, accounts[0].address, params);        
+parseInt(item.title), lsig.address(), localStorage.getItem("wallet"), localStorage.getItem("wallet"), localStorage.getItem("wallet"), params);        
 let rawSignedTxn = algosdk.signLogicSigTransaction(ctxn,lsig).blob;
 let ctx = (await algodClient.sendRawTransaction(rawSignedTxn).do());
 console.log("success optin")
-let txn = algosdk.makeAssetTransferTxnWithSuggestedParams(lsig.address(),accounts[0].address,undefined,undefined,1,undefined,parseInt(item.title),params);
+let txn = algosdk.makeAssetTransferTxnWithSuggestedParams(lsig.address(),localStorage.getItem("wallet"),undefined,undefined,1,undefined,parseInt(item.title),params);
 let signedTxn = algosdk.signLogicSigTransaction(txn,lsig).blob;
 let ctxs = (await algodClient.sendRawTransaction(signedTxn).do());
 await waitForConfirmation(algodClient,ctxs.txId)
@@ -405,13 +405,13 @@ await waitForConfirmation(algodClient,ctxs.txId)
 
 //new asset transfer added
 
-// let xtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(lsig.address(),accounts[0].address, closeRemainderTo, revocationTarget,
+// let xtxn = algosdk.makeAssetTransferTxnWithSuggestedParams(lsig.address(),localStorage.getItem("wallet"), closeRemainderTo, revocationTarget,
 //   1,  note, item.title, params);
 
 
 //
 
-//let txn = algosdk.makePaymentTxnWithSuggestedParams(lsig.address(),accounts[0].address,1,undefined,undefined,params);
+//let txn = algosdk.makePaymentTxnWithSuggestedParams(lsig.address(),localStorage.getItem("wallet"),1,undefined,undefined,params);
      
     //let signedTxn = algosdk.signLogicSigTransaction(xtxn,lsig);
 //     console.log('txn: '+ txn);
@@ -428,13 +428,15 @@ await waitForConfirmation(algodClient,ctxs.txId)
 //         console.log("Note field: ", string);  
 
 //         console.log("transferred end")
+
+
 // algodClient.getTransactionParams().do()
 // .then((d) => {
 //   let txParamsJS = d;
 //   //document.getElementById('paramsprint').innerHTML = JSON.stringify(d);
 //   const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
 //     from: lsig.address(),
-//     to: accounts[0].address,
+//     to: localStorage.getItem("wallet"),
 //     assetIndex: parseInt(item.title),
 //     note: AlgoSigner.encoding.stringToByteArray("hello"),
 //     amount: 0,
@@ -461,7 +463,7 @@ await waitForConfirmation(algodClient,ctxs.txId)
         
   //       const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
   //         from: lsig.address(),
-  //         to: accounts[0].address,        
+  //         to: localStorage.getItem("wallet"),        
   //         assetIndex: parseInt(item.title),
   //         note: AlgoSigner.encoding.stringToByteArray("hello"),
   //         amount: 1,
@@ -637,7 +639,7 @@ console.error(e);
 //     let program = new Uint8Array(Buffer.from("ASAEADoKAS0VIhJAACIvFSISQAAVLRUjEkAAAC4VIg1AAAAvFSQNQAAGLS4TQAAAJQ==", "base64"));
 //     const args=[];
 //     args.push([...Buffer.from(item.bid)]);//owner address
-//     args.push([...Buffer.from(accounts[0].address)]);//receiver address
+//     args.push([...Buffer.from(localStorage.getItem("wallet"))]);//receiver address
 //     args.push([...Buffer.from('')]);
     
 //     let lsig = algosdk.makeLogicSig(program,args);
@@ -649,7 +651,7 @@ console.error(e);
 //        let  amount = 0;
 //        let note = undefined;
 //        //lsig.address()
-//        let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(lsig.address(), accounts[0].address, closeRemainderTo, revocationTarget,
+//        let opttxn = algosdk.makeAssetTransferTxnWithSuggestedParams(lsig.address(), localStorage.getItem("wallet"), closeRemainderTo, revocationTarget,
 //       amount, note, item.title, params);
   
 //  let rawSignedTxn = algosdk.signLogicSigTransaction(opttxn,lsig).blob;
@@ -657,10 +659,10 @@ console.error(e);
 // console.log("Transaction : " + opttx.txId);//work here now
 // await waitForConfirmation(algodClient, opttx.txId);
 //      //let manager = lsig.address();
-//      let manager = accounts[0].address;
-//      let reserve = accounts[0].address;
-//      let freeze = accounts[0].address;
-//      let clawback = accounts[0].address;
+//      let manager = localStorage.getItem("wallet");
+//      let reserve = localStorage.getItem("wallet");
+//      let freeze = localStorage.getItem("wallet");
+//      let clawback = localStorage.getItem("wallet");
 //      //lsig.address()
 //       let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(lsig.address(), note, 
 //       item.title, manager, reserve, freeze, clawback, params);  
@@ -679,7 +681,7 @@ console.error(e);
       //     'CONTENT-TYPE': 'application/json',
       //   },
       //   body:JSON.stringify({
-      //     'WalletAddress': accounts[0].address,
+      //     'WalletAddress': localStorage.getItem("wallet"),
       //   })
       // }
       // );

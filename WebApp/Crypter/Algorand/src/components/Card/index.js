@@ -228,6 +228,21 @@ console.log("checkowners",getalgo)
       //shyam send code
 
 
+      const waitForConfirmation = async function (algodclient, txId) {
+        let response = await algodclient.status().do();
+        let lastround = response["last-round"];
+        while (true) {
+            const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
+            if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
+                console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
+                break;
+            }
+            lastround++;
+            await algodclient.statusAfterBlock(lastround).do();
+        }
+    };
+
+
 AlgoSigner.connect()
 .then(async(d) => {
   AlgoSigner.accounts({
@@ -261,22 +276,48 @@ let  params = await algodClient.getTransactionParams().do();
   const args=[];
   //args.push([...Buffer.from(idget.toString())]);
   //const args=[];
-  args.push([...Buffer.from(accounts[0].address)]);//creator address
+  args.push([...Buffer.from(localStorage.getItem("wallet"))]);//creator address
   args.push([...Buffer.from('RWYPYF5XX40P2L6BCMZAA4ETP3S3HSF32QSWSGMXAU05NBJPKPHR6YCCAE')]);//lsig address
   args.push([...Buffer.from('')]);
 
   let lsig = algosdk.makeLogicSig(program,args);
 
-//let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(accounts[0].address, note, 
+//let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(localStorage.getItem("wallet"), note, 
 //parseInt(idget), lsig.address(), lsig.address(), lsig.address(), lsig.address(), params);        
 console.log("275")
 //let rawSignedTxn = algosdk.signLogicSigTransaction(ctxn,lsig).blob;
 console.log("277")
 //let ctx = (await algodClient.sendRawTransaction(rawSignedTxn).do());
 console.log("279")
-//let txn = algosdk.makeAssetTransferTxnWithSuggestedParams(accounts[0].address,lsig.address(),undefined,undefined,1,undefined,parseInt(idget),params);     
-//let txn = algosdk.makeAssetTransferTxnWithSuggestedParams(item.bid,accounts[0].address,undefined,undefined,1,undefined,parseInt(item.title),params);
+//let txn = algosdk.makeAssetTransferTxnWithSuggestedParams(localStorage.getItem("wallet"),lsig.address(),undefined,undefined,1,undefined,parseInt(idget),params);     
+//let txn = algosdk.makeAssetTransferTxnWithSuggestedParams(item.bid,localStorage.getItem("wallet"),undefined,undefined,1,undefined,parseInt(item.title),params);
 //console.log("282",txn)
+
+//start new code 
+let ctxn = algosdk.makeAssetConfigTxnWithSuggestedParams(localStorage.getItem("wallet"), note, 
+parseInt(idget), lsig.address(), localStorage.getItem("wallet"), localStorage.getItem("wallet"), localStorage.getItem("wallet"), params);        
+let rawSignedTxn = algosdk.signLogicSigTransaction(ctxn,lsig).blob;
+let ctx = (await algodClient.sendRawTransaction(rawSignedTxn).do());
+console.log("success optin")
+let txn = algosdk.makeAssetTransferTxnWithSuggestedParams(localStorage.getItem("wallet"),lsig.address(),undefined,undefined,1,undefined,parseInt(idget),params);
+let signedTxn = algosdk.signLogicSigTransaction(txn,lsig).blob;
+let ctxs = (await algodClient.sendRawTransaction(signedTxn).do());
+await waitForConfirmation(algodClient,ctxs.txId)
+
+
+      fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(item.highestBid).update({
+        id:idget,imageUrl:item.image,priceSet:urlprize,cAddress:item.categoryText,keyId:item.highestBid,
+          userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+          ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
+          previousoaddress:item.previousaddress,datesets:item.date,
+          description:item.description,whois:'readytosale',history:item.url,Mnemonic:item.Mnemonic
+        
+        }).then(()=>{  
+        setIsOpens(false);
+        setIsOpenss(true)    
+        })
+
+//end new code
 
 
 // const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
@@ -307,70 +348,70 @@ console.log("279")
 // });
 
 
-algodClient.getTransactionParams().do()
-.then((d) => {
-  let txParamsJS = d;
-  
-  const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-    from: accounts[0].address,
-    to: lsig.address(),
-    assetIndex: +parseInt(idget),
-    note: undefined,
-    amount: 0,
-    manager:lsig.address(),
-    suggestedParams: txParamsJS
+// algodClient.getTransactionParams().do()
+// .then((d) => {
+//   let txParamsJS = d;
 
-  });
-  
-  // Use the AlgoSigner encoding library to make the transactions base64
-  const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
-  
-  AlgoSigner.signTxn([{txn: txn_b64}]) 
-  .then((d) => {
-    let signedTxs = d;
-    //signCodeElem.innerHTML = JSON.stringify(d, null, 2);
 
-    AlgoSigner.send({
-      ledger: 'TestNet',
-      tx: signedTxs[0].blob
-    })
-    .then(async(d) => {
-      let tx = d;
+  
+  
+//   const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+//     from: localStorage.getItem("wallet"),
+//     to: lsig.address(),
+//     assetIndex: +parseInt(idget),
+//     note: undefined,
+//     amount: 0,
+//     manager:lsig.address(),
+//     suggestedParams: txParamsJS
+
+//   });
+  
+//   // Use the AlgoSigner encoding library to make the transactions base64
+//   const txn_b64 = AlgoSigner.encoding.msgpackToBase64(txn.toByte());
+  
+//   AlgoSigner.signTxn([{txn: txn_b64}]) 
+//   .then((d) => {
+//     let signedTxs = d;
+//     //signCodeElem.innerHTML = JSON.stringify(d, null, 2);
+
+//     AlgoSigner.send({
+//       ledger: 'TestNet',
+//       tx: signedTxs[0].blob
+//     })
+//     .then(async(d) => {
+//       let tx = d;
 
       
       
 
 
-
-
-
-      fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(item.highestBid).update({
-        id:idget,imageUrl:item.image,priceSet:urlprize,cAddress:item.categoryText,keyId:item.highestBid,
-          userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
-          ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
-          previousoaddress:item.previousaddress,datesets:item.date,
-          description:item.description,whois:'readytosale',history:item.url,Mnemonic:item.Mnemonic
+//       fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(item.highestBid).update({
+//         id:idget,imageUrl:item.image,priceSet:urlprize,cAddress:item.categoryText,keyId:item.highestBid,
+//           userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
+//           ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
+//           previousoaddress:item.previousaddress,datesets:item.date,
+//           description:item.description,whois:'readytosale',history:item.url,Mnemonic:item.Mnemonic
         
-        }).then(()=>{  
-        setIsOpens(false);
-        setIsOpenss(true)    
-        })
+//         }).then(()=>{  
+//         setIsOpens(false);
+//         setIsOpenss(true)    
+//         })
 
-    })
-    .catch((e) => {
-      console.error(e);
-    });
+//     })
+//     .catch((e) => {
+//       console.error(e);
+//     });
 
-  })
-  .catch((e) => {
-    console.error(e);
-  });
+//   })
+//   .catch((e) => {
+//     console.error(e);
+//   });
 
 
-})
-.catch((e) => {
-  console.error(e);
-});
+// })
+// .catch((e) => {
+//   console.error(e);
+// });
 
   
 
@@ -445,7 +486,7 @@ algodClient.getTransactionParams().do()
   //     //document.getElementById('paramsprint').innerHTML = JSON.stringify(d);
       
   //     const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-  //       from: accounts[0].address,
+  //       from: localStorage.getItem("wallet"),
   //       to: lsig.address(),
   //       assetIndex: parseInt(idget),
   //       note: AlgoSigner.encoding.stringToByteArray("hello"),
@@ -512,7 +553,7 @@ algodClient.getTransactionParams().do()
 //   var recoveredAccount1 = algosdk.mnemonicToSecretKey(item.Mnemonic);
 //   let txParamsJS = d;
 //   const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-//     from: accounts[0].address,
+//     from: localStorage.getItem("wallet"),
 //     to: recoveredAccount1.addr,
 //     assetIndex: +parseInt(idget),
 //     note: AlgoSigner.encoding.stringToByteArray("nothing"),

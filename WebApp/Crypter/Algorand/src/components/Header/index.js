@@ -7,6 +7,7 @@ import Icon from "../Icon";
 import Image from "../Image";
 import Notification from "./Notification";
 import User from "./User";
+import Imagecopy from "../Imagecopy";
 
 
 const nav = [
@@ -110,14 +111,14 @@ const Headers = () => {
     
     <header className={styles.header}>      
       <div className={cn("container", styles.container)}>      
-        {/* <button type="submit" onClick={()=>{setConnected(!connected)}}>Toggle</button> */}        
+        {/* <button type="submit" onClick={()=>{setConnected(!connected)}}>Toggle</button> */}
         <Link className={styles.logo} to="/">
-          <Image 
+          <Imagecopy
             className={styles.pic}
-            // src="/images/logocifisnew.png"
+            //src="/images/logocifisnew.png"
+            //srcDark="/images/logocifis.png"
             src="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png"
             srcDark="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png"
-            // srcDark="/images/logocifis.png"
             alt="Fitness Pro"
           />
         </Link>

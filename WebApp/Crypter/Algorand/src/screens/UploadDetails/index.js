@@ -234,7 +234,7 @@ const Upload = () => {
   const [Img,setImg] = useState("")
   const [tname,setName] = useState("");
   const [tdescription,setDescription] = useState("");
-  const [tmnemonic,setMnemonic] = useState("");
+  //const [tmnemonic,setMnemonic] = useState("");
   //const [isLoading, setLoading] = useState(false)
   //const [currentid, setCurrentid] = useState("");
   let ge;
@@ -761,8 +761,7 @@ const onSubmitNFT = async (event) => {
   event.preventDefault();  
     //new write below
 
-    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
-
+    if(localStorage.getItem("wallet") === null || localStorage.getItem("wallet") === "0x" || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === ''){
 
       console.log("Empty",localStorage.getItem("wallet"))
 
@@ -770,13 +769,14 @@ const onSubmitNFT = async (event) => {
     else{
 
 
-     if(tmnemonic === null || tmnemonic === "" || tmnemonic === " "){
 
-       alert("please Enter your Mnemonic")
+     //if(tmnemonic === null || tmnemonic === "" || tmnemonic === " "){
 
-     }
+       //alert("please Enter your Mnemonic")
 
-      else{
+     //}
+
+      //else{
 
     //   await ipfs.add(buffer, (err, ipfsHash) => {
     //   console.log(err,ipfsHash);
@@ -860,7 +860,7 @@ algodClient.healthCheck().do()
   .then((d) => {
     console.log("tested2",d)
     accounts = d;
-    console.log("algoacc",accounts[0].address)
+    console.log("algoacc",localStorage.getItem("wallet"))
     algodClient.getTransactionParams().do()
 .then((d) => {
   let txParamsJS = d;
@@ -869,7 +869,7 @@ algodClient.healthCheck().do()
   const args=[];
   //args.push([...Buffer.from(idget.toString())]);
   //const args=[];
-  args.push([...Buffer.from(accounts[0].address)]);//creator address
+  args.push([...Buffer.from(localStorage.getItem("wallet"))]);//creator address
   args.push([...Buffer.from('RWYPYF5XX40P2L6BCMZAA4ETP3S3HSF32QSWSGMXAU05NBJPKPHR6YCCAE')]);//lsig address
   args.push([...Buffer.from('')]);
 
@@ -877,17 +877,17 @@ algodClient.healthCheck().do()
   //let thirumnemonic= 'empower twist carpet lawsuit across tape add leopard prevent abandon squeeze egg clown river funny sea labor level scheme race crime mystery party absent exist'
   //var recoveredAccount1 = algosdk.mnemonicToSecretKey(thirumnemonic);
   const txn = algosdk.makeAssetCreateTxnWithSuggestedParamsFromObject({    
-    from: accounts[0].address,
+    from: localStorage.getItem("wallet"),
     assetName: tname,
     unitName: tb,
     total: 1,
     decimals: 0,
     note: AlgoSigner.encoding.stringToByteArray("nothing"),
-    //manager:lsig.address(),
-    manager:accounts[0].address,
-    reserve:accounts[0].address,
-    freeze: accounts[0].address,
-    clawback:accounts[0].address,
+    manager:lsig.address(),
+    //manager:localStorage.getItem("wallet"),
+    reserve:localStorage.getItem("wallet"),
+    freeze: localStorage.getItem("wallet"),
+    clawback:localStorage.getItem("wallet"),
     //AlgoSigner.encoding.stringToByteArray(document.getElementById('note').value),
     suggestedParams: txParamsJS
   });
@@ -944,7 +944,7 @@ algodClient.healthCheck().do()
         //console.log("before",tx.txId)        
       setIsOpens(true)
         
-        let ref2=fireDb.database().ref(`imagerefAlgo/${accounts[0].address}`);
+        let ref2=fireDb.database().ref(`imagerefAlgo/${localStorage.getItem("wallet")}`);
         let ref22=fireDb.database().ref(`imagerefAlgolt`);
     //.child(selected).child(selected2).child(accounts[0]);    
 
@@ -955,7 +955,7 @@ algodClient.healthCheck().do()
                       const db2 = ref22.push().key;                         
                       console.log("dbcheck",db)
                       ref2.child(db).set({id:idget,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,userName:ta,userSymbol:tb,
-                      ipfsUrl:Img,ownerAddress:accounts[0].address,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,
+                      ipfsUrl:Img,ownerAddress:localStorage.getItem("wallet"),soldd:"",extra1:"",previousoaddress:"",datesets:dateset,
                       whois:'',
                       league:selected,team:selected2,type:selected3,
                       teamlogo:selectedImg,dimen:selected4,description:tdescription,history:"",Mnemonic:""})
@@ -963,7 +963,7 @@ algodClient.healthCheck().do()
 
                       ref22.child(db).set({id:idget,imageUrl:Img,priceSet:"",cAddress:tx.txId,keyId:db,
                       userName:ta,userSymbol:tb,
-                      ipfsUrl:Img,ownerAddress:accounts[0].address,soldd:"",extra1:"",
+                      ipfsUrl:Img,ownerAddress:localStorage.getItem("wallet"),soldd:"",extra1:"",
                       previousoaddress:"",datesets:dateset,whois:'',
                       league:selected,team:selected2,type:selected3,teamlogo:selectedImg,dimen:selected4,
                       description:tdescription,history:"",Mnemonic:""})
@@ -1061,7 +1061,7 @@ algodClient.healthCheck().do()
 
     
   //}
-}
+//}
     }
 }
 
@@ -1218,7 +1218,7 @@ const checkurl=async()=>{
                       onChange={event => setDescription( event.target.value)}
                     />
 
-<TextInput
+{/* <TextInput
                       className={styles.field}
                       lebel="Mnemonic"
                       name="Mnemonic"
@@ -1226,7 +1226,7 @@ const checkurl=async()=>{
                       placeholder="e. g. “Enter Your Mnemonic here...”"
                       required
                       onChange={event => setMnemonic( event.target.value)}
-                    />
+                    /> */}
 
 {/* <div className="col-md-4"> */}
         {/* <Select onChange={e => setLname(e.target.value)} value={setLname} */}
@@ -1444,7 +1444,7 @@ const checkurl=async()=>{
 
       {/* onClose={() => setIsOpens(false)} */}
 
-      <button
+      {/* <button
                   className={cn("button", styles.button)}
                   onClick={() => checkurl()}
                   // type="button" hide after form customization
@@ -1453,7 +1453,7 @@ const checkurl=async()=>{
                   
                   <span>CHECK</span>
                   <Icon name="arrow-next" size="10" />
-                </button>
+                </button> */}
     </>
   );
 };

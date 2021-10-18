@@ -3,8 +3,7 @@ import cn from "classnames";
 import styles from "./Theme.module.sass";
 import useDarkMode from "use-dark-mode";
 
-const Theme = ({ className,boo }) => {
-  console.log("classname",className,boo)
+const Theme = ({ className,boo}) => {
   const darkMode = useDarkMode(false);
 
   return (
@@ -20,7 +19,7 @@ const Theme = ({ className,boo }) => {
         // checked={darkMode.value}
         onChange={darkMode.toggle}
         type="checkbox"
-        checked={boo}
+        checked="true"
       />
       <span className={styles.inner}>
         <span className={styles.box}></span>

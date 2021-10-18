@@ -13,7 +13,7 @@ import fire from '../../../screens/UploadDetails/firebase'
 //import Report from "../../../components/Report";
 //import web3 from './web3';
 import axios from 'axios';
-import DarkModeToggle from "react-dark-mode-toggle";
+//import DarkModeToggle from "react-dark-mode-toggle";
 
 const items = [
   {
@@ -340,7 +340,10 @@ const User = ({ className,onProfile}) => {
 <div className={styles.avatar}>
             
             {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
-            <img src={"/images/logocifis.png"} alt="hello" />          
+            {/* <img src={"/images/logocifis.png"} alt="hello" />           */}
+<img src={"https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png"} alt="hello" />          
+            
+            {/* srcDark="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png" */}
      </div>
         
         </>
@@ -356,7 +359,7 @@ const User = ({ className,onProfile}) => {
 <div className={styles.avatar}>            
           
 {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
-<img src={"/images/logocifis.png"} alt="helloworld" />                       
+<img src={"https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png"} alt="helloworld" />                       
 
 </div>
 
@@ -368,7 +371,8 @@ const User = ({ className,onProfile}) => {
             <div className={styles.avatar}>            
             
             {/* <img src="/images/content/avatar-user.jpg" alt="Avatar" />  */}
-            <img src={"/images/logocifis.png"} alt="helloworld" />                       
+            {/* <img src={"/images/logocifis.png"} alt="helloworld" />                        */}
+            <img src={"https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png"} alt="helloworld" />                       
             
      </div>
           ):(
@@ -535,5 +539,4 @@ const User = ({ className,onProfile}) => {
     </OutsideClickHandler>    
   );
 };
-
 export default User;
