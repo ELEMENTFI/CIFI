@@ -4,7 +4,7 @@ import styles from "./Theme.module.sass";
 import useDarkMode from "use-dark-mode";
 
 const Theme = ({ className,boo}) => {
-  const darkMode = useDarkMode(false);
+  const darkMode = useDarkMode(true);
 
   return (
     <label
@@ -19,7 +19,7 @@ const Theme = ({ className,boo}) => {
         // checked={darkMode.value}
         onChange={darkMode.toggle}
         type="checkbox"
-        checked="true"
+        // checked="true"
       />
       <span className={styles.inner}>
         <span className={styles.box}></span>

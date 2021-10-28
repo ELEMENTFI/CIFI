@@ -15,6 +15,9 @@ import fireDb from '../UploadDetails/firebase';
 import MyAlgo from '@randlabs/myalgo-connect';
 import ModalList from "../../components/ModalList";
 import FolowStepsList from "./FolowStepList";
+import ModalListmain from "../../components/ModalListmain";
+import FolowStepsListmain from "./FolowStepsListmain";
+
 
 
 
@@ -33,7 +36,12 @@ const Connect = () => {
   const [isOpenlisttry, setIsOpenlisttry] = useState(false);
   const [isListtry, setisListtry] = useState([]);
   const [isListtrys, setisListtrys] = useState();
+  const [isOpenlisttrymain, setIsOpenlisttrymain] = useState(false);
+  const [isListtrymain, setisListtrymain] = useState([]);
+  const [isListtrysmain, setisListtrysmain] = useState();
+  const [isOpenmain, setIsOpenmain] = useState(false);
   console.log("isClickingstate",isListtrys)
+  console.log("isClickingstatemain",isListtrysmain)
   //console.log("isClicking",isClick)
   //console.log("islistfirst",isList)
   
@@ -233,6 +241,32 @@ console.error(e);
 
 }
 
+const algosignertrymain=()=>{
+  AlgoSigner.connect()
+.then((d) => {
+AlgoSigner.accounts({
+  ledger: 'MainNet'
+})
+.then((d) => {
+  let accounts = d;
+  //document.getElementById("listacc").innerHTML=accounts[0].address;
+  console.log("listaccount",d)
+  setisListtrymain(d)
+  setIsOpenlisttrymain(true)  
+})
+.catch((e) => {
+  console.error(e);
+}); 
+
+
+})
+.catch((e) => {
+console.error(e);
+});
+
+}
+
+
 
 
 
@@ -251,13 +285,26 @@ console.error(e);
         {isListtrys === null || isListtrys === "" || isListtrys === undefined ? <>
                 
                 <button className={cn("button", styles.button)} onClick={()=>algosignertry()} id="listacc">
-                Algosigner Wallet
+                Algosigner-TestNet Wallet
               </button>                
               </> :<>
               <button className={cn("button", styles.button)} onClick={()=>algosignertry()} id="listacc">
-                Algosigner Wallet
+              Algosigner-TestNet Wallet
               </button>                                
               </>}
+<br></br>
+<br></br>
+              {isListtrysmain === null || isListtrysmain === "" || isListtrysmain === undefined ? <>
+                
+                <button className={cn("button", styles.button)} onClick={()=>algosignertrymain()} id="listacc">
+                Algosigner-MainNet Wallet
+              </button>                
+              </> :<>
+              <button className={cn("button", styles.button)} onClick={()=>algosignertrymain()} id="listacc">
+              Algosigner-MainNet Wallet
+              </button>                                
+              </>}
+
 
         <div className={styles.body}>
           <div className={styles.menu}>
@@ -355,6 +402,10 @@ console.error(e);
         <FolowStepsd className={styles.steps} onClo={()=>onClo}/>
       </Modald>
 
+      <Modald visible={isOpenmain} onClose={() => setIsOpen(false)}>
+        <FolowStepsd className={styles.steps} onClo={()=>onClo}/>
+      </Modald>
+
       
     <ModalList visible={isOpenlisttry} >
         <FolowStepsList className={styles.steps} data={isListtry} datas={(a)=>
@@ -362,9 +413,22 @@ console.error(e);
           setisListtrys(a)
           setIsOpenlisttry(false)          
           setIsOpen(true)
+          localStorage.setItem("net","testnet")
         }
         }/>          
     </ModalList>  
+
+    <ModalListmain visible={isOpenlisttrymain} >
+        <FolowStepsListmain className={styles.steps} data={isListtrymain} datas={(a)=>
+        {
+          setisListtrysmain(a)
+          setIsOpenlisttrymain(false)          
+          setIsOpenmain(true)
+          localStorage.setItem("net","mainnet")
+        }
+        }/>          
+    </ModalListmain>  
+
   </>
   );
 };

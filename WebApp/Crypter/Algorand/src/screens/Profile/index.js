@@ -283,9 +283,13 @@ const dbcollection=async()=>{
                 teamlogo:value.teamlogo,
                 dimen:value.dimen,
                 Mnemonic:value.Mnemonic,
+                usdcids:value.usdcids,
+              applicationid:value.applicationid,
+              escrowaddress:value.escrowaddress,
                 users: [                
                   {
-                    avatar: "/images/content/avatar-4.jpg",
+                    //avatar: "/images/content/avatar-4.jpg",
+                    avatar :value.imageUrl,
                   },
                 ],
               },
@@ -351,9 +355,13 @@ const dbcollection2=async()=>{
                 teamlogo:value.teamlogo,
                 dimen:value.dimen,
                 Mnemonic:value.Mnemonic,
+                usdcids:value.usdcids,
+              applicationid:value.applicationid,
+              escrowaddress:value.escrowaddress,
                 users: [                
                   {
-                    avatar: "/images/content/avatar-4.jpg",
+                    //avatar: "/images/content/avatar-4.jpg",
+                    avatar :value.imageUrl,
                   },
                 ],
               },
@@ -422,9 +430,13 @@ const dbcollection3=async()=>{
                 teamlogo:value.teamlogo,
                 dimen:value.dimen,
                 Mnemonic:value.Mnemonic,
+                usdcids:value.usdcids,
+              applicationid:value.applicationid,
+              escrowaddress:value.escrowaddress,
                 users: [                
                   {
-                    avatar: "/images/content/avatar-4.jpg",
+                    //avatar: "/images/content/avatar-4.jpg",
+                    avatar :value.imageUrl,
                   },
                 ],
               },
@@ -493,9 +505,13 @@ const dbcollection4=async()=>{
                 dimen:value.dimen,
                 soldd:"",
                 Mnemonic:value.Mnemonic,
+                usdcids:value.usdcids,
+              applicationid:value.applicationid,
+              escrowaddress:value.escrowaddress,
                 users: [                
                   {
-                    avatar: "/images/content/avatar-4.jpg",
+                    //avatar: "/images/content/avatar-4.jpg",
+                    avatar :value.imageUrl,
                   },
                 ],
               },
@@ -565,9 +581,13 @@ const dbcallalgolikes=async()=>{
               description:value.description,
               soldd:"",
               Mnemonic:value.Mnemonic,
+              usdcids:value.usdcids,
+              applicationid:value.applicationid,
+              escrowaddress:value.escrowaddress,
               users: [                
                 {
-                  avatar: "/images/content/avatar-4.jpg",
+                  //avatar: "/images/content/avatar-4.jpg",
+                  avatar :value.imageUrl,
                 },
               ],
             },
@@ -677,9 +697,13 @@ const dbcallsalealgo=async()=>{
               description:value.description,
               soldd:"",
               Mnemonic:value.Mnemonic,
+              usdcids:value.usdcids,
+              applicationid:value.applicationid,
+              escrowaddress:value.escrowaddress,
               users: [                
                 {
-                  avatar: "/images/content/avatar-4.jpg",
+                  //avatar: "/images/content/avatar-4.jpg",
+                  avatar :value.imageUrl,
                 },
               ],
             },
@@ -714,8 +738,7 @@ const dbcallalgo=async()=>{
         data.forEach((d) => {
           //console.log("keycheck",d.key)
           let value=d.val();
-          req.push(
-            
+          req.push(            
             {
               title: value.id,
               price: value.priceSet,
@@ -742,9 +765,13 @@ const dbcallalgo=async()=>{
               soldd:"",
               history:"",
               Mnemonic:value.Mnemonic,
+              usdcids:value.usdcids,
+              applicationid:value.applicationid,
+              escrowaddress:value.escrowaddress,
               users: [                
                 {
-                  avatar: "/images/content/avatar-4.jpg",
+                  //avatar: "/images/content/avatar-4.jpg",
+                  avatar :value.imageUrl,
                 },
               ],
             },
@@ -769,8 +796,7 @@ useEffect(()=>{dbcallalgo()},[])
 
 
 const dbcallalgobuy=async()=>{
-  console.log("inside dbcallalgobuy function")
-  
+  console.log("inside dbcallalgobuy function")  
   let req = [];
 
   if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === ''){
@@ -815,9 +841,13 @@ const dbcallalgobuy=async()=>{
               date:value.datesets,
               description:value.description,
               Mnemonic:value.Mnemonic,
+              usdcids:value.usdcids,
+              applicationid:value.applicationid,
+              escrowaddress:value.escrowaddress,
               users: [                
                 {
-                  avatar: "/images/content/avatar-4.jpg",
+                  //avatar: "/images/content/avatar-4.jpg",
+                  avatar :value.imageUrl,
                 },
               ],
             },
@@ -896,7 +926,7 @@ const setprofilephoto=()=>{
   console.log("inside setprofilephoto function")
   
     
-  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === 'undefined' || localStorage.getItem("wallet") === '' || Img === ""){
+  if(localStorage.getItem("wallet")  === null || localStorage.getItem("wallet")  === "" || localStorage.getItem("wallet")  === " " || localStorage.getItem("wallet") === undefined || localStorage.getItem("wallet") === '' || Img === ""){
   
     }else{
 
@@ -1071,10 +1101,7 @@ console.log("programop",program)
       <div className={styles.body}>
         
         <div className={cn("container", styles.container)}>
-
-
-          
-          
+                    
           <User className={styles.user} item={socials} />
           
           <div className={styles.wrapper}>

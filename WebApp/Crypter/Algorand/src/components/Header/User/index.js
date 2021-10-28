@@ -177,10 +177,42 @@ const User = ({ className,onProfile}) => {
       else{
       
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        getalgo=localStorage.getItem("wallet");
+    getalgo=localStorage.getItem("wallet");
     console.log("inside balance function")
     const algosdk = require('algosdk');
-    const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
+    if(localStorage.getItem("net") === "mainnet"){
+
+      const baseServer = "https://mainnet-algorand.api.purestake.io/ps2";
+      const port = "";
+      //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
+      const token = {
+      
+          'X-API-key' : 'SVsJKi8vBM1RwK1HEuwhU20hYmwFJelk8bagKPin',
+      }
+      let client = new algosdk.Algodv2(token, baseServer, port);  
+
+      console.log("log1",client);
+
+( async() => {
+let account1_info = (await client.accountInformation(getalgo).do());
+console.log("accinfo",account1_info)
+console.log("accinfoamount",account1_info.amount)
+let calc=JSON.stringify(account1_info.amount)/1000000;
+console.log("calc",calc)
+setalgobalance(JSON.stringify(account1_info.amount)/1000000);
+console.log("Balance of account 1: " + JSON.stringify(account1_info.amount));
+localStorage.setItem("balget",account1_info);
+// let account2_info = (await client.accountInformation().do());
+// console.log("Balance of account 2: " + JSON.stringify(account2_info.amount));
+})().catch(e => {
+console.log(e);
+})
+
+
+    }
+    else{
+
+      const baseServer = "https://testnet-algorand.api.purestake.io/ps2";
           const port = "";
           //B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab
           const token = {
@@ -205,6 +237,9 @@ const User = ({ className,onProfile}) => {
 })().catch(e => {
 	console.log(e);
 })
+
+    }
+    
       
               }
       
@@ -472,11 +507,11 @@ const User = ({ className,onProfile}) => {
             )}
               
               </div>
-              <button
+              {/* <button
                 className={cn("button-stroke button-small", styles.button)}
               >
                 Manage fun on Coinbase
-              </button>
+              </button> */}
             </div>
             <div className={styles.menu}>              
               {items.map((x, index) =>                        
