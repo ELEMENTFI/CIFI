@@ -252,7 +252,7 @@ def execute_payment(client: algod.AlgodClient,
     :param sender_private_key: sender's private key
     :param reciever_address: receiver's address
     :param amount: amount in micro algos
-    :return: transaction id.
+    :return: transaction id
     """
     suggested_params = get_default_suggested_params(client=client)
 
