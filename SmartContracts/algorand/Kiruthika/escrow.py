@@ -24,5 +24,6 @@ def contract_account(app_id):
 
 
 if __name__ == "__main__":
-    arg = int(sys.argv[1])
+    arg = int(45211543)
     print(compileTeal(contract_account(arg), Mode.Signature, version=3))
+
