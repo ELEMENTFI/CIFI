@@ -1,0 +1,23 @@
+#pragma version 5
+
+txn OnCompletion
+int OptIn
+==
+int 1
+return
+global GroupSize
+int 2
+==
+gtxn 0 TypeEnum
+int pay
+==
+&&
+gtxn 1 TypeEnum
+int axfer
+==
+bz failed
+int 1
+return
+failed:
+int 0
+return
