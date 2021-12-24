@@ -1,0 +1,44 @@
+#pragma version 4
+
+global GroupSize // size=6
+int 2
+>=
+global GroupSize // size=6
+int 6
+<=
+&&
+bz label1
+gtxn 0 ApplicationID
+int 53433787
+==
+bnz label2
+b label1
+label2:
+gtxn 0 TypeEnum
+int 6 // ApplicationCall
+==
+gtxn 0 OnCompletion
+int 0 // NoOp
+==
+int 0
+gtxn 0 OnCompletion
+==
+||
+&&
+gtxn 1 RekeyTo // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5HFKQ
+global ZeroAddress
+==
+&&
+gtxn 0 RekeyTo // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5HFKQ
+global ZeroAddress
+==
+&&
+bnz label3
+label1:
+int 0
+return
+label3:
+int 1
+return
+
+
