@@ -1,4 +1,4 @@
-const data = `#pragma version 5
+#pragma version 5
 gtxn 0 TypeEnum
 int 4
 ==
@@ -80,5 +80,4 @@ gtxn 0 OnCompletion
 ||
 &&
 int 1
-return`;
-export default data;
+return

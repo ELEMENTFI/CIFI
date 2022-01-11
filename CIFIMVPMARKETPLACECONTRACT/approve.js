@@ -1,4 +1,4 @@
-const approvalProgramSourceInitial = `#pragma version 5
+#pragma version 5
 txn ApplicationID
 int 0
 ==
@@ -138,5 +138,4 @@ return
 
 failed:
 int 0
-return`;
-export default approvalProgramSourceInitial;
+return
