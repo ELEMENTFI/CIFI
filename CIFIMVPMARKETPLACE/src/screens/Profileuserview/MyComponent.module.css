@@ -1,0 +1,21 @@
+.cell {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+.block-example {
+    width: 6rem;
+    height: 6rem;
+    margin: 0.5rem;
+    background-color: #eee;
+    display: inline-block;
+}
+.container {
+  display: 'flex';
+  alignItems: 'center';
+  justifyContent: 'center';
+  borderColor: '#ccc';
+  borderWidth: 1;
+  width: 150; 
+  height: 150;
+  margin: 10;
+  borderRadius: 15;  
+}
