@@ -39,7 +39,7 @@ const dbcallsalealgo=async()=>{
     let getalgo=localStorage.getItem("wallet");
     
     //let kreq =[];
-    firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos2").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -103,7 +103,7 @@ const dbcallalgo=async()=>{
   else{
     let getalgo=localStorage.getItem("wallet");    
     //let kreq =[];
-    firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefAlgo2").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -328,7 +328,7 @@ const fileHandler = (event) => {
         console.log("c18",getImgreffalgocopy[i].team)
         console.log("c19",getImgreffalgocopy[i].type)
 
-        fireDb.database().ref(`imagerefexploreoneAlgos/${getalgo}`).child(getImgreffalgocopy[i].highestBid).update({
+        fireDb.database().ref(`imagerefexploreoneAlgos2/${getalgo}`).child(getImgreffalgocopy[i].highestBid).update({
           id:getImgreffalgocopy[i].title,imageUrl:getImgreffalgocopy[i].image,priceSet:parseInt(amountmul),cAddress:lsig.address(),
           keyId:getImgreffalgocopy[i].highestBid,
           userName:getImgreffalgocopy[i].counter,userSymbol:getImgreffalgocopy[i].userSymbol,ipfsUrl:getImgreffalgocopy[i].ipfsurl,
@@ -339,7 +339,7 @@ const fileHandler = (event) => {
           escrowaddress:lsig.address(),league:getImgreffalgocopy[i].league,team:getImgreffalgocopy[i].team,
           type:getImgreffalgocopy[i].type,
         }).then(()=>{     
-          fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(getImgreffalgocopy[i].highestBid).remove().then(()=>{
+          fireDb.database().ref(`imagerefAlgo2/${getalgo}`).child(getImgreffalgocopy[i].highestBid).remove().then(()=>{
             console.log("remove db");
             console.log("icount",i)   
           })          

@@ -238,7 +238,7 @@ console.log("getlt",getImgreffalgobuy)
     //else{    
 //      let getalgo=localStorage.getItem("wallet");      
       //let kreq =[];
-      firebase.database().ref("imagerefAlgolt").on("value", (data) => {          
+      firebase.database().ref("imagerefAlgolt2").on("value", (data) => {          
         if (data) {          
           data.forEach((d) => {            
             let value=d.val();

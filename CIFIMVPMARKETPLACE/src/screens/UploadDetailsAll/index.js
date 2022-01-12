@@ -845,7 +845,7 @@ const filesprintdynamic=async()=>{
     else{
     await sleep(2000)
     ta=getRows2[i];
-    tb='CIFI';
+    tb='ENFT';
     te=1000;
     let idget="";
     console.log("uploadonecheck",ta);
@@ -891,22 +891,22 @@ console.log("pendingass",assetID);
   
 
   //await storedb(assetID,response.txId,localStorage.getItem('wallet'));
-      let ref2=fireDb2.database().ref(`imagerefAlgo/${localStorage.getItem('wallet')}`);
-      let ref22=fireDb2.database().ref(`imagerefAlgolt`);   
+      let ref2=fireDb2.database().ref(`imagerefAlgo2/${localStorage.getItem('wallet')}`);
+      let ref22=fireDb2.database().ref(`imagerefAlgolt2`);   
                             let dateset=new Date().toDateString();
                             console.log("dateget",dateset)
                             const db = ref2.push().key;                         
                             //const db2 = ref22.push().key;                         
                             console.log("dbcheck",db)
                             await ref2.child(db).set({
-                              id:assetID,imageUrl:uriset,priceSet:"",cAddress:"",keyId:db,userName:getRows2[i],userSymbol:"CIFI",
+                              id:assetID,imageUrl:uriset,priceSet:"",cAddress:"",keyId:db,userName:getRows2[i],userSymbol:"ENFT",
                             ipfsUrl:uriset,ownerAddress:localStorage.getItem('wallet'),soldd:"",extra1:"",previousoaddress:"",datesets:dateset,
                             whois:'',
                             league:selected,team:selected2,type:selected3,
                             teamlogo:selectedImg,dimen:selected4,description:getRows33[i],history:"",Mnemonic:"",applicationid:appId,usdcids:assetID,escrowaddress:""})
                             .then(async()=>{
                             await ref22.child(db).set({id:assetID,imageUrl:uriset,priceSet:"",cAddress:"",keyId:db,
-                            userName:getRows2[i],userSymbol:"CIFI",
+                            userName:getRows2[i],userSymbol:"ENFT",
                             ipfsUrl:uriset,ownerAddress:localStorage.getItem('wallet'),soldd:"",extra1:"",
                             previousoaddress:"",datesets:dateset,whois:'',
                             league:selected,team:selected2,type:selected3,teamlogo:selectedImg,dimen:selected4,

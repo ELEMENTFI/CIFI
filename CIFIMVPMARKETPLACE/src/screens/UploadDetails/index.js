@@ -20,7 +20,10 @@ import clearProgramSource from "../../clearstate";
 import data from "../../escrow";
 import axios from 'axios';
 import MyAlgoConnect from '@randlabs/myalgo-connect';
+import congigfile from "../../config.json"
 const myAlgoWallet = new MyAlgoConnect();
+
+
 
 const Upload = () => {
   
@@ -227,7 +230,7 @@ const onSubmitNFT = async (event) => {
     }
     else{
     ta=tname;
-    tb='CIFI';
+    tb='ENFT';
     te=1000;
     let idget="";
     console.log("uploadonecheck",ta);
@@ -324,8 +327,8 @@ algodClient.healthCheck().do()
         //console.log("before",tx.txId)        
       setIsOpens(true)
         
-        let ref2=fireDb.database().ref(`imagerefAlgo/${localStorage.getItem("wallet")}`);
-        let ref22=fireDb.database().ref(`imagerefAlgolt`);
+        let ref2=fireDb.database().ref(`imagerefAlgo2/${localStorage.getItem("wallet")}`);
+        let ref22=fireDb.database().ref(`imagerefAlgolt2`);
     //.child(selected).child(selected2).child(accounts[0]);    
 
     
@@ -918,7 +921,7 @@ const appoptin=async(assetID,responsetxId,addresseswall)=>{
   const algosdk = require('algosdk');  
   const algodclient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
   const myAlgoConnect = new MyAlgoConnect();
-  let appId="50714558";
+  let appId=parseInt(congigfile['App-id']);
   try {
     //const accounts = await myAlgoWallet.connect();
     //const addresses = accounts.map(account => account.address);
@@ -950,22 +953,22 @@ const storedb=async(assetID,responsetxId,addresseswall)=>{
   console.log("Img",Img)
   console.log("tname",tname)  
               //db added here 
-              let appId="50714558";
-              let ref2=fireDb.database().ref(`imagerefAlgo/${addresseswall}`);
-              let ref22=fireDb.database().ref(`imagerefAlgolt`);   
+              let appId=parseInt(congigfile['App-id']);
+              let ref2=fireDb.database().ref(`imagerefAlgo2/${addresseswall}`);
+              let ref22=fireDb.database().ref(`imagerefAlgolt2`);   
                             let dateset=new Date().toDateString();
                             console.log("dateget",dateset)
                             const db = ref2.push().key;                         
                             //const db2 = ref22.push().key;                         
                             console.log("dbcheck",db)
-                            ref2.child(db).set({id:assetID,imageUrl:Img,priceSet:"",cAddress:"",keyId:db,userName:tname,userSymbol:"CIFI",
+                            ref2.child(db).set({id:assetID,imageUrl:Img,priceSet:"",cAddress:"",keyId:db,userName:tname,userSymbol:"ENFT",
                             ipfsUrl:Img,ownerAddress:addresseswall,soldd:"",extra1:"",previousoaddress:"",datesets:dateset,
                             whois:'',
                             league:selected,team:selected2,type:selected3,
                             teamlogo:selectedImg,dimen:selected4,description:tdescription,history:"",Mnemonic:"",applicationid:appId,usdcids:assetID,escrowaddress:""})
                             .then(()=>{
                             ref22.child(db).set({id:assetID,imageUrl:Img,priceSet:"",cAddress:"",keyId:db,
-                            userName:tname,userSymbol:"CIFI",
+                            userName:tname,userSymbol:"ENFT",
                             ipfsUrl:Img,ownerAddress:addresseswall,soldd:"",extra1:"",
                             previousoaddress:"",datesets:dateset,whois:'',
                             league:selected,team:selected2,type:selected3,teamlogo:selectedImg,dimen:selected4,

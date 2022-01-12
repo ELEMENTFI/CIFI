@@ -56,7 +56,7 @@ const User = ({ className, item }) => {
     else{  
       let getalgo=localStorage.getItem("wallet");
       let kreq =[];
-      fireDb.database().ref("profiledata").child(getalgo).on("value", (data) => {
+      fireDb.database().ref("profiledata2").child(getalgo).on("value", (data) => {
         if (data) {
 
           console.log("start",data.val())
@@ -163,21 +163,21 @@ const User = ({ className, item }) => {
         (
         <>
         <div className={styles.avatar}>            
-<img src="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png" alt="Avatar" />
+<img src="/images/favicon.png" alt="Avatar" />
 </div>
         </>):(
           <>
                     { getprodata === "" || getprodata === null ? (
 
 <div className={styles.avatar}>            
-<img src="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png" alt="Avatar" />
+<img src="/images/favicon.png" alt="Avatar" />
 </div>
           ):(
 
             <>
             {getprodata.profileurl === "" || getprodata.profileurl ==="" || getprodata.profileurl ==="aaa" ? (
               <div className={styles.avatar}>            
-<img src="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png" alt="Avatar" />
+<img src="/images/favicon.png" alt="Avatar" />
 </div>
 
             ) :(

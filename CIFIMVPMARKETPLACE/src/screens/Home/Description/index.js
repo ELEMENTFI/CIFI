@@ -10,11 +10,11 @@ const Description = () => {
     <div className={cn("section-bg", styles.section)}>    
       <div className={cn("container", styles.container)}>
         <div className={styles.wrap}>
-          <div className={styles.stage}>SAVE YOUR TIME WITH CIFI</div>
+          <div className={styles.stage}>SAVE YOUR TIME WITH ELEMENT-NFT</div>
           <h1 className={cn("h1", styles.title)}>
             {/* Cifi Token with Cifi-labs */}
             CREATIVE ECONOMY WITH
-            CIFI NETWORK
+            CIFI-NFT NETWORK
           </h1>
           <div className={styles.text}>
             {/* A creative agency that lead and inspire */}

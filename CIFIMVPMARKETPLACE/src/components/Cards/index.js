@@ -28,7 +28,7 @@ const Cards = ({ className, item }) => {
     console.log("getalgo",getalgo)
     console.log("idget",item.highestBid)
 
-    fireDb.database().ref(`imagereflikes/${getalgo}`).child(item.highestBid).remove().then(()=>{
+    fireDb.database().ref(`imagereflikes2/${getalgo}`).child(item.highestBid).remove().then(()=>{
 
         //setVisible(!visible)
         window.location.reload(false)   
@@ -41,7 +41,7 @@ const Cards = ({ className, item }) => {
   return (
     <div className={cn(styles.card, className)}>
       <div className={styles.preview}>        
-        <img srcSet={`${item.image2x} 2x`} src={item.image} alt="Card" />
+        <img srcSet={`${item.image} 2x`} src={item.image} alt="Card" />
         <div className={styles.control}>            
           <div
             className={cn(

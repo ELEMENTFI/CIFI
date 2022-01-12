@@ -302,7 +302,7 @@ const dbcollection=async()=>{
     //let getalgo=location.state['address'];    
     //let getalgo=location.state['address'] ;
     //let kreq =[];
-    firebase.database().ref("imagerefPoly").child(location.state['address'] ).on("value", (data) => {
+    firebase.database().ref("imagerefPoly2").child(location.state['address'] ).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           let value=d.val();
@@ -370,7 +370,7 @@ const dbcollection2=async()=>{
     //let getalgo=location.state['address'];    
     //let getalgo=location.state['address'] ;
     //let kreq =[];
-    firebase.database().ref("imagerefPoly").child(location.state['address'] ).on("value", (data) => {
+    firebase.database().ref("imagerefPoly2").child(location.state['address'] ).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           let value=d.val();
@@ -439,7 +439,7 @@ const dbcollection3=async()=>{
     //let getalgo=location.state['address'];    
     //let getalgo=location.state['address'] ;
     let kreq3 =[];
-    firebase.database().ref("imagerefPoly").child(location.state['address'] ).on("value", (data) => {
+    firebase.database().ref("imagerefPoly2").child(location.state['address'] ).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           let value=d.val();
@@ -506,7 +506,7 @@ const dbcollection4=async()=>{
     //let getalgo=location.state['address'];    
     //let getalgo=location.state['address'] ;
     let kreq4 =[];
-    firebase.database().ref("imagerefPoly").child(location.state['address'] ).on("value", (data) => {
+    firebase.database().ref("imagerefPoly2").child(location.state['address'] ).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           let value=d.val();
@@ -571,7 +571,7 @@ const dbcallalgolikes=async()=>{
   else{
     let getalgo=location.state['address'];  
     //let kreq =[];
-    firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagereflikes2").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -671,7 +671,7 @@ const dbcallsalealgo=async()=>{
 
     //let getalgo=location.state['address'];  
     //let kreq =[];
-    firebase.database().ref("imagerefexploreoneAlgos").child(location.state['address']).on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos2").child(location.state['address']).on("value", (data) => {
       if (data) {
         console.log("saledata",data)
         setnodata(false)
@@ -741,7 +741,7 @@ const dbcallalgo=async()=>{
   else{
   //  let getalgo=location.state['address'];    
     //let kreq =[];
-    firebase.database().ref("imagerefAlgo").child(location.state['address']).on("value", (data) => {
+    firebase.database().ref("imagerefAlgo2").child(location.state['address']).on("value", (data) => {
       if (data) {
         console.log("createdata",data)
         setnodata(false)
@@ -820,7 +820,7 @@ const dbcallalgobuy=async()=>{
   else{
     let getalgo=location.state['address'];    
     //let kreq =[];
-    firebase.database().ref("imagerefbuy").child(location.state['address']).on("value", (data) => {      
+    firebase.database().ref("imagerefbuy2").child(location.state['address']).on("value", (data) => {      
       if (data) {
         setnodata(false)
         console.log("buydata",data)
@@ -925,7 +925,7 @@ const setprofilephoto=()=>{
   if(location.state['address']  === null || location.state['address']  === "" || location.state['address']  === " " || location.state['address'] === undefined || location.state['address'] === '' || Img === ""){  
     }else{
       let getalgo=location.state['address'];
-  let ref=firebase.database().ref(`bgphoto/${location.state['address']}`);
+  let ref=firebase.database().ref(`bgphoto2/${location.state['address']}`);
   let dateset=new Date().toDateString();
   console.log("dateget",dateset)
   const db = ref.push().key;                       

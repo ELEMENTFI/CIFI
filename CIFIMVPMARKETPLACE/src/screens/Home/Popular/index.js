@@ -240,12 +240,10 @@ const Popular = () => {
 
 const dateOptions = ["1", "7", "30"];
 const directionOptions = ["Sellers", "Buyers"];
-  const [date, setDate] = useState(dateOptions[2]);
-  const [direction, setDirection] = useState(directionOptions[0]);
-
-
-  console.log("ses",direction);
-  console.log("sesd",date);
+const [date, setDate] = useState(dateOptions[2]);
+const [direction, setDirection] = useState(directionOptions[0]);
+console.log("ses",direction);
+console.log("sesd",date);
 
   const[getI,setgetI]=useState([]);
   console.log("getImgalsell",getI)
@@ -266,7 +264,7 @@ const directionOptions = ["Sellers", "Buyers"];
     //console.log("inside dbcallalgobuy function")
     //imagerefexplore//
     let req = [];
-    firebase.database().ref("imagerefbuy").on("value", (data) => {      
+    firebase.database().ref("imagerefbuy2").on("value", (data) => {      
       if (data) {
         data.forEach((d) => {          
           const a=d.val();
@@ -310,7 +308,7 @@ const directionOptions = ["Sellers", "Buyers"];
     //console.log("inside dbcallalgobuy function")
     //imagerefexplore//
     let reqsale = [];
-    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {      
+    firebase.database().ref("imagerefexploreoneAlgos2").on("value", (data) => {      
       if (data) {
         data.forEach((d) => {          
           const a=d.val();
