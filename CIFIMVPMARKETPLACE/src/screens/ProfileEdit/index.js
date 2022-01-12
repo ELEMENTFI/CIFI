@@ -68,7 +68,7 @@ const ProfileEdit = () => {
     }
     else{  
       //let kreq =[];
-      fireDb.database().ref("profiledata").child(getalgo).on("value", (data) => {
+      fireDb.database().ref("profiledata2").child(getalgo).on("value", (data) => {
         if (data) {
           console.log("start",data.val())                    
           let value=data.val();
@@ -138,7 +138,7 @@ const ProfileEdit = () => {
     else{
       //localStorage.setItem("walletalgo",);      
       //localStorage.setItem("walletname",name);
-    let refprofile=fireDb.database().ref(`profiledata/${getalgo}`);
+    let refprofile=fireDb.database().ref(`profiledata2/${getalgo}`);
     let dateset=new Date().toDateString();
     console.log("dateget",dateset)
     const db = refprofile.push().key;

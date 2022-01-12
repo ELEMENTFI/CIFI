@@ -25,7 +25,7 @@ const Cardsuserviewcreated = ({ className, item ,addresssendcard}) => {
     console.log("addlikedb function call");
     console.log("getalgo",getalgo)
     console.log("idget",item.highestBid)
-    fireDb.database().ref(`imagereflikes/${getalgo}`).child(item.highestBid).remove().then(()=>{
+    fireDb.database().ref(`imagereflikes2/${getalgo}`).child(item.highestBid).remove().then(()=>{
         //setVisible(!visible)
         window.location.reload(false)       
      })

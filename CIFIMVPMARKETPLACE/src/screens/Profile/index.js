@@ -254,7 +254,7 @@ const dbcollection=async()=>{
     //let getalgo=localStorage.getItem("wallet");    
     //let getalgo=localStorage.getItem("wallet") ;
     //let kreq =[];
-    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
+    firebase.database().ref("imagerefPoly2").child(localStorage.getItem("wallet") ).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           let value=d.val();
@@ -327,7 +327,7 @@ const dbcollection2=async()=>{
     //let getalgo=localStorage.getItem("wallet");    
     //let getalgo=localStorage.getItem("wallet") ;
     //let kreq =[];
-    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
+    firebase.database().ref("imagerefPoly2").child(localStorage.getItem("wallet") ).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           let value=d.val();
@@ -403,7 +403,7 @@ const dbcollection3=async()=>{
     //let getalgo=localStorage.getItem("wallet");    
     //let getalgo=localStorage.getItem("wallet") ;
     let kreq3 =[];
-    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
+    firebase.database().ref("imagerefPoly2").child(localStorage.getItem("wallet") ).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           let value=d.val();
@@ -478,7 +478,7 @@ const dbcollection4=async()=>{
     //let getalgo=localStorage.getItem("wallet");    
     //let getalgo=localStorage.getItem("wallet") ;
     let kreq4 =[];
-    firebase.database().ref("imagerefPoly").child(localStorage.getItem("wallet") ).on("value", (data) => {
+    firebase.database().ref("imagerefPoly2").child(localStorage.getItem("wallet") ).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           let value=d.val();
@@ -553,7 +553,7 @@ const dbcallalgolikes=async()=>{
     let getalgo=localStorage.getItem("wallet");
   
     //let kreq =[];
-    firebase.database().ref("imagereflikes").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagereflikes2").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -671,7 +671,7 @@ const dbcallsalealgo=async()=>{
     let getalgo=localStorage.getItem("wallet");
     
     //let kreq =[];
-    firebase.database().ref("imagerefexploreoneAlgos").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos2").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -735,7 +735,7 @@ const dbcallalgo=async()=>{
   else{
     let getalgo=localStorage.getItem("wallet");    
     //let kreq =[];
-    firebase.database().ref("imagerefAlgo").child(getalgo).on("value", (data) => {
+    firebase.database().ref("imagerefAlgo2").child(getalgo).on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -808,7 +808,7 @@ const dbcallalgobuy=async()=>{
     let getalgo=localStorage.getItem("wallet");
     
     //let kreq =[];
-    firebase.database().ref("imagerefbuy").child(getalgo).on("value", (data) => {      
+    firebase.database().ref("imagerefbuy2").child(getalgo).on("value", (data) => {      
       if (data) {
         data.forEach((d) => {
           //console.log("keycheck",d.key)
@@ -929,7 +929,7 @@ const setprofilephoto=()=>{
     }else{
 
       let getalgo=localStorage.getItem("wallet");
-  let ref=firebase.database().ref(`bgphoto/${getalgo}`);
+  let ref=firebase.database().ref(`bgphoto2/${getalgo}`);
   let dateset=new Date().toDateString();
   console.log("dateget",dateset)
   const db = ref.push().key;                       

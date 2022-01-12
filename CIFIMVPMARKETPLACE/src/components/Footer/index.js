@@ -15,7 +15,7 @@ import Modald from "../../components/ModalD";
 
 const items = [
   {
-    title: "Cifi",
+    title: "CIFI-NFT",
     menu: [
       {
         title: "Discover",
@@ -64,7 +64,7 @@ const Footers = () => {
   console.log("getalgo",getalgo)
   //getname=localStorage.getItem("walletname");
   //console.log("namewallet",getname)
-          let ref2=fireDb.database().ref(`emailregister/${getalgo}`);
+          let ref2=fireDb.database().ref(`emailregister2/${getalgo}`);
           let dateset=new Date().toDateString();
           console.log("dateget",dateset)
           const db = ref2.push().key;                         
@@ -103,10 +103,10 @@ const Footers = () => {
             <Link className={styles.logo} to="/">
               <Imagecopy
                 className={styles.pic}
-                //src="/images/logocifisnew.png"
-                //srcDark="/images/logocifis.png"
+                //src="/images/elementnftuilogo-modified.png"
+                srcDark="/images/logocifis.png"
                 src="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png"
-                srcDark="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png"
+                //srcDark="/images/elementnftuilogo-modified.png"
                 alt="Fitness Pro"
               />
             </Link>

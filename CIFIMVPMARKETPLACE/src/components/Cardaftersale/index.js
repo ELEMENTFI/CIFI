@@ -98,7 +98,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     }else{    
     let getalgo=localStorage.getItem("wallet");
     console.log("addlikedb function call");    
-    fireDb.database().ref(`imagereflikes/${getalgo}`).child(item.highestBid).set({
+    fireDb.database().ref(`imagereflikes2/${getalgo}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
       userName:item.counter,userSymbol:item.userSymbol,ipfsUrl:item.ipfsurl,
       ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
@@ -270,7 +270,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
 
         //db here
 
-        fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(item.highestBid).set({
+        fireDb.database().ref(`imagerefAlgo2/${getalgo}`).child(item.highestBid).set({
           id:item.title,imageUrl:item.image,priceSet:parseInt(amountmul),cAddress:lsig.address(),keyId:item.highestBid,
           userName:item.counter,userSymbol:item.userSymbol,ipfsUrl:item.ipfsurl,
           ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
@@ -308,7 +308,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     if(getalgo === item.bid)
     {
     if(localStorage.getItem("net") === "mainnet"){
-      fireDb.database().ref(`imagerefexploreoneAlgos/${getalgo}`).child(item.highestBid).set({
+      fireDb.database().ref(`imagerefexploreoneAlgos2/${getalgo}`).child(item.highestBid).set({
         id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
         userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
         ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
@@ -317,7 +317,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
         applicationid:item.applicationid,usdcids:item.usdcids,escrowaddress:item.escrowaddress,        
         league:item.league,team:item.team,type:item.type,
       }).then(()=>{
-        fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(item.highestBid).remove();
+        fireDb.database().ref(`imagerefAlgo2/${getalgo}`).child(item.highestBid).remove();
           console.log("remove db");
           setIsOpens(false)
           window.location.reload(false)   
@@ -325,7 +325,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
     }
     else{
       
-      fireDb.database().ref(`imagerefexploreoneAlgos/${getalgo}`).child(item.highestBid).set({
+      fireDb.database().ref(`imagerefexploreoneAlgos2/${getalgo}`).child(item.highestBid).set({
         id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
         userName:item.counter,userSymbol:item.userSymbol,ipfsUrl:item.ipfsurl,
         ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
@@ -334,7 +334,7 @@ const printAssetHolding = async function (algodclient, account, assetid) {
         applicationid:item.applicationid,usdcids:item.usdcids,escrowaddress:item.escrowaddress,
         // league:item.league,team:item.team,type:item.type,
       }).then(()=>{
-        fireDb.database().ref(`imagerefAlgo/${getalgo}`).child(item.highestBid).remove();
+        fireDb.database().ref(`imagerefAlgo2/${getalgo}`).child(item.highestBid).remove();
           console.log("remove db");
           setIsOpens(false)
           window.location.reload(false)   

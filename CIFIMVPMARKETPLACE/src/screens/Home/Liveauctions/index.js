@@ -60,7 +60,7 @@ console.log("getlt",getImgreffalgobuy)
   useEffect(() => {
     const fetchPosts = async () => {
       let req = [];      
-      firebase.database().ref("imagerefAlgolt").on("value", (data) => {          
+      firebase.database().ref("imagerefAlgolt2").on("value", (data) => {          
         if (data) {          
           data.forEach((d) => {            
             let value=d.val();

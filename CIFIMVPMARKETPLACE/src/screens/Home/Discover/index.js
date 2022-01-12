@@ -208,7 +208,7 @@ const Discover = () => {
       let req = [];
       console.log("req",req)
    // let req2 = [];//imagerefexplore//
-    firebase.database().ref("imagerefexploreoneAlgos").on("value", (data) => {
+    firebase.database().ref("imagerefexploreoneAlgos2").on("value", (data) => {
       if (data) {
         data.forEach((d) => {
           //req2.push(a.val())          

@@ -13,7 +13,7 @@ const Report = ({ className,addressreport}) => {
 
     }
     else{
-          let ref2=fireDb.database().ref(`imageref/${localStorage.getItem("wallet")}`);
+          let ref2=fireDb.database().ref(`imageref2/${localStorage.getItem("wallet")}`);
           let dateset=new Date().toDateString();
           console.log("dateget",dateset)
           const db = ref2.push().key;                         

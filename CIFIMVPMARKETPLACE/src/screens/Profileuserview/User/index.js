@@ -49,7 +49,7 @@ const User = ({ className, item,useraddress }) => {
     else{  
       let getalgo=useraddress;
       let kreq =[];
-      fireDb.database().ref("profiledata").child(getalgo).on("value", (data) => {
+      fireDb.database().ref("profiledata2").child(getalgo).on("value", (data) => {
         if (data) {
 
           console.log("start",data.val())
@@ -143,20 +143,21 @@ return (
 {(useraddress === null || useraddress === "0x" || useraddress === undefined || useraddress === "" ) ? 
 (
 <>
+{/* https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png */}
 <div className={styles.avatar} style={{width:"70px",height:"70px"}}>           
-<img src="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png" alt="Avatar" style={{width:"70px",height:"70px"}}/>
+<img src="/images/elementnftuilogo-modified.png" alt="Avatar" style={{width:"70px",height:"70px"}}/>
 </div>
 </>):(
 <>
 { getprodata === "" || getprodata === null ? (
 <div className={styles.avatar} style={{width:"70px",height:"70px"}}>           
-<img src="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png" alt="Avatar" style={{width:"70px",height:"70px"}}/>
+<img src="/images/elementnftuilogo-modified.png" alt="Avatar" style={{width:"70px",height:"70px"}}/>
 </div>
 ):(
 <>
 {getprodata.profileurl === "" || getprodata.profileurl ==="" || getprodata.profileurl ==="aaa" ? (
 <div className={styles.avatar} style={{width:"70px",height:"70px"}}>            
-<img src="https://cifi-mvp-nest.vercel.app/static/media/cifi.540fecbe.png" alt="Avatar" />
+<img src="/images/elementnftuilogo-modified.png" alt="Avatar" />
 </div>
 ) :(
 <div className={styles.avatar} style={{width:"70px",height:"70px"}}>            

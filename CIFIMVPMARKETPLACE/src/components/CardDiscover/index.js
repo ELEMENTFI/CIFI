@@ -58,7 +58,7 @@ const CardDiscover = ({ className, item }) => {
       let getalgo=localStorage.getItem("walletalgo");
 
     //const accounts = await  web3.eth.getAccounts();
-    fireDb.database().ref(`imagereflikes/${getalgo}`).child(item.highestBid).set({
+    fireDb.database().ref(`imagereflikes2/${getalgo}`).child(item.highestBid).set({
       id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
       userName:item.counter,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
       ownerAddress:item.bid,soldd:item.soldd,extra1:item.extra,
@@ -85,7 +85,7 @@ const CardDiscover = ({ className, item }) => {
     
     let getalgo=localStorage.getItem("wallet");
 
-    fireDb.database().ref("profiledata").child(getalgo).on("value", (data) => {
+    fireDb.database().ref("profiledata2").child(getalgo).on("value", (data) => {
       if (data) {
         console.log("startcon",data.val())        
         let value=data.val();
@@ -328,11 +328,11 @@ useEffect(()=>{usernameget()},[])
      await printAssetHolding(algodclient, recoveredAccount3.addr, assetID);
 
 
-     fireDb.database().ref(`imagerefexploreoneAlgos/${item.bid}`).child(item.highestBid).remove().then(()=>{
+     fireDb.database().ref(`imagerefexploreoneAlgos2/${item.bid}`).child(item.highestBid).remove().then(()=>{
 
       if(getprodata.displayname === null){
   
-        fireDb.database().ref(`imagerefbuy/${getalgo}`).child(item.highestBid).set({
+        fireDb.database().ref(`imagerefbuy2/${getalgo}`).child(item.highestBid).set({
   
   
     id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
@@ -360,7 +360,7 @@ useEffect(()=>{usernameget()},[])
         console.log("itemacc",getalgo)
         
   
-        fireDb.database().ref(`imagerefbuyAlgos/${getalgo}`).child(item.highestBid).set({
+        fireDb.database().ref(`imagerefbuyAlgos2/${getalgo}`).child(item.highestBid).set({
   
     id:item.title,imageUrl:item.image,priceSet:item.price,cAddress:item.categoryText,keyId:item.highestBid,
     userName:getprodata.displayname,userSymbol:"Algos",ipfsUrl:item.ipfsurl,
@@ -438,7 +438,7 @@ useEffect(()=>{usernameget()},[])
     <div style={divStyle}>         
       <div className={styles.preview}>        
       
-        <img srcSet={`${item.image2x} 2x`} src={item.image} alt="Card"  style={{width:"150px",height:"150px",marginLeft:"30px",marginRight:"2px",marginTop:"6px"}}/>
+        <img srcSet={`${item.image} 2x`} src={item.image} alt="Card"  style={{width:"150px",height:"150px",marginLeft:"30px",marginRight:"2px",marginTop:"6px"}}/>
         <div className={styles.control}>
           <div
             className={cn(
